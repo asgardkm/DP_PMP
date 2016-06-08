@@ -16,7 +16,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-nclude "mwmathutil.h"
+#include "mwmathutil.h"
 #include "tmwtypes.h"
 #include "mex.h"
 #include "emlrt.h"

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
@@ -21,7 +21,7 @@
 static void clcDP_olyHyb_tmp_once(void);
 
 /* Function Definitions */
-static void clcDP_olyHyb_tmp_once(void)    
+static void clcDP_olyHyb_tmp_once(void)
 {
   crsSpdEmoMax_not_empty_init();
   crsSpdHybMin_not_empty_init();
