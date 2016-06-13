@@ -96,31 +96,31 @@ void clcDP_tmp(double disFlg, double wayStp, double batEngStp, double batEngBeg,
   b_fprintf();
 
   /*  --- Ausgangsgrößen: */
-  /*    Tensor 3. Stufe für opt. Vorgängerkoordinaten */
-  /*    Tensor 3. Stufe der Batteriekraft */
-  /*    Tensor 3. Stufe für die Kraftstoffenergie */
-  /*     Matrix der optimalen Kosten der Hamiltonfunktion */
+  /*    	Tensor 3. Stufe für opt. Vorgängerkoordinaten */
+  /*    	Tensor 3. Stufe der Batteriekraft */
+  /*    	Tensor 3. Stufe für die Kraftstoffenergie */
+  /*     	Matrix der optimalen Kosten der Hamiltonfunktion */
   /*      FUNKTION */
   /*                --- Eingangsgrößen: */
-  /*          Skalar - Flag für Ausgabe in das Commandwindow */
-  /*           Skalar für die Wegschrittweite in m */
+  /*       	Skalar - Flag für Ausgabe in das Commandwindow */
+  /*        Skalar für die Wegschrittweite in m */
   /*        Skalar der Batteriediskretisierung in J */
   /*        Skalar für die Batterieenergie am Beginn in Ws */
   /*        Skalar für die Nebenverbrauchlast in W */
   /*        Skalar für den Co-State der Batterieenergie */
-  /*           Skalar für den Co-State der Zeit */
-  /*  Skalar für die Strafkosten beim Zustandswechsel */
+  /*        Skalar für den Co-State der Zeit */
+  /*  		Skalar für die Strafkosten beim Zustandswechsel */
   /*        Skalar für Anfangsindex in den Eingangsdaten */
   /*        Skalar für Endindex in den Eingangsdaten */
-  /*                Skalar für den Index der Anfangsgeschwindigkeit */
+  /*        Skalar für den Index der Anfangsgeschwindigkeit */
   /*        Skalar für die max. Anz. an engKin-Stützstellen */
-  /*           Skalar für die max. Anzahl an Zustandsstützstellen */
-  /*           Skalar für die max. Anzahl an Wegstützstellen */
-  /*           Skalar für den Startzustand des Antriebsstrangs */
-  /*  Vektor der Anzahl der kinetischen Energien */
-  /*    Vektor der Steigungen in rad */
-  /*  Matrix der kinetischen Energien in J */
-  /*               struct der Fahrzeugparameter */
+  /*        Skalar für die max. Anzahl an Zustandsstützstellen */
+  /*        Skalar für die max. Anzahl an Wegstützstellen */
+  /*        Skalar für den Startzustand des Antriebsstrangs */
+  /*  		Vektor der Anzahl der kinetischen Energien */
+  /*    	Vektor der Steigungen in rad */
+  /*  		Matrix der kinetischen Energien in J */
+  /*        struct der Fahrzeugparameter */
   clcDP_olyHyb_tmp(disFlg, wayStp, batEngStp, batEngBeg, batPwrAux, psiBatEng,
                    psiTim, staChgPenCosVal, wayInxBeg, wayInxEnd, engKinNum,
                    staNum, wayNum, staBeg, engKinNumVec_wayInx, slpVec_wayInx,

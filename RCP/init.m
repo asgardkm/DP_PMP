@@ -1,4 +1,4 @@
-addpath('../functions','../model data','PMPDP')
+addpath('../functions','../model_data','PMPDP')
 % cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/RCP')
 
 %% Laden der Modelldaten
