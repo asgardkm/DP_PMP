@@ -5,7 +5,7 @@
  * File: _coder_clcDP_tmp_info.c
  *
  * MATLAB Coder version            : 2.8
- * C/C++ source code generated on  : 13-Jun-2016 10:26:29
+ * C/C++ source code generated on  : 13-Jun-2016 11:59:29
  */
 
 /* Include Files */
@@ -173,7 +173,8 @@ static void info_helper(const mxArray **info)
   const mxArray *rhs63 = NULL;
   const mxArray *lhs63 = NULL;
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_tmp.m"), "context", 0);
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_tmp.m"),
+                "context", 0);
   emlrtAddField(*info, emlrt_marshallOut("fprintf"), "name", 0);
   emlrtAddField(*info, emlrt_marshallOut("char"), "dominantType", 0);
   emlrtAddField(*info, emlrt_marshallOut(
@@ -924,12 +925,12 @@ static void info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs48), "rhs", 48);
   emlrtAddField(*info, emlrtAliasP(lhs48), "lhs", 48);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_tmp.m"), "context",
-                49);
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_tmp.m"),
+                "context", 49);
   emlrtAddField(*info, emlrt_marshallOut("clcDP_olyHyb_tmp"), "name", 49);
   emlrtAddField(*info, emlrt_marshallOut("struct"), "dominantType", 49);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
                 "resolved", 49);
   emlrtAddField(*info, b_emlrt_marshallOut(1465459901U), "fileTimeLo", 49);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 49);
@@ -940,7 +941,7 @@ static void info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs49), "rhs", 49);
   emlrtAddField(*info, emlrtAliasP(lhs49), "lhs", 49);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
                 "context", 50);
   emlrtAddField(*info, emlrt_marshallOut("max"), "name", 50);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 50);
@@ -1101,7 +1102,7 @@ static void info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs59), "rhs", 59);
   emlrtAddField(*info, emlrtAliasP(lhs59), "lhs", 59);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
                 "context", 60);
   emlrtAddField(*info, emlrt_marshallOut("min"), "name", 60);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 60);
@@ -1131,7 +1132,7 @@ static void info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs61), "rhs", 61);
   emlrtAddField(*info, emlrtAliasP(lhs61), "lhs", 61);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
                 "context", 62);
   emlrtAddField(*info, emlrt_marshallOut("mrdivide"), "name", 62);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 62);
@@ -1513,7 +1514,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs67), "rhs", 67);
   emlrtAddField(*info, emlrtAliasP(lhs67), "lhs", 67);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
                 "context", 68);
   emlrtAddField(*info, emlrt_marshallOut("isinf"), "name", 68);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 68);
@@ -1544,12 +1545,12 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs69), "rhs", 69);
   emlrtAddField(*info, emlrtAliasP(lhs69), "lhs", 69);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
                 "context", 70);
   emlrtAddField(*info, emlrt_marshallOut("clcPMP_olyHyb_tmp"), "name", 70);
   emlrtAddField(*info, emlrt_marshallOut("struct"), "dominantType", 70);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "resolved", 70);
   emlrtAddField(*info, b_emlrt_marshallOut(1464935157U), "fileTimeLo", 70);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 70);
@@ -1560,7 +1561,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs70), "rhs", 70);
   emlrtAddField(*info, emlrtAliasP(lhs70), "lhs", 70);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 71);
   emlrtAddField(*info, emlrt_marshallOut("min"), "name", 71);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 71);
@@ -1575,7 +1576,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs71), "rhs", 71);
   emlrtAddField(*info, emlrtAliasP(lhs71), "lhs", 71);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 72);
   emlrtAddField(*info, emlrt_marshallOut("mrdivide"), "name", 72);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 72);
@@ -1590,7 +1591,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs72), "rhs", 72);
   emlrtAddField(*info, emlrtAliasP(lhs72), "lhs", 72);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 73);
   emlrtAddField(*info, emlrt_marshallOut("sqrt"), "name", 73);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 73);
@@ -1634,7 +1635,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs75), "rhs", 75);
   emlrtAddField(*info, emlrtAliasP(lhs75), "lhs", 75);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 76);
   emlrtAddField(*info, emlrt_marshallOut("eml_mtimes_helper"), "name", 76);
   emlrtAddField(*info, emlrt_marshallOut(""), "dominantType", 76);
@@ -1667,7 +1668,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs77), "rhs", 77);
   emlrtAddField(*info, emlrtAliasP(lhs77), "lhs", 77);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 78);
   emlrtAddField(*info, emlrt_marshallOut("any"), "name", 78);
   emlrtAddField(*info, emlrt_marshallOut("logical"), "dominantType", 78);
@@ -1791,7 +1792,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs85), "rhs", 85);
   emlrtAddField(*info, emlrtAliasP(lhs85), "lhs", 85);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 86);
   emlrtAddField(*info, emlrt_marshallOut("sin"), "name", 86);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 86);
@@ -1821,7 +1822,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs87), "rhs", 87);
   emlrtAddField(*info, emlrtAliasP(lhs87), "lhs", 87);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 88);
   emlrtAddField(*info, emlrt_marshallOut("cos"), "name", 88);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 88);
@@ -1851,7 +1852,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs89), "rhs", 89);
   emlrtAddField(*info, emlrtAliasP(lhs89), "lhs", 89);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 90);
   emlrtAddField(*info, emlrt_marshallOut("mpower"), "name", 90);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 90);
@@ -1990,7 +1991,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs98), "rhs", 98);
   emlrtAddField(*info, emlrtAliasP(lhs98), "lhs", 98);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 99);
   emlrtAddField(*info, emlrt_marshallOut("interp1q"), "name", 99);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 99);
@@ -2102,12 +2103,12 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs105), "rhs", 105);
   emlrtAddField(*info, emlrtAliasP(lhs105), "lhs", 105);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 106);
   emlrtAddField(*info, emlrt_marshallOut("batEngDltClc_tmp"), "name", 106);
   emlrtAddField(*info, emlrt_marshallOut("struct"), "dominantType", 106);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batEngDltClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batEngDltClc_tmp.m"),
                 "resolved", 106);
   emlrtAddField(*info, b_emlrt_marshallOut(1464793130U), "fileTimeLo", 106);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 106);
@@ -2118,7 +2119,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs106), "rhs", 106);
   emlrtAddField(*info, emlrtAliasP(lhs106), "lhs", 106);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batEngDltClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batEngDltClc_tmp.m"),
                 "context", 107);
   emlrtAddField(*info, emlrt_marshallOut("interp1q"), "name", 107);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 107);
@@ -2134,7 +2135,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs107), "rhs", 107);
   emlrtAddField(*info, emlrtAliasP(lhs107), "lhs", 107);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batEngDltClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batEngDltClc_tmp.m"),
                 "context", 108);
   emlrtAddField(*info, emlrt_marshallOut("max"), "name", 108);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 108);
@@ -2149,12 +2150,12 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs108), "rhs", 108);
   emlrtAddField(*info, emlrtAliasP(lhs108), "lhs", 108);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batEngDltClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batEngDltClc_tmp.m"),
                 "context", 109);
   emlrtAddField(*info, emlrt_marshallOut("codegen_interp2"), "name", 109);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 109);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/codegen_interp2.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/codegen_interp2.m"),
                 "resolved", 109);
   emlrtAddField(*info, b_emlrt_marshallOut(1431684032U), "fileTimeLo", 109);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 109);
@@ -2165,7 +2166,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs109), "rhs", 109);
   emlrtAddField(*info, emlrtAliasP(lhs109), "lhs", 109);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/codegen_interp2.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/codegen_interp2.m"),
                 "context", 110);
   emlrtAddField(*info, emlrt_marshallOut("mrdivide"), "name", 110);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 110);
@@ -2180,7 +2181,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs110), "rhs", 110);
   emlrtAddField(*info, emlrtAliasP(lhs110), "lhs", 110);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/codegen_interp2.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/codegen_interp2.m"),
                 "context", 111);
   emlrtAddField(*info, emlrt_marshallOut("length"), "name", 111);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 111);
@@ -2195,7 +2196,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs111), "rhs", 111);
   emlrtAddField(*info, emlrtAliasP(lhs111), "lhs", 111);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/codegen_interp2.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/codegen_interp2.m"),
                 "context", 112);
   emlrtAddField(*info, emlrt_marshallOut("isnan"), "name", 112);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 112);
@@ -2226,7 +2227,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs113), "rhs", 113);
   emlrtAddField(*info, emlrtAliasP(lhs113), "lhs", 113);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/codegen_interp2.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/codegen_interp2.m"),
                 "context", 114);
   emlrtAddField(*info, emlrt_marshallOut("ceil"), "name", 114);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 114);
@@ -2272,12 +2273,12 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs116), "rhs", 116);
   emlrtAddField(*info, emlrtAliasP(lhs116), "lhs", 116);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batEngDltClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batEngDltClc_tmp.m"),
                 "context", 117);
   emlrtAddField(*info, emlrt_marshallOut("batFrcClc_tmp"), "name", 117);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 117);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batFrcClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batFrcClc_tmp.m"),
                 "resolved", 117);
   emlrtAddField(*info, b_emlrt_marshallOut(1464859233U), "fileTimeLo", 117);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 117);
@@ -2288,7 +2289,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs117), "rhs", 117);
   emlrtAddField(*info, emlrtAliasP(lhs117), "lhs", 117);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batFrcClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batFrcClc_tmp.m"),
                 "context", 118);
   emlrtAddField(*info, emlrt_marshallOut("mpower"), "name", 118);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 118);
@@ -2303,7 +2304,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs118), "rhs", 118);
   emlrtAddField(*info, emlrtAliasP(lhs118), "lhs", 118);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batFrcClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batFrcClc_tmp.m"),
                 "context", 119);
   emlrtAddField(*info, emlrt_marshallOut("mrdivide"), "name", 119);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 119);
@@ -2318,7 +2319,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs119), "rhs", 119);
   emlrtAddField(*info, emlrtAliasP(lhs119), "lhs", 119);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batFrcClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batFrcClc_tmp.m"),
                 "context", 120);
   emlrtAddField(*info, emlrt_marshallOut("sqrt"), "name", 120);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 120);
@@ -2816,7 +2817,7 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs134), "rhs", 134);
   emlrtAddField(*info, emlrtAliasP(lhs134), "lhs", 134);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batFrcClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batFrcClc_tmp.m"),
                 "context", 135);
   emlrtAddField(*info, emlrt_marshallOut("eml_mtimes_helper"), "name", 135);
   emlrtAddField(*info, emlrt_marshallOut(""), "dominantType", 135);
@@ -2911,7 +2912,7 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs140), "rhs", 140);
   emlrtAddField(*info, emlrtAliasP(lhs140), "lhs", 140);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 141);
   emlrtAddField(*info, emlrt_marshallOut("floor"), "name", 141);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 141);
@@ -2926,7 +2927,7 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs141), "rhs", 141);
   emlrtAddField(*info, emlrtAliasP(lhs141), "lhs", 141);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 142);
   emlrtAddField(*info, emlrt_marshallOut("ceil"), "name", 142);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 142);
@@ -2941,12 +2942,12 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs142), "rhs", 142);
   emlrtAddField(*info, emlrtAliasP(lhs142), "lhs", 142);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 143);
   emlrtAddField(*info, emlrt_marshallOut("fulEngClc_tmp"), "name", 143);
   emlrtAddField(*info, emlrt_marshallOut("struct"), "dominantType", 143);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/fulEngClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/fulEngClc_tmp.m"),
                 "resolved", 143);
   emlrtAddField(*info, b_emlrt_marshallOut(1464952377U), "fileTimeLo", 143);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 143);
@@ -2957,7 +2958,7 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs143), "rhs", 143);
   emlrtAddField(*info, emlrtAliasP(lhs143), "lhs", 143);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/fulEngClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/fulEngClc_tmp.m"),
                 "context", 144);
   emlrtAddField(*info, emlrt_marshallOut("mrdivide"), "name", 144);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 144);
@@ -2972,7 +2973,7 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs144), "rhs", 144);
   emlrtAddField(*info, emlrtAliasP(lhs144), "lhs", 144);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/fulEngClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/fulEngClc_tmp.m"),
                 "context", 145);
   emlrtAddField(*info, emlrt_marshallOut("mpower"), "name", 145);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 145);
@@ -2987,12 +2988,12 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs145), "rhs", 145);
   emlrtAddField(*info, emlrtAliasP(lhs145), "lhs", 145);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/fulEngClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/fulEngClc_tmp.m"),
                 "context", 146);
   emlrtAddField(*info, emlrt_marshallOut("codegen_interp2"), "name", 146);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 146);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/codegen_interp2.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/codegen_interp2.m"),
                 "resolved", 146);
   emlrtAddField(*info, b_emlrt_marshallOut(1431684032U), "fileTimeLo", 146);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 146);
@@ -3003,7 +3004,7 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs146), "rhs", 146);
   emlrtAddField(*info, emlrtAliasP(lhs146), "lhs", 146);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/fulEngClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/fulEngClc_tmp.m"),
                 "context", 147);
   emlrtAddField(*info, emlrt_marshallOut("isinf"), "name", 147);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 147);
@@ -3018,12 +3019,12 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs147), "rhs", 147);
   emlrtAddField(*info, emlrtAliasP(lhs147), "lhs", 147);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcPMP_olyHyb_tmp.m"),
                 "context", 148);
   emlrtAddField(*info, emlrt_marshallOut("batFrcClc_tmp"), "name", 148);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 148);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/batFrcClc_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/batFrcClc_tmp.m"),
                 "resolved", 148);
   emlrtAddField(*info, b_emlrt_marshallOut(1464859233U), "fileTimeLo", 148);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 148);
@@ -3199,7 +3200,7 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs158), "rhs", 158);
   emlrtAddField(*info, emlrtAliasP(lhs158), "lhs", 158);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
                 "context", 159);
   emlrtAddField(*info, emlrt_marshallOut("sub2ind"), "name", 159);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 159);
@@ -3498,7 +3499,7 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs176), "rhs", 176);
   emlrtAddField(*info, emlrtAliasP(lhs176), "lhs", 176);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_olyHyb_tmp.m"),
                 "context", 177);
   emlrtAddField(*info, emlrt_marshallOut("fprintf"), "name", 177);
   emlrtAddField(*info, emlrt_marshallOut("char"), "dominantType", 177);
@@ -3562,8 +3563,8 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs180), "rhs", 180);
   emlrtAddField(*info, emlrtAliasP(lhs180), "lhs", 180);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_tmp.m"), "context",
-                181);
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_tmp.m"),
+                "context", 181);
   emlrtAddField(*info, emlrt_marshallOut("mrdivide"), "name", 181);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 181);
   emlrtAddField(*info, emlrt_marshallOut(
@@ -3577,8 +3578,8 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs181), "rhs", 181);
   emlrtAddField(*info, emlrtAliasP(lhs181), "lhs", 181);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_tmp.m"), "context",
-                182);
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_tmp.m"),
+                "context", 182);
   emlrtAddField(*info, emlrt_marshallOut("ceil"), "name", 182);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 182);
   emlrtAddField(*info, emlrt_marshallOut(
@@ -3592,12 +3593,12 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs182), "rhs", 182);
   emlrtAddField(*info, emlrtAliasP(lhs182), "lhs", 182);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcDP_tmp.m"), "context",
-                183);
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcDP_tmp.m"),
+                "context", 183);
   emlrtAddField(*info, emlrt_marshallOut("clcOptTrj_tmp"), "name", 183);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 183);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcOptTrj_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcOptTrj_tmp.m"),
                 "resolved", 183);
   emlrtAddField(*info, b_emlrt_marshallOut(1465369382U), "fileTimeLo", 183);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 183);
@@ -3608,7 +3609,7 @@ static void c_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs183), "rhs", 183);
   emlrtAddField(*info, emlrtAliasP(lhs183), "lhs", 183);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcOptTrj_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcOptTrj_tmp.m"),
                 "context", 184);
   emlrtAddField(*info, emlrt_marshallOut("min"), "name", 184);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 184);
@@ -4042,7 +4043,7 @@ static void d_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs198), "rhs", 198);
   emlrtAddField(*info, emlrtAliasP(lhs198), "lhs", 198);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcOptTrj_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcOptTrj_tmp.m"),
                 "context", 199);
   emlrtAddField(*info, emlrt_marshallOut("error"), "name", 199);
   emlrtAddField(*info, emlrt_marshallOut("char"), "dominantType", 199);
@@ -4057,7 +4058,7 @@ static void d_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs199), "rhs", 199);
   emlrtAddField(*info, emlrtAliasP(lhs199), "lhs", 199);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcOptTrj_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcOptTrj_tmp.m"),
                 "context", 200);
   emlrtAddField(*info, emlrt_marshallOut("ind2sub"), "name", 200);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 200);
@@ -4204,7 +4205,7 @@ static void d_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs208), "rhs", 208);
   emlrtAddField(*info, emlrtAliasP(lhs208), "lhs", 208);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcOptTrj_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcOptTrj_tmp.m"),
                 "context", 209);
   emlrtAddField(*info, emlrt_marshallOut("diff"), "name", 209);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 209);
@@ -4312,7 +4313,7 @@ static void d_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrtAliasP(rhs215), "rhs", 215);
   emlrtAddField(*info, emlrtAliasP(lhs215), "lhs", 215);
   emlrtAddField(*info, emlrt_marshallOut(
-    "[E]C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP/clcOptTrj_tmp.m"),
+    "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP/clcOptTrj_tmp.m"),
                 "context", 216);
   emlrtAddField(*info, emlrt_marshallOut("rdivide"), "name", 216);
   emlrtAddField(*info, emlrt_marshallOut("double"), "dominantType", 216);

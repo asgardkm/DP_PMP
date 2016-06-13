@@ -2,7 +2,7 @@
 ## Makefile generated for MATLAB file/project 'clcDP_tmp'. 
 ## 
 ## Makefile     : clcDP_tmp_rtw.mk
-## Generated on : Mon Jun 13 10:26:35 2016
+## Generated on : Mon Jun 13 11:59:37 2016
 ## MATLAB Coder version: 2.8 (R2015a)
 ## 
 ## Build Info:
@@ -31,7 +31,7 @@ MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2015a
 MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2015a/bin
 MATLAB_ARCH_BIN           = C:/PROGRA~1/MATLAB/R2015a/bin/win64
 MASTER_ANCHOR_DIR         = 
-START_DIR                 = C:/Users/s0032360/Documents/4Kaleb/RCP/PMPDP
+START_DIR                 = C:/Users/s0032360/Documents/GitHub/DP_PMP/RCP/PMPDP
 ARCH                      = win64
 RELATIVE_PATH_TO_ANCHOR   = .
 PERL                      = $(MATLAB_ROOT)/sys/perl/win32/bin/perl.exe

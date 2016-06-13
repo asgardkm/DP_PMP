@@ -5,7 +5,7 @@
  * File: batFrcClc_tmp.c
  *
  * MATLAB Coder version            : 2.8
- * C/C++ source code generated on  : 13-Jun-2016 10:26:29
+ * C/C++ source code generated on  : 13-Jun-2016 11:59:29
  */
 
 /* Include Files */

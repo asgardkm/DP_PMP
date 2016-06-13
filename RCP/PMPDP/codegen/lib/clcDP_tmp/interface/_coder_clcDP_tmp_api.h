@@ -5,7 +5,7 @@
  * File: _coder_clcDP_tmp_api.h
  *
  * MATLAB Coder version            : 2.8
- * C/C++ source code generated on  : 13-Jun-2016 10:26:29
+ * C/C++ source code generated on  : 13-Jun-2016 11:59:29
  */
 
 #ifndef ___CODER_CLCDP_TMP_API_H__

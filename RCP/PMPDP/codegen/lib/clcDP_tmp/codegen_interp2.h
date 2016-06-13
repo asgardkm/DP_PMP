@@ -5,7 +5,7 @@
  * File: codegen_interp2.h
  *
  * MATLAB Coder version            : 2.8
- * C/C++ source code generated on  : 13-Jun-2016 10:26:29
+ * C/C++ source code generated on  : 13-Jun-2016 11:59:29
  */
 
 #ifndef __CODEGEN_INTERP2_H__
