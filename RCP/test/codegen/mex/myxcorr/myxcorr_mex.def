@@ -1,0 +1,8 @@
+LIBRARY myxcorr.mexw64
+EXPORTS
+mexFunction
+emlrtMexFcnProperties
+myxcorr
+myxcorr_initialize
+myxcorr_terminate
+myxcorr_atexit

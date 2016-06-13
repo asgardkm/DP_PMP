@@ -1,4 +1,5 @@
-function [engKinOptVec,...  Vektor - Trajektorie der optimalen kin. Energien
+function [...
+    engKinOptVec,...  Vektor - Trajektorie der optimalen kin. Energien
     batEngDltOptVec, ...    Vektor - optimale Batterieenergieänderung
     fulEngDltOptVec,...     Vektor - optimale Kraftstoffenergieänderung
     staVec,...              Vektor - Trajektorie des optimalen Antriebsstrangzustands

@@ -13,7 +13,6 @@ function [...           --- Ausgangsgrößen:
     batPwrAux,...       Skalar für die Nebenverbrauchlast in W
     psiBatEng,...       Skalar für den Co-State der Batterieenergie
     psiTim,...          Skalar für den Co-State der Zeit
-    ~,...               Skalar für die Strafkosten für einen Motorstart
     staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
     wayInxBeg,...       Skalar für Anfangsindex in den Eingangsdaten
     wayInxEnd,...       Skalar für Endindex in den Eingangsdaten
@@ -25,7 +24,7 @@ function [...           --- Ausgangsgrößen:
     engKinNumVec_wayInx,... Vektor der Anzahl der kinetischen Energien
     slpVec_wayInx,...   Vektor der Steigungen in rad
     engKinMat_engKinInx_wayInx,... Matrix der kinetischen Energien in J
-    par...              struct der Fahrzeugparameter
+    FZG...              struct der FahrzeugFZGameter
     )%#codegen
 %
 %INIDP Calculating optimal predecessors with DP + PMP
@@ -63,12 +62,12 @@ if isempty(geaNum)
     geaNum = staNum; % max number of state nodes
     
     % Fahrzeugmasse
-    vehMas = par.vehMas; 
+    vehMas = FZG.vehMas; 
     
     % minmiale und maximale Beschleunigung
     % min and max accerlations (bounds)
-    vehAccMin = par.vehAccMin;
-    vehAccMax = par.vehAccMax;
+    vehAccMin = FZG.vehAccMin;
+    vehAccMax = FZG.vehAccMax;
     
     % In dieser Version ist der Motor immer an
     iceFlg = true;
@@ -125,10 +124,10 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
     slp_old = slpVec_wayInx(wayInx-1);
     
     %% Berechnung der kinetischen Energien im aktuellen Wegschritt
-    % Vorbereitung der parallen Schleife (verhindern von zu grossem
+    % Vorbereitung der FZGallen Schleife (verhindern von zu grossem
     % Datentransfer und unnötigen Berechnungen)
     % Calculating the KE for current index/waypoint.
-    % Preperation of parallel loop (prevent a too large data transfer,
+    % Preperation of FZGallel loop (prevent a too large data transfer,
     % unnecessary computations)    
    
     % Initialisieren der Matrix für die optimalen Batteriekrafter im
@@ -166,7 +165,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
     engKinActVec_engKinInx_old = ...
         engKinMat_engKinInx_wayInx(:,wayInx);
     
-    % (parfor) Schleife über alle akutellen kinetischen Energien
+    % (FZGfor) Schleife über alle akutellen kinetischen Energien
     % loop through all the current kinetic energies
     for engKinActInx = 1:engKinNumAct_old   % CURRENT KINETIC ENERGY LOOP
         
@@ -294,7 +293,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     [cosHam_old,batFrc_old,fulFrc_old] = ...
                         clcPMP_olyHyb(engKinPre_old,engKinAct_old,gea_old,...
                         slp_old,iceFlg,batEng_old,psiBatEng,psiTim,batPwrAux,...
-                        batEngStp,wayStp,par);
+                        batEngStp,wayStp,FZG);
                     
 %                     % minimale Kosten der Hamiltonfunktion zum aktuellen
 %                     % Punkt bestimmen

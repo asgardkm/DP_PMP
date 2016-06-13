@@ -1,0 +1,8 @@
+LIBRARY myMult_mex.mexw64
+EXPORTS
+mexFunction
+emlrtMexFcnProperties
+myMult
+myMult_initialize
+myMult_terminate
+myMult_atexit
