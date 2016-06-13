@@ -1,0 +1,13 @@
+test.txt
+
+this is sample text
+test
+test1
+hello there
+test 1
+let's see if my c code can read these 
+strings without issue :)
+test.txt
+johhny
+alfalfaalfalfaalfalfaalfalfaalfalfaalfalfaalfalfaalfalfaalfalfa
+
