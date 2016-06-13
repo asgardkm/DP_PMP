@@ -1,0 +1,9 @@
+for(k = 0; k < i; ++k){
+	for(l = 0; l < n; ++l){
+		sum = 0.0;
+		for(p = 0; p < j; ++p){
+			sum = sum + MATRIX1[k][p] * MATRIX2[p][l];
+		}
+		MATRIX3[k][l] = sum;
+	}
+}

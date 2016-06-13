@@ -1,0 +1,40 @@
+.twiget-feed {
+    margin: auto;
+    padding: 5px 5px 5px 0px;
+    overflow:auto;
+}
+.twiget-tweet img {
+    float: left;
+    border: none !important;
+    margin: 4px 5px 0 0 !important;
+	display: block !important;
+}
+.twiget-feed a {
+	display: inline !important;
+}
+.twigetfollow {
+    margin-top: 5px;
+    text-align: right;
+}
+.twiget-widget ul li {
+    border-bottom: 1px solid #E3E3E3;
+    padding: 6px 0;
+}
+.twiget-meta {
+	font-size: 0.9em;
+}
+.tweet-wrap li:before,
+.tweet-wrap li:after {
+    content: '\0020';
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+.tweet-wrap li:after {
+    clear: both
+}
+.tweet-bio {
+    padding: 4px 0;
+}

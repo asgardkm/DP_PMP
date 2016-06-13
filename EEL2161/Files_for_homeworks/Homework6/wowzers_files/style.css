@@ -1,0 +1,102 @@
+/*   
+Theme Name: Pixel Ninja
+Version: 1.5
+Author: Richard Cabelka
+License: GNU General Public License version 3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Built On: Jarvis Onepage Portfolio Theme be RocknRolla (http://themeforest.net/user/RockNRollaDesigns/portfolio?ref=RockNRollaDesigns)
+*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	zoom:1;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.wp-caption {
+	margin-bottom: 20px;
+	text-align: center;
+	padding-top: 5px;
+	width: auto !important;
+}
+.wp-caption img {
+	border: 0 none;
+	padding: 0;
+	margin: 0;
+}
+.wp-caption p.wp-caption-text {
+	width: auto !important;
+	line-height: 1.5;
+	font-size: 11px;
+	padding: 3px 0;
+	margin: 0px 0 0 0;
+	background: #f6f6f6;
+	display: block;
+	-webkit-border-radius: 0px 0px 3px 3px;
+	border-radius: 0px 0px 3px 3px;
+}
+.wp-smiley {
+	margin: 0 !important;
+	max-height: 1em;
+}
+.size-full {
+}
+.size-large {
+}
+.size-medium {
+}
+.size-thumbnail {
+}
+.gallery-caption {
+}
+.bypostauthor {
+}
+img.alignright {
+	float: right;
+	margin: 0 0 1em 1em
+}
+img.alignleft {
+	float: left;
+	margin: 0 1em 1em 0
+}
+img.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto
+}
+.alignright {
+	float: right;
+}
+.alignleft {
+	float: left;
+}
+.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto
+}
+
