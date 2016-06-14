@@ -34,8 +34,8 @@ int main (void) {
 		char line[500], tmp_line[500];
 		
 		// KEYWORDS
-		char keyword_start[500] = "START",
-			 keyword_end[500]   = "END";	
+		char keyword_start[10] = "START",
+			 keyword_end[10]   = "END";	
 	//==========================================================
 		
 	//========= READ DATA (MOCK) ===============================
@@ -102,9 +102,8 @@ int main (void) {
 					toggle_start = strcmp(tmp_line, keyword_start);
 					toggle_end	 = strcmp(tmp_line, keyword_end);
 					
-					if (toggle_start == 0) {	
-							toggle_read = 1; 
-					} else if (toggle_end == 0) {
+					// check if END has been found
+					if (toggle_end == 0) {
 							toggle_read = 0;
 					}
 		
@@ -113,6 +112,11 @@ int main (void) {
 							sscanf(line, "%f, %s", &input_struct[i].value, input_struct[i].name);
 							strtok(input_struct[i].name, ",");	
 							i++;
+					}
+					
+					// check if START has been found
+					if (toggle_start == 0) {	
+							toggle_read = 1; 
 					}
 				}
 	
@@ -131,7 +135,7 @@ int main (void) {
 		
 	//========== PRINT STRUCT FOR CONFIRMATION =================
 		printf("Inputs read from %s:\n\n", THEFILE);
-		for (i = 1; i < num_length; i++)
+		for (i = 0; i < num_length; i++)
 			printf("	%s: %4.2f\n", input_struct[i].name, input_struct[i].value);
 	//==========================================================
 

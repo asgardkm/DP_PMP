@@ -26,7 +26,7 @@ end
 
 %% DEFINING AND FINDING KEY WORDS
 % define key words for finding the data we want
-keywords = {'START CONFIG INPUTS', 'END CONFIG INPUTS'};
+keywords = {'START', 'END'};
 
 keyindex = zeros(length(keywords), 1);
 

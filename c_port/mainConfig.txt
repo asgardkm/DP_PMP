@@ -2,7 +2,7 @@
 
 This file serves as a configuration file for the HEV DP-PMP optimization model
 
-It specifies model input parameters, such as discretization values; intial power,
+It specifies model input parameters, such as discretization values; initial power,
 energy, and drivetrain inputs; and costate values.
 
 ______________________________**MODEL PARAMETERS**__________________________________
@@ -10,18 +10,19 @@ ______________________________**MODEL PARAMETERS**______________________________
 Model parameters
 !!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 
 		must be maintained !!!!
-!!!! NOTE: The keyword **START** (without underscores) initiates data 
+!!!! NOTE: The keyword **S*T*A*R*T** (without underscores) initiates data 
 		read, and must be placed before the first line of configuration data
-!!!! NOTE: The keyword **END** (without underscores) ends the data
+!!!! NOTE: The keyword **E*N*D** (without underscores) ends the data
 		read, and must be placed after the last line of configuration data
 !!!  	These keywords are reserved and shouldn't be used anywhere else in this file
 
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
 START
-13,				numParams,			number of params defined (include this variable!)
+13,				numParams,			# of vars defined in this file (include this var!)
 1,				disFlg,				a
 10,				wayStp,				a
+1,				engKinBegInx,		a
 5000,			batEngStp,			a
 1352100,		batEngBeg,			a
 0,				batPwrAux,			a
