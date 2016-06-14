@@ -7,7 +7,7 @@
 
 // define structure for input data from mainConfig
 struct model_params{
-		char name[50];
+		char name[70];
 		float value;
 };
 
@@ -76,9 +76,8 @@ int main (void) {
 	
 		} else { // File couldn't be opened
 				printf ("The file could not be opened.\n");
-				return 1; /* Exit the function/application. */
+				return 1; // exit function
 		}
-	
 		// close file
 		if (fclose(fp) != 0) {
 				printf ("The file could not be closed.\n");
@@ -87,7 +86,7 @@ int main (void) {
 		
 	//========= READ DATA (REAL) ===============================
 		// define structure
-		struct model_params input_data[num_length];
+		struct model_params input_struct[num_length];
 		
 		// attempt to open the file for reading
 		fp = fopen(THEFILE, "r");
@@ -111,21 +110,17 @@ int main (void) {
 		
 					// read in config data once keyword has been detected
 					if (toggle_read){
-							sscanf(line, "%f, %s,", &pvalue_mock, pname_mock);
-							strtok(pname_mock, ",");	
-							
-							// LOOK FOR numParams AND GET THE LENGTH VALUE
-							num_found = strcmp(pname_mock, num_name);
-							if (num_found == 0){
-									num_length = pvalue_mock;
-									break;
-							}
+							sscanf(line, "%f, %s", &input_struct[i].value, input_struct[i].name);
+							strtok(input_struct[i].name, ",");	
+							i++;
 					}
 				}
 	
+	
+	
 		} else { // file couldn't be opened
 				printf ("The file could not be opened.\n");
-				return 1; /* Exit the function/application. */
+				return 1; // exit function
 		}
 	
 		// close file
@@ -134,6 +129,12 @@ int main (void) {
 		}
 	//==========================================================
 		
-		getchar(); // pause
+	//========== PRINT STRUCT FOR CONFIRMATION =================
+		printf("Inputs read from %s:\n\n", THEFILE);
+		for (i = 1; i < num_length; i++)
+			printf("	%s: %4.2f\n", input_struct[i].name, input_struct[i].value);
+	//==========================================================
+
+		getchar(); 
 		return 0;
 }
