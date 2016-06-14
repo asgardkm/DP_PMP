@@ -1,7 +1,0 @@
-myMult_mex.mexw64
-emlrtMexFcnProperties		emlrtMexFcnProperties
-mexFunction		mexFunction
-myMult		myMult
-myMult_atexit		myMult_atexit
-myMult_initialize		myMult_initialize
-myMult_terminate		myMult_terminate

@@ -1,7 +1,7 @@
 // hw_9_2.c
 #include <stdio.h>
 /* Set the file path and name. */
-#define THEFILE "Distribution.txt"
+#define THEFILE "mainConfig.txt"
 
 int main (void) {
 	

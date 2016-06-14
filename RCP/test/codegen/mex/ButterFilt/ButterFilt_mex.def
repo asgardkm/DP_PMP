@@ -1,8 +1,0 @@
-LIBRARY ButterFilt.mexw64
-EXPORTS
-mexFunction
-emlrtMexFcnProperties
-ButterFilt
-ButterFilt_initialize
-ButterFilt_terminate
-ButterFilt_atexit

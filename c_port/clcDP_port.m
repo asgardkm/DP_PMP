@@ -27,7 +27,7 @@ FZG.emoTrq_emoSpd_emoPwr(isinf(FZG.emoTrq_emoSpd_emoPwr)) = 0;
 
 % load in data from text file (if running model through matlab and are 
 % ignoring simulink (mainConfig.txt)
-inputparams = readConfig('mainConfig.txt');
+inputparams = readConfig_port('mainConfig.txt');
 
 % asign values from struct
 disFlg          = inputparams.disFlg;

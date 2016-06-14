@@ -9,27 +9,28 @@ ______________________________**MODEL PARAMETERS**______________________________
 
 Model parameters
 !!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 
-	must be maintained !!!!
-!!!! NOTE: The keyword **START_CONFIG_INPUTS** (without underscores) initiates data 
-	read, and must be placed before the first line of configuration data
-!!!! NOTE: The keyword **END_CONFIG_INPUTS** (without underscores) ends the data
-	read, and must be placed after the last line of configuration data
+		must be maintained !!!!
+!!!! NOTE: The keyword **START** (without underscores) initiates data 
+		read, and must be placed before the first line of configuration data
+!!!! NOTE: The keyword **END** (without underscores) ends the data
+		read, and must be placed after the last line of configuration data
 !!!  	These keywords are reserved and shouldn't be used anywhere else in this file
 
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
-START CONFIG INPUTS
-1,			disFlg,
-10,			wayStp,
-5000,			batEngStp,
-1352100,		batEngBeg,
-0,			batPwrAux,
--2.61,			psiBatEng,
-1590,			psiTim,
-0,			unused,
-0,			staChgPenCosVal,
-1,			wayInxBeg,
-800,			wayInxEnd,
-5,			staBeg,
-END CONFIG INPUTS
+START
+13,				numParams,			number of params defined (include this variable!)
+1,				disFlg,				a
+10,				wayStp,				a
+5000,			batEngStp,			a
+1352100,		batEngBeg,			a
+0,				batPwrAux,			a
+-2.61,			psiBatEng,			a
+1590,			psiTim,				a
+0,				unused,				a
+0,				staChgPenCosVal,	a
+1,				wayInxBeg,			a
+800,			wayInxEnd,			a
+5,				staBeg,				a
+END
 ====================================================================================
