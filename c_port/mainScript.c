@@ -8,39 +8,41 @@
 #include "readConfig.h"
 #include "findNumVars.h"
 
-#define CONFIGFILE_DIR "mainConfig.txt"			// define mainConfig.txt file location
+#define CONFIGFILE_DIR "mainConfig.txt"		// define mainConfig.txt file location
 
 int main(void){
-		int i;	// loop var
+		int i;								// loop var
 		
-		int  numVars;							// number of inputs in mainConfig.txt#
-		char *configfile;
+		int  numVars;						// number of inputs in mainConfig.txt#
 		
-		configfile = CONFIGFILE_DIR; 			// define mainConfig.txt file location
+		char *configfile;					// define mainConfig.txt file location
+		configfile = CONFIGFILE_DIR; 			
+		
+		// function call: find number of input parameters
 		numVars    = findNumVars(configfile);
 		
+		// quick test, making sure that correct numVars is calculated
 		printf("numVars: %d\n", numVars);
-		
-		// THIS ALSO WORKS BELOW! :)
-//		int numVars;							// number of inputs in mainConfig.txt#
-//		char configfile[] = "mainConfig.txt"; 	// define mainConfig.txt file location
-//		numVars = findNumVars(&configfile[0]);
-//		printf("numVars: %d\n", numVars);
 		
 		// define input_params struct - will populate w/ readConfig.c
 		struct model_params *input_struct;
 		
+		// function call: load in structure wiih all input parameters
 		input_struct = readConfig(configfile);
 		
 		// test: output the structures stuff
 		for (i = 0; i < numVars; i++)
-			printf("input_structure.%s: %4.2f\n", input_struct[i].name, input_struct[i].value);
+			printf("%s: %4.2f\n", input_struct[i].name, input_struct[i].value);
+
+		// order in which to feed inputs to clc_DP_tmp.c
+
+
+
 		
-		
-		
-		
+		// free dynamically allocated structure
 		free(input_struct);
 
+		// success!
 		printf("no crashes :)\n");
 		getchar();
 		return 0;

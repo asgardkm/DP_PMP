@@ -1,26 +1,45 @@
 function ...            --- Ausgangsgrößen:
-[engKinOptVec,...       Vektor - Trajektorie der optimalen kin. Energien
-    batEngDltOptVec, ...Vektor - optimale Batterieenergieänderung
+[engKinOptVec,      ... Vektor - Trajektorie der optimalen kin. Energien
+    batEngDltOptVec,... Vektor - optimale Batterieenergieänderung
     fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieänderung
-    staVec,...          Vektor - Trajektorie des optimalen Antriebsstrangzustands
+    staVec,         ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     psiEngKinOptVec,... Vektor - costate für kinetische Energie
-    fulEngOpt, ...      Skalar - optimale Kraftstoffenergie
-    resVld...
-    ] = ...
-    clcDP_port() % string - defines config txt file location
-    %#codegen
+    fulEngOpt,      ... Skalar - optimale Kraftstoffenergie
+    resVld          ...
+    ] =             ...
+    clcDP_port(     ...
+    disFlg,         ...
+    wayStp,         ...
+    batEngStp,      ...
+    batEngBeg,      ...
+    batPwrAux,      ...
+    psiBatEng,      ...
+    psiTim,         ...
+    staChgPenCosVal,...
+    wayInxBeg,      ...
+    wayInxEnd,      ...
+    staBeg          ...
+    )%#codegen
 %% Laden der Modelldaten
-% cd(C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port);
+% cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port');
 fprintf('-Loading model data and parameters...');
-% saved structure data from './model data'
-load vehMdl 
-load tstDat800
 
-FZG = par;
-clear par
+% saved structure data from './model data'
+FZG = load('vehMdl');
+% % Inhalt des Parameter-Structs par in den Workspace schreiben
+%  -- Inahlt = Content
 
 % input dummy engKinBegInx value for function
-% engKinBegInx = 1;
+engKinBegInx = zeros(1,1);
+engKinBegInx = 1;
+
+tstDat800 = load('tstDat800');
+staNum = tstDat800.staNum;
+wayNum = tstDat800.wayNum;
+engKinNum = tstDat800.wayNum;
+slpVec_wayInx = tstDat800.slpVec_wayInx;
+engKinMat_engKinInx_wayInx = tstDat800.engKinMat_engKinInx_wayInx;
+engKinNumVec_wayInx = tstDat800.engKinNumVec_wayInx;
 
 % Löschen von inf und NaN aus Modelldaten
 % ^^ replace any infinities and Nans with zeros
@@ -29,9 +48,10 @@ FZG.emoTrq_emoSpd_emoPwr(isinf(FZG.emoTrq_emoSpd_emoPwr)) = 0;
 
 % % load in data from text file (if running model through matlab and are 
 % % ignoring simulink (mainConfig.txt)
-% inputparams = readConfig_port(config_filename);
-% 
-% % asign values from struct
+% inputparams = readConfig_port('mainConfig.txt');
+% inputparams = load('inputparams');
+% % 
+% % % asign values from struct
 % disFlg          = inputparams.disFlg;
 % wayStp          = inputparams.wayStp;
 % batEngStp       = inputparams.batEngStp;
@@ -43,7 +63,7 @@ FZG.emoTrq_emoSpd_emoPwr(isinf(FZG.emoTrq_emoSpd_emoPwr)) = 0;
 % wayInxBeg       = inputparams.wayInxBeg;
 % wayInxEnd       = inputparams.wayInxEnd;
 % staBeg          = inputparams.staBeg;
-% fprintf('done!\n');
+fprintf('done!\n');
 %% Calculating optimal predecessors with DP + PMP
 fprintf('-Initializing model...\n');
 [... --- Ausgangsgrößen:

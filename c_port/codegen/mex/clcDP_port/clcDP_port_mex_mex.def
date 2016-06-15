@@ -1,0 +1,20 @@
+LIBRARY clcDP_port_mex.mexw64
+EXPORTS
+mexFunction
+emlrtMexFcnProperties
+clcDP_port
+c_emlrt_marshallIn
+emlrt_marshallOut
+m_emlrt_marshallIn
+n_emlrt_marshallIn
+b_emxInit_int32_T
+b_emxInit_real_T
+c_emxInit_real_T
+emxEnsureCapacity
+emxFree_int32_T
+emxFree_real_T
+emxInit_int32_T
+emxInit_real_T
+clcDP_port_initialize
+clcDP_port_terminate
+clcDP_port_atexit

@@ -4,25 +4,50 @@
 %% Laden der Modelldaten
 
 % saved structure data from './model data'
-load vehMdl 
+FZG = load('vehMdl');
+
 
 % % Inhalt des Parameter-Structs par in den Workspace schreiben
 %  -- Inahlt = Content
-
-% parNms = fieldnames(par);
-% 
-% for nmeInx=1:length(parNms)
-%     eval([parNms{nmeInx},' = par.(parNms{nmeInx});']);    
-% end
-
-FZG = par;
-clear par
 
 % input dummy engKinBegInx value for function
 engKinBegInx = 1;
 
 load tstDat800
 
+%% SAVING LOADED DATA INTO TEXT FILES 
+%   c code will read in this data
+%   needed bc MATLAB_CODER cannot process load() function
+%   need to save all vectors and matrices - scalars can be read no prob w/
+%       mainConfig.txt - just assign them to another group w/ new keyword
+%
+% make sure you load in these scalars first in mainConfig! They define dims
+%   tstDat800.staNum    - DEFINES NUMBER OF GEARS (6)
+%   tstDat800.wayNum    - DEFINES NUMBER OF PATH_IDX (800)
+%   tstDat800.engKinNum - DEFINES NUMBER OF KINETIC ENERGY STATES (11)
+
+% variables that neeed saving:
+%   FZG.batOcvCof_batEng (1x2)
+%   FZG.geaRat (1xstaNum)
+%   FZG.iceSpdMgd (150x100)
+%   FZG.iceTrqMgd (150x100)
+%   FZG.iceFulPwr_iceSpd_iceTrq (150x100)
+%   FZG.iceTrqMaxCof (1x3)
+%   FZG.iceTrqMinCof (1x3)
+%   FZG.emospdMgd (150x100)
+%   FZG.emoTrqMgd (150x100)
+%   FZG.emoPwr_emoSpd_emoTrq (150x100)
+%   FZG.emoTrqMin_emoSpd (100x1)
+%   FZG.emoTrqMax_emoSpd (100x1)
+%   FZG.emoPwrMgd (150x100)
+%   FZG.emoPwrMax_emoSpd (100x1)
+%   FZG.emoPwrMin_emoSpd (100x1)
+%   tstDat800.slpVec_wayInx (wayNum x 1)
+%   tstDat800.engKinMat_engKinInx_wayInx (engKinNum x wayNum)
+%   tstDat800.engKinNumVec_wayInx (wayNum x 1)
+%
+% if keeping the FZG structure in  c code, make sure to preallocate for
+% space! FZG has 15 scalars, 8 vectors, and 6 matrices - 29 total
 %% Löschen von inf und NaN aus Modelldaten
 % ^^ replace any infinities and Nans with zeros
 % && löschen = delete

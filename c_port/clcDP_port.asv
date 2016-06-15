@@ -7,10 +7,21 @@ function ...            --- Ausgangsgrößen:
     fulEngOpt, ...      Skalar - optimale Kraftstoffenergie
     resVld...
     ] = ...
-    clcDP_port(config_filename) ST
+    clcDP_port(...
+    disFlg,...
+    wayStp,...
+    batEngStp,...
+% batEngBeg       = inputparams.batEngBeg;
+% batPwrAux       = inputparams.batPwrAux;
+% psiBatEng       = inputparams.psiBatEng;
+% psiTim          = inputparams.psiTim;
+% staChgPenCosVal = inputparams.staChgPenCosVal;
+% wayInxBeg       = inputparams.wayInxBeg;
+% wayInxEnd       = inputparams.wayInxEnd;
+    staBeg;) % string - defines config txt file location
     %#codegen
 %% Laden der Modelldaten
-% cd(C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port);
+% cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port');
 fprintf('-Loading model data and parameters...');
 % saved structure data from './model data'
 load vehMdl 
@@ -20,30 +31,30 @@ FZG = par;
 clear par
 
 % input dummy engKinBegInx value for function
-engKinBegInx = 1;
+ engKinBegInx = 1;
 
 % Löschen von inf und NaN aus Modelldaten
 % ^^ replace any infinities and Nans with zeros
 % && löschen = delete
 FZG.emoTrq_emoSpd_emoPwr(isinf(FZG.emoTrq_emoSpd_emoPwr)) = 0;
 
-% load in data from text file (if running model through matlab and are 
-% ignoring simulink (mainConfig.txt)
-inputparams = readConfig_port('mainConfig.txt');
-
-% asign values from struct
-disFlg          = inputparams.disFlg;
-wayStp          = inputparams.wayStp;
-batEngStp       = inputparams.batEngStp;
-batEngBeg       = inputparams.batEngBeg;
-batPwrAux       = inputparams.batPwrAux;
-psiBatEng       = inputparams.psiBatEng;
-psiTim          = inputparams.psiTim;
-staChgPenCosVal = inputparams.staChgPenCosVal;
-wayInxBeg       = inputparams.wayInxBeg;
-wayInxEnd       = inputparams.wayInxEnd;
-staBeg          = inputparams.staBeg;
-fprintf('done!\n');
+% % load in data from text file (if running model through matlab and are 
+% % ignoring simulink (mainConfig.txt)
+% inputparams = readConfig_port('mainConfig.txt');
+% 
+% % asign values from struct
+% disFlg          = inputparams.disFlg;
+% wayStp          = inputparams.wayStp;
+% batEngStp       = inputparams.batEngStp;
+% batEngBeg       = inputparams.batEngBeg;
+% batPwrAux       = inputparams.batPwrAux;
+% psiBatEng       = inputparams.psiBatEng;
+% psiTim          = inputparams.psiTim;
+% staChgPenCosVal = inputparams.staChgPenCosVal;
+% wayInxBeg       = inputparams.wayInxBeg;
+% wayInxEnd       = inputparams.wayInxEnd;
+% staBeg          = inputparams.staBeg;
+% fprintf('done!\n');
 %% Calculating optimal predecessors with DP + PMP
 fprintf('-Initializing model...\n');
 [... --- Ausgangsgrößen:
@@ -64,7 +75,7 @@ fprintf('-Initializing model...\n');
     staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
     wayInxBeg,...       Skalar für Anfangsindex in den Eingangsdaten
     wayInxEnd,...       Skalar für Endindex in den Eingangsdaten
-    1,...               Skalar für den Index der Anfangsgeschwindigkeit
+    engKinBegInx,...    Skalar für den Index der Anfangsgeschwindigkeit
     engKinNum,...       Skalar für die max. Anz. an engKin-Stützstellen
     staNum,...          Skalar für die max. Anzahl an Zustandsstützstellen
     wayNum,...          Skalar für die max. Anzahl an Wegstützstellen
