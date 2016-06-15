@@ -1,4 +1,4 @@
- ********INPUT CONFIGURATION FILE*********,
+ ****************INPUT CONFIGURATION FILE******************,
 
 This file serves as a configuration file for the HEV DP-PMP optimization model
 
@@ -19,7 +19,6 @@ Model parameters
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
 START
-13,				numParams,			# of vars defined in this file (include this var!)
 1,				disFlg,				a
 10,				wayStp,				a
 1,				engKinBegInx,		a

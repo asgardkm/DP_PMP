@@ -1,0 +1,34 @@
+# Project: modelProject.dev
+# Makefile created by Dev-C++ 5.5.1
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = findNumVars.o mainScript.o readConfig.o
+LINKOBJ  = findNumVars.o mainScript.o readConfig.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.7.2/include/c++"
+BIN      = modelProject.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+findNumVars.o: findNumVars.c
+	$(CC) -c findNumVars.c -o findNumVars.o $(CFLAGS)
+
+mainScript.o: mainScript.c
+	$(CC) -c mainScript.c -o mainScript.o $(CFLAGS)
+
+readConfig.o: readConfig.c
+	$(CC) -c readConfig.c -o readConfig.o $(CFLAGS)
