@@ -8,6 +8,7 @@
 // created 14.June.2016 by Asgard Kaleb Marroquin
 //
 #include <stdio.h>
+#include <stdlib.h>
 #include "readConfig.h"			// this function's header file
 #include "findNumVars.h"		// for finding number of variables in mainConfig.txt
 
@@ -15,7 +16,7 @@ struct model_params *readConfig(char *config_filename) {
 	//========= DEFINE VARIABLES ===============================
 		// FILE POINTERS
 	    FILE *fp;						// pointer for FILE type
-		int i;
+		int i = 0;
 		// TOGGLE VARIABLES
 		int toggle_read = 0;			// var for deciding to start reading in text data
 		int toggle_start;				// var for activating readin when key is found
@@ -37,16 +38,16 @@ struct model_params *readConfig(char *config_filename) {
 		num_length = findNumVars(config_filename);
 		
 		// define structure
-		static struct model_params *input_struct;
-//		static struct model_params *input_pointer;
+		struct model_params *input_struct = malloc(sizeof(input_struct) * num_length);
+//		struct model_params *input_ptr;
+//		input_ptr = &input_struct[0];
+//		static struct model_params *input_struct[num_length];
 //		input_pointer = &input_struct[0];
 
-		
 		// attempt to open the file for reading
 		fp = fopen(config_filename, "r");
 		
 		if (fp != NULL) { // file is open
-					
 					
 				while (fgets(line, sizeof(line), fp)) {	
 				
@@ -64,8 +65,8 @@ struct model_params *readConfig(char *config_filename) {
 		
 					// read in config data once keyword has been detected
 					if (toggle_read){
-							sscanf(line, "%f, %s", &input_struct[i]->value, input_struct[i]->name);
-							strtok(input_struct[i]->name, ",");	
+							sscanf(line, "%f, %s", &input_struct[i].value, input_struct[i].name);
+							strtok(input_struct[i].name, ",");	
 							i++;
 					}
 					
@@ -89,7 +90,7 @@ struct model_params *readConfig(char *config_filename) {
 		
 	//========== PRINT STRUCT FOR CONFIRMATION =================
 //		printf("Inputs read from %s:\n\n", config_filename);
-//		for (i = 0; i < num_length; i++)
+////		for (i = 0; i < num_length; i+
 //			printf("	%s: %4.2f\n", input_struct[i].name, input_struct[i].value);
 	//==========================================================
 

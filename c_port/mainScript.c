@@ -4,13 +4,15 @@
 // step 1: include the readConfig_ctest.c function and get the vars
 // into this environment and print
 #include <stdio.h>
+#include <stdlib.h>
 #include "readConfig.h"
 #include "findNumVars.h"
 
 #define CONFIGFILE_DIR "mainConfig.txt"			// define mainConfig.txt file location
 
 int main(void){
-
+		int i;	// loop var
+		
 		int  numVars;							// number of inputs in mainConfig.txt#
 		char *configfile;
 		
@@ -26,9 +28,19 @@ int main(void){
 //		printf("numVars: %d\n", numVars);
 		
 		// define input_params struct - will populate w/ readConfig.c
-		struct model_params input_params[numVars];
+		struct model_params *input_struct;
 		
-		input_params[numVars] = readConfig(configfile);
+		input_struct = readConfig(configfile);
+		
+		// test: output the structures stuff
+		for (i = 0; i < numVars; i++)
+			printf("input_structure.%s: %4.2f\n", input_struct[i].name, input_struct[i].value);
+		
+		
+		
+		
+		free(input_struct);
+
 		printf("no crashes :)\n");
 		getchar();
 		return 0;

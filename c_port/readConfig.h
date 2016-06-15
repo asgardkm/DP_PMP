@@ -9,7 +9,7 @@
 struct model_params{
 		char name[70];
 		float value;
-};
+} model_struct;
 
 //readConfig function declaration
 struct model_params *readConfig(char *config_filename);	
