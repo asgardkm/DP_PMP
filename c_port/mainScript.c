@@ -35,7 +35,7 @@ int main(void){
 			printf("%s: %4.2f\n", input_struct[i].name, input_struct[i].value);
 
 		// order in which to feed inputs to clc_DP_tmp.c
-
+// will do later - need to first bring in all the other inputs from more text files
 
 
 		

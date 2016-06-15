@@ -5,20 +5,21 @@ This file serves as a configuration file for the HEV DP-PMP optimization model
 It specifies model input parameters, such as discretization values; initial power,
 energy, and drivetrain inputs; and costate values.
 
+
 ______________________________**MODEL PARAMETERS**__________________________________
 
 Model parameters
 !!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 
 		must be maintained !!!!
-!!!! NOTE: The keyword **S*T*A*R*T** (without underscores) initiates data 
+!!!! NOTE: The keyword **S*T*A*R*T*_*P*A*R*A*M*S** (without asterisks) initiates data 
 		read, and must be placed before the first line of configuration data
-!!!! NOTE: The keyword **E*N*D** (without underscores) ends the data
+!!!! NOTE: The keyword **E*N*D*_*P*A*R*A*M*A*S** (without asterisks) ends the data
 		read, and must be placed after the last line of configuration data
 !!!  	These keywords are reserved and shouldn't be used anywhere else in this file
 
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
-START
+START_PARAMS
 1,				disFlg,				a
 10,				wayStp,				a
 1,				engKinBegInx,		a
@@ -32,5 +33,62 @@ START
 1,				wayInxBeg,			a
 800,			wayInxEnd,			a
 5,				staBeg,				a
-END
+END_PARAMS
+====================================================================================
+
+
+
+______________________________**TEST DATA PARAMETERS**______________________________
+
+Test data parameters used on a 800 path_index long run.
+!!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 
+		must be maintained !!!!
+!!!! NOTE: The keyword **S*T*A*R*T*_T*S*T*D*A*T** (without asterisks) initiates data 
+		read, and must be placed before the first line of configuration data
+!!!! NOTE: The keyword **E*N*D*_T*S*T*D*A*T** (without asterisks) ends the data
+		read, and must be placed after the last line of configuration data
+!!!  	These keywords are reserved and shouldn't be used anywhere else in this file
+
+====================================================================================
+Value,			Variable Name,  	Description (examples in brackets)
+START_TSTDAT
+6,				staNum,				Number of gears in model
+800,			wayNum,				Number of path indexes along entire route
+11,				engKinNum,			Number of kinetic energy states
+END_TSTDAT
+====================================================================================
+
+
+
+______________________________**FAHRZEUG PARAMETERS**_______________________________
+
+Test data parameters used on a 800 path_index long run.
+!!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 
+		must be maintained !!!!
+!!!! NOTE: The keyword **S*T*A*R*T_F*A*H*R*Z*E*U*G** (without asterisks) initiates 
+		data read, and must be placed before the first line of configuration data
+!!!! NOTE: The keyword **E*N*D*_F*A*H*R*Z*E*U*G** (without asterisks) ends the data
+		read, and must be placed after the last line of configuration data
+!!!  	These keywords are reserved and shouldn't be used anywhere else in this file
+
+====================================================================================
+Value,			Variable Name,  	Description (examples in brackets)
+START_FAHRZEUG
+5,				vehVelMin,			a
+30,				wayNum,				a
+1.5,			vehAccMax,			a
+-1.5,			vehAccMin,			a
+0.39,			drgCof,				a
+1800,			vehMas,				a
+0.0088			whlRosResCof,		a
+0.3156,			whlDrr,				a
+0.0334,			batRstChr,			a
+0.0406,			batRstDch,			hello
+2704300,		batEngMax,			there
+20000,			batPwrMax,			how
+-25000,			batPwrMin,			you
+0.9806,			batEngMax,			doing
+0.74,			fulDen,				today
+41040000,		fulLhv,				?
+END_FAHRZEUG
 ====================================================================================

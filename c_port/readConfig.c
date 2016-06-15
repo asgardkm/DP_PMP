@@ -29,8 +29,8 @@ struct model_params *readConfig(char *config_filename) {
 		char line[500], tmp_line[500];
 		
 		// KEYWORDS
-		char keyword_start[10] = "START";
-		char keyword_end[10]   = "END";	
+		char keyword_start[10] = "START_PARAMS";
+		char keyword_end[10]   = "END_PARAMS";	
 	//==========================================================
 		
 	//========= READ DATA ======================================
