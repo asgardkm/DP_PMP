@@ -12,6 +12,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>				// for malloc() invocation
+#include <string.h>				// for strcmp() and strtok() invocations
 #include "readConfig.h"			// this function's header file
 
 struct model_params *readConfig(char *config_filename, int num_length, char *key_start, char *key_end) {
@@ -39,30 +40,30 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 		if (fp != NULL) { // file is open
 					
 				while (fgets(line, sizeof(line), fp)) {	
-				
-					// load in text data, look for when keyword is detected
-					sscanf(line, "%s", tmp_line);
 					
-					// check for readin toggle
-					toggle_start = strcmp(tmp_line, key_start);
-					toggle_end	 = strcmp(tmp_line, key_end);
-					
-					// check if END has been found
-					if (toggle_end == 0) {
-							toggle_read = 0;
-					}
-		
-					// read in config data once keyword has been detected
-					if (toggle_read){
-							sscanf(line, "%f, %s", &input_struct[i].value, input_struct[i].name);
-							strtok(input_struct[i].name, ",");	
-							i++;
-					}
-					
-					// check if START has been found
-					if (toggle_start == 0) {	
-							toggle_read = 1; 
-					}
+						// load in text data, look for when keyword is detected
+						sscanf(line, "%s", tmp_line);
+						
+						// check for readin toggle
+						toggle_start = strcmp(tmp_line, key_start);
+						toggle_end	 = strcmp(tmp_line, key_end);
+						
+						// check if END has been found
+						if (toggle_end == 0) {
+								toggle_read = 0;
+						}
+			
+						// read in config data once keyword has been detected
+						if (toggle_read){
+								sscanf(line, "%f, %s", &input_struct[i].value, input_struct[i].name);
+								strtok(input_struct[i].name, ",");	
+								i++;
+						}
+						
+						// check if START has been found
+						if (toggle_start == 0) {	
+								toggle_read = 1; 
+						}
 				}
 				
 	

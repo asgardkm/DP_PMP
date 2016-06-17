@@ -20,15 +20,14 @@ Model parameters
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
 PARAMS_START
-1,				disFlg,				a
-10,				way,				a
+1,				disFlg,				s
+10,				wayStp,				a
 1,				engKinBegInx,		a
 5000,			batEngStp,			a
 1352100,		batEngBeg,			a
 0,				batPwrAux,			a
 -2.61,			psiBatEng,			a
 1590,			psiTim,				a
-0,				unused,				a
 0,				staChgPenCosVal,	a
 1,				wayInxBeg,			a
 800,			wayInxEnd,			a

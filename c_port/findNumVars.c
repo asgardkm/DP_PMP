@@ -9,6 +9,7 @@
 //
 // created 15.June.2016 by Asgard Kaleb Marroquin
 #include <stdio.h>
+#include <string.h>				// for strcmp() invocations
 #include "findNumVars.h"
 
 int findNumVars(char *config_filename, char *key_start, char *key_end){
