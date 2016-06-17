@@ -1,49 +1,38 @@
 // readConfig.c
 // function: read in data parameters defined in mainConfig.txt
 //
-// input: char config_filename - string defining mainConfig.txt directory
+// input: 	char *config_filename 	- points to string defining mainConfig.txt directory
+//			int num_length 			- num. of vars returned by findNumVars() invocation
+//			char *key_start			- points to string defining readin starting keyword
+//			char *key_end			- points to string defining readin ending keyword 
 //
-// output: NEED TO FIGURE OUT HOW TO PULL OUT STRUCTURE!
+// output: struct *input_struct		- points to struct. array (length=num_length) containing grp's mainConfig input vars
 //
 // created 14.June.2016 by Asgard Kaleb Marroquin
 //
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h>				// for malloc() invocation
 #include "readConfig.h"			// this function's header file
-#include "findNumVars.h"		// for finding number of variables in mainConfig.txt
 
-struct model_params *readConfig(char *config_filename) {
+struct model_params *readConfig(char *config_filename, int num_length, char *key_start, char *key_end) {
 	//========= DEFINE VARIABLES ===============================
 		// FILE POINTERS
 	    FILE *fp;						// pointer for FILE type
 		int i = 0;
+		
 		// TOGGLE VARIABLES
 		int toggle_read = 0;			// var for deciding to start reading in text data
 		int toggle_start;				// var for activating readin when key is found
 		int toggle_end;
 		
-		// NUMBER OF VARIABLE INPUTS
-		int num_length;					// var will hold findNumVars() output
-		
 		// TEMP READIN AND SCAN VARIABLES
-		char line[500], tmp_line[500];
-		
-		// KEYWORDS
-		char keyword_start[10] = "START_PARAMS";
-		char keyword_end[10]   = "END_PARAMS";	
+		char line[400], tmp_line[400];
 	//==========================================================
-		
+	
 	//========= READ DATA ======================================
-		// call findNumVars(), find number of input variables
-		num_length = findNumVars(config_filename);
-		
 		// define structure
 		struct model_params *input_struct = malloc(sizeof(input_struct) * num_length);
-//		struct model_params *input_ptr;
-//		input_ptr = &input_struct[0];
-//		static struct model_params *input_struct[num_length];
-//		input_pointer = &input_struct[0];
-
+		
 		// attempt to open the file for reading
 		fp = fopen(config_filename, "r");
 		
@@ -55,8 +44,8 @@ struct model_params *readConfig(char *config_filename) {
 					sscanf(line, "%s", tmp_line);
 					
 					// check for readin toggle
-					toggle_start = strcmp(tmp_line, keyword_start);
-					toggle_end	 = strcmp(tmp_line, keyword_end);
+					toggle_start = strcmp(tmp_line, key_start);
+					toggle_end	 = strcmp(tmp_line, key_end);
 					
 					// check if END has been found
 					if (toggle_end == 0) {

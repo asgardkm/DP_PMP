@@ -1,22 +1,22 @@
 // findNumVars.c
 // function: find the number of varables define in mainConfig.txt
 //
-// input: char input_filename - string defining mainConfig.txt directory
+// input: 	char input_filename - string defining mainConfig.txt directory
+//			char *key_start		- points to string defining readin starting keyword
+//			char *key_end		- points to string defining readin ending keyword 
 //
-// output: int numVars - number of variable params defined in mainConfig.txt
+// output: 	int numVars 		- number of variable params defined in mainConfig.txt
 //
 // created 15.June.2016 by Asgard Kaleb Marroquin
 #include <stdio.h>
 #include "findNumVars.h"
 
-int findNumVars(char *config_filename){
+int findNumVars(char *config_filename, char *key_start, char *key_end){
 //int main(void){
 	//========= DEFINE VARIABLES ===============================
 		// FILE POINTERS
 		FILE *fp;						// pointer for FILE type
-		
-//		char input_filename[] = "mainConfig.txt";
-		
+				
 		// TOGGLE VARIABLES
 		int toggle_read = 0;			// var for deciding to start reading in text data
 		int toggle_start;				// var for activating readin when key is found
@@ -25,13 +25,8 @@ int findNumVars(char *config_filename){
 		// TEMP READIN AND SCAN VARIABLES
 		char line[500], tmp_line[500];
 		
-		// KEYWORDS
-		char keyword_start[10] = "START_PARAMS";
-		char keyword_end[10]   = "END_PARAMS";	
-					 
 		// PARAMETER NUM LENGTH VARIABLES
 		int  numVars = 0;				// var which will receive # length of inputs
-
 	//==========================================================
 		
 	//========= READ DATA (MOCK) ===============================
@@ -46,8 +41,8 @@ int findNumVars(char *config_filename){
 						sscanf(line, "%s", tmp_line);
 						
 						// check for readin toggle
-						toggle_start = strcmp(tmp_line, keyword_start);
-						toggle_end	 = strcmp(tmp_line, keyword_end);
+						toggle_start = strcmp(tmp_line, key_start);
+						toggle_end	 = strcmp(tmp_line, key_end);
 						
 						// check if END has been found
 						if (toggle_end == 0) {
