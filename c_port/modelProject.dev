@@ -19,7 +19,7 @@ ObjectOutput=
 LogOutput=
 LogOutputEnabled=0
 OverrideOutput=0
-OverrideOutputName=
+OverrideOutputName=modelProject.exe
 HostApplication=
 UseCustomMakefile=0
 CustomMakefile=
@@ -28,7 +28,7 @@ Folders=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
-CompilerSettings=
+CompilerSettings=0000000000000000001000000
 UnitCount=7
 
 [VersionInfo]
@@ -39,21 +39,21 @@ Build=0
 LanguageID=1033
 CharsetID=1252
 CompanyName=
-FileVersion=
+FileVersion=1.0.0.0
 FileDescription=Developed using the Dev-C++ IDE
 InternalName=
 LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=
+ProductVersion=1.0.0.0
 AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
 FileName=findNumVars.c
 CompileCpp=0
-Folder=modelProject.dev
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -63,7 +63,7 @@ BuildCmd=
 [Unit2]
 FileName=findNumVars.h
 CompileCpp=0
-Folder=modelProject.dev
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -73,7 +73,7 @@ BuildCmd=
 [Unit3]
 FileName=mainScript.c
 CompileCpp=0
-Folder=modelProject.dev
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -83,7 +83,7 @@ BuildCmd=
 [Unit4]
 FileName=readConfig.c
 CompileCpp=0
-Folder=modelProject.dev
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -93,7 +93,7 @@ BuildCmd=
 [Unit5]
 FileName=readConfig.h
 CompileCpp=0
-Folder=modelProject.dev
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -110,10 +110,20 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit7]
-FileName=raw_data\readRawText.h
+[Unit8]
+FileName=readRawText.h
 CompileCpp=0
-Folder=
+Folder=modelProject.dev
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit7]
+FileName=readRawText.h
+CompileCpp=0
+Folder=modelProject.dev
 Compile=1
 Link=1
 Priority=1000

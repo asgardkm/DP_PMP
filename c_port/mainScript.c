@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include "readConfig.h"
 #include "findNumVars.h"
-#include "raw_data\readRawText.h"
+#include "readRawText.h"
 #define CONFIGFILE_DIR "mainConfig.txt"		// define mainConfig.txt file location
 
 int main(void){
@@ -45,18 +45,16 @@ int main(void){
 		struct model_params *tstdat_struct;
 		struct model_params *fahrzg_struct;
 		
+		// buffer for each struct data group - ensures that each struct have distinct pointer addresses from each other
 		struct model_params params_buffer[numParams];
 		struct model_params tstdat_buffer[numTstdat];
 		struct model_params fahrzg_buffer[numFahrzg];
-
-
-		// read in raw vector-matrix data from \raw_data\*.txt files
 		
-//		// function call: load in structure wiih all input parameters
+		// function call: load in structure wiih all input parameters
 		params_struct = readConfig(configfile, numParams, params_keystart, params_keyend, params_buffer);
 		tstdat_struct = readConfig(configfile, numTstdat, tstdat_keystart, tstdat_keyend, tstdat_buffer);
 		fahrzg_struct = readConfig(configfile, numFahrzg, fahrzg_keystart, fahrzg_keyend, fahrzg_buffer);
-//		
+		
 		// test: output the structures stuff
 		printf("param_struct:\n");
 		for (i = 0; i < numParams; i++){
@@ -72,15 +70,21 @@ int main(void){
 		for (i = 0; i < numFahrzg; i++){
 				printf("	%s: %4.4f\n", fahrzg_struct[i].name, fahrzg_struct[i].value);
 		}
-////		
+		
 //		// order in which to feed inputs to clc_DP_tmp.c
 //		// will do later - need to first bring in all the other inputs from more text files
 		
 		// read in vectors!
+		// define raw_data dor
+		char raw_data_dir[] = "raw_data";
+		// define struct prefix
+		char fzg_prefix[] = "FZG";
 		// first define them - sending them into a struct?
 		//FZG.iceTrqMaxCof.txt(1x3)
-		float iceTrqMaxCof[1][3];
-
+		float *iceTrqMaxCof;
+		float iceTrqMaxCof_buffer[1][3];
+		
+		iceTrqMaxCof = readRawText(raw_data_dir, fzg_prefix, "iceTrqMaxCof",  1, 3);
 
 //		// free dynamically allocated structure
 		free(params_struct);
