@@ -15,7 +15,7 @@
 #include <string.h>				// for strcmp() and strtok() invocations
 #include "readConfig.h"			// this function's header file
 
-struct model_params *readConfig(char *config_filename, int num_length, char *key_start, char *key_end) {
+struct model_params *readConfig(char *config_filename, int num_length, char *key_start, char *key_end, struct model_params buff[]){
 	//========= DEFINE VARIABLES ===============================
 		// FILE POINTERS
 	    FILE *fp;						// pointer for FILE type
@@ -32,7 +32,13 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 	
 	//========= READ DATA ======================================
 		// define structure
-		struct model_params *input_struct = malloc(sizeof(input_struct) * num_length);
+//		struct model_params input_struct[num_length+1];
+		static struct model_params *input_pointer;
+//		input_pointer = &input_struct[0];
+		input_pointer = &buff[0];
+		
+		if (buff == 0)
+				printf("ERROR: out of memory\n");
 		
 		// attempt to open the file for reading
 		fp = fopen(config_filename, "r");
@@ -55,8 +61,8 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 			
 						// read in config data once keyword has been detected
 						if (toggle_read){
-								sscanf(line, "%f, %s", &input_struct[i].value, input_struct[i].name);
-								strtok(input_struct[i].name, ",");	
+								sscanf(line, "%f, %s", &buff[i].value, buff[i].name);
+								strtok(buff[i].name, ",");	
 								i++;
 						}
 						
@@ -85,5 +91,5 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 	//==========================================================
 
 //		getchar(); 
-		return input_struct;
+		return input_pointer;
 }

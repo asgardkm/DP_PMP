@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = findNumVars.o mainScript.o readConfig.o
-LINKOBJ  = findNumVars.o mainScript.o readConfig.o
+OBJ      = findNumVars.o mainScript.o readConfig.o readRawText.o
+LINKOBJ  = findNumVars.o mainScript.o readConfig.o readRawText.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.7.2/include/c++"
@@ -32,3 +32,6 @@ mainScript.o: mainScript.c
 
 readConfig.o: readConfig.c
 	$(CC) -c readConfig.c -o readConfig.o $(CFLAGS)
+
+readRawText.o: readRawText.c
+	$(CC) -c readRawText.c -o readRawText.o $(CFLAGS)

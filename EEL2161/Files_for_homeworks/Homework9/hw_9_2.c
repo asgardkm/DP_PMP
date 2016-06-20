@@ -20,7 +20,7 @@ int main (void) {
 	/* Attempt to open the file for reading. */
 	fp = fopen(THEFILE, "r");
 	
-	if (fp != NULL) { /* The file is open. */
+	if (fp != NULL) { /* The file is open. */O
 		
 		printf("%7s %7s %7s %7s %7s %7s %7s %7s %7s %7s\n", "0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9");
 		

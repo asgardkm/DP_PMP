@@ -1,9 +1,9 @@
 // findNumVars.c
 // function: find the number of varables define in mainConfig.txt
 //
-// input: 	char input_filename - string defining mainConfig.txt directory
-//			char *key_start		- points to string defining readin starting keyword
-//			char *key_end		- points to string defining readin ending keyword 
+// input: 	char config_filename 	- string defining mainConfig.txt directory
+//			char *key_start			- points to string defining readin starting keyword
+//			char *key_end			- points to string defining readin ending keyword 
 //
 // output: 	int numVars 		- number of variable params defined in mainConfig.txt
 //

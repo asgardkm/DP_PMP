@@ -12,6 +12,6 @@ struct model_params{
 } model_struct;
 
 //readConfig function declaration
-struct model_params *readConfig(char *config_filename, int num_length, char *key_start, char *key_end);	
+struct model_params *readConfig(char *config_filename, int num_length, char *key_start, char *key_end, struct model_params buff[]);
 
 #endif					// CONFIG_H

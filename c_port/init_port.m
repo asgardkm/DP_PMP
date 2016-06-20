@@ -96,7 +96,7 @@ dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMgd.txt'), FZG.iceTrqMgd);
 %   FZG.iceFulPwr_iceSpd_iceTrq (150x100)
 dlmwrite(fullfile(datafile_dir, 'FZG.iceFulPwr_iceSpd_iceTrq.txt'), FZG.iceFulPwr_iceSpd_iceTrq);
 %   FZG.iceTrqMaxCof (1x3)
-dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMaxCof.txt'), FZG.iceTrqMaxCof);
+dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMaxCof.txt'), FZG.iceTrqMaxCof, ' ');
 %   FZG.iceTrqMinCof (1x3)
 dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMinCof.txt'), FZG.iceTrqMinCof);
 %   FZG.emoSpdMgd (150x100)
