@@ -7,7 +7,7 @@
 
 // define structure for input data from mainConfig.txz
 struct model_params{
-		char name[];
+		char name[300];
 		float value;
 } model_struct;
 

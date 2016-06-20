@@ -3,17 +3,18 @@
 
 %% Laden der Modelldaten
 
-% saved structure data from './model data'
 FZG = load('vehMdl');
-
-
 % % Inhalt des Parameter-Structs par in den Workspace schreiben
 %  -- Inahlt = Content
 
 % input dummy engKinBegInx value for function
+engKinBegInx = zeros(1,1);
 engKinBegInx = 1;
 
-load tstDat800
+tstDat800 = load('tstDat800');
+staNum = tstDat800.staNum;
+wayNum = tstDat800.wayNum;
+engKinNum = tstDat800.wayNum;
 
 %% SAVING LOADED DATA INTO TEXT FILES 
 %   c code will read in this data
@@ -48,9 +49,9 @@ load tstDat800
 %
 % if keeping the FZG structure in  c code, make sure to preallocate for
 % space! FZG has 15 scalars, 8 vectors, and 6 matrices - 29 total
-%% Löschen von inf und NaN aus Modelldaten
+%% Lï¿½schen von inf und NaN aus Modelldaten
 % ^^ replace any infinities and Nans with zeros
-% && löschen = delete
+% && lï¿½schen = delete
 FZG.emoTrq_emoSpd_emoPwr(isinf(FZG.emoTrq_emoSpd_emoPwr)) = 0;
 
 %% load in data from text file (if running model through matlab and are 
@@ -70,4 +71,12 @@ staChgPenCosVal = inputparams.staChgPenCosVal;
 wayInxBeg       = inputparams.wayInxBeg;
 wayInxEnd       = inputparams.wayInxEnd;
 staBeg          = inputparams.staBeg;
+
+%% write stuff to text files
+
+% tstDat800.slpVec_Inx[wayNum x 1]
+dlmwrite('slpVec_Inx.txt', tstDat800.slpVec_wayInx);
+% tstDat800.engKinMat_engKinInx_wayInx[engKinNum x wayNum]
+dlmwrite('engKinMat_engKinInx_wayInx', tstDat800.engKinMat_engKinInx_wayInx);
     
+% tstDat800.engKinNumVec_wayInx[wayNum x 1]
