@@ -94,18 +94,24 @@ dlmwrite(fullfile(datafile_dir, 'FZG.iceSpdMgd.txt'), FZG.iceSpdMgd);
 %   FZG.iceTrqMgd (150x100)
 dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMgd.txt'), FZG.iceTrqMgd);
 %   FZG.iceFulPwr_iceSpd_iceTrq (150x100)
-dlmwrite(fullfile(datafile_dir, 'FZG.iceFulPwr_iceSpd_iceTrq'), FZG.iceFulPwr_iceSpd_iceTrq);
+dlmwrite(fullfile(datafile_dir, 'FZG.iceFulPwr_iceSpd_iceTrq.txt'), FZG.iceFulPwr_iceSpd_iceTrq);
 %   FZG.iceTrqMaxCof (1x3)
-dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMaxCof'), FZG.iceTrqMaxCof);
+dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMaxCof.txt'), FZG.iceTrqMaxCof, ' ');
 %   FZG.iceTrqMinCof (1x3)
-dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMinCof'), FZG.iceTrqMinCof);
+dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMinCof.txt'), FZG.iceTrqMinCof);
 %   FZG.emoSpdMgd (150x100)
-dlmwrite(fullfile(datafile_dir, 'FZG.emoSpdMgd'), FZG.emoSpdMgd);
+dlmwrite(fullfile(datafile_dir, 'FZG.emoSpdMgd.txt'), FZG.emoSpdMgd);
 %   FZG.emoTrqMgd (150x100)
-dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMgd'), FZG);
+dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMgd.txt'), FZG.emoTrqMgd);
 %   FZG.emoPwr_emoSpd_emoTrq (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoPwr_emoSpd_emoTrq.txt'), FZG.emoPwr_emoSpd_emoTrq, ' ', 'precision','%.6f');
 %   FZG.emoTrqMin_emoSpd (100x1)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMin_emoSpd.txt'), FZG.emoTrqMin_emoSpd);
 %   FZG.emoTrqMax_emoSpd (100x1)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMax_emoSpd.txt'), FZG.emoTrqMax_emoSpd);
 %   FZG.emoPwrMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoPwrMgd.txt'), FZG.emoPwrMgd);
 %   FZG.emoPwrMax_emoSpd (100x1)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoPwrMax_emoSpd.txt'), FZG.emoPwrMax_emoSpd);
 %   FZG.emoPwrMin_emoSpd (100x1)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoPwrMin_emoSpd.txt'), FZG.emoPwrMin_emoSpd);

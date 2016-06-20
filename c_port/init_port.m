@@ -104,7 +104,7 @@ dlmwrite(fullfile(datafile_dir, 'FZG.emoSpdMgd.txt'), FZG.emoSpdMgd);
 %   FZG.emoTrqMgd (150x100)
 dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMgd.txt'), FZG.emoTrqMgd);
 %   FZG.emoPwr_emoSpd_emoTrq (150x100)
-dlmwrite(fullfile(datafile_dir, 'FZG.emoPwr_emoSpd_emoTrq.txt'), FZG.emoPwr_emoSpd_emoTrq);
+dlmwrite(fullfile(datafile_dir, 'FZG.emoPwr_emoSpd_emoTrq.txt'), FZG.emoPwr_emoSpd_emoTrq, ' ');
 %   FZG.emoTrqMin_emoSpd (100x1)
 dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMin_emoSpd.txt'), FZG.emoTrqMin_emoSpd);
 %   FZG.emoTrqMax_emoSpd (100x1)

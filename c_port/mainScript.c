@@ -84,7 +84,14 @@ int main(void){
 		float *iceTrqMaxCof;
 		float iceTrqMaxCof_buffer[1][3];
 		
-		iceTrqMaxCof = readRawText(raw_data_dir, fzg_prefix, "iceTrqMaxCof",  1, 3);
+		iceTrqMaxCof = readRawText(raw_data_dir, fzg_prefix, "iceTrqMaxCof",  1, 3, iceTrqMaxCof_buffer);
+		
+		// time to load in other vectors!
+		//FZG.emoPwr_emoSpd_emoTrq.txt() (150x100)
+		float *emoPwr_emoSpd_emoTrq;
+		float emoPwr_emoSpd_emoTrq_buffer[150][100];
+		emoPwr_emoSpd_emoTrq = readRawText(raw_data_dir, fzg_prefix, "emoPwr_emoSpd_emoTrq", 150, 100, emoPwr_emoSpd_emoTrq_buffer);
+		
 
 //		// free dynamically allocated structure
 		free(params_struct);

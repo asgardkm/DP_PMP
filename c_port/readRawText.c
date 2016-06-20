@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <string.h>				// for strcmp() and strtok() invocations
 #include "readRawText.h"
-float *readRawText(char *data_dir, char *config_prefix, char *config_filename, int data_row, int data_col) {
+float *readRawText(char *data_dir, char *config_prefix, char *config_filename, int data_row, int data_col, float buff[data_row][data_col]) {
 	
 	FILE *fp;	// file pointer
 
@@ -38,37 +38,38 @@ float *readRawText(char *data_dir, char *config_prefix, char *config_filename, i
 	printf("final_filename:\n%s\n", final_filename);
 
 	// string buffers for reading in data
-	char line[500];
+	char line[10000];
 	
 	// loop counters
 	int i = 0, j = 0;
 	
 	// define outloop array!
-	float output_array[data_row][data_col];
-	float *output_pointer;
-	output_pointer = &output_array[0][0];
-	
+//	float output_array[data_row][data_col];
+	float *output_array;
+//	output_pointer = &output_array[0][0];
+	output_array = &buff[0][0];
 	fp = fopen(final_filename, "r");
 	
 	if (fp != NULL) { // file is open
-		while (fgets(line, sizeof(line), fp)) {		
-			
+		while (fgets(line, sizeof(line), fp)) {
+//				j = 0;		
 			    char *data = line;
-			    int offset;
-				for (i = 0; i <= data_row; i++){ // looping through rows
-				
+			    int offset = 0;
+				for (i = 0; i < data_row; i++){ // looping through rows#
+
 						// reading through each colmn entry
-					    while (sscanf(data, " %f%n", &output_array[i][j], &offset) == 1){
+					    while ((sscanf(data, "%f%n", &buff[i][j], &offset) == 1) || (j < data_col)){
 					        	data += offset;
-					        	printf("read: %5d; offset = %5d\n", output_array[i][j], offset);
+//					        	printf("buff[%d][%d]: %5f; offset = %5d\n", i, j, buff[i][j], offset);
 					        	j++;
 					    }
+//					    i++;
 				}			    
 		}
 		
 	} else { /* File could not be opened. */
 		printf ("The file could not be opened.\n");
-		return 1; /* Exit the function/application. */
+//		return 1; /* Exit the function/application. */
 	}
 
 	/* Close the file. */
@@ -81,7 +82,7 @@ float *readRawText(char *data_dir, char *config_prefix, char *config_filename, i
 	// print out array
 	for (i = 0; i < data_row; i++){
 		for (j = 0; j < data_col; j++){
-			printf("output_array[%d][%d]: %4.8f\n", i, j, output_array[i][j]);
+			printf("output_array[%d][%d]: %4.4f\n", i, j, buff[i][j]);
 		}
 	}
 	getchar();
