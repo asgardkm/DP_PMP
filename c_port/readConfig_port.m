@@ -1,6 +1,9 @@
-function[fileparams] = readConfig(filename)
+function[fileparams] = readConfig_port(filename)
 % function: read in data definined in an external text file
 %
+% note - function maz need maintainance, only is useful for matlub runs
+% data for c_port must be saved and read from text files directly; c cannot
+% port matlab functions like cell functions, regexp, fopen, etc
 % created 31mai2016 by asgard kaleb marroquin
 
 %% READING IN mainConfig.txt
@@ -26,7 +29,7 @@ end
 
 %% DEFINING AND FINDING KEY WORDS
 % define key words for finding the data we want
-keywords = {'START', 'END'};
+keywords = {'PARAMS_START', 'PARAMS_END'};
 
 keyindex = zeros(length(keywords), 1);
 
@@ -55,7 +58,6 @@ batEngBeg       = str2double(value{~cellfun(@isempty, regexp(name, 'batEngBeg'))
 batPwrAux       = str2double(value{~cellfun(@isempty, regexp(name, 'batPwrAux'))});
 psiBatEng       = str2double(value{~cellfun(@isempty, regexp(name, 'psiBatEng'))});
 psiTim          = str2double(value{~cellfun(@isempty, regexp(name, 'psiTim'))});
-unused          = str2double(value{~cellfun(@isempty, regexp(name, 'unused'))});
 staChgPenCosVal = str2double(value{~cellfun(@isempty, regexp(name, 'staChgPenCosVal'))});
 wayInxBeg       = str2double(value{~cellfun(@isempty, regexp(name, 'wayInxBeg'))});
 wayInxEnd       = str2double(value{~cellfun(@isempty, regexp(name, 'wayInxEnd'))});
@@ -70,7 +72,6 @@ fileparams = struct('disFlg',           disFlg, ...
                     'batPwrAux',        batPwrAux, ...
                     'psiBatEng',        psiBatEng, ...
                     'psiTim',           psiTim,...
-                    'unused',           unused,...
                     'staChgPenCosVal',  staChgPenCosVal,...
                     'wayInxBeg',        wayInxBeg,...
                     'wayInxEnd',        wayInxEnd,...
@@ -79,7 +80,7 @@ fileparams = struct('disFlg',           disFlg, ...
 
 % clear tmp variables to save memory
 clear disFlg wayStp batEngStp batEngBeg batPwrAux psiBatEng psiTim...
-    unused staChgPenCosVal wayInxBeg wayInxEnd staBeg
+        staChgPenCosVal wayInxBeg wayInxEnd staBeg
 
 
 %% CLOSE FDATA - END

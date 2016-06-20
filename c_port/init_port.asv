@@ -2,18 +2,19 @@
 % cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/RCP')
 
 %% Laden der Modelldaten
-
-% saved structure data from './model data'
+datafile_dir = 'raw_data';      % defines raw data directorz
 FZG = load('vehMdl');
-
-
 % % Inhalt des Parameter-Structs par in den Workspace schreiben
 %  -- Inahlt = Content
 
 % input dummy engKinBegInx value for function
+engKinBegInx = zeros(1,1);
 engKinBegInx = 1;
 
-load tstDat800
+tstDat800 = load('tstDat800');
+staNum = tstDat800.staNum;
+wayNum = tstDat800.wayNum;
+engKinNum = tstDat800.wayNum;
 
 %% SAVING LOADED DATA INTO TEXT FILES 
 %   c code will read in this data
@@ -47,15 +48,15 @@ load tstDat800
 %   tstDat800.engKinNumVec_wayInx (wayNum x 1)
 %
 % if keeping the FZG structure in  c code, make sure to preallocate for
-% space!
-%% Löschen von inf und NaN aus Modelldaten
+% space! FZG has 15 scalars, 8 vectors, and 6 matrices - 29 total
+%% Lï¿½schen von inf und NaN aus Modelldaten
 % ^^ replace any infinities and Nans with zeros
-% && löschen = delete
+% && lï¿½schen = delete
 FZG.emoTrq_emoSpd_emoPwr(isinf(FZG.emoTrq_emoSpd_emoPwr)) = 0;
 
 %% load in data from text file (if running model through matlab and are 
 % ignoring simulink (mainConfig.txt)
-inputparams = readConfig('mainConfig.txt');
+inputparams = readConfig_port('mainConfig.txt');
 
 % asign values from struct
 disFlg          = inputparams.disFlg;
@@ -65,9 +66,46 @@ batEngBeg       = inputparams.batEngBeg;
 batPwrAux       = inputparams.batPwrAux;
 psiBatEng       = inputparams.psiBatEng;
 psiTim          = inputparams.psiTim;
-unused          = inputparams.unused;
 staChgPenCosVal = inputparams.staChgPenCosVal;
 wayInxBeg       = inputparams.wayInxBeg;
 wayInxEnd       = inputparams.wayInxEnd;
 staBeg          = inputparams.staBeg;
-    
+
+%% write stuff to text files
+exist_dir = exist(datafile_dir, 'dir');
+if (~exist_dir)
+    mkdir(datafile_dir);
+end
+%tstDat800 data
+% tstDat800.slpVec_Inx[wayNum x 1]
+dlmwrite(fullfile(datafile_dir, 'tstDat800.slpVec_Inx.txt'), tstDat800.slpVec_wayInx);
+% tstDat800.engKinMat_engKinInx_wayInx[engKinNum x wayNum]
+dlmwrite(fullfile(datafile_dir, 'tstDat800.engKinMat_engKinInx_wayInx.txt'), tstDat800.engKinMat_engKinInx_wayInx);
+% tstDat800.engKinNumVec_wayInx[wayNum x 1]
+dlmwrite(fullfile(datafile_dir, 'tstDat800.engKinNumVec_wayInx.txt'), tstDat800.engKinNumVec_wayInx);
+
+% FZG data
+% FZG.batOcvCof_batEng (1x2)
+dlmwrite(fullfile(datafile_dir, 'FZG.batOcvCof_batEng.txt'), FZG.batOcvCof_batEng);
+%   FZG.geaRat (1xstaNum)
+dlmwrite(fullfile(datafile_dir, 'FZG.geaRat.txt'), FZG.geaRat);
+%   FZG.iceSpdMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceSpdMgd.txt'), FZG.iceSpdMgd);
+%   FZG.iceTrqMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMgd.txt'), FZG.iceTrqMgd);
+%   FZG.iceFulPwr_iceSpd_iceTrq (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceFulPwr_iceSpd_iceTrq'), FZG.iceFulPwr_iceSpd_iceTrq);
+%   FZG.iceTrqMaxCof (1x3)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMaxCof'), FZG.iceTrqMaxCof);
+%   FZG.iceTrqMinCof (1x3)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMinCof'), FZG.iceTrqMinCof);
+%   FZG.emoSpdMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoSpdMgd'), FZG.emoSpdMgd);
+%   FZG.emoTrqMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMgd'), FZG);
+%   FZG.emoPwr_emoSpd_emoTrq (150x100)
+%   FZG.emoTrqMin_emoSpd (100x1)
+%   FZG.emoTrqMax_emoSpd (100x1)
+%   FZG.emoPwrMgd (150x100)
+%   FZG.emoPwrMax_emoSpd (100x1)
+%   FZG.emoPwrMin_emoSpd (100x1)

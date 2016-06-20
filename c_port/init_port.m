@@ -2,7 +2,7 @@
 % cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/RCP')
 
 %% Laden der Modelldaten
-
+datafile_dir = 'raw_data';      % defines raw data directorz
 FZG = load('vehMdl');
 % % Inhalt des Parameter-Structs par in den Workspace schreiben
 %  -- Inahlt = Content
@@ -56,7 +56,7 @@ FZG.emoTrq_emoSpd_emoPwr(isinf(FZG.emoTrq_emoSpd_emoPwr)) = 0;
 
 %% load in data from text file (if running model through matlab and are 
 % ignoring simulink (mainConfig.txt)
-inputparams = readConfig('mainConfig.txt');
+inputparams = readConfig_port('mainConfig.txt');
 
 % asign values from struct
 disFlg          = inputparams.disFlg;
@@ -66,17 +66,52 @@ batEngBeg       = inputparams.batEngBeg;
 batPwrAux       = inputparams.batPwrAux;
 psiBatEng       = inputparams.psiBatEng;
 psiTim          = inputparams.psiTim;
-unused          = inputparams.unused;
 staChgPenCosVal = inputparams.staChgPenCosVal;
 wayInxBeg       = inputparams.wayInxBeg;
 wayInxEnd       = inputparams.wayInxEnd;
 staBeg          = inputparams.staBeg;
 
 %% write stuff to text files
-
+exist_dir = exist(datafile_dir, 'dir');
+if (~exist_dir)
+    mkdir(datafile_dir);
+end
+%tstDat800 data
 % tstDat800.slpVec_Inx[wayNum x 1]
-dlmwrite('slpVec_Inx.txt', tstDat800.slpVec_wayInx);
+dlmwrite(fullfile(datafile_dir, 'tstDat800.slpVec_Inx.txt'), tstDat800.slpVec_wayInx);
 % tstDat800.engKinMat_engKinInx_wayInx[engKinNum x wayNum]
-dlmwrite('engKinMat_engKinInx_wayInx', tstDat800.engKinMat_engKinInx_wayInx);
-    
+dlmwrite(fullfile(datafile_dir, 'tstDat800.engKinMat_engKinInx_wayInx.txt'), tstDat800.engKinMat_engKinInx_wayInx);
 % tstDat800.engKinNumVec_wayInx[wayNum x 1]
+dlmwrite(fullfile(datafile_dir, 'tstDat800.engKinNumVec_wayInx.txt'), tstDat800.engKinNumVec_wayInx);
+
+% FZG data
+% FZG.batOcvCof_batEng (1x2)
+dlmwrite(fullfile(datafile_dir, 'FZG.batOcvCof_batEng.txt'), FZG.batOcvCof_batEng);
+%   FZG.geaRat (1xstaNum)
+dlmwrite(fullfile(datafile_dir, 'FZG.geaRat.txt'), FZG.geaRat);
+%   FZG.iceSpdMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceSpdMgd.txt'), FZG.iceSpdMgd);
+%   FZG.iceTrqMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMgd.txt'), FZG.iceTrqMgd);
+%   FZG.iceFulPwr_iceSpd_iceTrq (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceFulPwr_iceSpd_iceTrq.txt'), FZG.iceFulPwr_iceSpd_iceTrq);
+%   FZG.iceTrqMaxCof (1x3)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMaxCof.txt'), FZG.iceTrqMaxCof);
+%   FZG.iceTrqMinCof (1x3)
+dlmwrite(fullfile(datafile_dir, 'FZG.iceTrqMinCof.txt'), FZG.iceTrqMinCof);
+%   FZG.emoSpdMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoSpdMgd.txt'), FZG.emoSpdMgd);
+%   FZG.emoTrqMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMgd.txt'), FZG.emoTrqMgd);
+%   FZG.emoPwr_emoSpd_emoTrq (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoPwr_emoSpd_emoTrq.txt'), FZG.emoPwr_emoSpd_emoTrq);
+%   FZG.emoTrqMin_emoSpd (100x1)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMin_emoSpd.txt'), FZG.emoTrqMin_emoSpd);
+%   FZG.emoTrqMax_emoSpd (100x1)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoTrqMax_emoSpd.txt'), FZG.emoTrqMax_emoSpd);
+%   FZG.emoPwrMgd (150x100)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoPwrMgd.txt'), FZG.emoPwrMgd);
+%   FZG.emoPwrMax_emoSpd (100x1)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoPwrMax_emoSpd.txt'), FZG.emoPwrMax_emoSpd);
+%   FZG.emoPwrMin_emoSpd (100x1)
+dlmwrite(fullfile(datafile_dir, 'FZG.emoPwrMin_emoSpd.txt'), FZG.emoPwrMin_emoSpd);
