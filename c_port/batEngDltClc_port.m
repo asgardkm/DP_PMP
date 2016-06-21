@@ -1,18 +1,19 @@
 function [ ...
     batEngDltMin,...Skalar - änderung der minimalen Batterieenergieänderung
     batEngDltMax... Skalar - änderung der maximalen Batterieenergieänderung
-    ] = ...
+    ] =         ...
     batEngDltClc_port...
-    (...
-    wayStp,...      Skalar - Wegschrittweite
-    vel,...         Skalar - Geschwindigkeit im Intervall
-    batPwrAux,...   Skalar - Nebenverbraucherlast
-    batEngAct,...   Skalar - Batterieenergie
-    par,...         struct - Fahrzeugparameter
-    crsSpd,...      Skalar - crankshaft rotational speed
-    crsTrq,...      Skalar - crankshaft torque
-    iceTrqMin,...   Skalar - min ICE torque allowed
-    iceTrqMax,...   Skalar - max ICE torque
+    (           ...
+    wayStp,     ... Skalar - Wegschrittweite
+    vel,        ... Skalar - Geschwindigkeit im Intervall
+    batPwrAux,  ... Skalar - Nebenverbraucherlast
+    batEngAct,  ... Skalar - Batterieenergie
+    fzg_scalar, ... struct - Fahrzeugparameter - nur skalar
+    fzg_array,  ... struct - Fahrzeugparameter - nur array
+    crsSpd,     ... Skalar - crankshaft rotational speed
+    crsTrq,     ... Skalar - crankshaft torque
+    iceTrqMin,  ... Skalar - min ICE torque allowed
+    iceTrqMax,  ... Skalar - max ICE torque
     emoTrqMaxPos... Skalar - max EM torque possible
     )%#codegen
 %BatEngDltClc Calculates the change in battery energy
@@ -41,7 +42,7 @@ batEngDltMax = inf;
 % emoTrqMinPos = ...
 %     lininterp1(par.emoSpdMgd(1,:)',par.emoTrqMin_emoSpd,crsSpd);
 emoTrqMinPos = ...
-    interp1q(par.emoSpdMgd(1,:)',par.emoTrqMin_emoSpd,crsSpd);
+    interp1q(fzg_array.emoSpdMgd(1,:)',fzg_array.emoTrqMin_emoSpd,crsSpd);
 
 %% Verbrennungsmotor berechnen
 
@@ -71,7 +72,7 @@ emoTrqMin = max(emoTrqMinPos,emoTrqMin);
 %% Berechnung der änderung der Batterieladung
 %   calculating the change in battery charge
 
-% Interpolation der benötigten Batterieklemmleistung für das
+% Interpolation der benötigten Batterieklemmleistung f�r das
 % EM-Moment. Stellen die nicht definiert sind, werden mit inf
 % ausgegeben. Positive Werte entsprechen entladen der Batterie.
 %   interpolating the required battery terminal power for the EM torque.
@@ -82,53 +83,53 @@ emoTrqMin = max(emoTrqMinPos,emoTrqMin);
 % 
 % batPwrMin = lininterp2(par.emoSpdMgd(1,:),par.emoTrqMgd(:,1),...
 %     par.emoPwr_emoSpd_emoTrq',crsSpd,emoTrqMin) + batPwrAux;
-batPwrMax = codegen_interp2(par.emoSpdMgd,par.emoTrqMgd,...
-    par.emoPwr_emoSpd_emoTrq,crsSpd,emoTrqMax) + batPwrAux;
+batPwrMax = codegen_interp2(fzg_array.emoSpdMgd,fzg_array.emoTrqMgd,...
+    fzg_array.emoPwr_emoSpd_emoTrq,crsSpd,emoTrqMax) + batPwrAux;
 
-batPwrMin = codegen_interp2(par.emoSpdMgd,par.emoTrqMgd,...
-    par.emoPwr_emoSpd_emoTrq,crsSpd,emoTrqMin) + batPwrAux;
+batPwrMin = codegen_interp2(fzg_array.emoSpdMgd,fzg_array.emoTrqMgd,...
+    fzg_array.emoPwr_emoSpd_emoTrq,crsSpd,emoTrqMin) + batPwrAux;
 
 % überprüfen, ob Batterieleistung möglich
 %   make sure that current battery max power is not above bat max bounds
-if batPwrMax > par.batPwrMax
-    batPwrMax = par.batPwrMax;
+if batPwrMax > fzg_scalar.batPwrMax
+    batPwrMax = fzg_scalar.batPwrMax;
 end
 
 % überprüfen, ob Batterieleistung möglich
 %   make sure that current battery min power is not below bat min bounds
 
-if batPwrMin > par.batPwrMax
-    batPwrMin = par.batPwrMax;
+if batPwrMin > fzg_scalar.batPwrMax
+    batPwrMin = fzg_scalar.batPwrMax;
 end
 
 % Es kann vorkommen, dass mehr Leistung gespeist werden soll, als
-% möglich ist.
+% m�glich ist.
 %   double check that the max and min still remain within the other bounds
-if batPwrMax < par.batPwrMin
-    batPwrMax = par.batPwrMin;
+if batPwrMax < fzg_scalar.batPwrMin
+    batPwrMax = fzg_scalar.batPwrMin;
 end
 
-if batPwrMin < par.batPwrMin
-    batPwrMin = par.batPwrMin;
+if batPwrMin < fzg_scalar.batPwrMin
+    batPwrMin = fzg_scalar.batPwrMin;
 end
 
 % Batteriespannung aus Kennkurve berechnen
 %   calculating battery voltage of characteristic curve - eq?--------------
-batOcv = batEngAct*par.batOcvCof_batEng(1,1) + par.batOcvCof_batEng(1,2);
+batOcv = batEngAct*fzg_array.batOcvCof_batEng(1,1) + fzg_array.batOcvCof_batEng(1,2);
 
 batEngDltMin = batFrcClc_port(... FUNCTION CALL - min delta bat.energy
     batPwrMax,...           Skalar - Batterieklemmleistung
     vel,...                 Skalar - mittlere Geschwindigkeit im Intervall
-    par.batRstDch,...       Skalar - Entladewiderstand
-    par.batRstChr,...       Skalar - Ladewiderstand
+    fzg_scalar.batRstDch,...Skalar - Entladewiderstand
+    fzg_scalar.batRstChr,...Skalar - Ladewiderstand
     batOcv...               Skalar - battery open-circuit voltage 
     ) * wayStp; % <-multiply by delta_S
 
 batEngDltMax = batFrcClc_port(... FUNCTION CALL - max delta bat.energy
     batPwrMin,...           Skalar - Batterieklemmleistung
     vel,...                 Skalar - mittlere Geschwindigkeit im Intervall
-    par.batRstDch,...       Skalar - Entladewiderstand
-    par.batRstChr,...       Skalar - Ladewiderstand
+    fzg_scalar.batRstDch,...Skalar - Entladewiderstand
+    fzg_scalar.batRstChr,...Skalar - Ladewiderstand
     batOcv...               Skalar - battery open-circuit voltage 
     ) * wayStp;
 

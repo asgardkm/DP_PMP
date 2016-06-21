@@ -1,9 +1,9 @@
 function [...
-    emoPwrEle, ...  Skalar für die Batterieleistung
+    emoPwrEle, ...  Skalar fÃ¼r die Batterieleistung
     fulFrc ...      Skalar Kraftstoffkraft
     ] = ...
     fulEngClc_port...
-    (wayStp,...     Skalar für die Wegschrittweite in m
+    (wayStp,...     Skalar fÃ¼r die Wegschrittweite in m
     vel,...         vehicular velocity
     batPwrAux,...   Nebenverbraucherlast
     batOcv,...      Skalar - battery open circuit voltage
@@ -50,9 +50,9 @@ batFrc = batEngDlt / wayStp;
 %   Case analysis - check if battery is charging or discharging. Set
 %   resistance accordingly
 if batFrc < 0
-    batRst = fzg_scalar.batRstDch;
+    batRst = par.batRstDch;
 else
-    batRst = fzg_scalar.batRstChr;
+    batRst = par.batRstChr;
 end
 
 % elektrische Leistung des Elektromotors
@@ -67,8 +67,8 @@ emoPwrEle = -batFrc * vel ... innere Batterieleistung / internal batt power
 %   determine crankshaft torque cauesd by EM's battery power
 %       switching out codegen_interp2 for lininterp2-just might work!
 %
-emoTrq = codegen_interp2(fzg_array.emoSpdMgd,fzg_array.emoPwrMgd,...
-  fzg_array.emoTrq_emoSpd_emoPwr,crsSpd,emoPwrEle);
+emoTrq = codegen_interp2(par.emoSpdMgd,par.emoPwrMgd,...
+  par.emoTrq_emoSpd_emoPwr,crsSpd,emoPwrEle);
 % emoTrq = lininterp2(par.emoSpdMgd(1,:), par.emoPwrMgd(:,1),...
 %     par.emoTrq_emoSpd_emoPwr',crsSpd,emoPwrEle);
 
@@ -99,8 +99,8 @@ elseif iceTrq > iceTrqMax
     fulPwr = inf;
 else   
     % replacing another coden_interp2
-    fulPwr = codegen_interp2(fzg_array.iceSpdMgd,fzg_array.iceTrqMgd,...
-        fzg_array.iceFulPwr_iceSpd_iceTrq,crsSpd,iceTrq);
+    fulPwr = codegen_interp2(par.iceSpdMgd,par.iceTrqMgd,...
+        par.iceFulPwr_iceSpd_iceTrq,crsSpd,iceTrq);
 %     fulPwr = lininterp2(par.iceSpdMgd(1,:), par.iceTrqMgd(:,1), ...
 %         par.iceFulPwr_iceSpd_iceTrq', crsSpd, iceTrq);
 end

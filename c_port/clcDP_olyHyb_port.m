@@ -1,30 +1,31 @@
-function [...           --- Ausgangsgrößen:
-    optPreInxTn3, ...   Tensor 3. Stufe für opt. Vorgängerkoordinaten
-    batFrcOptTn3, ...   Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn3, ...   Tensor 3. Stufe für die Kraftstoffenergie 
-    cos2goActMat ...    Matrix der optimalen Kosten der Hamiltonfunktion 
-    ] = ...
+function [          ...  --- Ausgangsgrößen:
+    optPreInxTn3,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
+    batFrcOptTn3,   ... Tensor 3. Stufe der Batteriekraft
+    fulEngOptTn3,   ... Tensor 3. Stufe für die Kraftstoffenergie 
+    cos2goActMat    ... Matrix der optimalen Kosten der Hamiltonfunktion 
+    ] =             ...
     clcDP_olyHyb_port...
-    ( ...               --- Eingangsgrößen:
-    disFlg, ...         Skalar - Flag für Ausgabe in das Commandwindow
-    wayStp,...          Skalar für die Wegschrittweite in m
-    batEngStp,...       Skalar der Batteriediskretisierung in J
-    batEngBeg,...       Skalar für die Batterieenergie am Beginn in Ws
-    batPwrAux,...       Skalar für die Nebenverbrauchlast in W
-    psiBatEng,...       Skalar für den Co-State der Batterieenergie
-    psiTim,...          Skalar für den Co-State der Zeit
-    staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
-    wayInxBeg,...       Skalar für Anfangsindex in den Eingangsdaten
-    wayInxEnd,...       Skalar für Endindex in den Eingangsdaten
-    engKinBegInx,...    Skalar für den Index der Anfangsgeschwindigkeit
-    engKinNum,...       Skalar für die max. Anz. an engKin-Stützstellen
-    staNum,...          Skalar für die max. Anzahl an Zustandsstützstellen
-    wayNum,...          Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
-    staBeg,...          Skalar für den Startzustand des Antriebsstrangs
-    engKinNumVec_wayInx,... Vektor der Anzahl der kinetischen Energien
-    slpVec_wayInx,...   Vektor der Steigungen in rad
+    (               ... --- Eingangsgrößen:
+    disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
+    wayStp,         ... Skalar f�r die Wegschrittweite in m
+    batEngStp,      ... Skalar der Batteriediskretisierung in J
+    batEngBeg,      ... Skalar f�r die Batterieenergie am Beginn in Ws
+    batPwrAux,      ... Skalar f�r die Nebenverbrauchlast in W
+    psiBatEng,      ... Skalar f�r den Co-State der Batterieenergie
+    psiTim,         ... Skalar f�r den Co-State der Zeit
+    staChgPenCosVal,... Skalar f�r die Strafkosten beim Zustandswechsel
+    wayInxBeg,      ... Skalar f�r Anfangsindex in den Eingangsdaten
+    wayInxEnd,      ... Skalar f�r Endindex in den Eingangsdaten
+    engKinBegInx,   ... Skalar f�r den Index der Anfangsgeschwindigkeit
+    engKinNum,      ... Skalar f�r die max. Anz. an engKin-Stützstellen
+    staNum,         ... Skalar f�r die max. Anzahl an Zustandsstützstellen
+    wayNum,         ... Skalar f�r die Stufe der Batteriekraftmax. Anzahl an Wegst�tzstellen
+    staBeg,         ... Skalar f�r den Startzustand des Antriebsstrangs
+    engKinNumVec_wayInx,       ... Vektor der Anzahl der kinetischen Energien
+    slpVec_wayInx,  ... Vektor der Steigungen in rad
     engKinMat_engKinInx_wayInx,... Matrix der kinetischen Energien in J
-    FZG...              struct der FahrzeugFZGameter
+    fzg_scalar,     ... struct der Fahrzeugparameter - NUR SKALARS
+    fzg_array       ... struct der Fahrzeugparameter - NUR ARRAYS
     )%#codegen
 %
 %INIDP Calculating optimal predecessors with DP + PMP
@@ -82,12 +83,12 @@ if isempty(geaNum)
     geaNum = staNum; % max number of state nodes
     
     % Fahrzeugmasse;
-    vehMas = FZG.vehMas;
+    vehMas = fzg_scalar.vehMas;
  
     % minmiale und maximale Beschleunigung
     %   min and max accerlations (bounds)
-    vehAccMin = FZG.vehAccMin;
-    vehAccMax = FZG.vehAccMax;
+    vehAccMin = fzg_scalar.vehAccMin;
+    vehAccMax = fzg_scalar.vehAccMax;
     
     % In dieser Version ist der Motor immer an
     iceFlg = true;
@@ -316,7 +317,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     [cosHam,batFrc,fulFrc] = ...
                         clcPMP_olyHyb_port(engKinPre,engKinAct,gea,...
                         slp,iceFlg,batEng,psiBatEng,psiTim,batPwrAux,...
-                        batEngStp,wayStp,FZG);
+                        batEngStp,wayStp,fzg_scalar, fzg_array);
                     
 %                     % minimale Kosten der Hamiltonfunktion zum aktuellen
 %                     % Punkt bestimmen

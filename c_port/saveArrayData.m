@@ -1,16 +1,16 @@
-function[tst_array_struct, fzg_array_struct] = saveArrayData(datafile_dir)
+function[tst_array_struct, fzg_array_struct] = ...
+    saveArrayData(datafile_dir, tst_array_dir, fzg_array_dir)
 % function : find, write, and save array data from testData model runs and
-% from fahrzeug parameters. Reason being is because array data must be
-% parsed differently in the c code port than the scalars, requiring a 
-% seperation between the two when calling the clcDP_port function w/ CODER
+%   from fahrzeug parameters. Reason being is because array data must be
+%   parsed differently in the c code port than the scalars, requiring a 
+%   seperation between the two when calling clcDP_port() with MATLAB_CODER
 %
-% input  :  datafile_dir : string containing directory to raw data
-%           write_bool   : bool whether user wishes to rewrite array data
+% input  : datafile_dir     : string containing directory to raw data
+%
 % output : tst_array_struct : structure with array data only from tst model
 %          fzg_array_struct : structure with array data onlz from fahrzeug  
 %
-% created on 21.06.2016 - asgard kaleb marroquin
-%
+% created 21.06.2016 - asgard kaleb marroquin
 %% load all data
 % load in old saved data - this contains mix of scalar and array data
 tstDat800 = load(fullfile(datafile_dir, 'tstDat800'));
@@ -63,4 +63,7 @@ for i = 1 : length(fzg_array_names)
     dlmwrite(fullfile(datafile_dir, sprintf('FZG.%s.txt', i_name)), fzg_array_struct.(i_name), ' ');
 end
 
+%% write array data to .mat files
+save(tst_array_dir, 'tst_array_struct');
+save(fzg_array_dir, 'fzg_array_struct');
 end
