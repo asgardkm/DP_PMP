@@ -74,19 +74,19 @@ Test data parameters used on a 800 path_index long run.
 Value,			Variable Name,  	Description (examples in brackets)
 FAHRZEUG_START
 5,				vehVelMin,			a
-30,				wayNum,				a
+30,				vehVelMax,			a
 1.5,			vehAccMax,			a
 -1.5,			vehAccMin,			a
 0.39,			drgCof,				a
 1800,			vehMas,				a
 0.0088,			whlRosResCof,		a
 0.3156,			whlDrr,				a
-0.0334,			batRstChr,			a
+0.0334,			batRstChr,			why
 0.0406,			batRstDch,			hello
 2704300,		batEngMax,			there
 20000,			batPwrMax,			how
 -25000,			batPwrMin,			you
-0.9806,			batEngMax,			doing
+0.9806,			geaEfy,				doing
 0.74,			fulDen,				today
 41040000,		fulLhv,				bottle
 FAHRZEUG_END

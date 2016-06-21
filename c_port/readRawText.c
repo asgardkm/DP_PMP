@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <string.h>				// for strcmp() and strtok() invocations
 #include "readRawText.h"
-float *readRawText(char *data_dir, char *config_prefix, char *config_filename, int data_row, int data_col, float buff[data_row][data_col]) {
+float *readRawText(char *data_dir, char *config_prefix, char *config_filename, int data_row, int data_col, float buff[][data_col]) {
 	
 	FILE *fp;	// file pointer
 
@@ -45,7 +45,7 @@ float *readRawText(char *data_dir, char *config_prefix, char *config_filename, i
 	
 	// define outloop array!
 //	float output_array[data_row][data_col];
-	float *output_array;
+	static float *output_array;
 //	output_pointer = &output_array[0][0];
 	output_array = &buff[0][0];
 	fp = fopen(final_filename, "r");
@@ -80,12 +80,12 @@ float *readRawText(char *data_dir, char *config_prefix, char *config_filename, i
 	fclose(fp);
 	
 	// print out array
-	for (i = 0; i < data_row; i++){
-		for (j = 0; j < data_col; j++){
-			printf("output_array[%d][%d]: %4.4f\n", i, j, buff[i][j]);
-		}
-	}
-	getchar();
+//	for (i = 0; i < data_row; i++){
+//		for (j = 0; j < data_col; j++){
+//			printf("output_array[%d][%d]: %4.4f\n", i, j, buff[i][j]);
+//		}
+//	}
+//	getchar();
 	return output_array;	
 }
 

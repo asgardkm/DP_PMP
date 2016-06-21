@@ -2,7 +2,23 @@
 // created 15.June.2016 by Asgard Kaleb Marroquin
 //
 // step 1: include the readConfig_ctest.c function and get the vars
-// into this environment and print
+// into this environment and print - Done 20.06.2016!
+// step 2: load in all the vector and matrix data from matlab b/c the loadin
+// functions from matlab cannot be ported directly into c w/ matlab coder
+// step 3: organize all the inputs as structures (respective structures?) _ necessary?
+// step 4: feed inputs into generated DP_PMP algorithm code and see what happens
+
+//---------------------------------------------------------------------------
+// NOTE: POINTER ARITHMETIC WITH 2D ARRAYS:
+// to call the [m][n] value from array with dims dataArray[m_all][n_all]:
+//			*((int *)dataArray+m * n_all+n));
+//	OR
+// can also assign a pointer *dataPointer, so that
+//			dataPointer = &dataArray[0][0];
+// and therefore call with
+//			*(dataPointer+m * n_all+n);
+//---------------------------------------------------------------------------
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "readConfig.h"
@@ -11,7 +27,7 @@
 #define CONFIGFILE_DIR "mainConfig.txt"		// define mainConfig.txt file location
 
 int main(void){
-		int i;								// loop var
+		int i, m, n;								// loop vars
 		
 		char *configfile;					// define mainConfig.txt file location
 		configfile = CONFIGFILE_DIR; 			
@@ -79,21 +95,38 @@ int main(void){
 		char raw_data_dir[] = "raw_data";
 		// define struct prefix
 		char fzg_prefix[] = "FZG";
+		
 		// first define them - sending them into a struct?
+		// can this be made into a structure or something? - 21.06.2016
+		// in a structre, make arrays of:
+		//  - the pointer variable
+		//  - variable buffer
+		//  - string name of text folder value
+		//	- row length of input value
+		//	- col length of input value
 		//FZG.iceTrqMaxCof.txt(1x3)
 		float *iceTrqMaxCof;
 		float iceTrqMaxCof_buffer[1][3];
-		
 		iceTrqMaxCof = readRawText(raw_data_dir, fzg_prefix, "iceTrqMaxCof",  1, 3, iceTrqMaxCof_buffer);
-		
+//		for (m = 0; m < 1; m++){
+//			for (n = 0; n < 3; n++){
+//				printf("iceTrqMaxCof[%d][%d]: %4.2f\n", m, n, *(iceTrqMaxCof+m * 3+n));
+//			}
+//		}
 		// time to load in other vectors!
 		//FZG.emoPwr_emoSpd_emoTrq.txt() (150x100)
 		float *emoPwr_emoSpd_emoTrq;
 		float emoPwr_emoSpd_emoTrq_buffer[150][100];
+//		emoPwr_emoSpd_emoTrq = &emoPwr_emoSpd_emoTrq_buffer[0][0];
 		emoPwr_emoSpd_emoTrq = readRawText(raw_data_dir, fzg_prefix, "emoPwr_emoSpd_emoTrq", 150, 100, emoPwr_emoSpd_emoTrq_buffer);
 		
-
-//		// free dynamically allocated structure
+//		for (m = 0; m < 150; m++){
+//				for (n = 0; n < 100; n++){
+//						printf("emoPwr_emoSpd_emoTrq[%d][%d]: %4.2f\n", m, n, *(emoPwr_emoSpd_emoTrq+m * 100 + n));
+//				}
+//		}
+		
+		// free dynamically allocated structure
 		free(params_struct);
 		free(tstdat_struct);
 		free(fahrzg_struct);
