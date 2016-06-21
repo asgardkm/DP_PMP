@@ -21,15 +21,15 @@ const volatile char_T *emlrtBreakCheckR2012bFlagVar;
 emlrtContext emlrtContextGlobal = { true, false, 131418U, NULL, "clcDP_port",
   NULL, false, { 2045744189U, 2170104910U, 2743257031U, 4284093946U }, NULL };
 
-emlrtRSInfo u_emlrtRSI = { 39, "sub2ind",
+emlrtRSInfo s_emlrtRSI = { 39, "sub2ind",
   "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\elmat\\sub2ind.m"
 };
 
-emlrtRSInfo v_emlrtRSI = { 71, "sub2ind",
+emlrtRSInfo t_emlrtRSI = { 71, "sub2ind",
   "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\elmat\\sub2ind.m"
 };
 
-emlrtRSInfo w_emlrtRSI = { 20, "eml_int_forloop_overflow_check",
+emlrtRSInfo u_emlrtRSI = { 20, "eml_int_forloop_overflow_check",
   "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\eml\\eml_int_forloop_overflow_check.m"
 };
 

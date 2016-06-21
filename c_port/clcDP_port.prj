@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.coder" plugin-version="R2015a">
-  <configuration build-checksum="1341611984" file="C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port\clcDP_port.prj" location="C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port" name="clcDP_port" target="target.unifiedcoder" target-name="MATLAB Coder">
+  <configuration build-checksum="1078279688" file="C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port\clcDP_port.prj" location="C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port" name="clcDP_port" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
       <param.BuiltInstrumentedMex>false</param.BuiltInstrumentedMex>
       <param.RanInstrumentedMex>false</param.RanInstrumentedMex>
@@ -102,7 +102,7 @@
       </unset>
     </profile>
     <profile key="profile.c">
-      <param.grt.GenCodeOnly>true</param.grt.GenCodeOnly>
+      <param.grt.GenCodeOnly>false</param.grt.GenCodeOnly>
       <param.WorkingFolder>option.WorkingFolder.Project</param.WorkingFolder>
       <param.SpecifiedWorkingFolder />
       <param.BuildFolder>option.BuildFolder.Project</param.BuildFolder>
@@ -694,13 +694,13 @@
       </unset>
     </profile>
     <param.objective>option.objective.c</param.objective>
-    <param.WorkflowStep>generateCode</param.WorkflowStep>
+    <param.WorkflowStep>workflowSummary</param.WorkflowStep>
     <param.TestSnippets>
       <item>clcDP_port_benchmark</item>
     </param.TestSnippets>
     <param.DefaultImportExportVariable>config</param.DefaultImportExportVariable>
     <param.UseGlobals>option.UseGlobals.No</param.UseGlobals>
-    <param.outputfile>${PROJECT_ROOT}\codegen\lib\clcDP_port\clcDP_port.lib</param.outputfile>
+    <param.outputfile>${PROJECT_ROOT}\clcDP_port_mex.mexw64</param.outputfile>
     <param.version>R2012a</param.version>
     <param.HasECoderFeatures>true</param.HasECoderFeatures>
     <param.mex.mainhtml />
@@ -712,7 +712,7 @@
     <param.AutoInferVariableSizeThreshold>1024</param.AutoInferVariableSizeThreshold>
     <param.AutoInferUnboundedSizeThreshold>2048</param.AutoInferUnboundedSizeThreshold>
     <param.EnableFixedPointStep>false</param.EnableFixedPointStep>
-    <param.AnnotationChecksum>1820487120</param.AnnotationChecksum>
+    <param.AnnotationChecksum>2974024698</param.AnnotationChecksum>
     <var.LegacyTarget />
     <var.MirrorOnOpen>false</var.MirrorOnOpen>
     <param.FixedPointEnabled>false</param.FixedPointEnabled>
@@ -721,8 +721,8 @@
     <param.unifiedParamStorage />
     <param.mex.outputfile>clcDP_port_mex</param.mex.outputfile>
     <param.grt.outputfile>clcDP_port</param.grt.outputfile>
-    <param.artifact>option.target.artifact.lib</param.artifact>
-    <param.outputfile>${PROJECT_ROOT}\codegen\lib\clcDP_port\clcDP_port.lib</param.outputfile>
+    <param.artifact>option.target.artifact.mex</param.artifact>
+    <param.outputfile>${PROJECT_ROOT}\clcDP_port_mex.mexw64</param.outputfile>
     <param.EnableAutoExtrinsicCalls>true</param.EnableAutoExtrinsicCalls>
     <param.UsePreconditions>false</param.UsePreconditions>
     <param.FeatureFlags />
@@ -816,100 +816,467 @@
     <fileset.entrypoints>
       <file custom-data-expanded="false" value="${PROJECT_ROOT}\clcDP_port.m">
         <Inputs fileName="clcDP_port.m" functionName="clcDP_port">
-          <Input Name="disFlg">
-            <Class>double</Class>
+          <Input Name="inputparams">
+            <Class>struct</Class>
             <Size>1 x 1</Size>
             <Value />
             <InitialValue />
             <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
+            <TypeName />
+            <Extern>false</Extern>
+            <HeaderFile />
+            <Alignment>0</Alignment>
+            <Field Name="disFlg">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="wayStp">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="engKinBegInx">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="batEngStp">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="batEngBeg">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="batPwrAux">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="psiBatEng">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="psiTim">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="staChgPenCosVal">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="wayInxBeg">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="wayInxEnd">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="staBeg">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
           </Input>
-          <Input Name="wayStp">
-            <Class>double</Class>
+          <Input Name="testparams">
+            <Class>struct</Class>
             <Size>1 x 1</Size>
             <Value />
             <InitialValue />
             <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
+            <TypeName />
+            <Extern>false</Extern>
+            <HeaderFile />
+            <Alignment>0</Alignment>
+            <Field Name="staNum">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="wayNum">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="engKinNum">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
           </Input>
-          <Input Name="batEngStp">
-            <Class>double</Class>
+          <Input Name="fahrparams">
+            <Class>struct</Class>
             <Size>1 x 1</Size>
             <Value />
             <InitialValue />
             <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
+            <TypeName />
+            <Extern>false</Extern>
+            <HeaderFile />
+            <Alignment>0</Alignment>
+            <Field Name="vehVelMin">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="vehVelMax">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="vehAccMax">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="vehAccMin">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="drgCof">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="vehMas">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="whlRosResCof">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="whlDrr">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="batRstChr">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="batRstDch">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="batEngMax">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="batPwrMax">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="batPwrMin">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="geaEfy">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="fulDen">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="fulLhv">
+              <Class>double</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
           </Input>
-          <Input Name="batEngBeg">
-            <Class>double</Class>
+          <Input Name="tst_array_struct">
+            <Class>struct</Class>
             <Size>1 x 1</Size>
             <Value />
             <InitialValue />
             <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
+            <TypeName />
+            <Extern>false</Extern>
+            <HeaderFile />
+            <Alignment>0</Alignment>
+            <Field Name="slpVec_wayInx">
+              <Class>double</Class>
+              <Size>800 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="engKinMat_engKinInx_wayInx">
+              <Class>double</Class>
+              <Size>11 x 800</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="engKinNumVec_wayInx">
+              <Class>double</Class>
+              <Size>800 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
           </Input>
-          <Input Name="batPwrAux">
-            <Class>double</Class>
+          <Input Name="fzg_array_struct">
+            <Class>struct</Class>
             <Size>1 x 1</Size>
             <Value />
             <InitialValue />
             <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
-          </Input>
-          <Input Name="psiBatEng">
-            <Class>double</Class>
-            <Size>1 x 1</Size>
-            <Value />
-            <InitialValue />
-            <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
-          </Input>
-          <Input Name="psiTim">
-            <Class>double</Class>
-            <Size>1 x 1</Size>
-            <Value />
-            <InitialValue />
-            <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
-          </Input>
-          <Input Name="staChgPenCosVal">
-            <Class>double</Class>
-            <Size>1 x 1</Size>
-            <Value />
-            <InitialValue />
-            <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
-          </Input>
-          <Input Name="wayInxBeg">
-            <Class>double</Class>
-            <Size>1 x 1</Size>
-            <Value />
-            <InitialValue />
-            <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
-          </Input>
-          <Input Name="wayInxEnd">
-            <Class>double</Class>
-            <Size>1 x 1</Size>
-            <Value />
-            <InitialValue />
-            <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
-          </Input>
-          <Input Name="staBeg">
-            <Class>double</Class>
-            <Size>1 x 1</Size>
-            <Value />
-            <InitialValue />
-            <UserDefined>false</UserDefined>
-            <Complex>false</Complex>
+            <TypeName />
+            <Extern>false</Extern>
+            <HeaderFile />
+            <Alignment>0</Alignment>
+            <Field Name="batOcvCof_batEng">
+              <Class>double</Class>
+              <Size>1 x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="geaRat">
+              <Class>double</Class>
+              <Size>1 x 6</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="iceSpdMgd">
+              <Class>double</Class>
+              <Size>150 x 100</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="iceTrqMgd">
+              <Class>double</Class>
+              <Size>150 x 100</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="iceFulPwr_iceSpd_iceTrq">
+              <Class>double</Class>
+              <Size>150 x 100</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="iceTrqMaxCof">
+              <Class>double</Class>
+              <Size>1 x 3</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="iceTrqMinCof">
+              <Class>double</Class>
+              <Size>1 x 3</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="emoSpdMgd">
+              <Class>double</Class>
+              <Size>150 x 100</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="emoTrqMgd">
+              <Class>double</Class>
+              <Size>150 x 100</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="emoPwr_emoSpd_emoTrq">
+              <Class>double</Class>
+              <Size>150 x 100</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="emoTrqMin_emoSpd">
+              <Class>double</Class>
+              <Size>100 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="emoTrqMax_emoSpd">
+              <Class>double</Class>
+              <Size>100 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="emoPwrMgd">
+              <Class>double</Class>
+              <Size>150 x 100</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="emoTrq_emoSpd_emoPwr">
+              <Class>double</Class>
+              <Size>150 x 100</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="emoPwrMax_emoSpd">
+              <Class>double</Class>
+              <Size>100 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
+            <Field Name="emoPwrMin_emoSpd">
+              <Class>double</Class>
+              <Size>100 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </Field>
           </Input>
         </Inputs>
       </file>
     </fileset.entrypoints>
     <fileset.testbench />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\codegen\lib\clcDP_port" name="clcDP_port.lib" optional="false">C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port\codegen\lib\clcDP_port\clcDP_port.lib</file>
+      <file location="C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port" name="clcDP_port_mex.mexw64" optional="false">C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port\clcDP_port_mex.mexw64</file>
     </build-deliverables>
     <workflow />
     <matlab>

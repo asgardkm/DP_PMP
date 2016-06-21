@@ -19,11 +19,11 @@
 #include <stdio.h>
 
 /* Variable Definitions */
-static emlrtRSInfo ob_emlrtRSI = { 108, "diff",
+static emlrtRSInfo mb_emlrtRSI = { 108, "diff",
   "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\datafun\\diff.m"
 };
 
-static emlrtRSInfo pb_emlrtRSI = { 106, "diff",
+static emlrtRSInfo nb_emlrtRSI = { 106, "diff",
   "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\datafun\\diff.m"
 };
 
@@ -80,7 +80,7 @@ void diff(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y)
         ixLead = 1;
         iyLead = 0;
         work_data_idx_0 = x->data[0];
-        st.site = &pb_emlrtRSI;
+        st.site = &nb_emlrtRSI;
         if (2 > x->size[0]) {
           overflow = false;
         } else {
@@ -88,13 +88,13 @@ void diff(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y)
         }
 
         if (overflow) {
-          b_st.site = &w_emlrtRSI;
+          b_st.site = &u_emlrtRSI;
           check_forloop_overflow_error(&b_st);
         }
 
         for (m = 2; m <= x->size[0]; m++) {
           tmp1 = x->data[ixLead];
-          st.site = &ob_emlrtRSI;
+          st.site = &mb_emlrtRSI;
           tmp2 = work_data_idx_0;
           work_data_idx_0 = tmp1;
           tmp1 -= tmp2;

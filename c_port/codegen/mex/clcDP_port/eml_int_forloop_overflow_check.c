@@ -23,10 +23,10 @@ static emlrtRTEInfo u_emlrtRTEI = { 87, 21, "eml_int_forloop_overflow_check",
 /* Function Definitions */
 void check_forloop_overflow_error(const emlrtStack *sp)
 {
-  static const char_T cv3[5] = { 'i', 'n', 't', '3', '2' };
+  static const char_T cv1[5] = { 'i', 'n', 't', '3', '2' };
 
   emlrtErrorWithMessageIdR2012b(sp, &u_emlrtRTEI,
-    "Coder:toolbox:int_forloop_overflow", 3, 4, 5, cv3);
+    "Coder:toolbox:int_forloop_overflow", 3, 4, 5, cv1);
 }
 
 /* End of code generation (eml_int_forloop_overflow_check.c) */

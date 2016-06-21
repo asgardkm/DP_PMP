@@ -25,8 +25,8 @@
 #include "clcDP_port_types.h"
 
 /* Function Declarations */
-extern void clcDP_port_api(clcDP_portStackData *SD, const mxArray * const prhs
-  [11], const mxArray *plhs[7]);
+extern void clcDP_port_api(clcDP_portStackData *SD, const mxArray * const prhs[5],
+  const mxArray *plhs[7]);
 
 #endif
 

@@ -25,31 +25,22 @@
 #include "clcDP_port_types.h"
 
 /* Function Declarations */
-extern real_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
+extern real_T b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtMsgIdentifier *parentId);
 
 #ifdef __WATCOMC__
 
-#pragma aux c_emlrt_marshallIn value [8087];
+#pragma aux b_emlrt_marshallIn value [8087];
 
 #endif
 
 extern const mxArray *emlrt_marshallOut(const real_T u);
-extern real_T m_emlrt_marshallIn(const emlrtStack *sp, const mxArray *c_feval,
-  const char_T *identifier);
-
-#ifdef __WATCOMC__
-
-#pragma aux m_emlrt_marshallIn value [8087];
-
-#endif
-
-extern real_T n_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
+extern real_T t_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId);
 
 #ifdef __WATCOMC__
 
-#pragma aux n_emlrt_marshallIn value [8087];
+#pragma aux t_emlrt_marshallIn value [8087];
 
 #endif
 #endif

@@ -31,11 +31,11 @@
 <a name="19"><font color="#888888 "><i>   19   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&lt;stdio.h&gt;</font>
 <a name="20"><font color="#888888 "><i>   20   </i></font></a>
 <a name="21"><font color="#888888 "><i>   21   </i></font></a><font color="#117755"><i>/* Variable Definitions */</i></font>
-<a name="22"><font color="#888888 "><i>   22   </i></font></a><font color="#112266"><b>static</b></font> emlrtRSInfo <a name="var_ob_emlrtRSI">ob_emlrtRSI</a> = <b>{</b> 108, <font color="#1122ff">&quot;diff&quot;</font>,
+<a name="22"><font color="#888888 "><i>   22   </i></font></a><font color="#112266"><b>static</b></font> emlrtRSInfo <a name="var_mb_emlrtRSI">mb_emlrtRSI</a> = <b>{</b> 108, <font color="#1122ff">&quot;diff&quot;</font>,
 <a name="23"><font color="#888888 "><i>   23   </i></font></a>  <font color="#1122ff">&quot;C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\datafun\\diff.m&quot;</font>
 <a name="24"><font color="#888888 "><i>   24   </i></font></a><b>}</b>;
 <a name="25"><font color="#888888 "><i>   25   </i></font></a>
-<a name="26"><font color="#888888 "><i>   26   </i></font></a><font color="#112266"><b>static</b></font> emlrtRSInfo <a name="var_pb_emlrtRSI">pb_emlrtRSI</a> = <b>{</b> 106, <font color="#1122ff">&quot;diff&quot;</font>,
+<a name="26"><font color="#888888 "><i>   26   </i></font></a><font color="#112266"><b>static</b></font> emlrtRSInfo <a name="var_nb_emlrtRSI">nb_emlrtRSI</a> = <b>{</b> 106, <font color="#1122ff">&quot;diff&quot;</font>,
 <a name="27"><font color="#888888 "><i>   27   </i></font></a>  <font color="#1122ff">&quot;C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\datafun\\diff.m&quot;</font>
 <a name="28"><font color="#888888 "><i>   28   </i></font></a><b>}</b>;
 <a name="29"><font color="#888888 "><i>   29   </i></font></a>
@@ -92,7 +92,7 @@
 <a name="80"><font color="#888888 "><i>   80   </i></font></a>        ixLead = 1;
 <a name="81"><font color="#888888 "><i>   81   </i></font></a>        iyLead = 0;
 <a name="82"><font color="#888888 "><i>   82   </i></font></a>        work_data_idx_0 = x-&gt;data[0];
-<a name="83"><font color="#888888 "><i>   83   </i></font></a>        st.site = &amp;<a href="#var_pb_emlrtRSI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_pb_emlrtRSI');" target="_self"><font color="#1122aa">pb_emlrtRSI</font></a>;
+<a name="83"><font color="#888888 "><i>   83   </i></font></a>        st.site = &amp;<a href="#var_nb_emlrtRSI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_nb_emlrtRSI');" target="_self"><font color="#1122aa">nb_emlrtRSI</font></a>;
 <a name="84"><font color="#888888 "><i>   84   </i></font></a>        <font color="#112266"><b>if</b></font> (2 &gt; x-&gt;size[0]) <b>{</b>
 <a name="85"><font color="#888888 "><i>   85   </i></font></a>          overflow = false;
 <a name="86"><font color="#888888 "><i>   86   </i></font></a>        <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
@@ -100,13 +100,13 @@
 <a name="88"><font color="#888888 "><i>   88   </i></font></a>        <b>}</b>
 <a name="89"><font color="#888888 "><i>   89   </i></font></a>
 <a name="90"><font color="#888888 "><i>   90   </i></font></a>        <font color="#112266"><b>if</b></font> (overflow) <b>{</b>
-<a name="91"><font color="#888888 "><i>   91   </i></font></a>          b_st.site = &amp;<a href="clcDP_port_data_c.html#var_w_emlrtRSI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_w_emlrtRSI');" target="_self"><font color="#1122aa">w_emlrtRSI</font></a>;
+<a name="91"><font color="#888888 "><i>   91   </i></font></a>          b_st.site = &amp;<a href="clcDP_port_data_c.html#var_u_emlrtRSI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_u_emlrtRSI');" target="_self"><font color="#1122aa">u_emlrtRSI</font></a>;
 <a name="92"><font color="#888888 "><i>   92   </i></font></a>          <a href="eml_int_forloop_overflow_check_c.html#fcn_check_forloop_overflow_error" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_check_forloop_overflow_error');" target="_self"><font color="#1122aa">check_forloop_overflow_error</font></a>(&amp;b_st);
 <a name="93"><font color="#888888 "><i>   93   </i></font></a>        <b>}</b>
 <a name="94"><font color="#888888 "><i>   94   </i></font></a>
 <a name="95"><font color="#888888 "><i>   95   </i></font></a>        <font color="#112266"><b>for</b></font> (m = 2; m &lt;= x-&gt;size[0]; m++) <b>{</b>
 <a name="96"><font color="#888888 "><i>   96   </i></font></a>          tmp1 = x-&gt;data[ixLead];
-<a name="97"><font color="#888888 "><i>   97   </i></font></a>          st.site = &amp;<a href="#var_ob_emlrtRSI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_ob_emlrtRSI');" target="_self"><font color="#1122aa">ob_emlrtRSI</font></a>;
+<a name="97"><font color="#888888 "><i>   97   </i></font></a>          st.site = &amp;<a href="#var_mb_emlrtRSI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mb_emlrtRSI');" target="_self"><font color="#1122aa">mb_emlrtRSI</font></a>;
 <a name="98"><font color="#888888 "><i>   98   </i></font></a>          tmp2 = work_data_idx_0;
 <a name="99"><font color="#888888 "><i>   99   </i></font></a>          work_data_idx_0 = tmp1;
 <a name="100"><font color="#888888 "><i>  100   </i></font></a>          tmp1 -= tmp2;

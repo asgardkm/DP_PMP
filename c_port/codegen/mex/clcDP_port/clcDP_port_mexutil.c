@@ -13,14 +13,15 @@
 #include "rt_nonfinite.h"
 #include "clcDP_port.h"
 #include "clcDP_port_mexutil.h"
+#include "fprintf.h"
 #include <stdio.h>
 
 /* Function Definitions */
-real_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
+real_T b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtMsgIdentifier *parentId)
 {
   real_T y;
-  y = n_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
+  y = t_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
   emlrtDestroyArray(&u);
   return y;
 }
@@ -28,26 +29,14 @@ real_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
 const mxArray *emlrt_marshallOut(const real_T u)
 {
   const mxArray *y;
-  const mxArray *m7;
+  const mxArray *m4;
   y = NULL;
-  m7 = emlrtCreateDoubleScalar(u);
-  emlrtAssign(&y, m7);
+  m4 = emlrtCreateDoubleScalar(u);
+  emlrtAssign(&y, m4);
   return y;
 }
 
-real_T m_emlrt_marshallIn(const emlrtStack *sp, const mxArray *c_feval, const
-  char_T *identifier)
-{
-  real_T y;
-  emlrtMsgIdentifier thisId;
-  thisId.fIdentifier = identifier;
-  thisId.fParent = NULL;
-  y = c_emlrt_marshallIn(sp, emlrtAlias(c_feval), &thisId);
-  emlrtDestroyArray(&c_feval);
-  return y;
-}
-
-real_T n_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
+real_T t_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId)
 {
   real_T ret;

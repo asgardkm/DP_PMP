@@ -26,10 +26,8 @@
 
 /* Function Declarations */
 extern void b_fprintf(const emlrtStack *sp);
-extern void d_fprintf(const emlrtStack *sp);
+extern void d_fprintf(const emlrtStack *sp, real_T formatSpec, real_T varargin_1);
 extern void f_fprintf(const emlrtStack *sp);
-extern void h_fprintf(const emlrtStack *sp, real_T formatSpec, real_T varargin_1);
-extern void j_fprintf(const emlrtStack *sp);
 
 #endif
 

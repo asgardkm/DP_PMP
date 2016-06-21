@@ -27,8 +27,9 @@
 /* Function Declarations */
 extern void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T
   engKinAct, real_T gea, real_T slp, real_T batEng, real_T psiBatEng, real_T
-  psiTim, real_T batPwrAux, real_T batEngStp, real_T wayStp, const struct_T *par,
-  real_T *cosHamMin, real_T *batFrcOut, real_T *fulFrcOut);
+  psiTim, real_T batPwrAux, real_T batEngStp, real_T wayStp, const struct2_T
+  *fzg_scalar, const struct4_T *fzg_array, real_T *cosHamMin, real_T *batFrcOut,
+  real_T *fulFrcOut);
 extern void crsSpdEmoMax_not_empty_init(void);
 extern void crsSpdHybMax_not_empty_init(void);
 extern void crsSpdHybMin_not_empty_init(void);

@@ -23,14 +23,14 @@ static clcDP_portStackData *clcDP_portStackDataGlobal = NULL;
 
 /* Function Declarations */
 static void clcDP_port_mexFunction(clcDP_portStackData *SD, int32_T nlhs,
-  mxArray *plhs[7], int32_T nrhs, const mxArray *prhs[11]);
+  mxArray *plhs[7], int32_T nrhs, const mxArray *prhs[5]);
 
 /* Function Definitions */
 static void clcDP_port_mexFunction(clcDP_portStackData *SD, int32_T nlhs,
-  mxArray *plhs[7], int32_T nrhs, const mxArray *prhs[11])
+  mxArray *plhs[7], int32_T nrhs, const mxArray *prhs[5])
 {
   int32_T n;
-  const mxArray *inputs[11];
+  const mxArray *inputs[5];
   const mxArray *outputs[7];
   int32_T b_nlhs;
   emlrtStack st = { NULL, NULL, NULL };
@@ -38,8 +38,8 @@ static void clcDP_port_mexFunction(clcDP_portStackData *SD, int32_T nlhs,
   st.tls = emlrtRootTLSGlobal;
 
   /* Check for proper number of arguments. */
-  if (nrhs != 11) {
-    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, 12, 11, 4,
+  if (nrhs != 5) {
+    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, 12, 5, 4,
                         10, "clcDP_port");
   }
 

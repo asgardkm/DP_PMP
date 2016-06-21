@@ -25,13 +25,12 @@
 #include "clcDP_port_types.h"
 
 /* Function Declarations */
-extern void clcDP_port(clcDP_portStackData *SD, const emlrtStack *sp, real_T
-  disFlg, real_T wayStp, real_T batEngStp, real_T batEngBeg, real_T batPwrAux,
-  real_T psiBatEng, real_T psiTim, real_T staChgPenCosVal, real_T wayInxBeg,
-  real_T wayInxEnd, real_T staBeg, emxArray_real_T *engKinOptVec,
-  emxArray_real_T *batEngDltOptVec, emxArray_real_T *fulEngDltOptVec,
-  emxArray_real_T *staVec, emxArray_real_T *psiEngKinOptVec, real_T *fulEngOpt,
-  boolean_T *resVld);
+extern void clcDP_port(const emlrtStack *sp, const struct0_T *inputparams, const
+  struct1_T *testparams, const struct2_T *fahrparams, const struct3_T
+  *tst_array_struct, const struct4_T *fzg_array_struct, emxArray_real_T
+  *engKinOptVec, emxArray_real_T *batEngDltOptVec, emxArray_real_T
+  *fulEngDltOptVec, emxArray_real_T *staVec, emxArray_real_T *psiEngKinOptVec,
+  real_T *fulEngOpt, boolean_T *resVld);
 
 #endif
 

@@ -28,11 +28,11 @@
 extern void clcDP_olyHyb_port(const emlrtStack *sp, real_T disFlg, real_T wayStp,
   real_T batEngStp, real_T batEngBeg, real_T batPwrAux, real_T psiBatEng, real_T
   psiTim, real_T staChgPenCosVal, real_T wayInxBeg, real_T wayInxEnd, real_T
-  engKinNum, real_T staNum, real_T wayNum, real_T staBeg, const real_T
-  engKinNumVec_wayInx[800], const real_T slpVec_wayInx[800], const real_T
-  engKinMat_engKinInx_wayInx[8800], const struct_T *FZG, emxArray_real_T
-  *optPreInxTn3, emxArray_real_T *batFrcOptTn3, emxArray_real_T *fulEngOptTn3,
-  emxArray_real_T *cos2goActMat);
+  engKinBegInx, real_T engKinNum, real_T staNum, real_T wayNum, real_T staBeg,
+  const real_T engKinNumVec_wayInx[800], const real_T slpVec_wayInx[800], const
+  real_T engKinMat_engKinInx_wayInx[8800], const struct2_T *fzg_scalar, const
+  struct4_T *fzg_array, emxArray_real_T *optPreInxTn3, emxArray_real_T
+  *batFrcOptTn3, emxArray_real_T *fulEngOptTn3, emxArray_real_T *cos2goActMat);
 extern void clcDP_olyHyb_port_init(void);
 extern void geaNum_not_empty_init(void);
 extern void iceFlg_not_empty_init(void);
