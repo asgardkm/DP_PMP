@@ -37,8 +37,9 @@ void *loadArrayData(struct1_T tstdat_scalar_struct){
 		
 		double *emoPwr_emoSpd_emoTrq_ptr;
 		double emoPwr_emoSpd_emoTrq_buffer[150][100];
-		double *iceTrqMaxCof_ptr;
+		double **iceTrqMaxCof_ptr;
 		double iceTrqMaxCof_buffer[1][3];
+		iceTrqMaxCof_ptr = &iceTrqMaxCof_buffer[0][0];
 
 //		// order in which to feed inputs to clc_DP_tmp.c ??
 		
@@ -54,14 +55,14 @@ void *loadArrayData(struct1_T tstdat_scalar_struct){
 		iceTrqMaxCof_ptr = readRawText(raw_data_dir, fzg_prefix, iceTrqMaxCof.string_name,  
 										iceTrqMaxCof.row_num, iceTrqMaxCof.col_num, iceTrqMaxCof.buffer);
 //iceTrqMaxCof_buffer
-		for (m = 0; m < 1; m++){
-			for (n = 0; n < 3; n++){
-				printf(" *(iceTrqMaxCof + (%d*3) + %d): %4.3f\n", m, n, *(iceTrqMaxCof_ptr+m * 3+n));
-				fzg_array_struct.iceTrqMaxCof[m*3+n] = *(iceTrqMaxCof_ptr+m * 3+n);
-				printf("fzg_array_struct.iceTrqMaxCof[%d]: %4.3f\n\n", m*3+n, fzg_array_struct.iceTrqMaxCof[m*3+n]);
-			}
-		}
-		//FZG.emoPwr_emoSpd_emoTrq.txt() (150x100)
+//		for (m = 0; m < 1; m++){
+//			for (n = 0; n < 3; n++){
+//				printf(" *(iceTrqMaxCof + (%d*3) + %d): %4.3f\n", m, n, *(iceTrqMaxCof_ptr+m * 3+n));
+//				fzg_array_struct.iceTrqMaxCof[m*3+n] = *(iceTrqMaxCof_ptr+m * 3+n);
+//				printf("fzg_array_struct.iceTrqMaxCof[%d]: %4.3f\n\n", m*3+n, fzg_array_struct.iceTrqMaxCof[m*3+n]);
+//			}
+//		}
+//		FZG.emoPwr_emoSpd_emoTrq.txt() (150x100)
 //		emoPwr_emoSpd_emoTrq = &emoPwr_emoSpd_emoTrq_buffer[0][0];
 //		emoPwr_emoSpd_emoTrq_ptr = readRawText(raw_data_dir, fzg_prefix, "emoPwr_emoSpd_emoTrq", 150, 100, emoPwr_emoSpd_emoTrq_buffer);
 		

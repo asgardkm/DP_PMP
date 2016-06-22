@@ -16,7 +16,7 @@
 #include <string.h>				// for strcmp() and strtok() invocations
 #include "readRawText.h"
 #define BUF_SIZE 1024
-double *readRawText(char *data_dir, char *config_prefix, char *config_filename, int data_row, int data_col, double buff[][data_col]) {
+double **readRawText(char *data_dir, char *config_prefix, char *config_filename, int data_row, int data_col, double buff[][data_col]) {
 	
 		FILE *fp;	// file pointer
 	
@@ -40,7 +40,7 @@ double *readRawText(char *data_dir, char *config_prefix, char *config_filename, 
 		int i = 0, j = 0;
 		
 		// define outloop array!
-		static double *output_array;
+		static double **output_array;		
 		output_array = &buff[0][0];
 		
 		fp = fopen(final_filename, "r");
@@ -61,7 +61,6 @@ double *readRawText(char *data_dir, char *config_prefix, char *config_filename, 
 		} else { 
 				printf ("The file could not be opened.\n");
 		}
-	
 		if (fclose(fp) != 0) {
 				printf ("The file could not be closed.\n");
 		}
