@@ -33,7 +33,7 @@ staBeg          = inputparams.staBeg;
 staNum          = testparams.staNum;
 wayNum          = testparams.wayNum;
 engKinNum       = testparams.engKinNum;
-slpVec_wayInx   = tst_array_struct.slpVec_wayInx;
+slpVec_wayInx               = tst_array_struct.slpVec_wayInx;
 engKinMat_engKinInx_wayInx  = tst_array_struct.engKinMat_engKinInx_wayInx;
 engKinNumVec_wayInx         = tst_array_struct.engKinNumVec_wayInx;
 %% Calculating optimal predecessors with DP + PMP

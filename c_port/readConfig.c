@@ -11,7 +11,6 @@
 // created 14.June.2016 by Asgard Kaleb Marroquin
 //
 #include <stdio.h>
-#include <stdlib.h>				// for malloc() invocation
 #include <string.h>				// for strcmp() and strtok() invocations
 #include "readConfig.h"			// this function's header file
 
@@ -61,7 +60,7 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 			
 						// read in config data once keyword has been detected
 						if (toggle_read){
-								sscanf(line, "%f, %s", &buff[i].value, buff[i].name);
+								sscanf(line, "%lf, %s", &buff[i].value, buff[i].name);
 								strtok(buff[i].name, ",");	
 								i++;
 						}
@@ -83,6 +82,7 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 				printf ("The file could not be closed.\n");
 		}
 	//==========================================================
+		
 		
 	//========== PRINT STRUCT FOR CONFIRMATION =================
 //		printf("Inputs read from %s:\n\n", config_filename);

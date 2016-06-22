@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000001000000
-UnitCount=7
+UnitCount=11
 
 [VersionInfo]
 Major=1
@@ -111,9 +111,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit8]
-FileName=readRawText.h
+FileName=structArrayTypes.h
 CompileCpp=0
-Folder=modelProject.dev
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -124,6 +124,36 @@ BuildCmd=
 FileName=readRawText.h
 CompileCpp=0
 Folder=modelProject.dev
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit9]
+FileName=codegen\lib\clcDP_port\clcDP_port_types.h
+CompileCpp=0
+Folder=modelProject.dev
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit10]
+FileName=loadArrayData.c
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit11]
+FileName=loadArrayData.h
+CompileCpp=0
+Folder=
 Compile=1
 Link=1
 Priority=1000
