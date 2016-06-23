@@ -26,7 +26,7 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 		int toggle_end;
 		
 		// TEMP READIN AND SCAN VARIABLES
-		char line[400], tmp_line[400];
+		char line[500], tmp_line[500];
 	//==========================================================
 	
 	//========= READ DATA ======================================
@@ -86,10 +86,9 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 		
 	//========== PRINT STRUCT FOR CONFIRMATION =================
 //		printf("Inputs read from %s:\n\n", config_filename);
-////		for (i = 0; i < num_length; i+
-//			printf("	%s: %4.2f\n", input_struct[i].name, input_struct[i].value);
+//		for (i = 0; i < num_length; i++)
+//			printf("	%s: %4.2f\n", input_pointer[i].name, input_pointer[i].value);
 	//==========================================================
 
-//		getchar(); 
 		return input_pointer;
 }

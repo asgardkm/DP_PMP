@@ -15,7 +15,6 @@
 void *loadArrayData(struct1_T tstdat_scalar_struct);
 #endif
 
-
 #ifndef CBARRAYSTRUCT 	// header guard for cbArrayStruct
 #define CBARRAYSTRUCT
 struct cbArrayStruct {
@@ -24,14 +23,12 @@ struct cbArrayStruct {
 };
 #endif
 
-
 #ifndef VARSTRUCT		// header guard for varStruct
 #define VARSTRUCT
 struct varStruct {
 	char *string_name;
 	int row_num;
 	int col_num;
-	double **buffer;
 };
 #endif
 

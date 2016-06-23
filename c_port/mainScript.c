@@ -91,103 +91,134 @@ int main(void){
 		for (i = 0; i < numFahrzg; i++){
 				printf("	%s: %4.4f\n", fahrzg_struct[i].name, fahrzg_struct[i].value);
 		}
-				
+
+		double i_value;
+		char *i_name;
+		
+						
 		// 22.06.2016 - exending buffer portion so that it populates a structure
 		struct0_T params_scalar_struct;
 //		struct0_T *params_scalar_pointer;
+		struct struct1_test tstdat_scalar_test;
 		struct1_T tstdat_scalar_struct; 
 //		struct1_T *tstdat_scalar_pointer;
 	 	struct2_T fahrzg_scalar_struct;
 		
-		float i_value;
-		char *i_name;
-	//	MATCHING UP PARAMS SCALAR DATA
-		for (i = 0; i < numParams; i++){
-				i_name  = params_struct[i].name;
-				i_value = params_struct[i].value;
-				if (strcmp(i_name, 			"disFlg") 			== 0) {
-						params_scalar_struct.disFlg 			= i_value;
-				} else if (strcmp(i_name, 	"wayStp") 			== 0) {
-						params_scalar_struct.wayStp 			= i_value;
-				} else if (strcmp(i_name, 	"engKinBegInx")		== 0) {
-						params_scalar_struct.engKinBegInx 		= i_value;
-				} else if (strcmp(i_name, 	"batEngStp")		== 0) {
-						params_scalar_struct.batEngStp 			= i_value;
-				} else if (strcmp(i_name, 	"batEngBeg")		== 0) {
-						params_scalar_struct.batEngBeg 			= i_value;
-				} else if (strcmp(i_name, 	"batPwrAux")		== 0) {
-						params_scalar_struct.batPwrAux 			= i_value;
-				} else if (strcmp(i_name, 	"psiBatEng")		== 0) {
-						params_scalar_struct.psiBatEng 			= i_value;
-				} else if (strcmp(i_name, 	"psiTim") 			== 0) {
-						params_scalar_struct.psiTim 			= i_value;
-				} else if (strcmp(i_name, 	"staChgPenCosVal")	== 0) {
-						params_scalar_struct.staChgPenCosVal 	= i_value;
-				} else if (strcmp(i_name, 	"wayInxBeg")		==0) {
-						params_scalar_struct.wayInxBeg 			= i_value;
-				} else if (strcmp(i_name, 	"wayInxEnd")		==0) {
-						params_scalar_struct.wayInxEnd 			= i_value;
-				} else if (strcmp(i_name, 	"staBeg") 			== 0) {
-						params_scalar_struct.staBeg 			= i_value;
-				}
-		}		
 
+//	//	MATCHING UP PARAMS SCALAR DATA
+//		for (i = 0; i < numParams; i++) {
+//				i_name  = params_struct[i].name;
+//				i_value = params_struct[i].value;
+//				if (strcmp(i_name, 			"disFlg") 			== 0) {
+//						params_scalar_struct.disFlg 			= i_value;
+//				} else if (strcmp(i_name, 	"wayStp") 			== 0) {
+//						params_scalar_struct.wayStp 			= i_value;
+//				} else if (strcmp(i_name, 	"engKinBegInx")		== 0) {
+//						params_scalar_struct.engKinBegInx 		= i_value;
+//				} else if (strcmp(i_name, 	"batEngStp")		== 0) {
+//						params_scalar_struct.batEngStp 			= i_value;
+//				} else if (strcmp(i_name, 	"batEngBeg")		== 0) {
+//						params_scalar_struct.batEngBeg 			= i_value;
+//				} else if (strcmp(i_name, 	"batPwrAux")		== 0) {
+//						params_scalar_struct.batPwrAux 			= i_value;
+//				} else if (strcmp(i_name, 	"psiBatEng")		== 0) {
+//						params_scalar_struct.psiBatEng 			= i_value;
+//				} else if (strcmp(i_name, 	"psiTim") 			== 0) {
+//						params_scalar_struct.psiTim 			= i_value;
+//				} else if (strcmp(i_name, 	"staChgPenCosVal")	== 0) {
+//						params_scalar_struct.staChgPenCosVal 	= i_value;
+//				} else if (strcmp(i_name, 	"wayInxBeg")		==0) {
+//						params_scalar_struct.wayInxBeg 			= i_value;
+//				} else if (strcmp(i_name, 	"wayInxEnd")		==0) {
+//						params_scalar_struct.wayInxEnd 			= i_value;
+//				} else if (strcmp(i_name, 	"staBeg") 			== 0) {
+//						params_scalar_struct.staBeg 			= i_value;
+//				}
+//		}		
+//		printf("\n\n\nparams_scalar_struct.disFlg: %d\n", params_scalar_struct.disFlg);
+	
+	
+		tstdat_scalar_test.staNum = 2.2;
+		printf("\n\ntstdat_scalar_test.staNum: %d\n", tstdat_scalar_test.staNum);
+		tstdat_scalar_test.staNum = 1.10;
+		printf("tstdat_scalar_test.staNum: %d\n\n", tstdat_scalar_test.staNum);
+	
+	
 	// 	MATCHING UP TSTDAT SCALAR DATA
-		for (i = 0; i < numTstdat; i++){
+		for (i = 0; i < numTstdat; i++) {
 				i_name  = tstdat_struct[i].name;
 				i_value = tstdat_struct[i].value;
 				if (strcmp(i_name, 			"staNum") 	== 0) {
 						tstdat_scalar_struct.staNum 	= i_value;
+						printf("Found 'staNum' at %d (value: %4.2f)\n", i, i_value);
 				} else if (strcmp(i_name, 	"wayNum") 	== 0) {
 						tstdat_scalar_struct.wayNum 	= i_value;
+						printf("Found 'wayNum' at %d (value: %4.2f)\n", i, i_value);
 				} else if (strcmp(i_name, 	"engKinNum")== 0) {
 						tstdat_scalar_struct.engKinNum 	= i_value;
+						printf("Found 'engKinNum' at %d (value: %4.2f)\n", i, i_value);
 				} else {
 						printf("no string match for tstdat_scalar_struct[%d].\nCheck struct fields and/or input strings\n", i);
 				}
-		}		
-
-	//	MATCHING UP FAHRZEUG SCALAR DATA
-		for (i = 0; i < numFahrzg; i++){
-			i_name  = fahrzg_struct[i].name;
-			i_value = fahrzg_struct[i].value;
-			if (strcmp(i_name, 			"vehVelMin") 	== 0) {
-					fahrzg_scalar_struct.vehVelMin 		= i_value;
-			} else if (strcmp(i_name, 	"vehVelMax")	== 0) {
-					fahrzg_scalar_struct.vehVelMax 		= i_value;
-			} else if (strcmp(i_name, 	"vehAccMax")	== 0) {
-					fahrzg_scalar_struct.vehAccMax 		= i_value;
-			} else if (strcmp(i_name, 	"vehAccMin")	== 0) {
-					fahrzg_scalar_struct.vehAccMin 		= i_value;
-			} else if (strcmp(i_name, 	"drgCof")		== 0) {
-					fahrzg_scalar_struct.drgCof 		= i_value;
-			} else if (strcmp(i_name, 	"vehMas")		== 0) {
-					fahrzg_scalar_struct.vehMas 		= i_value;
-			} else if (strcmp(i_name, 	"whlRosResCof")	== 0) {
-					fahrzg_scalar_struct.whlRosResCof	= i_value;
-			} else if (strcmp(i_name, 	"whlDrr") 		== 0) {
-					fahrzg_scalar_struct.whlDrr 		= i_value;
-			} else if (strcmp(i_name, 	"batRstChr")	== 0) {
-					fahrzg_scalar_struct.batRstChr 		= i_value;
-			} else if (strcmp(i_name, 	"batRstDch")	== 0) {
-					fahrzg_scalar_struct.batRstDch 		= i_value;
-			} else if (strcmp(i_name, 	"batEngMax")	== 0) {
-					fahrzg_scalar_struct.batEngMax 		= i_value;
-			} else if (strcmp(i_name, 	"batPwrMax") 	== 0) {
-					fahrzg_scalar_struct.batPwrMax 		= i_value;
-			} else if (strcmp(i_name, 	"batPwrMin") 	== 0) {
-					fahrzg_scalar_struct.batPwrMin 		= i_value;
-			} else if (strcmp(i_name, 	"geaEfy") 		== 0) {
-					fahrzg_scalar_struct.geaEfy 		= i_value;
-			} else if (strcmp(i_name, 	"fulDen") 		== 0) {
-					fahrzg_scalar_struct.fulDen 		= i_value;
-			} else if (strcmp(i_name, 	"fulLhv") 		== 0) {
-					fahrzg_scalar_struct.fulLhv 		= i_value;
-			}
-	}
+		}
+		
+		printf("\n\ntstdat_scalar_struct.staNum: %d\n", tstdat_scalar_struct.staNum);
+		printf("tstdat_scalar_struct.wayNum: %d\n", 	tstdat_scalar_struct.wayNum);
+		printf("tstdat_scalar_struct.engKinNum: %d\n", 	tstdat_scalar_struct.engKinNum);
 
 
-		// first define them - sending them into a struct?
+
+//	//	MATCHING UP FAHRZEUG SCALAR DATA
+//		for (i = 0; i < numFahrzg; i++) {
+//				i_name  = fahrzg_struct[i].name;
+//				i_value = fahrzg_struct[i].value;
+//				if (strcmp(i_name, 			"vehVelMin") 	== 0) {
+//						fahrzg_scalar_struct.vehVelMin 		= i_value;
+//				} else if (strcmp(i_name, 	"vehVelMax")	== 0) {
+//						fahrzg_scalar_struct.vehVelMax 		= i_value;
+//				} else if (strcmp(i_name, 	"vehAccMax")	== 0) {
+//						fahrzg_scalar_struct.vehAccMax 		= i_value;
+//				} else if (strcmp(i_name, 	"vehAccMin")	== 0) {
+//						fahrzg_scalar_struct.vehAccMin 		= i_value;
+//				} else if (strcmp(i_name, 	"drgCof")		== 0) {
+//						fahrzg_scalar_struct.drgCof 		= i_value;
+//				} else if (strcmp(i_name, 	"vehMas")		== 0) {
+//						fahrzg_scalar_struct.vehMas 		= i_value;
+//				} else if (strcmp(i_name, 	"whlRosResCof")	== 0) {
+//						fahrzg_scalar_struct.whlRosResCof	= i_value;
+//				} else if (strcmp(i_name, 	"whlDrr") 		== 0) {
+//						fahrzg_scalar_struct.whlDrr 		= i_value;
+//				} else if (strcmp(i_name, 	"batRstChr")	== 0) {
+//						fahrzg_scalar_struct.batRstChr 		= i_value;
+//				} else if (strcmp(i_name, 	"batRstDch")	== 0) {
+//						fahrzg_scalar_struct.batRstDch 		= i_value;
+//				} else if (strcmp(i_name, 	"batEngMax")	== 0) {
+//						fahrzg_scalar_struct.batEngMax 		= i_value;
+//				} else if (strcmp(i_name, 	"batPwrMax") 	== 0) {
+//						fahrzg_scalar_struct.batPwrMax 		= i_value;
+//				} else if (strcmp(i_name, 	"batPwrMin") 	== 0) {
+//						fahrzg_scalar_struct.batPwrMin 		= i_value;
+//				} else if (strcmp(i_name, 	"geaEfy") 		== 0) {
+//						fahrzg_scalar_struct.geaEfy 		= i_value;
+//				} else if (strcmp(i_name, 	"fulDen") 		== 0) {
+//						fahrzg_scalar_struct.fulDen 		= i_value;
+//				} else if (strcmp(i_name, 	"fulLhv") 		== 0) {
+//						fahrzg_scalar_struct.fulLhv 		= i_value;
+//				}
+//		}
+//		printf("\n\n\nfahrzg_scalar_struct.vehVelMin: %d\n", 	fahrzg_scalar_struct.vehVelMin);
+//
+//
+//	
+//		loadArrayData(tstdat_scalar_struct);
+		
+		
+		
+		
+		
+		
+		
+			// first define them - sending them into a struct?
 		// can this be made into a structure or something? - 21.06.2016
 		// in a structre, make arrays of:
 		//  - the pointer variable
@@ -201,33 +232,8 @@ int main(void){
 //		double *emoPwr_emoSpd_emoTrq;
 //		double emoPwr_emoSpd_emoTrq_buffer[150][100];
 //		double*iceTrqMaxCof;
-//		double iceTrqMaxCof_buffer[1][3];
+//		double iceTrqMaxCof_buffer[1][3];	
 
-		loadArrayData(tstdat_scalar_struct);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		

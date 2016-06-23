@@ -9,7 +9,7 @@
 // define tst_array_struct
 struct tst_array_struct{
 		char name[300];
-		float value;
+		double value;
 };
 #endif
 
