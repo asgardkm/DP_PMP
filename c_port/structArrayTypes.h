@@ -14,12 +14,12 @@ struct tst_array_struct{
 #endif
 
 
-//#define CBSCALARSTRUCT
-//#define CBSCALARSTRUCT
-//// NOTE - DO I NEED TO DECLARE A TYPE AFTER SETTING UP cbScalarArray STRUCT? (see above)
-//struct cbScalarStruct {
-//		struct0_T input_scalar_struct;
-//		struct1_T tstdat_scalar_struct; 
-//		struct2_T fahrzg_scalar_struct;
-//};
-//#endif
+#ifndef CBSCALARSTRUCT
+#define CBSCALARSTRUCT
+// NOTE - DO I NEED TO DECLARE A TYPE AFTER SETTING UP cbScalarArray STRUCT? (see above)
+struct cbScalarStruct {
+		struct0_T input_scalar_struct;
+		struct1_T tstdat_scalar_struct; 
+		struct2_T fahrzg_scalar_struct;
+};
+#endif
