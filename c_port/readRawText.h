@@ -5,8 +5,6 @@
 #define READRAW_H
 //readRawText.c function declaration
 double *readRawText(char *data_dir, char *config_filename,
-					int data_row, int data_col, double buff[][data_col]);
+					int data_row, int data_col, double *memory_pointer);
 #endif					// CONFIG_H
-
-
 

@@ -16,7 +16,7 @@
 #include <string.h>				// for strcmp() and strtok() invocations
 #include "readRawText.h"
 #define BUF_SIZE 1024
-double *readRawText(char *data_dir, char *config_filename, int data_row, int data_col, double buff[][data_col]) {
+double *readRawText(char *data_dir, char *config_filename, int data_row, int data_col, double *memory_pointer) {
 	
 		// file pointer
 		FILE *fp;
@@ -37,10 +37,6 @@ double *readRawText(char *data_dir, char *config_filename, int data_row, int dat
 		// loop counters
 		int i = 0, j = 0;
 		
-		// define outloop array!
-		static double *output_array;		
-		output_array = &buff[0][0];
-		
 		fp = fopen(final_filename, "r");
 		if (fp != NULL) { // file is open
 				while (fgets(line, sizeof(line), fp)) {
@@ -48,9 +44,9 @@ double *readRawText(char *data_dir, char *config_filename, int data_row, int dat
 					    int offset = 0;
 						for (i = 0; i < data_row; i++){ // looping through rows
 								// reading through each column entry
-							    while ((sscanf(data, "%lf%n", &buff[i][j], &offset) == 1) || (j < data_col)){
+							    while ((sscanf(data, "%lf%n", (memory_pointer+i*data_col+j), &offset) == 1) || (j < data_col)){
 							        	data += offset;
-		//					        	printf("buff[%d][%d]: %5f; offset = %5d\n", i, j, buff[i][j], offset);
+//							        	printf("buff[%d][%d]: %4.2f; offset = %5d\n", i, j, *(memory_pointer+i*data_col+j), offset);
 							        	j++;
 							    }
 						}			    
@@ -62,8 +58,8 @@ double *readRawText(char *data_dir, char *config_filename, int data_row, int dat
 		if (fclose(fp) != 0) {
 				printf ("The file could not be closed.\n");
 		}
-//		printf("Press enter to finish\n");
+		printf("Press enter to finish\n");
 		fclose(fp);
 		
-		return output_array;	
+		return (double *)memory_pointer;	
 }

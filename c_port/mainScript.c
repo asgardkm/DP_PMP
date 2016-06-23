@@ -99,11 +99,12 @@ int main(void){
 		// 22.06.2016 - exending buffer portion so that it populates a structure
 		struct0_T params_scalar_struct;
 //		struct0_T *params_scalar_pointer;
-		struct struct1_test tstdat_scalar_test;
 		struct1_T tstdat_scalar_struct; 
 //		struct1_T *tstdat_scalar_pointer;
 	 	struct2_T fahrzg_scalar_struct;
-		
+	 	
+	 	struct3_T tstdat_array_struct;
+		struct4_T fahrzg_array_struct;
 
 	//	MATCHING UP PARAMS SCALAR DATA
 		for (i = 0; i < numParams; i++) {
@@ -217,9 +218,8 @@ int main(void){
 		loadArrayData(tstdat_scalar_struct);
 		
 		
-				
-		
-			// first define them - sending them into a struct?
+
+		// first define them - sending them into a struct?
 		// can this be made into a structure or something? - 21.06.2016
 		// in a structre, make arrays of:
 		//  - the pointer variable
