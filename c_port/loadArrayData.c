@@ -26,6 +26,11 @@
 #define FZG_SIZE2 100
 #define TRQ_COEF 3
 #define BAT_COEF 2
+
+//declare function for populating array structure 
+double *populateArrayStruct(struct varStruct inputStruct, char *prefix);
+double *emalloc(size_t amt);
+
 void loadArrayData(struct1_T tstdat_scalar_struct){
 	// read in vectors!
 		
@@ -41,30 +46,29 @@ void loadArrayData(struct1_T tstdat_scalar_struct){
 		sprintf(tst_prefix, "%s/tstDat800", raw_data_dir);
 
 		// define structs for output that will go into cbArray (NECESSARY???)
-//		struct3_T tst_array_struct;		
+		struct3_T tst_array_struct;		
 		struct4_T fzg_array_struct;
-
 
 		// DEFINE TEST DATA ARRAY STRUCTURES
 		// slpVec_wayInx
-//		struct varStruct slpVec_wayInx;
-//		slpVec_wayInx.string_name			= "slpVec_wayInx";
-//		slpVec_wayInx.row_num 				= (int)tstdat_scalar_struct.wayNum;
-//		slpVec_wayInx.col_num 				= 1;
-////		
-//		// engKinMat_engKinInx_wayInx
-//		struct varStruct engKinMat_engKinInx_wayInx;
-//		engKinMat_engKinInx_wayInx.string_name = "engKinMat_engKinInx_wayInx";
-//		engKinMat_engKinInx_wayInx.row_num 	= (int)tstdat_scalar_struct.engKinNum;
-//		engKinMat_engKinInx_wayInx.col_num 	= (int)tstdat_scalar_struct.wayNum;
-//		
-//		// engKinNumVec_wayInx
-//		struct varStruct engKinNumVec_wayInx;
-//		engKinNumVec_wayInx.string_name 	= "engKinNumVec_wayInx";
-//		engKinNumVec_wayInx.row_num 		= (int)tstdat_scalar_struct.wayNum;
-//		engKinNumVec_wayInx.row_num 		= 1;
-//		
-//		
+		struct varStruct slpVec_wayInx;
+		slpVec_wayInx.string_name			= "slpVec_wayInx";
+		slpVec_wayInx.row_num 				= (int)tstdat_scalar_struct.wayNum;
+		slpVec_wayInx.col_num 				= 1;
+		
+		// engKinMat_engKinInx_wayInx
+		struct varStruct engKinMat_engKinInx_wayInx;
+		engKinMat_engKinInx_wayInx.string_name = "engKinMat_engKinInx_wayInx";
+		engKinMat_engKinInx_wayInx.row_num 	= (int)tstdat_scalar_struct.engKinNum;
+		engKinMat_engKinInx_wayInx.col_num 	= (int)tstdat_scalar_struct.wayNum;
+		
+		// engKinNumVec_wayInx
+		struct varStruct engKinNumVec_wayInx;
+		engKinNumVec_wayInx.string_name 	= "engKinNumVec_wayInx";
+		engKinNumVec_wayInx.row_num 		= (int)tstdat_scalar_struct.wayNum;
+		engKinNumVec_wayInx.col_num 		= 1;
+
+
 //		// DEFINE FZG ARRAY STRUCTURES
 		// batOcvCof_batEng
 		struct varStruct batOcvCof_batEng;
@@ -81,8 +85,8 @@ void loadArrayData(struct1_T tstdat_scalar_struct){
 		// iceSpdMgd
 		struct varStruct iceSpdMgd;
 		iceSpdMgd.string_name 				= "iceSpdMgd";
-		iceSpdMgd.row_num 					= 150;
-		iceSpdMgd.col_num 					= 100;
+		iceSpdMgd.row_num 					= FZG_SIZE1;
+		iceSpdMgd.col_num 					= FZG_SIZE2;
 		
 		// iceTrqMgd
 		struct varStruct iceTrqMgd;
@@ -163,189 +167,255 @@ void loadArrayData(struct1_T tstdat_scalar_struct){
 		emoPwrMin_emoSpd.col_num 			= 1;
 		
 //		// POINTERS TO TEST ARRAY STRUCTURES	 
-//		double *slpVec_wayInx_ptr;
-//		double *engKinMat_engKinInx_wayInx_ptr;
-//		double *engKinNumVec_wayInx_ptr;
-//		
-
+		double *slpVec_wayInx_ptr;
+		double *engKinMat_engKinInx_wayInx_ptr;
+		double *engKinNumVec_wayInx_ptr;
 		
-//		double *batOcvCof_batEng_ptr;
-//		double *geaRat_ptr;
-//		double *iceSpdMgd_ptr;
-//		double *iceTrqMgd_ptr;
-//		double *iceFulPwr_iceSpd_iceTrq_ptr;
-//		double *iceTrqMaxCof_ptr;
-//		double *iceTrqMinCof_ptr;
-//		double *emoSpdMgd_ptr;
-//		double *emoTrqMgd_ptr;
-//		double *emoPwr_emoSpd_emoTrq_ptr;
-//		double *emoTrqMin_emoSpd_ptr;
-//		double *emoTrqMax_emoSpd_ptr;
-//		double *emoPwrMgd_ptr;
-//		double *emoTrq_emoSpd_emoPwr_ptr;
-//		double *emoPwrMax_emoSpd_ptr;
-//		double *emoPwrMin_emoSpd_ptr;
 		
-		// POINTERS TO FAHRZEUG ARRAY STRUCTURES
-		// TEST - going to trz a generic pointer with malloc. will see what happens
-		double *memory_pointer;
-		memory_pointer = malloc(sizeof(double) * iceSpdMgd.row_num*iceSpdMgd.row_num);
+		double *batOcvCof_batEng_ptr;
+		double *geaRat_ptr;
+		double *iceSpdMgd_ptr;
+		double *iceTrqMgd_ptr;
+		double *iceFulPwr_iceSpd_iceTrq_ptr;
+		double *iceTrqMaxCof_ptr;
+		double *iceTrqMinCof_ptr;
+		double *emoSpdMgd_ptr;
+		double *emoTrqMgd_ptr;
+		double *emoPwr_emoSpd_emoTrq_ptr;
+		double *emoTrqMin_emoSpd_ptr;
+		double *emoTrqMax_emoSpd_ptr;
+		double *emoPwrMgd_ptr;
+		double *emoTrq_emoSpd_emoPwr_ptr;
+		double *emoPwrMax_emoSpd_ptr;
+		double *emoPwrMin_emoSpd_ptr;
 
-//		// DEFINE TEST ARRAY BUFFER
-//		double slpVec_wayInx_buffer[slpVec_wayInx.row_num][slpVec_wayInx.col_num];
-////		double engKinMat_engKinInx_wayInx_buffer[engKinMat_engKinInx_wayInx.row_num][engKinMat_engKinInx_wayInx.col_num];
-//		double engKinNumVec_wayInx_buffer[engKinNumVec_wayInx.row_num][engKinNumVec_wayInx.col_num];
-//		// DEFINE FAHRZEUG ARRAY BUFFER
-//		double batOcvCof_batEng_buffer[batOcvCof_batEng.row_num][batOcvCof_batEng.col_num];
-//		double geaRat_buffer[geaRat.row_num][geaRat.col_num];
-//		double iceSpdMgd_buffer[150][100];
-//		double iceTrqMgd_buffer[iceTrqMgd.row_num][iceTrqMgd.col_num];
-//		double iceFulPwr_iceSpd_iceTrq_buffer[iceFulPwr_iceSpd_iceTrq.row_num][iceFulPwr_iceSpd_iceTrq.col_num];
-//		double iceTrqMaxCof_buffer[iceTrqMaxCof.row_num][iceTrqMaxCof.col_num];
-//		double iceTrqMinCof_buffer[iceTrqMinCof.row_num][iceTrqMinCof.col_num];
-//		double emoSpdMgd_buffer[emoSpdMgd.row_num][emoSpdMgd.col_num];
-//		double emoTrqMgd_buffer[emoTrqMgd.row_num][emoTrqMgd.col_num];
-//		double emoPwr_emoSpd_emoTrq_buffer[emoPwr_emoSpd_emoTrq.row_num][emoPwr_emoSpd_emoTrq.col_num];
-//		double emoTrqMin_emoSpd_buffer[emoTrqMin_emoSpd.row_num][emoTrqMin_emoSpd.col_num];
-//		double emoTrqMax_emoSpd_buffer[emoTrqMax_emoSpd.row_num][emoTrqMax_emoSpd.col_num];
-//		double emoPwrMgd_buffer[emoPwrMgd.row_num][emoPwrMgd.col_num];
+	// ================ time to load in vectors! ====================================================
 		
-
-//		double emoTrq_emoSpd_emoPwr_buffer[emoTrq_emoSpd_emoPwr.row_num][emoTrq_emoSpd_emoPwr.col_num];
-//		
-//		double emoPwrMax_emoSpd_buffer[emoPwrMax_emoSpd.row_num][emoPwrMax_emoSpd.col_num];
-//		double emoPwrMin_emoSpd_buffer[emoPwrMin_emoSpd.row_num][emoPwrMax_emoSpd.col_num];	
+	// tstDat800.slpVec_wayInx
+		slpVec_wayInx_ptr = populateArrayStruct(slpVec_wayInx, tst_prefix);
+		for (m = 0; m < slpVec_wayInx.row_num; m++) {
+				for (n = 0; n < slpVec_wayInx.col_num; n++) {
+						tst_array_struct.slpVec_wayInx[m * slpVec_wayInx.col_num + n]
+							= *(slpVec_wayInx_ptr + m * slpVec_wayInx.col_num + n);
+				}
+		}
+		slpVec_wayInx_ptr = NULL;
+		
+	// tstDat800.engKinMat_engKinInx_wayInx
+		engKinMat_engKinInx_wayInx_ptr = populateArrayStruct(engKinMat_engKinInx_wayInx, tst_prefix);
+		for (m = 0; m < engKinMat_engKinInx_wayInx.row_num; m++) {
+				for (n = 0; n < engKinMat_engKinInx_wayInx.col_num; n++) {
+						tst_array_struct.engKinMat_engKinInx_wayInx[m * engKinMat_engKinInx_wayInx.col_num + n]
+							= *(engKinMat_engKinInx_wayInx_ptr + m * engKinMat_engKinInx_wayInx.col_num + n);
+				}
+		}
+		engKinMat_engKinInx_wayInx_ptr = NULL;
 	
-//	printf("\n\n\ntstdat_scalar_struct.staNum: %d\n", tstdat_scalar_struct.staNum);
-//	printf("tstdat_scalar_struct.wayNum: %d\n", 	tstdat_scalar_struct.wayNum);
-//	printf("tstdat_scalar_struct.engKinNum: %d\n", 	tstdat_scalar_struct.engKinNum);
-//	printf("engKinMat_engKinInx_wayInx.row_num: %d\n", engKinMat_engKinInx_wayInx.row_num);
-//	printf("engKinMat_engKinInx_wayInx.col_num: %d\n", engKinMat_engKinInx_wayInx.col_num);
-//	
-//	printf("emoTrq_emoSpd_emoPwr.row_num: %d\n", emoTrq_emoSpd_emoPwr.row_num);
-//	printf("emoTrq_emoSpd_emoPwr.col_num: %d\n", emoTrq_emoSpd_emoPwr.col_num);
+	// tstDat800.engKinNumVec_wayInx
+		engKinNumVec_wayInx_ptr = populateArrayStruct(engKinNumVec_wayInx, tst_prefix);
+		for (m = 0; m < engKinNumVec_wayInx.row_num; m++) {
+				for (n = 0; n < engKinNumVec_wayInx.col_num; n++) {
+						tst_array_struct.engKinNumVec_wayInx[m * engKinNumVec_wayInx.col_num + n]
+							= *(engKinNumVec_wayInx_ptr + m * engKinNumVec_wayInx.col_num + n);
+				}
+		}
+		engKinNumVec_wayInx_ptr = NULL;
+		
 
-		// ================ time to load in vectors! ====================================================
-//	// tstDat800.slpVec_wayInx
-//		slpVec_wayInx_ptr 			= readRawText(tst_prefix,
-//													slpVec_wayInx.string_name, 		slpVec_wayInx.row_num,
-//													slpVec_wayInx.col_num,			memory_pointer);
-//	// tstDat800.engKinMat_engKinInx_wayInx
-//		engKinMat_engKinInx_wayInx_ptr = readRawText(tst_prefix,
-//													engKinMat_engKinInx_wayInx.string_name,engKinMat_engKinInx_wayInx.row_num,
-//													engKinMat_engKinInx_wayInx.col_num,engKinMat_engKinInx_wayInx_buffer);
-//	// tstDat800.engKinNumVec_wayInx
-//		engKinNumVec_wayInx_ptr 	= readRawText(tst_prefix,
-//													engKinNumVec_wayInx.string_name,engKinNumVec_wayInx.row_num,
-//													engKinNumVec_wayInx.col_num, 	engKinNumVec_wayInx_buffer);
-//																									
-//	// FZG.batOcvCof_batEng(1x2)
-//		batOcvCof_batEng_ptr 		= readRawText(fzg_prefix,
-//													batOcvCof_batEng.string_name,	batOcvCof_batEng.row_num,
-//													batOcvCof_batEng.col_num,		batOcvCof_batEng_buffer);		
-//	// FZG.geaRat(1xtstdat_scalar_struct.staNum)
-//		geaRat_ptr					= readRawText(fzg_prefix,
-//													geaRat.string_name,				geaRat.row_num,
-//													geaRat.col_num,					geaRat_buffer);													
+/////////////////////////////////////////////////////////////////////
+// POINTERS TO FAHRZEUG ARRAY STRUCTURES
+	// FZG.batOcvCof_batEng(1x2)
+		batOcvCof_batEng_ptr = populateArrayStruct(batOcvCof_batEng, fzg_prefix);
+		for (m = 0; m < batOcvCof_batEng.row_num; m++) {
+				for (n = 0; n < batOcvCof_batEng.col_num; n++) {
+						fzg_array_struct.batOcvCof_batEng[m*batOcvCof_batEng.col_num+n] 
+							= *(batOcvCof_batEng_ptr+m*batOcvCof_batEng.col_num+n);
+				}
+		}
+		batOcvCof_batEng_ptr = NULL;	
+				
+	// FZG.geaRat(1xtstdat_scalar_struct.staNum)
+		geaRat_ptr = populateArrayStruct(geaRat, fzg_prefix);
+		for (m = 0; m < geaRat.row_num; m++) {
+				for (n = 0; n < geaRat.col_num; n++) {
+						fzg_array_struct.geaRat[m+geaRat.col_num+n] 
+							= *(geaRat_ptr+m*geaRat.col_num+n);
+				}
+		}
+		geaRat_ptr = NULL;
+		
 	// FZG.iceSpdMgd
-	
-		memory_pointer 				= readRawText(fzg_prefix,
-													iceSpdMgd.string_name, 			iceSpdMgd.row_num,
-													iceSpdMgd.col_num, 				memory_pointer);
-
-//	// FZG.iceTrqMgd					
-//		iceTrqMgd_ptr 				= readRawText(fzg_prefix,
-//													iceTrqMgd.string_name, 			iceTrqMgd.row_num,
-//													iceTrqMgd.col_num, 				iceTrqMgd_buffer);																			
-//	// FZG.iceFulPwr_iceSpd_iceTrq
-//		iceFulPwr_iceSpd_iceTrq_ptr	= readRawText(fzg_prefix,
-//													iceFulPwr_iceSpd_iceTrq.string_name,iceFulPwr_iceSpd_iceTrq.row_num,
-//	
-//												iceFulPwr_iceSpd_iceTrq.col_num,iceFulPwr_iceSpd_iceTrq_buffer);	
-									
-//	// FZG.iceTrqMaxCof.txt(1x3)
-//		iceTrqMaxCof_ptr 			= readRawText(fzg_prefix, 					
-//													iceTrqMaxCof.string_name, 		iceTrqMaxCof.row_num, 			
-//													iceTrqMaxCof.col_num, 			iceTrqMaxCof_buffer);										
-													
-//	// FZG.iceTrqMinCof
-//		iceTrqMinCof_ptr 			= readRawText(fzg_prefix,
-//													iceTrqMinCof.string_name, 		iceTrqMinCof.row_num,
-//													iceTrqMinCof.col_num, 			iceTrqMinCof_buffer);								
-//	// FZG.emoSpdMgd
-//		emoSpdMgd_ptr 				= readRawText(fzg_prefix,
-//													emoSpdMgd.string_name, 			emoSpdMgd.row_num,
-//													emoSpdMgd.col_num, 				emoSpdMgd_buffer);
-//	// FZG.emoTrqMgd
-//		emoTrqMgd_ptr 				= readRawText(fzg_prefix,
-//													emoTrqMgd.string_name, 			emoTrqMgd.row_num,
-//													emoTrqMgd.col_num, 				emoTrqMgd_buffer);
-
-//	// FZG.emoPwr_emoSpd_emoTrq
-//		emoPwr_emoSpd_emoTrq_ptr 	= readRawText(fzg_prefix,
-//													emoPwr_emoSpd_emoTrq.string_name,emoPwr_emoSpd_emoTrq.row_num,
-//													emoPwr_emoSpd_emoTrq.col_num, 	emoPwr_emoSpd_emoTrq_buffer);												
-													
-//	// FZG.emoTrqMin_emoSpd
-//		emoTrqMin_emoSpd_ptr 		= readRawText(fzg_prefix,
-//													emoTrqMin_emoSpd.string_name, 	emoTrqMin_emoSpd.row_num,
-//													emoTrqMin_emoSpd.col_num, 		emoTrqMin_emoSpd_buffer);
-//	// FZG.emoTrqMax_emoSpd
-//		emoTrqMax_emoSpd_ptr 		= readRawText(fzg_prefix,
-//													emoTrqMax_emoSpd.string_name, 	emoTrqMax_emoSpd.row_num,
-//													emoTrqMax_emoSpd.col_num, 		emoTrqMax_emoSpd_buffer);
-//	// FZG.emoPwrMgd
-//		emoPwrMgd_ptr 				= readRawText(fzg_prefix,
-//													emoPwrMgd.string_name, 			emoPwrMgd.row_num,
-//													emoPwrMgd.col_num, 				emoPwrMgd_buffer);	
-//													
-//
-////	// emoTrq_emoSpd_emoPwr
-////		emoTrq_emoSpd_emoPwr_ptr 	= readRawText(fzg_prefix,
-////													emoTrq_emoSpd_emoPwr.string_name,emoTrq_emoSpd_emoPwr.row_num,
-////													emoTrq_emoSpd_emoPwr.col_num, 	 emoTrq_emoSpd_emoPwr_buffer);
-//
-//
-//	// emoPwrMax_emoSpd
-//		emoPwrMax_emoSpd_ptr 		= readRawText(fzg_prefix,
-//													emoPwrMax_emoSpd.string_name, 	emoPwrMax_emoSpd.row_num,
-//													emoPwrMax_emoSpd.col_num, 		emoPwrMax_emoSpd_buffer);													
-//	// emoPwrMin_emoSpd
-//		emoPwrMin_emoSpd_ptr 		= readRawText(fzg_prefix,
-//													emoPwrMin_emoSpd.string_name, 	emoPwrMin_emoSpd.row_num,
-//													emoPwrMin_emoSpd.col_num, 		emoPwrMin_emoSpd_buffer);																										
-//					
-//					
-		for (m = 0; m < iceSpdMgd.row_num; m++){
-				for (n = 0; n < iceSpdMgd.col_num; n++){
-						printf(" *(iceSpdMgd + (%d*3) + %d): %4.3f\n", m, n, *(memory_pointer+m*iceSpdMgd.col_num+n));
+		iceSpdMgd_ptr = populateArrayStruct(iceSpdMgd, fzg_prefix);
+		for (m = 0; m < iceSpdMgd.row_num; m++) {
+				for (n = 0; n < iceSpdMgd.col_num; n++) {
 						fzg_array_struct.iceSpdMgd[m * iceSpdMgd.col_num + n] 		
-							= *(memory_pointer + m * iceSpdMgd.col_num + n);
-						printf("fzg_array_struct.iceSpdMgd[%d]: %4.3f\n\n", m*3+n, fzg_array_struct.iceSpdMgd[m*iceSpdMgd.col_num+n]);
+							= *(iceSpdMgd_ptr + m * iceSpdMgd.col_num + n);
+				}
+		}
+		iceSpdMgd_ptr = NULL;
 
+	// FZG.iceTrqMgd	
+		iceTrqMgd_ptr = populateArrayStruct(iceTrqMgd, fzg_prefix);	
+		for (m = 0; m < iceTrqMgd.row_num; m++) {
+				for (n = 0; n < iceTrqMgd.col_num; n++) {
+						fzg_array_struct.iceTrqMgd[m * iceTrqMgd.col_num + n] 
+							= *(iceTrqMgd_ptr + m * iceTrqMgd.col_num + n);
+				}
+		}	
+		iceTrqMgd_ptr = NULL;
+
+	// FZG.iceFulPwr_iceSpd_iceTrq
+		iceFulPwr_iceSpd_iceTrq_ptr = populateArrayStruct(iceFulPwr_iceSpd_iceTrq, fzg_prefix);	
+		for (m = 0; m < iceFulPwr_iceSpd_iceTrq.row_num; m++) {
+				for (n = 0; n < iceFulPwr_iceSpd_iceTrq.col_num; n++) {
+						fzg_array_struct.iceFulPwr_iceSpd_iceTrq[m * iceFulPwr_iceSpd_iceTrq.col_num + n] 
+							= *(iceFulPwr_iceSpd_iceTrq_ptr + m * iceFulPwr_iceSpd_iceTrq.col_num + n);
+				}
+		}
+		iceFulPwr_iceSpd_iceTrq_ptr = NULL;
+		
+		
+	// FZG.iceTrqMaxCof.txt(1x3)
+		iceTrqMaxCof_ptr = populateArrayStruct(iceTrqMaxCof, fzg_prefix);
+		for (m = 0; m < iceTrqMaxCof.row_num; m++) {
+				for (n = 0; n < iceTrqMaxCof.col_num; n++) {
+						fzg_array_struct.iceTrqMaxCof[m * iceTrqMaxCof.col_num + n] 
+							= *(iceTrqMaxCof_ptr + m * iceTrqMaxCof.col_num + n);
+				}
+		}			
+		iceTrqMaxCof_ptr = NULL;	
+	
+		
+	// FZG.iceTrqMinCof.txt(1x3)
+		iceTrqMinCof_ptr = populateArrayStruct(iceTrqMinCof, fzg_prefix);	
+		for (m = 0; m < iceTrqMinCof.row_num; m++) {
+				for (n = 0; n < iceTrqMinCof.col_num; n++) {
+						fzg_array_struct.iceTrqMinCof[m * iceTrqMinCof.col_num + n] 
+							= *(iceTrqMinCof_ptr + m * iceTrqMinCof.col_num + n);
 				}
 		}				
-				free(memory_pointer);	
-						
-//		for (m = 0; m < iceTrqMaxCof.row_num; m++) {
-//				for (n = 0; n < iceTrqMaxCof.col_num; n++) {
-////						printf(" *(iceTrqMaxCof_ptr + (%d*3) + %d): %4.3f\n", m, n, *(iceTrqMaxCof_ptr+m*iceTrqMaxCof.col_num+n));
-//						fzg_array_struct.iceTrqMaxCof[m * iceTrqMaxCof.col_num + n] 		
-//							= *(iceTrqMaxCof_ptr + m * iceTrqMaxCof.col_num + n);
-////						printf("fzg_array_struct.iceTrqMaxCof[%d]: %4.3f\n\n", m*3+n, fzg_array_struct.iceTrqMaxCof[m*iceTrqMaxCof.col_num+n]);
-//				}
-//		}
-//		
-//
-////	FZG.emoPwr_emoSpd_emoTrq.txt() (150x100)	
-//		for (m = 0; m < emoPwr_emoSpd_emoTrq.row_num; m++) {
-//				for (n = 0; n < emoPwr_emoSpd_emoTrq.col_num; n++) {
-////						printf(" *(emoPwr_emoSpd_emoTrq_ptr + (%d*150) + %d): %4.3f\n", m, n, *(emoPwr_emoSpd_emoTrq_ptr+m *emoPwr_emoSpd_emoTrq.col_num+n));
-//						fzg_array_struct.emoPwr_emoSpd_emoTrq[m * emoPwr_emoSpd_emoTrq.col_num + n] 
-//							= *(emoPwr_emoSpd_emoTrq_ptr + m * emoPwr_emoSpd_emoTrq.col_num + n);
-////						printf("fzg_array_struct.emoPwr_emoSpd_emoTrq_ptr[%d]: %4.3f\n\n", m*3+n, fzg_array_struct.emoPwr_emoSpd_emoTrq[m*emoPwr_emoSpd_emoTrq.col_num+n]);
-//				}
-//		}
+		iceTrqMinCof_ptr = NULL;
+			
+		
+	// FZG.emoSpdMgd.txt(1x3)
+		emoSpdMgd_ptr = populateArrayStruct(emoSpdMgd, fzg_prefix);
+		for (m = 0; m < iceTrqMaxCof.row_num; m++) {
+				for (n = 0; n < iceTrqMaxCof.col_num; n++) {
+						fzg_array_struct.emoSpdMgd[m * emoSpdMgd.col_num + n] 
+							= *(emoSpdMgd_ptr + m * emoSpdMgd.col_num + n);
+				}
+		}			
+		emoSpdMgd_ptr = NULL;	
 
 
-}	
+	// FZG.emoTrqMgd
+		emoTrqMgd_ptr = populateArrayStruct(emoTrqMgd, fzg_prefix);
+		for (m = 0; m < emoTrqMgd.row_num; m++) {
+				for (n = 0; n < emoTrqMgd.col_num; n++) {
+						fzg_array_struct.emoTrqMgd[m * emoTrqMgd.col_num + n]
+							= *(emoTrqMgd_ptr + m * emoTrqMgd.col_num + n);
+				}
+		}
+		emoTrqMgd_ptr = NULL;
+		
+		
+	// FZG.emoPwr_emoSpd_emoTrq
+		emoPwr_emoSpd_emoTrq_ptr = populateArrayStruct(emoPwr_emoSpd_emoTrq, fzg_prefix);
+		for (m = 0; m < emoPwr_emoSpd_emoTrq.row_num; m++) {
+				for (n = 0; n < emoPwr_emoSpd_emoTrq.col_num; n++) {
+						fzg_array_struct.emoPwr_emoSpd_emoTrq[m * emoPwr_emoSpd_emoTrq.col_num + n]
+							= *(emoPwr_emoSpd_emoTrq_ptr + m * emoPwr_emoSpd_emoTrq.col_num + n);
+				}
+		}
+		emoPwr_emoSpd_emoTrq_ptr = NULL;
+			
+		printf("emoTrqMin_emoSpd.string_name: %s\n", emoTrqMin_emoSpd.string_name);
+		printf("emoTrqMin_emoSpd.row_num: %d\n", emoTrqMin_emoSpd.row_num);
+		printf("emoTrqMin_emoSpd.col_num: %d\n", emoTrqMin_emoSpd.col_num);								
+	 // FZG.emoTrqMin_emoSpd
+		emoTrqMin_emoSpd_ptr = populateArrayStruct(emoTrqMin_emoSpd, fzg_prefix);
+		for (m = 0; m < emoTrqMin_emoSpd.row_num; m++) {
+				for (n = 0; n < emoTrqMin_emoSpd.col_num; n++) {
+						fzg_array_struct.emoTrqMin_emoSpd[m * emoTrqMin_emoSpd.col_num + n]
+							= *(emoTrqMin_emoSpd_ptr + m * emoTrqMin_emoSpd.col_num + n);
+				}
+		}
+		emoTrqMin_emoSpd_ptr = NULL;
+
+			
+	// FZG.emoTrqMax_emoSpd
+		emoTrqMax_emoSpd_ptr = populateArrayStruct(emoTrqMax_emoSpd, fzg_prefix);
+		for (m = 0; m < emoTrqMax_emoSpd.row_num; m++) {
+				for (n = 0; n < emoTrqMax_emoSpd.col_num; n++) {
+						fzg_array_struct.emoTrqMax_emoSpd[m * emoTrqMax_emoSpd.col_num + n]
+							= *(emoTrqMax_emoSpd_ptr + m * emoTrqMax_emoSpd.col_num + n);
+				}
+		}
+		emoTrqMax_emoSpd_ptr = NULL;
+		
+		
+	// FZG.emoPwrMgd
+		emoPwrMgd_ptr  = populateArrayStruct(emoPwrMgd, fzg_prefix);
+		for (m = 0; m < emoPwrMgd.row_num; m++) {
+				for (n = 0; n > emoPwrMgd.col_num; n++) {
+						fzg_array_struct.emoPwrMgd[m * emoPwrMgd.col_num + n]
+							=  *(emoPwrMgd_ptr + m * emoPwrMgd.col_num + n);
+				}
+		}
+		emoPwrMgd_ptr = NULL;
+	
+	
+	// emoTrq_emoSpd_emoPwr
+		emoTrq_emoSpd_emoPwr_ptr = populateArrayStruct(emoTrq_emoSpd_emoPwr, fzg_prefix);
+		for (m = 0; m < emoTrq_emoSpd_emoPwr.row_num; m++) {
+				for (n = 0; n < emoTrq_emoSpd_emoPwr.col_num; n++) {
+						fzg_array_struct.emoTrq_emoSpd_emoPwr[m * emoTrq_emoSpd_emoPwr.col_num + n]
+							= *(emoTrq_emoSpd_emoPwr_ptr + m * emoTrq_emoSpd_emoPwr.col_num + n);
+				}
+		}	
+		emoTrq_emoSpd_emoPwr_ptr = NULL;
+			
+		// emoPwrMax_emoSpd
+		emoPwrMax_emoSpd_ptr = populateArrayStruct(emoPwrMax_emoSpd, fzg_prefix);
+		for (m = 0; m < emoPwrMax_emoSpd.row_num; m++) {
+				for (n = 0; n < emoPwrMax_emoSpd.col_num; n++) {
+						fzg_array_struct.emoPwrMax_emoSpd[m * emoPwrMax_emoSpd.col_num + n]
+							= *(emoPwrMax_emoSpd_ptr + m * emoPwrMax_emoSpd.col_num + n);
+				}
+		}												
+		emoPwrMax_emoSpd_ptr = NULL;	
+
+
+	// emoPwrMin_emoSpd
+		emoPwrMin_emoSpd_ptr = populateArrayStruct(emoPwrMin_emoSpd, fzg_prefix);
+		for (m = 0; m < emoPwrMin_emoSpd.row_num; m++) {
+				for (n = 0; n < emoPwrMin_emoSpd.col_num; n++) {
+						fzg_array_struct.emoPwrMin_emoSpd[m * emoPwrMin_emoSpd.col_num + n]
+							= *(emoPwrMin_emoSpd_ptr + m * emoPwrMin_emoSpd.col_num + n);
+				}
+		}																									
+		emoPwrMin_emoSpd_ptr = NULL;			
+		
+}
+
+// declare function here!!	
+double *populateArrayStruct(struct varStruct inputStruct, char *prefix){
+		double buffer_size[inputStruct.row_num * inputStruct.col_num];
+		double *buffer = &buffer_size[0];
+		return (double *)readRawText(prefix,	inputStruct.string_name, 	inputStruct.row_num,
+									inputStruct.col_num, 		buffer);
+}
+
+// function for malloc
+double *emalloc(size_t amt) {
+	    double *v = malloc(amt);  
+	    if(!v) {
+		        fprintf(stderr, "out of mem - trying one more time\n");
+		        v = malloc(amt*500);
+				if(!v) {
+						fprintf(stderr, "out of mem\n");
+				        exit(EXIT_FAILURE);
+		    	}
+		}
+	    return v;
+}

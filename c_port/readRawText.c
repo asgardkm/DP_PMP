@@ -15,22 +15,23 @@
 #include <stdio.h>
 #include <string.h>				// for strcmp() and strtok() invocations
 #include "readRawText.h"
-#define BUF_SIZE 1024
-double *readRawText(char *data_dir, char *config_filename, int data_row, int data_col, double *memory_pointer) {
+#define BUF_SIZE 8192
+double *readRawText(char *data_dir, char *config_filename, int data_row, int data_col, double *buffer) {
 	
 		// file pointer
 		FILE *fp;
 		// need to allocate enough space for sinal final_filename
-		char final_filename[250] = "";
+		char final_filename[512] = "";
 		
-		// concacenate
+		// concactenate
 		strcat(final_filename, data_dir);
 		strcat(final_filename, ".");
 		strcat(final_filename, config_filename);
 		strcat(final_filename, ".txt");
 		
-//		printf("final_filename:\n%s\n", final_filename);
-	
+//		static double *output_array;		
+//		output_array = &buffer[0];
+			
 		// string buffers for reading in data
 		char line[BUF_SIZE];
 		
@@ -40,26 +41,23 @@ double *readRawText(char *data_dir, char *config_filename, int data_row, int dat
 		fp = fopen(final_filename, "r");
 		if (fp != NULL) { // file is open
 				while (fgets(line, sizeof(line), fp)) {
-					    char *data = line;
-					    int offset = 0;
-						for (i = 0; i < data_row; i++){ // looping through rows
+						char *data = line;
+						int offset = 0;
+						for (i = 0; i < data_row; i++) { // looping through rows
 								// reading through each column entry
-							    while ((sscanf(data, "%lf%n", (memory_pointer+i*data_col+j), &offset) == 1) || (j < data_col)){
+							    while ((sscanf(data, "%lf%n", (buffer+i*data_col+j), &offset) == 1) || (j < data_col)) {
 							        	data += offset;
-//							        	printf("buff[%d][%d]: %4.2f; offset = %5d\n", i, j, *(memory_pointer+i*data_col+j), offset);
 							        	j++;
 							    }
 						}			    
 				}
-			
 		} else { 
 				printf ("The file could not be opened.\n");
 		}
 		if (fclose(fp) != 0) {
 				printf ("The file could not be closed.\n");
 		}
-		printf("Press enter to finish\n");
 		fclose(fp);
 		
-		return (double *)memory_pointer;	
+		return buffer;	
 }

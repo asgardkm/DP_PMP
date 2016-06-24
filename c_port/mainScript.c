@@ -32,6 +32,10 @@
 int main(void){
 		int i, m, n;								// loop vars
 		
+		// for saving values into an input structure for clcDP_port function
+		double i_value;
+		char *i_name;
+		
 		char *configfile;					// define mainConfig.txt file location
 		configfile = CONFIGFILE_DIR; 			
 		
@@ -73,28 +77,28 @@ int main(void){
 
 		// function call: load in structure wiih all input parameters
 		params_struct = readConfig(configfile, numParams, params_keystart, params_keyend, params_buffer);
+//		printf("sizeof params_buffer: %d\n", sizeof(params_buffer));
 		tstdat_struct = readConfig(configfile, numTstdat, tstdat_keystart, tstdat_keyend, tstdat_buffer);
+//		printf("sizeof tstdat_buffer: %d\n", sizeof(tstdat_buffer));
 		fahrzg_struct = readConfig(configfile, numFahrzg, fahrzg_keystart, fahrzg_keyend, fahrzg_buffer);
+//		printf("sizeof fahrzg_buffer: %d\n", sizeof(fahrzg_buffer));
 		
-		// test: output the structures stuff
-		printf("param_struct:\n");
-		for (i = 0; i < numParams; i++){
-				printf("	%s: %4.4f\n", params_struct[i].name, params_struct[i].value);
-		}
-		
-		printf("tstdat_struct:\n");
-		for (i = 0; i < numTstdat; i++){
-				printf("	%s: %4.4f\n", tstdat_struct[i].name, tstdat_struct[i].value);
-		}
+//		// test: output the structures stuff
+//		printf("param_struct:\n");
+//		for (i = 0; i < numParams; i++){
+//				printf("	%s: %4.4f\n", params_struct[i].name, params_struct[i].value);
+//		}
 //		
-		printf("fahrzg_struct:\n");
-		for (i = 0; i < numFahrzg; i++){
-				printf("	%s: %4.4f\n", fahrzg_struct[i].name, fahrzg_struct[i].value);
-		}
+//		printf("tstdat_struct:\n");
+//		for (i = 0; i < numTstdat; i++){
+//				printf("	%s: %4.4f\n", tstdat_struct[i].name, tstdat_struct[i].value);
+//		}
+////		
+//		printf("fahrzg_struct:\n");
+//		for (i = 0; i < numFahrzg; i++){
+//				printf("	%s: %4.4f\n", fahrzg_struct[i].name, fahrzg_struct[i].value);
+//		}
 
-		double i_value;
-		char *i_name;
-		
 						
 		// 22.06.2016 - exending buffer portion so that it populates a structure
 		struct0_T params_scalar_struct;
@@ -103,8 +107,15 @@ int main(void){
 //		struct1_T *tstdat_scalar_pointer;
 	 	struct2_T fahrzg_scalar_struct;
 	 	
-	 	struct3_T tstdat_array_struct;
-		struct4_T fahrzg_array_struct;
+//	 	struct3_T tstdat_array_struct;
+//		struct4_T fahrzg_array_struct;
+		
+//		printf("sizeof struct0_T: %d\n", sizeof(params_scalar_struct));
+//		printf("sizeof struct1_T: %d\n", sizeof(tstdat_scalar_struct));
+//		printf("sizeof struct2_T: %d\n", sizeof(fahrzg_scalar_struct));
+//		printf("sizeof struct3_T: %d\n", sizeof(tstdat_array_struct));
+//		printf("sizeof struct4_T: %d\n", sizeof(fahrzg_array_struct));
+
 
 	//	MATCHING UP PARAMS SCALAR DATA
 		for (i = 0; i < numParams; i++) {
@@ -213,10 +224,16 @@ int main(void){
 						fahrzg_scalar_struct.fulLhv 		= i_value;
 				}
 		}
+		
+				
+//		printf("sizeof struct0_T: %d\n", sizeof(params_scalar_struct));
+//		printf("sizeof struct1_T: %d\n", sizeof(tstdat_scalar_struct));
+//		printf("sizeof struct2_T: %d\n", sizeof(fahrzg_scalar_struct));
+//		printf("sizeof struct3_T: %d\n", sizeof(tstdat_array_struct));
+//		printf("sizeof struct4_T: %d\n", sizeof(fahrzg_array_struct));
 //		printf("\n\n\nfahrzg_scalar_struct.vehVelMin: %4.2f\n", 	fahrzg_scalar_struct.vehVelMin);
 	
-		loadArrayData(tstdat_scalar_struct);
-		
+		loadArrayData(tstdat_scalar_struct);		
 		
 
 		// first define them - sending them into a struct?
