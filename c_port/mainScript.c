@@ -19,11 +19,6 @@ int main(void) {
 		char *configDir = "mainConfig.txt";
 		struct outputScalarStruct scalardata_struct = loadScalarData(configDir);
 	
-//		struct0_T params_scalardata = scalardata_struct.params_scalar_struct;
-//		struct1_T tstdat_scalardata = scalardata_struct.tstdat_scalar_struct;
-//		struct2_T fahrzg_scalardata = scalardata_struct.fahrzg_scalar_struct;
-		// test scripts, making sure that struct pointers work
-
 ////		test: output the structures stuff
 //		printf("output_params_test:\n");
 //		printf("	disFlg: %4.4f\n", params_scalardata.disFlg);
@@ -33,7 +28,7 @@ int main(void) {
 
 		// load in arraydata
 		struct3_T *tstdat_arraydata = loadArrayData_test(*scalardata_struct.tstdat_scalar_struct);
-		struct4_T *fahrzg_arraydata = loadArrayData_fzg(*scalardata_struct.tstdat_scalar_struct);
+//		struct4_T *fahrzg_arraydata = loadArrayData_fzg(*scalardata_struct.tstdat_scalar_struct);
 		
 		// DEFINE OUTPUT STRUCTS
 		struct emxArray_real_T *engKinOptVec;
@@ -47,35 +42,21 @@ int main(void) {
 		// RUN CODER!
 		clcDP_port_initialize();
 		
-		clcDP_port(scalardata_struct.params_scalar_struct, 
-			scalardata_struct.tstdat_scalar_struct,
-			scalardata_struct.fahrzg_scalar_struct,
-			tstdat_arraydata, 
-			fahrzg_arraydata,
-			engKinOptVec, 
-			batEngDltOptVec,
-			fulEngDltOptVec, 
-			staVec,
-			psiEngKinOptVec, 
-			fulEngOpt, 
-			resVld);	
+//		clcDP_port(scalardata_struct.params_scalar_struct, 
+//			scalardata_struct.tstdat_scalar_struct,
+//			scalardata_struct.fahrzg_scalar_struct,
+//			tstdat_arraydata, 
+//			fahrzg_arraydata,
+//			engKinOptVec, 
+//			batEngDltOptVec,
+//			fulEngDltOptVec, 
+//			staVec,
+//			psiEngKinOptVec, 
+//			fulEngOpt, 
+//			resVld);	
 				
 		clcDP_port_terminate();
 									
-//		extern void clcDP_port(const struct0_T *inputparams, 
-//								const struct1_T *testparams,
-//							  	const struct2_T *fahrparams, 
-//								const struct3_T *tst_array_struct, 
-//								const struct4_T *fzg_array_struct, 
-//								emxArray_real_T *engKinOptVec, 
-//								emxArray_real_T *batEngDltOptVec,
-//								emxArray_real_T *fulEngDltOptVec, 
-//								emxArray_real_T *staVec,
-//								emxArray_real_T *psiEngKinOptVec, 
-//								double *fulEngOpt, 
-//								boolean_T *resVld);
-	
-
 		getchar();
 		return 0;
 }

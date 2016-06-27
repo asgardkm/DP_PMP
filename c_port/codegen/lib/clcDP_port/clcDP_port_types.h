@@ -110,23 +110,6 @@ typedef struct {
 
 #endif                                 /*typedef_struct1_T*/
 
-
-//
-//
-//#ifndef typedef_struct1_test
-//#define typedef_struct1_test
-//
-//struct struct1_test {
-//  double staNum;
-//  double wayNum;
-//  double engKinNum;
-//};
-//
-//#endif                                 /*typedef_struct1_test*/
-//
-//
-//
-
 #ifndef typedef_struct2_T
 #define typedef_struct2_T
 

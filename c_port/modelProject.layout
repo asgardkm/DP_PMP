@@ -16,7 +16,7 @@ Top=0
 [Editors]
 <<<<<<< HEAD
 Focused=13
-Order=13,-1
+Order=13,-1,12,11
 =======
 Focused=8
 Order=2,6,8,9,10,5,3,4
@@ -150,21 +150,21 @@ CursorCol=12
 CursorRow=16
 TopLine=1
 LeftChar=1
-Open=0
+Open=1
 Top=0
 [Editor_12]
-Open=0
+Open=1
 Top=0
 CursorCol=10
 CursorRow=107
-TopLine=78
+TopLine=22
 LeftChar=1
 [Editor_13]
 Open=1
 Top=1
-CursorCol=21
-CursorRow=45
-TopLine=29
+CursorCol=14
+CursorRow=30
+TopLine=10
 LeftChar=1
 [Editor_14]
 Open=0
