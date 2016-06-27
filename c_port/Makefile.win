@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = findNumVars.o mainScript.o readConfig.o loadArrayData.o readRawText.o
-LINKOBJ  = findNumVars.o mainScript.o readConfig.o loadArrayData.o readRawText.o
+OBJ      = findNumVars.o mainScript.o readConfig.o loadArrayData.o readRawText.o loadArraydata_test.o
+LINKOBJ  = findNumVars.o mainScript.o readConfig.o loadArrayData.o readRawText.o loadArraydata_test.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.7.2/include/c++"
@@ -38,3 +38,6 @@ loadArrayData.o: loadArrayData.c
 
 readRawText.o: readRawText.c
 	$(CC) -c readRawText.c -o readRawText.o $(CFLAGS)
+
+loadArraydata_test.o: loadArraydata_test.c
+	$(CC) -c loadArraydata_test.c -o loadArraydata_test.o $(CFLAGS)

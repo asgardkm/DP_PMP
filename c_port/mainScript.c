@@ -24,7 +24,10 @@
 #include "readConfig.h"
 #include "findNumVars.h"
 #include "readRawText.h"
+
 #include "loadArrayData.h"
+#include "loadArrayData_test.h"
+
 #include "./codegen/lib/clcDP_port/clcDP_port_types.h"
 
 #define CONFIGFILE_DIR "mainConfig.txt"		// define mainConfig.txt file location
@@ -98,9 +101,7 @@ int main(void){
 						
 		// 22.06.2016 - exending buffer portion so that it populates a structure
 		struct0_T params_scalar_struct;
-//		struct0_T *params_scalar_pointer;
 		struct1_T tstdat_scalar_struct; 
-//		struct1_T *tstdat_scalar_pointer;
 	 	struct2_T fahrzg_scalar_struct;
 	 	
 	 	struct3_T tstdat_array_struct;
@@ -216,7 +217,7 @@ int main(void){
 //		printf("\n\n\nfahrzg_scalar_struct.vehVelMin: %4.2f\n", 	fahrzg_scalar_struct.vehVelMin);
 	
 		loadArrayData(tstdat_scalar_struct);
-		
+//		loadArrayData_test(tstdat_scalar_struct);
 		
 
 		// first define them - sending them into a struct?

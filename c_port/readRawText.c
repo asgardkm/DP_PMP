@@ -15,19 +15,21 @@
 #include <stdio.h>
 #include <string.h>				// for strcmp() and strtok() invocations
 #include "readRawText.h"
-#define BUF_SIZE 8192
+#define BUF_SIZE 16384
+//#define BUF_SIZE 100000
 double *readRawText(char *data_dir, char *config_filename, int data_row, int data_col, double *buffer) {
 	
 		// file pointer
 		FILE *fp;
 		// need to allocate enough space for sinal final_filename
-		char final_filename[512] = "";
+		char final_filename[1024] = "";
 		
 		// concactenate
 		strcat(final_filename, data_dir);
 		strcat(final_filename, ".");
 		strcat(final_filename, config_filename);
 		strcat(final_filename, ".txt");
+//		printf("Final_filename: %s\n", final_filename);
 		
 //		static double *output_array;		
 //		output_array = &buffer[0];
@@ -43,9 +45,11 @@ double *readRawText(char *data_dir, char *config_filename, int data_row, int dat
 				while (fgets(line, sizeof(line), fp)) {
 						char *data = line;
 						int offset = 0;
+						j = 0;
 						for (i = 0; i < data_row; i++) { // looping through rows
 								// reading through each column entry
-							    while ((sscanf(data, "%lf%n", (buffer+i*data_col+j), &offset) == 1) || (j < data_col)) {
+//							    while ((sscanf(data, "%lf%n", (buffer+i*data_col+j), &offset) == 1) || (j < data_col)) {
+							    while (sscanf(data, "%lf%n", (buffer+i*data_col+j), &offset) == 1) {
 							        	data += offset;
 							        	j++;
 							    }
@@ -59,5 +63,5 @@ double *readRawText(char *data_dir, char *config_filename, int data_row, int dat
 		}
 		fclose(fp);
 		
-		return buffer;	
+		return (double *)buffer;	
 }
