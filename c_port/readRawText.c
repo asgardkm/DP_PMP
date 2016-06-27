@@ -17,7 +17,6 @@
 #include "readRawText.h"
 
 #define BUF_SIZE 16384
-//#define BUF_SIZE 100000
 double *readRawText(char *data_dir, char *config_filename, int data_col, double *buffer) {
 //=======
 //#define BUF_SIZE 1024

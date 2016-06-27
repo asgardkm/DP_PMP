@@ -13,7 +13,7 @@
 #ifndef LOADARRAY_TEST		// header guard for loadArrayData()
 #define LOADARRAY_TEST
 //struct cbArray *loadArrayData(struct1_T tstdat_scalar_struct));
-struct3_T loadArrayData_test(struct1_T tstdat_scalar_struct);
+struct3_T *loadArrayData_test(struct1_T tstdat_scalar_struct);
 //struct cbArrayStruct loadArrayData(struct1_T tstdat_scalar_struct);
 
 #endif

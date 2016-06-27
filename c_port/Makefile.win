@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = findNumVars.o mainScript.o readConfig.o loadArrayData_fzg.o readRawText.o loadArrayData_test.o
-LINKOBJ  = findNumVars.o mainScript.o readConfig.o loadArrayData_fzg.o readRawText.o loadArrayData_test.o
+OBJ      = findNumVars.o loadScalarData.o readConfig.o loadArrayData_fzg.o readRawText.o loadArrayData_test.o mainScript.o codegen/lib/clcDP_port/batFrcClc_port.o codegen/lib/clcDP_port/clcDP_olyHyb_port.o codegen/lib/clcDP_port/clcDP_port.o codegen/lib/clcDP_port/clcDP_port_emxAPI.o codegen/lib/clcDP_port/clcDP_port_emxutil.o codegen/lib/clcDP_port/clcDP_port_initialize.o codegen/lib/clcDP_port/clcDP_port_terminate.o codegen/lib/clcDP_port/clcOptTrj_port.o codegen/lib/clcDP_port/clcPMP_olyHyb_port.o codegen/lib/clcDP_port/codegen_interp2.o codegen/lib/clcDP_port/diff.o codegen/lib/clcDP_port/fileManager.o codegen/lib/clcDP_port/fprintf.o codegen/lib/clcDP_port/interp1q.o codegen/lib/clcDP_port/rt_nonfinite.o codegen/lib/clcDP_port/rtGetInf.o codegen/lib/clcDP_port/rtGetNaN.o
+LINKOBJ  = findNumVars.o loadScalarData.o readConfig.o loadArrayData_fzg.o readRawText.o loadArrayData_test.o mainScript.o codegen/lib/clcDP_port/batFrcClc_port.o codegen/lib/clcDP_port/clcDP_olyHyb_port.o codegen/lib/clcDP_port/clcDP_port.o codegen/lib/clcDP_port/clcDP_port_emxAPI.o codegen/lib/clcDP_port/clcDP_port_emxutil.o codegen/lib/clcDP_port/clcDP_port_initialize.o codegen/lib/clcDP_port/clcDP_port_terminate.o codegen/lib/clcDP_port/clcOptTrj_port.o codegen/lib/clcDP_port/clcPMP_olyHyb_port.o codegen/lib/clcDP_port/codegen_interp2.o codegen/lib/clcDP_port/diff.o codegen/lib/clcDP_port/fileManager.o codegen/lib/clcDP_port/fprintf.o codegen/lib/clcDP_port/interp1q.o codegen/lib/clcDP_port/rt_nonfinite.o codegen/lib/clcDP_port/rtGetInf.o codegen/lib/clcDP_port/rtGetNaN.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.7.2/include/c++"
@@ -27,8 +27,8 @@ $(BIN): $(OBJ)
 findNumVars.o: findNumVars.c
 	$(CC) -c findNumVars.c -o findNumVars.o $(CFLAGS)
 
-mainScript.o: mainScript.c
-	$(CC) -c mainScript.c -o mainScript.o $(CFLAGS)
+loadScalarData.o: loadScalarData.c
+	$(CC) -c loadScalarData.c -o loadScalarData.o $(CFLAGS)
 
 readConfig.o: readConfig.c
 	$(CC) -c readConfig.c -o readConfig.o $(CFLAGS)
@@ -41,3 +41,57 @@ readRawText.o: readRawText.c
 
 loadArrayData_test.o: loadArrayData_test.c
 	$(CC) -c loadArrayData_test.c -o loadArrayData_test.o $(CFLAGS)
+
+mainScript.o: mainScript.c
+	$(CC) -c mainScript.c -o mainScript.o $(CFLAGS)
+
+codegen/lib/clcDP_port/batFrcClc_port.o: codegen/lib/clcDP_port/batFrcClc_port.c
+	$(CC) -c codegen/lib/clcDP_port/batFrcClc_port.c -o codegen/lib/clcDP_port/batFrcClc_port.o $(CFLAGS)
+
+codegen/lib/clcDP_port/clcDP_olyHyb_port.o: codegen/lib/clcDP_port/clcDP_olyHyb_port.c
+	$(CC) -c codegen/lib/clcDP_port/clcDP_olyHyb_port.c -o codegen/lib/clcDP_port/clcDP_olyHyb_port.o $(CFLAGS)
+
+codegen/lib/clcDP_port/clcDP_port.o: codegen/lib/clcDP_port/clcDP_port.c
+	$(CC) -c codegen/lib/clcDP_port/clcDP_port.c -o codegen/lib/clcDP_port/clcDP_port.o $(CFLAGS)
+
+codegen/lib/clcDP_port/clcDP_port_emxAPI.o: codegen/lib/clcDP_port/clcDP_port_emxAPI.c
+	$(CC) -c codegen/lib/clcDP_port/clcDP_port_emxAPI.c -o codegen/lib/clcDP_port/clcDP_port_emxAPI.o $(CFLAGS)
+
+codegen/lib/clcDP_port/clcDP_port_emxutil.o: codegen/lib/clcDP_port/clcDP_port_emxutil.c
+	$(CC) -c codegen/lib/clcDP_port/clcDP_port_emxutil.c -o codegen/lib/clcDP_port/clcDP_port_emxutil.o $(CFLAGS)
+
+codegen/lib/clcDP_port/clcDP_port_initialize.o: codegen/lib/clcDP_port/clcDP_port_initialize.c
+	$(CC) -c codegen/lib/clcDP_port/clcDP_port_initialize.c -o codegen/lib/clcDP_port/clcDP_port_initialize.o $(CFLAGS)
+
+codegen/lib/clcDP_port/clcDP_port_terminate.o: codegen/lib/clcDP_port/clcDP_port_terminate.c
+	$(CC) -c codegen/lib/clcDP_port/clcDP_port_terminate.c -o codegen/lib/clcDP_port/clcDP_port_terminate.o $(CFLAGS)
+
+codegen/lib/clcDP_port/clcOptTrj_port.o: codegen/lib/clcDP_port/clcOptTrj_port.c
+	$(CC) -c codegen/lib/clcDP_port/clcOptTrj_port.c -o codegen/lib/clcDP_port/clcOptTrj_port.o $(CFLAGS)
+
+codegen/lib/clcDP_port/clcPMP_olyHyb_port.o: codegen/lib/clcDP_port/clcPMP_olyHyb_port.c
+	$(CC) -c codegen/lib/clcDP_port/clcPMP_olyHyb_port.c -o codegen/lib/clcDP_port/clcPMP_olyHyb_port.o $(CFLAGS)
+
+codegen/lib/clcDP_port/codegen_interp2.o: codegen/lib/clcDP_port/codegen_interp2.c
+	$(CC) -c codegen/lib/clcDP_port/codegen_interp2.c -o codegen/lib/clcDP_port/codegen_interp2.o $(CFLAGS)
+
+codegen/lib/clcDP_port/diff.o: codegen/lib/clcDP_port/diff.c
+	$(CC) -c codegen/lib/clcDP_port/diff.c -o codegen/lib/clcDP_port/diff.o $(CFLAGS)
+
+codegen/lib/clcDP_port/fileManager.o: codegen/lib/clcDP_port/fileManager.c
+	$(CC) -c codegen/lib/clcDP_port/fileManager.c -o codegen/lib/clcDP_port/fileManager.o $(CFLAGS)
+
+codegen/lib/clcDP_port/fprintf.o: codegen/lib/clcDP_port/fprintf.c
+	$(CC) -c codegen/lib/clcDP_port/fprintf.c -o codegen/lib/clcDP_port/fprintf.o $(CFLAGS)
+
+codegen/lib/clcDP_port/interp1q.o: codegen/lib/clcDP_port/interp1q.c
+	$(CC) -c codegen/lib/clcDP_port/interp1q.c -o codegen/lib/clcDP_port/interp1q.o $(CFLAGS)
+
+codegen/lib/clcDP_port/rt_nonfinite.o: codegen/lib/clcDP_port/rt_nonfinite.c
+	$(CC) -c codegen/lib/clcDP_port/rt_nonfinite.c -o codegen/lib/clcDP_port/rt_nonfinite.o $(CFLAGS)
+
+codegen/lib/clcDP_port/rtGetInf.o: codegen/lib/clcDP_port/rtGetInf.c
+	$(CC) -c codegen/lib/clcDP_port/rtGetInf.c -o codegen/lib/clcDP_port/rtGetInf.o $(CFLAGS)
+
+codegen/lib/clcDP_port/rtGetNaN.o: codegen/lib/clcDP_port/rtGetNaN.c
+	$(CC) -c codegen/lib/clcDP_port/rtGetNaN.c -o codegen/lib/clcDP_port/rtGetNaN.o $(CFLAGS)

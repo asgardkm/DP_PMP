@@ -11,7 +11,7 @@
 
 #ifndef LOADARRAY_FZG		// header guard for loadArrayData()
 #define LOADARRAY_FZG
-struct4_T loadArrayData_fzg(struct1_T tstdat_scalar_struct);
+struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct);
 #endif
 
 #ifndef VARSTRUCT		// header guard for varStruct
