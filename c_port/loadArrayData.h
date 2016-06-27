@@ -12,7 +12,6 @@
 
 #ifndef LOADARRAY		// header guard for loadArrayData()
 #define LOADARRAY
-//struct cbArray *loadArrayData(struct1_T tstdat_scalar_struct));
 void loadArrayData(struct1_T tstdat_scalar_struct);
 //struct cbArrayStruct loadArrayData(struct1_T tstdat_scalar_struct);
 
