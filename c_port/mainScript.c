@@ -76,21 +76,21 @@ int main(void){
 		tstdat_struct = readConfig(configfile, numTstdat, tstdat_keystart, tstdat_keyend, tstdat_buffer);
 		fahrzg_struct = readConfig(configfile, numFahrzg, fahrzg_keystart, fahrzg_keyend, fahrzg_buffer);
 		
-		// test: output the structures stuff
-		printf("param_struct:\n");
-		for (i = 0; i < numParams; i++){
-				printf("	%s: %4.4f\n", params_struct[i].name, params_struct[i].value);
-		}
-		
-		printf("tstdat_struct:\n");
-		for (i = 0; i < numTstdat; i++){
-				printf("	%s: %4.4f\n", tstdat_struct[i].name, tstdat_struct[i].value);
-		}
+//		// test: output the structures stuff
+//		printf("param_struct:\n");
+//		for (i = 0; i < numParams; i++){
+//				printf("	%s: %4.4f\n", params_struct[i].name, params_struct[i].value);
+//		}
 //		
-		printf("fahrzg_struct:\n");
-		for (i = 0; i < numFahrzg; i++){
-				printf("	%s: %4.4f\n", fahrzg_struct[i].name, fahrzg_struct[i].value);
-		}
+//		printf("tstdat_struct:\n");
+//		for (i = 0; i < numTstdat; i++){
+//				printf("	%s: %4.4f\n", tstdat_struct[i].name, tstdat_struct[i].value);
+//		}
+////		
+//		printf("fahrzg_struct:\n");
+//		for (i = 0; i < numFahrzg; i++){
+//				printf("	%s: %4.4f\n", fahrzg_struct[i].name, fahrzg_struct[i].value);
+//		}
 
 		double i_value;
 		char *i_name;
