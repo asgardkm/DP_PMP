@@ -121,7 +121,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit9]
-FileName=loadArrayData.c
+FileName=loadArrayData_fzg.c
 CompileCpp=0
 Folder=
 Compile=1
@@ -131,7 +131,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit10]
-FileName=loadArrayData.h
+FileName=loadArrayData_fzg.h
 CompileCpp=0
 Folder=
 Compile=1
@@ -161,9 +161,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit13]
-FileName=loadArrayData_test.h
+FileName=loadArrayData_test.c
 CompileCpp=0
-Folder=
+Folder=modelProject.dev
 Compile=1
 Link=1
 Priority=1000
@@ -171,7 +171,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit12]
-FileName=loadArraydata_test.c
+FileName=loadArrayData_test.h
 CompileCpp=0
 Folder=
 Compile=1

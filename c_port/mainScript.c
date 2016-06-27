@@ -25,7 +25,7 @@
 #include "findNumVars.h"
 #include "readRawText.h"
 
-#include "loadArrayData.h"
+#include "loadArrayData_fzg.h"
 #include "loadArrayData_test.h"
 
 #include "./codegen/lib/clcDP_port/clcDP_port_types.h"
@@ -214,68 +214,10 @@ int main(void){
 						fahrzg_scalar_struct.fulLhv 		= i_value;
 				}
 		}
-//		printf("\n\n\nfahrzg_scalar_struct.vehVelMin: %4.2f\n", 	fahrzg_scalar_struct.vehVelMin);
-	
-		loadArrayData(tstdat_scalar_struct);
-//		loadArrayData_test(tstdat_scalar_struct);
-
-		
-
-		// first define them - sending them into a struct?
-		// can this be made into a structure or something? - 21.06.2016
-		// in a structre, make arrays of:
-		//  - the pointer variable
-		//  - variable buffer
-		//  - string name of text folder value
-		//	- row length of input value
-		//	- col length of input value
-		//  - input structure from c code - and it's header
-//		struct struct3_T *tst_array_struct;
-//		struct4_T fzg_array_struct;
-//		double *emoPwr_emoSpd_emoTrq;
-//		double emoPwr_emoSpd_emoTrq_buffer[150][100];
-//		double*iceTrqMaxCof;
-//		double iceTrqMaxCof_buffer[1][3];	
-
 		
 		
-		
-		
-		
-		
-//		// order in which to feed inputs to clc_DP_tmp.c
-//		// will do later - need to first bring in all the other inputs from more text files
-		
-		// read in vectors!
-		// define raw_data dor
-//		char raw_data_dir[] = "raw_data";
-//		// define struct prefix
-//		char fzg_prefix[] = "FZG";
-//		
-//		// time to load in vectors!
-//		// FZG.iceTrqMaxCof.txt(1x3)
-//		
-////		iceTrqMaxCof = readRawText(raw_data_dir, fzg_prefix, "iceTrqMaxCof",  1, 3, iceTrqMaxCof_buffer);
-//		iceTrqMaxCof = readRawText(raw_data_dir, fzg_prefix, "iceTrqMaxCof",  1, 3, iceTrqMaxCof_buffer);
-////		iceTrqMaxCof = &fzg_array_struct.iceTrqMaxCof[0];
-//
-//		for (m = 0; m < 1; m++){
-//			for (n = 0; n < 3; n++){
-//				printf(" *(iceTrqMaxCof + (%d*3) + %d): %4.3f\n", m, n, *(iceTrqMaxCof+m * 3+n));
-//				fzg_array_struct.iceTrqMaxCof[m*3+n] = *(iceTrqMaxCof+m * 3+n);
-//				printf("fzg_array_struct.iceTrqMaxCof[%d]: %4.3f\n\n", m*3+n, fzg_array_struct.iceTrqMaxCof[m*3+n]);
-//			}
-//		}
-//		//FZG.emoPwr_emoSpd_emoTrq.txt() (150x100)
-//		emoPwr_emoSpd_emoTrq = &emoPwr_emoSpd_emoTrq_buffer[0][0];
-//		emoPwr_emoSpd_emoTrq = readRawText(raw_data_dir, fzg_prefix, "emoPwr_emoSpd_emoTrq", 150, 100, emoPwr_emoSpd_emoTrq_buffer);
-//		
-//		for (m = 0; m < 150; m++){
-//				for (n = 0; n < 100; n++){
-//						printf("emoPwr_emoSpd_emoTrq[%d][%d]: %4.2f\n", m, n, *(emoPwr_emoSpd_emoTrq+m * 100 + n));
-//				}
-//		}
-		
+		fahrzg_array_struct = loadArrayData_fzg(tstdat_scalar_struct);
+		tstdat_array_struct = loadArrayData_test(tstdat_scalar_struct);	
 
 		// success!
 		printf("no crashes :)\n");

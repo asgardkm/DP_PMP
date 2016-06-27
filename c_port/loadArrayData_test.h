@@ -10,22 +10,13 @@
 #include "readConfig.h"
 
 
-#ifndef LOADARRAY		// header guard for loadArrayData()
-#define LOADARRAY
+#ifndef LOADARRAY_TEST		// header guard for loadArrayData()
+#define LOADARRAY_TEST
 //struct cbArray *loadArrayData(struct1_T tstdat_scalar_struct));
-void loadArrayData_test(struct1_T tstdat_scalar_struct);
+struct3_T loadArrayData_test(struct1_T tstdat_scalar_struct);
 //struct cbArrayStruct loadArrayData(struct1_T tstdat_scalar_struct);
 
 #endif
-
-//#ifndef CBARRAYSTRUCT 	// header guard for cbArrayStruct
-//#define CBARRAYSTRUCT
-//struct cbArrayStruct {
-//		struct3_T *tst_pointer;
-//		struct4_T *fzg_pointer;
-//};
-//#endif
-
 
 #ifndef VARSTRUCT		// header guard for varStruct
 #define VARSTRUCT

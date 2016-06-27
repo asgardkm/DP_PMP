@@ -15,8 +15,8 @@ Open=0
 Top=0
 [Editors]
 <<<<<<< HEAD
-Focused=8
-Order=2,8,10,5,9,-1
+Focused=11
+Order=2,8,9,10,5,-1,12,11
 =======
 Focused=8
 Order=2,6,8,9,10,5,3,4
@@ -35,9 +35,9 @@ LeftChar=1
 Open=1
 <<<<<<< HEAD
 Top=0
-CursorCol=17
-CursorRow=220
-TopLine=248
+CursorCol=18
+CursorRow=205
+TopLine=189
 =======
 Top=0
 CursorCol=30
@@ -75,10 +75,10 @@ LeftChar=1
 [Editor_5]
 Open=1
 Top=0
-CursorCol=58
+CursorCol=1
 <<<<<<< HEAD
 <<<<<<< HEAD
-CursorRow=10
+CursorRow=13
 =======
 CursorRow=10
 >>>>>>> parent of 0f2749b... ITS ALIVE MHUAHAHAHAH1111 1xdxdd
@@ -97,17 +97,17 @@ LeftChar=1
 [Editor_7]
 Open=1
 Top=0
-CursorCol=1
-CursorRow=182
+CursorCol=12
+CursorRow=161
 TopLine=157
 LeftChar=1
 [Editor_8]
 <<<<<<< HEAD
 Open=1
-Top=1
-CursorCol=6
-CursorRow=344
-TopLine=320
+Top=0
+CursorCol=1
+CursorRow=167
+TopLine=308
 =======
 Open=1
 Top=1
@@ -122,8 +122,8 @@ LeftChar=1
 [Editor_9]
 Open=1
 Top=0
-CursorCol=1
-CursorRow=15
+CursorCol=22
+CursorRow=12
 TopLine=1
 LeftChar=1
 [Editor_10]
@@ -146,16 +146,16 @@ TopLine=31
 >>>>>>> parent of 0f2749b... ITS ALIVE MHUAHAHAHAH1111 1xdxdd
 LeftChar=1
 [Editor_11]
-CursorCol=4
-CursorRow=206
-TopLine=195
-LeftChar=1
-Open=0
-Top=0
-[Editor_12]
-Open=0
-Top=0
-CursorCol=8
-CursorRow=17
+CursorCol=1
+CursorRow=12
 TopLine=1
+LeftChar=1
+Open=1
+Top=1
+[Editor_12]
+Open=1
+Top=0
+CursorCol=26
+CursorRow=107
+TopLine=18
 LeftChar=1
