@@ -1,12 +1,12 @@
 function [          ...  --- AusgangsgrÃ¶ÃŸen:
-    optPreInxTn3,   ... Tensor 3. Stufe fÃ¼r opt. VorgÃ¤ngerkoordinaten
+    optPreInxTn3,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
     batFrcOptTn3,   ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn3,   ... Tensor 3. Stufe fÃ¼r die Kraftstoffenergie 
+    fulEngOptTn3,   ... Tensor 3. Stufe für die Kraftstoffenergie 
     cos2goActMat    ... Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =             ...
     clcDP_olyHyb_port...
-    (               ... --- EingangsgrÃ¶ÃŸen:
-    disFlg,         ... Skalar - Flag fÃ¼r Ausgabe in das Commandwindow
+    (               ... --- Eingangsgrößen:
+    disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
     wayStp,         ... Skalar für die Wegschrittweite in m
     batEngStp,      ... Skalar der Batteriediskretisierung in J
     batEngBeg,      ... Skalar für die Batterieenergie am Beginn in Ws
@@ -17,8 +17,8 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
     wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
     engKinBegInx,   ... Skalar für den Index der Anfangsgeschwindigkeit
-    engKinNum,      ... Skalar für die max. Anz. an engKin-StÃ¼tzstellen
-    staNum,         ... Skalar für die max. Anzahl an ZustandsstÃ¼tzstellen
+    engKinNum,      ... Skalar für die max. Anz. an engKin-Stützstellen
+    staNum,         ... Skalar für die max. Anzahl an Zustandsstützstellen
     wayNum,         ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
     staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
     engKinNumVec_wayInx,       ... Vektor der Anzahl der kinetischen Energien

@@ -91,9 +91,6 @@ void clcDP_port(const struct0_T *inputparams, const struct1_T *testparams, const
   /*  struct der Fahrzeugparameter - NUR SKALARS */
   /*  struct der Fahrzeugparameter - NUR ARRAYS */
   
-  
-  
-  
   clcDP_olyHyb_port(inputparams->disFlg, inputparams->wayStp,
                     inputparams->batEngStp, inputparams->batEngBeg,
                     inputparams->batPwrAux, inputparams->psiBatEng,
@@ -107,22 +104,24 @@ void clcDP_port(const struct0_T *inputparams, const struct1_T *testparams, const
                     fzg_array_struct, optPreInxTn3, batFrcOptTn3, fulEngOptTn3,
                     cos2goActMat);
 
-
-
-
 // print out some outputs
 int m;
-printf("\n\noptPreInxTn3 dims: %d\n\n", optPreInxTn3->numDimensions);
+printf("\n\noptPreInxTn3 dims: %d\n", optPreInxTn3->numDimensions);
 for (m = 0; m < optPreInxTn3->numDimensions; m++)
 		printf("optPreInxTn3 size[%d]: %d\n", m, optPreInxTn3->size[m]);
-
-printf("\noptPreInxTn3 allocatedSize: %d\n:", optPreInxTn3->allocatedSize);
-
-printf("\noptPreInxTn3.canFreeData: %d\n", optPreInxTn3->canFreeData);
-
+printf("optPreInxTn3 allocatedSize: %d\n:", optPreInxTn3->allocatedSize);
+printf("optPreInxTn3.canFreeData: %d\n", optPreInxTn3->canFreeData);
 //for (m = 0; m < optPreInxTn3->allocatedSize; m++)
 //printf("optPreInxTn3 data[%d]: %d\n", m, optPreInxTn3->data[m]);
-printf("optPreInxTn3 data[3]: %4.4f\n", optPreInxTn3->data[3]);
+printf("optPreInxTn3 data[341]: %4.4f\n", optPreInxTn3->data[341]);
+
+
+printf("\nfulEngOptTn3 dims: %d\n", fulEngOptTn3->numDimensions);
+for (m = 0; m < fulEngOptTn3->numDimensions; m++)
+		printf("fulEngOptTn3 size[%d]: %d\n", m, fulEngOptTn3->size[m]);
+printf("fulEngOptTn3 allocateSize: %d\n", fulEngOptTn3->allocatedSize);
+printf("fulEngOptTn3.canFreeData: %d\n", fulEngOptTn3->canFreeData);
+printf("fulEngOptTn3 data[341]: %4.4f", fulEngOptTn3->data[341]);
 
   /* % Calculating optimal trajectories for result of DP + PMP */
   /*  Vektor - Trajektorie der optimalen kin. Energien */
@@ -149,7 +148,6 @@ printf("optPreInxTn3 data[3]: %4.4f\n", optPreInxTn3->data[3]);
   /*  Matrix der optimalen Kosten der Hamiltonfunktion */
   
   
-  
 //  clcOptTrj_port(inputparams->wayStp, testparams->wayNum, inputparams->wayInxBeg,
 //                 inputparams->wayInxEnd, testparams->engKinNum,
 //                 tst_array_struct->engKinNumVec_wayInx,
@@ -157,7 +155,6 @@ printf("optPreInxTn3 data[3]: %4.4f\n", optPreInxTn3->data[3]);
 //                 batFrcOptTn3, fulEngOptTn3, cos2goActMat, engKinOptVec,
 //                 batEngDltOptVec, fulEngDltOptVec, staVec, psiEngKinOptVec,
 //                 fulEngOpt);
-
 
 
   /*  engKinOptVec=0; */

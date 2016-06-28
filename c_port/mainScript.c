@@ -37,7 +37,8 @@ int main(void) {
 		// test: output the structures stuff
 //		printf("params_scalarpointer: %p\n", params_scalarpointer);
 //		printf("params_scalardata.batEngStp: %4.4f\n", params_scalardata.batEngStp);
-//		printf("params_scalarpointer->batEngStp: %4.4f\n", params_scalarpointer->batEngStp);
+		printf("\n\nparams_scalarpointer->wayInxBeg: %4.4f\n", params_scalarpointer->wayInxBeg);
+		printf("params_scalarpointer->wayInxEnd: %4.4f\n\n", params_scalarpointer->wayInxEnd);
 //		printf("	disFlg: %4.4f\n", params_scalardata.disFlg);
 //		printf("	wayStp: %4.4f\n", params_scalardata.wayStp);
 //		printf("	engKinBegInx: %4.4f\n", params_scalardata.engKinBegInx);
@@ -66,7 +67,19 @@ int main(void) {
 //		printf("fahrzg_arraypointer address: %p\n", fahrzg_arraypointer);
 //		for (m = 0; m < 15000; m++)
 //			printf("fahrzg_arraypointer->emoPwr_emoSpd_emoTrq[%d]: %4.4f\n", m, fahrzg_arraypointer->emoPwr_emoSpd_emoTrq[m]);
-//			
+//		
+
+//		for (m = 0; m < 100; m++) {
+//			printf("fahrzg_arraydata.emoTrqMax_emoSpd[%d]: %4.3f\n", m, fahrzg_arraydata.emoTrqMax_emoSpd[m]);
+//
+//		}
+//		for (m = 0; m < 6; m++) {
+//			printf("fahrzg_arraypointer->geaRat[%d]: %4.3f\n", m, fahrzg_arraypointer->geaRat[m]);
+//		}
+		for (m = 0; m < 14850; m++) {
+//			printf("fahrzg_arraypointer->iceSpdMgd[%d]: %4.3f\n", m, fahrzg_arraypointer->iceSpdMgd[m]);
+			printf("fahrzg_arraypointer->emoSpdMgd[%d]: %4.3f\n", m, fahrzg_arraypointer->emoSpdMgd[m]);
+		}
 		// DEFINE OUTPUT STRUCTS
 		struct emxArray_real_T *engKinOptVec;
 		struct emxArray_real_T *batEngDltOptVec;
@@ -78,19 +91,19 @@ int main(void) {
 		
 		// RUN CODER!
 		clcDP_port_initialize();
-		
-		clcDP_port(params_scalarpointer, 
-			tstdat_scalarpointer,
-			fahrzg_scalarpointer,
-			tstdat_arraypointer, 
-			fahrzg_arraypointer,
-			engKinOptVec, 
-			batEngDltOptVec,
-			fulEngDltOptVec, 
-			staVec,
-			psiEngKinOptVec, 
-			fulEngOpt, 
-			resVld);	
+//		
+//		clcDP_port(params_scalarpointer, 
+//			tstdat_scalarpointer,
+//			fahrzg_scalarpointer,
+//			tstdat_arraypointer, 
+//			fahrzg_arraypointer,
+//			engKinOptVec, 
+//			batEngDltOptVec,
+//			fulEngDltOptVec, 
+//			staVec,
+//			psiEngKinOptVec, 
+//			fulEngOpt, 
+//			resVld);	
 				
 		clcDP_port_terminate();
 					

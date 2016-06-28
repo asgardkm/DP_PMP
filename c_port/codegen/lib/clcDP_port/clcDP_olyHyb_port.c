@@ -27,8 +27,8 @@ static double vehAccMax;
 /* Function Definitions */
 
 /*
- * --- Eingangsgr√∂√üen:
- *  Skalar - Flag f√ºr Ausgabe in das Commandwindow
+ * --- Eingangsgrˆﬂen:
+ *  Skalar - Flag f¸r Ausgabe in das Commandwindow
  *  Skalar f¸r die Wegschrittweite in m
  *  Skalar der Batteriediskretisierung in J
  *  Skalar f¸r die Batterieenergie am Beginn in Ws
@@ -39,8 +39,8 @@ static double vehAccMax;
  *  Skalar f¸r Anfangsindex in den Eingangsdaten
  *  Skalar f¸r Endindex in den Eingangsdaten
  *  Skalar f¸r den Index der Anfangsgeschwindigkeit
- *  Skalar f¸r die max. Anz. an engKin-St√ºtzstellen
- *  Skalar f¸r die max. Anzahl an Zustandsst√ºtzstellen
+ *  Skalar f¸r die max. Anz. an engKin-St¸tzstellen
+ *  Skalar f¸r die max. Anzahl an Zustandsst¸tzstellen
  *  Skalar f¸r die Stufe der Batteriekraftmax. Anzahl an Wegst¸tzstellen
  *  Skalar f¸r den Startzustand des Antriebsstrangs
  *  Vektor der Anzahl der kinetischen Energien
@@ -184,7 +184,7 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
 
   /* % Initialisieren der Ausgabe der Funktion */
   /*    initialzing function output */
-  /*  Tensor 3. Stufe f√ºr optimalen Vorg√§ngerkoordinaten */
+  /*  Tensor 3. Stufe f¸r optimalen Vorg‰ngerkoordinaten */
   /*    tensor3 for optimal previous coordinates/idx */
   i0 = optPreInxTn3->size[0] * optPreInxTn3->size[1] * optPreInxTn3->size[2];
   optPreInxTn3->size[0] = (int)engKinNum;
@@ -196,7 +196,7 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
     optPreInxTn3->data[i0] = 0.0;
   }
 
-  /*  Tensor 3. Stufe f√ºr die Kraftstoffenergie */
+  /*  Tensor 3. Stufe f¸r die Kraftstoffenergie */
   /*    tensor3 for fuel energy */
   i0 = fulEngOptTn3->size[0] * fulEngOptTn3->size[1] * fulEngOptTn3->size[2];
   fulEngOptTn3->size[0] = (int)engKinNum;
@@ -272,9 +272,17 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
 
   /*  Erste Initilisierung beim Startindex mit Startladung f√ºr den Startzustand */
   /*    first, intialize start index of the starting charge for intial state */
-  batEngPreMat->data[((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg -
-    1)) - 1] = batEngBeg;
+  batEngPreMat->data[((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1] = batEngBeg;
 
+  printf("batEngPreMat->size[0](%d)* (staBeg-1)(%d): %d\n", batEngPreMat->size[0], 
+  															(int)staBeg - 1, 
+															batEngPreMat->size[0]*((int)staBeg - 1));
+															
+  printf("initial index: %d\n\n", ((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1);
+  
+  printf("batEngPreMat->data[((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1]: %4.4f\n",
+  			 batEngPreMat->data[((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1]);
+  
   /*  Initialisierung der Matrix der Kraftstoffenergien */
   /*    initialze the fuel energy matrix */
   i0 = fulEngPreMat->size[0] * fulEngPreMat->size[1];
@@ -288,8 +296,8 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
 
   /*  Erste Initilisierung beim Startindex mit 0 f√ºr den Startzustand */
   /*    first, intialize the start idx for the intitial states to 0 */
-  fulEngPreMat->data[((int)engKinBegInx + fulEngPreMat->size[0] * ((int)staBeg -
-    1)) - 1] = 0.0;
+
+  fulEngPreMat->data[((int)engKinBegInx + fulEngPreMat->size[0] * ((int)staBeg - 1)) - 1] = 0.0;
 
   /*  Schleife √ºber alle Wegpunkte */
   /*    looping thorugh length of # of grid discretization/indeces (Weginputs) */
@@ -298,9 +306,10 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
   b_emxInit_real_T(&batFrcOptMat, 2);
   b_emxInit_real_T(&batEngActMat, 2);
   b_emxInit_real_T(&fulEngActMat, 2);
+  printf("b_wayInx: %d\n", wayInxBeg + 1.0 + (double)wayInx);
   while (wayInx <= i0 - 1) {
     b_wayInx = (wayInxBeg + 1.0) + (double)wayInx;
-
+//	printf("b_wayInx: %d\n", b_wayInx);
     /*  PATH IDX LOOP */
     /*  mittlere Steigung im betrachteten Intervall  */
     /*    no longer doing mean, using previous gradiant instead */
@@ -371,6 +380,7 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
     /*    loop through all the current kinetic energies */
     for (loop_ub = 0; loop_ub < (int)engKinNumVec_wayInx[(int)b_wayInx - 1];
          loop_ub++) {
+//      printf("loop_ub: %d\n", loop_ub);
       /*  CURRENT KINETIC ENERGY LOOP */
       /*  akutelle kinetsiche Energie bestimmen */
       /*    determine the current kinetic energy */
@@ -379,6 +389,7 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
       /*  Schleife √ºber alle m√∂glichen aktuellen Zust√§nde des Antriesstrangs */
       /*    Loop over all possible current powertrain states/all the gears */
       for (b_loop_ub = 0; b_loop_ub < (int)staNum; b_loop_ub++) {
+//      	printf("b_loop_ub: %d\n", b_loop_ub);
         /*  ALL GEARS LOOP */
         /*             %% Initialsiieren */
         /*    note-you are preallocating over each powertrain state loop */
@@ -441,6 +452,7 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
         /*    loop through all the kinetic energies (previous state idxs) */
         for (engKinPreInx = 0; engKinPreInx < (int)engKinNumVec_wayInx[(int)
              b_wayInx - 2]; engKinPreInx++) {
+//            printf("engKinPreInx: %d\n", engKinPreInx);
           /*  PREVIOUS KE LOOP */
           /*  kinetsiche Energie des betrachten(consider) Vorg√§ngerspunkts */
           /*  bestimmen(determine) */
@@ -456,9 +468,10 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
             /*  Schleife √ºber allen Zust√§nde (relativer Index) */
             /*    Loop through all the states (relative index) */
             i1 = (int)(staPreMax + (1.0 - (double)staPreMin));
+//            printf("i1: %d\n", i1);
             for (staPre = 0; staPre < i1; staPre++) {
               b_staPre = (double)staPreMin + (double)staPre;
-
+//				printf("b_staPre: %4.4f\n", b_staPre);
               /*  CURRENT GEAR CHANGE LOOP */
               /*                     %% Batterieenergie beim betrachteten Vorg√§nger */
               /*  battery energy when considering last path_idx */
@@ -467,9 +480,22 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
               /*  n√§chsten Schleifendurchlauf gesprungen */
               /*    if there is no valid previous battery energy, jump */
               /*    to the next loop iteration */
+              
+              
+//              if((engKinPreInx + batEngPreMat->size[0] * ((int)b_staPre - 1))
+//			   	== (((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1)
+//				   && wayInx < 6) {
+				if(wayInx < 1) {
+			   		printf("batEngPreMat[%d]: %4.4f\n", engKinPreInx + batEngPreMat->size[0] * ((int)b_staPre - 1),
+					   				 batEngPreMat->data[engKinPreInx + batEngPreMat->size[0] * ((int)b_staPre - 1)]);
+				}
+
               if (rtIsInf(batEngPreMat->data[engKinPreInx + batEngPreMat->size[0]
                           * ((int)b_staPre - 1)])) {
+                          	      	
+//                          	printf("infinity found\n");
               } else {
+              		printf("found match\n");
                 /*                     %% Antriebsstrangzustand und Strafkosten bestimmen    */
                 /*    determine gear and penalty costs */
                 /*  Kosten f√ºr Zustandswechsel setzen */
@@ -501,7 +527,11 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
                                    ((int)b_staPre - 1)], psiBatEng, psiTim,
                                    batPwrAux, batEngStp, wayStp, fzg_scalar,
                                    fzg_array, &cosHam, &batFrc, &fulFrc);
-
+                                   
+                printf("cosHam: %4.4f\n", cosHam);
+            	printf("batFrc: %4.4f\n", batFrc);
+            	printf("fulFrc: %4.4f\n", fulFrc);
+            	
                 /*                      % minimale Kosten der Hamiltonfunktion zum aktuellen */
                 /*                      % Punkt bestimmen */
                 /*                      [cosHamMin,optPreInx] ... */
@@ -513,8 +543,7 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
                 /*    gear penalty to get current cost */
                 cosAct = (cosHam + cos2goPreMat->data[engKinPreInx +
                           cos2goPreMat->size[0] * ((int)b_staPre - 1)]) +
-                  staChgPenCos / wayStp;
-
+                  		  staChgPenCos / wayStp;
                 /*  Wenn der aktuelle Punkt besser ist, als der in */
                 /*  cosHamMin gespeicherte Wert, werden die Ausgabegr√∂√üen */
                 /*  neu beschrieben. */
@@ -656,8 +685,10 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
     }
 
     wayInx++;
+//    printf("wayInx: %d\n", wayInx);
   }
-
+  printf("wayInx final: %d\n", wayInx);
+//	printf("\nupper limit: %d\n", i0 - 1);
   emxFree_real_T(&fulEngActMat);
   emxFree_real_T(&batEngActMat);
   emxFree_real_T(&batFrcOptMat);

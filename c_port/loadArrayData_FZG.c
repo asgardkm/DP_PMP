@@ -180,7 +180,7 @@ struct4_T loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		geaRat_ptr = populateArrayStruct(geaRat, fzg_prefix);
 		for (m = 0; m < geaRat.row_num; m++) {
 				for (n = 0; n < geaRat.col_num; n++) {
-						fzg_array_struct.geaRat[m+geaRat.col_num+n] 
+						fzg_array_struct.geaRat[m*geaRat.col_num+n] 
 							= *(geaRat_ptr+m*geaRat.col_num+n);
 				}
 		}

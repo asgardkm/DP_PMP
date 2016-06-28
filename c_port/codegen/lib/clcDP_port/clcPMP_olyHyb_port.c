@@ -144,12 +144,16 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
     /*    maximum electric motor rotational speed */
     /*  maximale Drehzahl der Kurbelwelle */
     /*    maximum crankshaft rotational speed */
+    
+    
+    
     if ((fzg_array->iceSpdMgd[14850] <= fzg_array->emoSpdMgd[14850]) || rtIsNaN
         (fzg_array->emoSpdMgd[14850])) {
       crsSpdHybMax = fzg_array->iceSpdMgd[14850];
     } else {
       crsSpdHybMax = fzg_array->emoSpdMgd[14850];
     }
+
 
     crsSpdHybMax_not_empty = true;
 
@@ -176,12 +180,25 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
   /*    from the vehicle's kinetic energy, the crankshaft speed is calculated */
   /*    by the speed and gearbox translation. Line direction corresponding to */
   /*    the aisles (row rector). EQUATION 1 */
+  
+  
+  
+  
+  // fzg_scalar->geaRat[] is returning 0!
+  
   b_engKinPre[0] = engKinPre;
   b_engKinPre[1] = engKinAct;
   for (k = 0; k < 2; k++) {
     crsSpdVec[k] = fzg_array->geaRat[(int)gea - 1] * sqrt(2.0 * b_engKinPre[k] /
       fzg_scalar->vehMas) / fzg_scalar->whlDrr;
+      
+//      printf("(int)gea: %d\n", (int)gea);
+//      printf("(int)gea - 1: %d\n", (int)gea - 1);
+//      printf("fzg_array->geaRat[(int)gea - 1]: %4.3f\n", fzg_array->geaRat[(int)gea - 1]);
+//      printf("fzg_array->geaRat[5]: %4.3f\n", fzg_array->geaRat[5]);
   }
+
+
 
   /*  Abbruch, wenn die Drehzahlen der Kurbelwelle zu hoch im hybridischen */
   /*  Modus */
@@ -190,6 +207,8 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
   k = 0;
   exitg3 = false;
   while ((!exitg3) && (k < 2)) {
+  	printf("crsSpdVec[%d]: %4.3f\n", k, crsSpdVec[k]);
+  	printf("crsSpdHybMax: %4.3f\n", crsSpdHybMax);
     if (!!(crsSpdVec[k] > crsSpdHybMax)) {
       y = true;
       exitg3 = true;
@@ -197,6 +216,10 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
       k++;
     }
   }
+  
+	printf("STATUS OF Y(1): %d\n", y);
+	if (!y)
+		printf("11111111111111111111111111111111111111111111111111111111111\n");
 
   if (y) {
   } else {
@@ -206,6 +229,8 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
     y = false;
     k = 0;
     exitg2 = false;
+    printf("crsSpdVec[%d]: %4.3f\n", k, crsSpdVec[k]);
+    printf("crsSpdHybMin: %4.3f\n", crsSpdHybMin);
     while ((!exitg2) && (k < 2)) {
       if (!!(crsSpdVec[k] < crsSpdHybMin)) {
         y = true;
@@ -214,7 +239,11 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
         k++;
       }
     }
-
+    
+	printf("STATUS OF Y(2): %d\n", y);
+	if (!y)
+		printf("2222222222222222222222222222222222222222222222222222222222\n");	
+		
     if (y) {
     } else {
       /*  Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird */
@@ -695,7 +724,6 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
             }
 
             *cosHamMin = mtmp;
-
             /*  Wenn der aktuelle Punkt besser ist, als der in cosHamMin */
             /*  gespeicherte Wert, werden die Ausgabegrößen neu beschrieben. */
             /*    if the current point is better than the stored cosHamMin value, */
@@ -709,6 +737,9 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
       }
     }
   }
+  printf("	*cosHamMin (func): %4.3f\n", *cosHamMin);
+  printf("	*batFrcOut (func): %4.3f\n", *batFrcOut);
+  printf("	*fulFrcOut (func): %4.3f\n", *fulFrcOut);
 
   /*  end of function */
 }
