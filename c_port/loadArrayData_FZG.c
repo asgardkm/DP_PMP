@@ -34,7 +34,7 @@ double *populateArrayStruct(struct varStruct inputStruct, char *prefix);
 //void loadArrayData(struct1_T tstdat_scalar_struct) {
 //struct cbArrayStruct loadArrayData(struct1_T tstdat_scalar_struct) {
 
-struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
+struct4_T loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 	// read in vectors!
 		
 		// loop counters
@@ -47,7 +47,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		sprintf(fzg_prefix, "%s/FZG", raw_data_dir);
 		
 		// define structs for output that will go into cbArray (NECESSARY???)
-		struct4_T *fzg_array_struct;
+		struct4_T fzg_array_struct;
 		
 //		// DEFINE FZG ARRAY STRUCTURES
 		// batOcvCof_batEng
@@ -170,7 +170,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		batOcvCof_batEng_ptr = populateArrayStruct(batOcvCof_batEng, fzg_prefix);
 		for (m = 0; m < batOcvCof_batEng.row_num; m++) {
 				for (n = 0; n < batOcvCof_batEng.col_num; n++) {
-						fzg_array_struct->batOcvCof_batEng[m*batOcvCof_batEng.col_num+n] 
+						fzg_array_struct.batOcvCof_batEng[m*batOcvCof_batEng.col_num+n] 
 							= *(batOcvCof_batEng_ptr+m*batOcvCof_batEng.col_num+n);
 				}
 		}
@@ -180,7 +180,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		geaRat_ptr = populateArrayStruct(geaRat, fzg_prefix);
 		for (m = 0; m < geaRat.row_num; m++) {
 				for (n = 0; n < geaRat.col_num; n++) {
-						fzg_array_struct->geaRat[m+geaRat.col_num+n] 
+						fzg_array_struct.geaRat[m+geaRat.col_num+n] 
 							= *(geaRat_ptr+m*geaRat.col_num+n);
 				}
 		}
@@ -191,7 +191,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		iceSpdMgd_ptr = populateArrayStruct(iceSpdMgd, fzg_prefix);
 		for (m = 0; m < iceSpdMgd.row_num; m++) {
 				for (n = 0; n < iceSpdMgd.col_num; n++) {
-						fzg_array_struct->iceSpdMgd[m * iceSpdMgd.col_num + n] 		
+						fzg_array_struct.iceSpdMgd[m * iceSpdMgd.col_num + n] 		
 							= *(iceSpdMgd_ptr + m * iceSpdMgd.col_num + n);
 				}
 		}
@@ -201,7 +201,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		iceTrqMgd_ptr = populateArrayStruct(iceTrqMgd, fzg_prefix);	
 		for (m = 0; m < iceTrqMgd.row_num; m++) {
 				for (n = 0; n < iceTrqMgd.col_num; n++) {
-						fzg_array_struct->iceTrqMgd[m * iceTrqMgd.col_num + n] 
+						fzg_array_struct.iceTrqMgd[m * iceTrqMgd.col_num + n] 
 							= *(iceTrqMgd_ptr + m * iceTrqMgd.col_num + n);
 				}
 		}	
@@ -211,7 +211,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		iceFulPwr_iceSpd_iceTrq_ptr = populateArrayStruct(iceFulPwr_iceSpd_iceTrq, fzg_prefix);	
 		for (m = 0; m < iceFulPwr_iceSpd_iceTrq.row_num; m++) {
 				for (n = 0; n < iceFulPwr_iceSpd_iceTrq.col_num; n++) {
-						fzg_array_struct->iceFulPwr_iceSpd_iceTrq[m * iceFulPwr_iceSpd_iceTrq.col_num + n] 
+						fzg_array_struct.iceFulPwr_iceSpd_iceTrq[m * iceFulPwr_iceSpd_iceTrq.col_num + n] 
 							= *(iceFulPwr_iceSpd_iceTrq_ptr + m * iceFulPwr_iceSpd_iceTrq.col_num + n);
 				}
 		}
@@ -222,7 +222,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		iceTrqMaxCof_ptr = populateArrayStruct(iceTrqMaxCof, fzg_prefix);
 		for (m = 0; m < iceTrqMaxCof.row_num; m++) {
 				for (n = 0; n < iceTrqMaxCof.col_num; n++) {
-						fzg_array_struct->iceTrqMaxCof[m * iceTrqMaxCof.col_num + n] 
+						fzg_array_struct.iceTrqMaxCof[m * iceTrqMaxCof.col_num + n] 
 							= *(iceTrqMaxCof_ptr + m * iceTrqMaxCof.col_num + n);
 				}
 		}			
@@ -233,7 +233,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		iceTrqMinCof_ptr = populateArrayStruct(iceTrqMinCof, fzg_prefix);	
 		for (m = 0; m < iceTrqMinCof.row_num; m++) {
 				for (n = 0; n < iceTrqMinCof.col_num; n++) {
-						fzg_array_struct->iceTrqMinCof[m * iceTrqMinCof.col_num + n] 
+						fzg_array_struct.iceTrqMinCof[m * iceTrqMinCof.col_num + n] 
 							= *(iceTrqMinCof_ptr + m * iceTrqMinCof.col_num + n);
 				}
 		}				
@@ -244,7 +244,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		emoSpdMgd_ptr = populateArrayStruct(emoSpdMgd, fzg_prefix);
 		for (m = 0; m < iceTrqMaxCof.row_num; m++) {
 				for (n = 0; n < iceTrqMaxCof.col_num; n++) {
-						fzg_array_struct->emoSpdMgd[m * emoSpdMgd.col_num + n] 
+						fzg_array_struct.emoSpdMgd[m * emoSpdMgd.col_num + n] 
 							= *(emoSpdMgd_ptr + m * emoSpdMgd.col_num + n);
 				}
 		}			
@@ -255,7 +255,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		emoTrqMgd_ptr = populateArrayStruct(emoTrqMgd, fzg_prefix);
 		for (m = 0; m < emoTrqMgd.row_num; m++) {
 				for (n = 0; n < emoTrqMgd.col_num; n++) {
-						fzg_array_struct->emoTrqMgd[m * emoTrqMgd.col_num + n]
+						fzg_array_struct.emoTrqMgd[m * emoTrqMgd.col_num + n]
 							= *(emoTrqMgd_ptr + m * emoTrqMgd.col_num + n);
 				}
 		}
@@ -266,7 +266,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		emoPwr_emoSpd_emoTrq_ptr = populateArrayStruct(emoPwr_emoSpd_emoTrq, fzg_prefix);
 		for (m = 0; m < emoPwr_emoSpd_emoTrq.row_num; m++) {
 				for (n = 0; n < emoPwr_emoSpd_emoTrq.col_num; n++) {
-						fzg_array_struct->emoPwr_emoSpd_emoTrq[m * emoPwr_emoSpd_emoTrq.col_num + n]
+						fzg_array_struct.emoPwr_emoSpd_emoTrq[m * emoPwr_emoSpd_emoTrq.col_num + n]
 							= *(emoPwr_emoSpd_emoTrq_ptr + m * emoPwr_emoSpd_emoTrq.col_num + n);
 				}
 		}
@@ -276,7 +276,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		emoTrqMin_emoSpd_ptr = populateArrayStruct(emoTrqMin_emoSpd, fzg_prefix);
 		for (m = 0; m < emoTrqMin_emoSpd.row_num; m++) {
 				for (n = 0; n < emoTrqMin_emoSpd.col_num; n++) {
-						fzg_array_struct->emoTrqMin_emoSpd[m * emoTrqMin_emoSpd.col_num + n]
+						fzg_array_struct.emoTrqMin_emoSpd[m * emoTrqMin_emoSpd.col_num + n]
 							= *(emoTrqMin_emoSpd_ptr + m * emoTrqMin_emoSpd.col_num + n);
 				}
 		}
@@ -287,7 +287,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		emoTrqMax_emoSpd_ptr = populateArrayStruct(emoTrqMax_emoSpd, fzg_prefix);
 		for (m = 0; m < emoTrqMax_emoSpd.row_num; m++) {
 				for (n = 0; n < emoTrqMax_emoSpd.col_num; n++) {
-						fzg_array_struct->emoTrqMax_emoSpd[m * emoTrqMax_emoSpd.col_num + n]
+						fzg_array_struct.emoTrqMax_emoSpd[m * emoTrqMax_emoSpd.col_num + n]
 							= *(emoTrqMax_emoSpd_ptr + m * emoTrqMax_emoSpd.col_num + n);
 				}
 		}
@@ -298,7 +298,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		emoPwrMgd_ptr  = populateArrayStruct(emoPwrMgd, fzg_prefix);
 		for (m = 0; m < emoPwrMgd.row_num; m++) {
 				for (n = 0; n < emoPwrMgd.col_num; n++) {
-						fzg_array_struct->emoPwrMgd[m * emoPwrMgd.col_num + n]
+						fzg_array_struct.emoPwrMgd[m * emoPwrMgd.col_num + n]
 							=  *(emoPwrMgd_ptr + m * emoPwrMgd.col_num + n);
 				}
 		}
@@ -309,7 +309,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		emoTrq_emoSpd_emoPwr_ptr = populateArrayStruct(emoTrq_emoSpd_emoPwr, fzg_prefix);
 		for (m = 0; m < emoTrq_emoSpd_emoPwr.row_num; m++) {
 				for (n = 0; n < emoTrq_emoSpd_emoPwr.col_num; n++) {
-						fzg_array_struct->emoTrq_emoSpd_emoPwr[m * emoTrq_emoSpd_emoPwr.col_num + n]
+						fzg_array_struct.emoTrq_emoSpd_emoPwr[m * emoTrq_emoSpd_emoPwr.col_num + n]
 							= *(emoTrq_emoSpd_emoPwr_ptr + m * emoTrq_emoSpd_emoPwr.col_num + n);
 				}
 		}	
@@ -320,7 +320,7 @@ struct4_T *loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		emoPwrMax_emoSpd_ptr = populateArrayStruct(emoPwrMax_emoSpd, fzg_prefix);
 		for (m = 0; m < emoPwrMax_emoSpd.row_num; m++) {
 				for (n = 0; n < emoPwrMax_emoSpd.col_num; n++) {
-						fzg_array_struct->emoPwrMax_emoSpd[m * emoPwrMax_emoSpd.col_num + n]
+						fzg_array_struct.emoPwrMax_emoSpd[m * emoPwrMax_emoSpd.col_num + n]
 							= *(emoPwrMax_emoSpd_ptr + m * emoPwrMax_emoSpd.col_num + n);
 				}
 		}												

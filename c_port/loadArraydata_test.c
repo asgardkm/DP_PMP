@@ -30,7 +30,7 @@
 //declare function for populating array structure 
 double *populateArrayStruct_test(struct varStruct inputStruct, char *prefix);
 
-struct3_T *loadArrayData_test(struct1_T tstdat_scalar_struct) {
+struct3_T loadArrayData_test(struct1_T tstdat_scalar_struct) {
 //struct cbArrayStruct loadArrayData(struct1_T tstdat_scalar_struct) {
 
 	// read in vectors!
@@ -45,7 +45,7 @@ struct3_T *loadArrayData_test(struct1_T tstdat_scalar_struct) {
 		sprintf(tst_prefix, "%s/tstDat800", raw_data_dir);
 		
 		// define structs for output
-		struct3_T *tst_array_struct;		
+		struct3_T tst_array_struct;		
 		
 		// DEFINE TEST DATA ARRAY STRUCTURES
 		// slpVec_wayInx
@@ -78,7 +78,7 @@ struct3_T *loadArrayData_test(struct1_T tstdat_scalar_struct) {
 		slpVec_wayInx_ptr = populateArrayStruct_test(slpVec_wayInx, tst_prefix);
 		for (m = 0; m < slpVec_wayInx.row_num; m++) {
 				for (n = 0; n < slpVec_wayInx.col_num; n++) {
-						tst_array_struct->slpVec_wayInx[m * slpVec_wayInx.col_num + n]
+						tst_array_struct.slpVec_wayInx[m * slpVec_wayInx.col_num + n]
 							= *(slpVec_wayInx_ptr + m * slpVec_wayInx.col_num + n);
 				}
 		}
@@ -88,7 +88,7 @@ struct3_T *loadArrayData_test(struct1_T tstdat_scalar_struct) {
 		engKinMat_engKinInx_wayInx_ptr = populateArrayStruct_test(engKinMat_engKinInx_wayInx, tst_prefix);
 		for (m = 0; m < engKinMat_engKinInx_wayInx.row_num; m++) {
 				for (n = 0; n < engKinMat_engKinInx_wayInx.col_num; n++) {
-						tst_array_struct->engKinMat_engKinInx_wayInx[m * engKinMat_engKinInx_wayInx.col_num + n]
+						tst_array_struct.engKinMat_engKinInx_wayInx[m * engKinMat_engKinInx_wayInx.col_num + n]
 							= *(engKinMat_engKinInx_wayInx_ptr + m * engKinMat_engKinInx_wayInx.col_num + n);
 				}
 		}
@@ -98,7 +98,7 @@ struct3_T *loadArrayData_test(struct1_T tstdat_scalar_struct) {
 		engKinNumVec_wayInx_ptr = populateArrayStruct_test(engKinNumVec_wayInx, tst_prefix);
 		for (m = 0; m < engKinNumVec_wayInx.row_num; m++) {
 				for (n = 0; n < engKinNumVec_wayInx.col_num; n++) {
-						tst_array_struct->engKinNumVec_wayInx[m * engKinNumVec_wayInx.col_num + n]
+						tst_array_struct.engKinNumVec_wayInx[m * engKinNumVec_wayInx.col_num + n]
 							= *(engKinNumVec_wayInx_ptr + m * engKinNumVec_wayInx.col_num + n);
 				}
 		}

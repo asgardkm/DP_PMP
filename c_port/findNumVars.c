@@ -12,6 +12,7 @@
 #include <string.h>				// for strcmp() invocations
 #include "findNumVars.h"
 
+#define LINEBUFF 2048
 int findNumVars(char *config_filename, char *key_start, char *key_end){
 //int main(void){
 	//========= DEFINE VARIABLES ===============================
@@ -24,7 +25,7 @@ int findNumVars(char *config_filename, char *key_start, char *key_end){
 		int toggle_end;
 		
 		// TEMP READIN AND SCAN VARIABLES
-		char line[500], tmp_line[500];
+		char line[LINEBUFF], tmp_line[LINEBUFF];
 		
 		// PARAMETER NUM LENGTH VARIABLES
 		int  numVars = 0;				// var which will receive # length of inputs
@@ -64,7 +65,7 @@ int findNumVars(char *config_filename, char *key_start, char *key_end){
 	
 		} else { // File couldn't be opened
 				printf ("The file could not be opened.\n");
-				return -1; // exit function
+				return 1; // exit function
 		}
 		// close file
 		if (fclose(fp) != 0) {

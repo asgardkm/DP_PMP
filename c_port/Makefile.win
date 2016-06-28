@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = findNumVars.o loadScalarData.o readConfig.o loadArrayData_fzg.o readRawText.o loadArrayData_test.o mainScript.o codegen/lib/clcDP_port/batFrcClc_port.o codegen/lib/clcDP_port/clcDP_olyHyb_port.o codegen/lib/clcDP_port/clcDP_port.o codegen/lib/clcDP_port/clcDP_port_emxAPI.o codegen/lib/clcDP_port/clcDP_port_emxutil.o codegen/lib/clcDP_port/clcDP_port_initialize.o codegen/lib/clcDP_port/clcDP_port_terminate.o codegen/lib/clcDP_port/clcOptTrj_port.o codegen/lib/clcDP_port/clcPMP_olyHyb_port.o codegen/lib/clcDP_port/codegen_interp2.o codegen/lib/clcDP_port/diff.o codegen/lib/clcDP_port/fileManager.o codegen/lib/clcDP_port/fprintf.o codegen/lib/clcDP_port/interp1q.o codegen/lib/clcDP_port/rt_nonfinite.o codegen/lib/clcDP_port/rtGetInf.o codegen/lib/clcDP_port/rtGetNaN.o
-LINKOBJ  = findNumVars.o loadScalarData.o readConfig.o loadArrayData_fzg.o readRawText.o loadArrayData_test.o mainScript.o codegen/lib/clcDP_port/batFrcClc_port.o codegen/lib/clcDP_port/clcDP_olyHyb_port.o codegen/lib/clcDP_port/clcDP_port.o codegen/lib/clcDP_port/clcDP_port_emxAPI.o codegen/lib/clcDP_port/clcDP_port_emxutil.o codegen/lib/clcDP_port/clcDP_port_initialize.o codegen/lib/clcDP_port/clcDP_port_terminate.o codegen/lib/clcDP_port/clcOptTrj_port.o codegen/lib/clcDP_port/clcPMP_olyHyb_port.o codegen/lib/clcDP_port/codegen_interp2.o codegen/lib/clcDP_port/diff.o codegen/lib/clcDP_port/fileManager.o codegen/lib/clcDP_port/fprintf.o codegen/lib/clcDP_port/interp1q.o codegen/lib/clcDP_port/rt_nonfinite.o codegen/lib/clcDP_port/rtGetInf.o codegen/lib/clcDP_port/rtGetNaN.o
+OBJ      = findNumVars.o loadScalarData.o readConfig.o loadArrayData_fzg.o readRawText.o loadArrayData_test.o mainScript.o codegen/lib/clcDP_port/batFrcClc_port.o codegen/lib/clcDP_port/clcDP_olyHyb_port.o codegen/lib/clcDP_port/clcDP_port.o codegen/lib/clcDP_port/clcDP_port_emxAPI.o codegen/lib/clcDP_port/clcDP_port_emxutil.o codegen/lib/clcDP_port/clcDP_port_initialize.o codegen/lib/clcDP_port/clcDP_port_terminate.o codegen/lib/clcDP_port/clcOptTrj_port.o codegen/lib/clcDP_port/clcPMP_olyHyb_port.o codegen/lib/clcDP_port/codegen_interp2.o codegen/lib/clcDP_port/diff.o codegen/lib/clcDP_port/fileManager.o codegen/lib/clcDP_port/fprintf.o codegen/lib/clcDP_port/interp1q.o codegen/lib/clcDP_port/rt_nonfinite.o codegen/lib/clcDP_port/rtGetInf.o codegen/lib/clcDP_port/rtGetNaN.o loadScalarData_params.o loadScalarData_test.o loadScalarData_fahr.o
+LINKOBJ  = findNumVars.o loadScalarData.o readConfig.o loadArrayData_fzg.o readRawText.o loadArrayData_test.o mainScript.o codegen/lib/clcDP_port/batFrcClc_port.o codegen/lib/clcDP_port/clcDP_olyHyb_port.o codegen/lib/clcDP_port/clcDP_port.o codegen/lib/clcDP_port/clcDP_port_emxAPI.o codegen/lib/clcDP_port/clcDP_port_emxutil.o codegen/lib/clcDP_port/clcDP_port_initialize.o codegen/lib/clcDP_port/clcDP_port_terminate.o codegen/lib/clcDP_port/clcOptTrj_port.o codegen/lib/clcDP_port/clcPMP_olyHyb_port.o codegen/lib/clcDP_port/codegen_interp2.o codegen/lib/clcDP_port/diff.o codegen/lib/clcDP_port/fileManager.o codegen/lib/clcDP_port/fprintf.o codegen/lib/clcDP_port/interp1q.o codegen/lib/clcDP_port/rt_nonfinite.o codegen/lib/clcDP_port/rtGetInf.o codegen/lib/clcDP_port/rtGetNaN.o loadScalarData_params.o loadScalarData_test.o loadScalarData_fahr.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.7.2/include/c++"
@@ -95,3 +95,12 @@ codegen/lib/clcDP_port/rtGetInf.o: codegen/lib/clcDP_port/rtGetInf.c
 
 codegen/lib/clcDP_port/rtGetNaN.o: codegen/lib/clcDP_port/rtGetNaN.c
 	$(CC) -c codegen/lib/clcDP_port/rtGetNaN.c -o codegen/lib/clcDP_port/rtGetNaN.o $(CFLAGS)
+
+loadScalarData_params.o: loadScalarData_params.c
+	$(CC) -c loadScalarData_params.c -o loadScalarData_params.o $(CFLAGS)
+
+loadScalarData_test.o: loadScalarData_test.c
+	$(CC) -c loadScalarData_test.c -o loadScalarData_test.o $(CFLAGS)
+
+loadScalarData_fahr.o: loadScalarData_fahr.c
+	$(CC) -c loadScalarData_fahr.c -o loadScalarData_fahr.o $(CFLAGS)
