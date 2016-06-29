@@ -1,19 +1,20 @@
 // loadArrayData_fzg.c
-
-// first define them - sending them into a struct?
-		// can this be made into a structure or something? - 21.06.2016
-		// in a structre, make arrays of:
-		//  - the pointer variable
-		//  - variable buffer
-		//  - string name of text folder value
-		//	- row length of input value
-		//	- col length of input value
-		// and then rearrange similarly to how it was done with scalars?
-		
-		// output:
-		//  - input structure from c code - and it's header 
-		//		you want to return a pointer of this input structure once
-		//		its been populated by the above pointer variable from buffer
+//
+// old notes (21.06.2016):
+		// first define them - sending them into a struct?
+				// can this be made into a structure or something? - 21.06.2016
+				// in a structre, make arrays of:
+				//  - the pointer variable
+				//  - variable buffer
+				//  - string name of text folder value
+				//	- row length of input value
+				//	- col length of input value
+				// and then rearrange similarly to how it was done with scalars?
+				//
+				// output:
+				//  - input structure from c code - and it's header 
+				//		you want to return a pointer of this input structure once
+				//		its been populated by the above pointer variable from buffer
 		
 #include <stdio.h>
 #include <string.h>
@@ -31,9 +32,6 @@
 //declare function for populating array structure 
 double *populateArrayStruct(struct varStruct inputStruct, char *prefix);
 
-//void loadArrayData(struct1_T tstdat_scalar_struct) {
-//struct cbArrayStruct loadArrayData(struct1_T tstdat_scalar_struct) {
-
 struct4_T loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 	// read in vectors!
 		
@@ -46,7 +44,7 @@ struct4_T loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		char fzg_prefix[200];
 		sprintf(fzg_prefix, "%s/FZG", raw_data_dir);
 		
-		// define structs for output that will go into cbArray (NECESSARY???)
+		// define output struct
 		struct4_T fzg_array_struct;
 		
 //		// DEFINE FZG ARRAY STRUCTURES
@@ -164,10 +162,11 @@ struct4_T loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		static double *emoPwrMin_emoSpd_ptr;
 
 	// ================ time to load in vectors! ====================================================
-
 // POINTERS TO FAHRZEUG ARRAY STRUCTURES
 //	 FZG.batOcvCof_batEng(1x2)
+		// function call - have a pointer point to the raw data
 		batOcvCof_batEng_ptr = populateArrayStruct(batOcvCof_batEng, fzg_prefix);
+		// save each pointed to raw value saved in the respective output structure array element field
 		for (m = 0; m < batOcvCof_batEng.row_num; m++) {
 				for (n = 0; n < batOcvCof_batEng.col_num; n++) {
 						fzg_array_struct.batOcvCof_batEng[m*batOcvCof_batEng.col_num+n] 
@@ -242,8 +241,8 @@ struct4_T loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 		
 	// FZG.emoSpdMgd.txt
 		emoSpdMgd_ptr = populateArrayStruct(emoSpdMgd, fzg_prefix);
-		for (m = 0; m < iceTrqMaxCof.row_num; m++) {
-				for (n = 0; n < iceTrqMaxCof.col_num; n++) {
+		for (m = 0; m < emoSpdMgd.row_num; m++) {
+				for (n = 0; n < emoSpdMgd.col_num; n++) {
 						fzg_array_struct.emoSpdMgd[m * emoSpdMgd.col_num + n] 
 							= *(emoSpdMgd_ptr + m * emoSpdMgd.col_num + n);
 				}
@@ -325,21 +324,12 @@ struct4_T loadArrayData_fzg(struct1_T tstdat_scalar_struct) {
 				}
 		}												
 //		emoPwrMax_emoSpd_ptr = NULL;	
-
 		return fzg_array_struct;
 }
-// declare function here!!	
+
+// declare function here!! - populates memory with raw data, which is pointed at by output pointer
 double *populateArrayStruct(struct varStruct inputStruct, char *prefix) {
-//		printf("inputStruct.row_num: %d\n", inputStruct.row_num);
-//		printf("inputStruct.col_num: %d\n", inputStruct.col_num);
 		int product = inputStruct.row_num * inputStruct.col_num;
-//		printf("product: %d\n", product);
-//		printf("product2: %d\n", inputStruct.row_num * inputStruct.col_num);
-//		double buffer_size [7776];
 		double *malloc_test = malloc(sizeof *malloc_test * product);
-//		printf("sizeof malloc_test: %d\n", sizeof(malloc_test));
-//		double buffer_size[inputStruct.row_num * inputStruct.col_num];
-//		double *buffer = &buffer_size[0];
-//		return buffer;
 		return (double *)readRawText(prefix, inputStruct.string_name, inputStruct.col_num, malloc_test);
 }

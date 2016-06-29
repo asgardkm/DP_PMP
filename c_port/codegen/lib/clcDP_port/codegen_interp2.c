@@ -38,10 +38,32 @@ double codegen_interp2(const double X[15000], const double Y[15000], const
   /*  Usage restrictions */
   /*    X and Y must have the same size as Z */
   /*    e.g.,  [X,Y] = meshgrid(x,y); */
-  idyi = (xi - X[0]) * (1.0 / (X[150] - X[0])) + 1.0;
-  idxi = (yi - Y[0]) * (1.0 / (Y[1] - Y[0])) + 1.0;
+  
+  // ====== X[150] MUST BE X[1] BECAUSE MATLAB INDEXES!!!! ==================================
+//  idyi = (xi - X[0]) * (1.0 / (X[150] - X[0])) + 1.0;
+    idyi = (xi - X[0]) * (1.0 / (X[1] - X[0])) + 1.0;
+
+  // NOTE!!!! LOOK INTO Y[1]!! - ITS SAME VALUE AS Y[0]!1
+  // ====== Y[1] MUST BE Y[100]  BECAUSE MATLAB INDEXES!!!! ==================================
+//  idxi = (yi - Y[0]) * (1.0 / (Y[1] - Y[0])) + 1.0;
+  idxi = (yi - Y[0]) * (1.0 / (Y[100] - Y[0])) + 1.0;
+  
   if ((idxi <= 1.0) || (idyi <= 1.0) || (idxi > 150.0) || (idyi > 100.0) ||
       rtIsNaN(xi) || rtIsNaN(yi)) {
+//      	printf("		idyi: %4.3f\n", idyi);
+//      	printf("		idxi: %4.3f\n", idxi);
+//      	printf("		X[0]: %4.3f\n", X[0]);
+//      	printf("		X[1]: %4.3f\n", X[1]);
+//      	printf("		X[150]: %4.3f\n", X[150]);
+//      	printf("		Y[0]: %4.3f\n", Y[0]);
+//      	printf("		Y[1]: %4.3f\n", Y[1]);
+//      	printf("		Y[99]: %4.3f\n", Y[99]);
+//      	printf("		Y[100]: %4.3f\n", Y[100]);
+//      	printf("		Y[100]: %4.3f\n", Y[101]);
+//      	printf("		Y[149]: %4.3f\n", Y[149]);
+//      	printf("		Y[150]: %4.3f\n", Y[150]);
+//      	printf("		Y[151]: %4.3f\n", Y[151]);
+      	printf("		infinity found in codegen!\n");
     Zi = rtInf;
   } else if ((idxi / ceil(idxi) != 1.0) && (idyi / ceil(idyi) != 1.0)) {
     Zi = ((Z[((int)(double)(ceil(idxi) - 1.0) + 150 * ((int)(double)(ceil(idyi)

@@ -9,16 +9,6 @@
 // step 4: feed inputs into generated DP_PMP algorithm code and see what happens
 //
 // 27.06.2016 - looks like its about finished!! now need to feed to clcDP_port
-//---------------------------------------------------------------------------
-// NOTE: POINTER ARITHMETIC WITH 2D ARRAYS:
-// to call the [m][n] value from array with dims dataArray[m_all][n_all] (or [m_all*n_all]):
-//			*((int *)dataArray+m * n_all+n));
-//	OR
-// can also assign a pointer *dataPointer, so that
-//			dataPointer = &dataArray[0][0];
-// and therefore call with
-//			*(dataPointer+m * n_all+n);
-//---------------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,23 +16,18 @@
 #include "readConfig.h"
 #include "findNumVars.h"
 #include "readRawText.h"
-//
-//#include "loadArrayData_fzg.h"
-//#include "loadArrayData_test.h"
-
 #include "./codegen/lib/clcDP_port/clcDP_port_types.h"
 
-#define CONFIGFILE_DIR "mainConfig.txt"		// define mainConfig.txt file location
+//#define CONFIGFILE_DIR "mainConfig.txt"		// define mainConfig.txt file location
 
 struct0_T loadScalarData_params(char *mainConfigDir){
-//int main(void){
 
 		int i, m, n;						// loop vars
 		double i_value;
 		char *i_name;
 		
 //		char *configfile = mainConfigDir;					// define mainConfig.txt file location
-		char *configfile = CONFIGFILE_DIR;					// define mainConfig.txt file location
+		char *configfile = mainConfigDir;					// define mainConfig.txt file location
 
 		// defining mainConfig.txt keywords
 		char *params_keystart;
@@ -52,6 +37,7 @@ struct0_T loadScalarData_params(char *mainConfigDir){
 		char *fahrzg_keystart;
 		char *fahrzg_keyend;
 		
+		// define keywords
 		params_keystart = "PARAMS_START";
 		params_keyend 	= "PARAMS_END";
 		tstdat_keystart = "TSTDAT_START";
@@ -61,62 +47,21 @@ struct0_T loadScalarData_params(char *mainConfigDir){
 		
 		// function call: find number of input parameters
 		int numParams  	= findNumVars(configfile, params_keystart, params_keyend);
-//		int numTstdat	= findNumVars(configfile, tstdat_keystart, tstdat_keyend);
-//		int numFahrzg	= findNumVars(configfile, fahrzg_keystart, fahrzg_keyend);
-		// quick test, making sure that correct numVars is calculated
-//		printf("numParams: %d\n", numParams);
-//		printf("numTstdat: %d\n", numTstdat);
-//		printf("numFahrzg: %d\n", numFahrzg);
-//			
-						
+					
 		// 22.06.2016 - exending buffer portion so that it populates a structure
 		struct0_T params_scalar_struct;
-//		struct1_T tstdat_scalar_struct; 
-//	 	struct2_T fahrzg_scalar_struct;
-	 	
-	 	struct0_T *params_scalar_pointer = &params_scalar_struct;
-//	 	struct1_T *tstdat_scalar_pointer = &tstdat_scalar_struct;
-//	 	struct2_T *fahrzg_scalar_pointer = &fahrzg_scalar_struct;
-	 	
-//	 	struct3_T tstdat_array_struct;
-//		struct4_T fahrzg_array_struct;
-		
+ 		
 		// define input_params struct - will populate w/ readConfig.c
 		struct model_params *params_struct;
-//		struct model_params *tstdat_struct;
-//		struct model_params *fahrzg_struct;
-		
+	
 		// buffer for each struct data group - ensures that each struct have distinct pointer addresses from each other
 		struct model_params params_buffer[numParams];
-//		struct model_params tstdat_buffer[numTstdat];
-//		struct model_params fahrzg_buffer[numFahrzg];
-//		
-		// structure which will hold the five input data-filled structures
-//		struct outputScalarStruct output_scalar_struct;
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// function call: load in structure wiih all input parameters
 		params_struct = readConfig(configfile, numParams, params_keystart, params_keyend, params_buffer);
-//		tstdat_struct = readConfig(configfile, numTstdat, tstdat_keystart, tstdat_keyend, tstdat_buffer);
-//		fahrzg_struct = readConfig(configfile, numFahrzg, fahrzg_keystart, fahrzg_keyend, fahrzg_buffer);
-//		
-		// test: output the structures stuff
-//		printf("param_struct:\n");
-//		for (i = 0; i < numParams; i++){
-//				printf("	%s: %4.4f\n", params_struct[i].name, params_struct[i].value);
-//		}
-//		
-//		printf("tstdat_struct:\n");
-//		for (i = 0; i < numTstdat; i++){
-//				printf("	%s: %4.4f\n", tstdat_struct[i].name, tstdat_struct[i].value);
-//		}
-////		
-//		printf("fahrzg_struct:\n");
-//		for (i = 0; i < numFahrzg; i++){
-//				printf("	%s: %4.4f\n", fahrzg_struct[i].name, fahrzg_struct[i].value);
-//		}
 
 	//	MATCHING UP PARAMS SCALAR DATA
+	// loop through each params_struct field and assign it to its respective output struct field
 		for (i = 0; i < numParams; i++) {
 				i_name  = params_struct[i].name;
 				i_value = params_struct[i].value;
@@ -146,65 +91,5 @@ struct0_T loadScalarData_params(char *mainConfigDir){
 						params_scalar_struct.staBeg 			= i_value;
 				}
 		}		
-	
-//	// 	MATCHING UP TSTDAT SCALAR DATA
-//		for (i = 0; i < numTstdat; i++) {
-//				i_name  = tstdat_struct[i].name;
-//				i_value = tstdat_struct[i].value;
-//				if (strcmp(i_name, 			"staNum") 	== 0) {
-//						tstdat_scalar_struct.staNum 	= i_value;
-////						printf("Found 'staNum' at %d (value: %4.2f)\n", i, i_value);
-//				} else if (strcmp(i_name, 	"wayNum") 	== 0) {
-//						tstdat_scalar_struct.wayNum 	= i_value;
-////						printf("Found 'wayNum' at %d (value: %4.2f)\n", i, i_value);
-//				} else if (strcmp(i_name, 	"engKinNum")== 0) {
-//						tstdat_scalar_struct.engKinNum 	= i_value;
-////						printf("Found 'engKinNum' at %d (value: %4.2f)\n", i, i_value);
-//				} else {
-//						printf("no string match for tstdat_scalar_struct[%d].\nCheck struct fields and/or input strings\n", i);
-//				}
-//		}
-//
-//	//	MATCHING UP FAHRZEUG SCALAR DATA
-//		for (i = 0; i < numFahrzg; i++) {
-//				i_name  = fahrzg_struct[i].name;
-//				i_value = fahrzg_struct[i].value;
-//				if (strcmp(i_name, 			"vehVelMin") 	== 0) {
-//						fahrzg_scalar_struct.vehVelMin 		= i_value;
-//				} else if (strcmp(i_name, 	"vehVelMax")	== 0) {
-//						fahrzg_scalar_struct.vehVelMax 		= i_value;
-//				} else if (strcmp(i_name, 	"vehAccMax")	== 0) {
-//						fahrzg_scalar_struct.vehAccMax 		= i_value;
-//				} else if (strcmp(i_name, 	"vehAccMin")	== 0) {
-//						fahrzg_scalar_struct.vehAccMin 		= i_value;
-//				} else if (strcmp(i_name, 	"drgCof")		== 0) {
-//						fahrzg_scalar_struct.drgCof 		= i_value;
-//				} else if (strcmp(i_name, 	"vehMas")		== 0) {
-//						fahrzg_scalar_struct.vehMas 		= i_value;
-//				} else if (strcmp(i_name, 	"whlRosResCof")	== 0) {
-//						fahrzg_scalar_struct.whlRosResCof	= i_value;
-//				} else if (strcmp(i_name, 	"whlDrr") 		== 0) {
-//						fahrzg_scalar_struct.whlDrr 		= i_value;
-//				} else if (strcmp(i_name, 	"batRstChr")	== 0) {
-//						fahrzg_scalar_struct.batRstChr 		= i_value;
-//				} else if (strcmp(i_name, 	"batRstDch")	== 0) {
-//						fahrzg_scalar_struct.batRstDch 		= i_value;
-//				} else if (strcmp(i_name, 	"batEngMax")	== 0) {
-//						fahrzg_scalar_struct.batEngMax 		= i_value;
-//				} else if (strcmp(i_name, 	"batPwrMax") 	== 0) {
-//						fahrzg_scalar_struct.batPwrMax 		= i_value;
-//				} else if (strcmp(i_name, 	"batPwrMin") 	== 0) {
-//						fahrzg_scalar_struct.batPwrMin 		= i_value;
-//				} else if (strcmp(i_name, 	"geaEfy") 		== 0) {
-//						fahrzg_scalar_struct.geaEfy 		= i_value;
-//				} else if (strcmp(i_name, 	"fulDen") 		== 0) {
-//						fahrzg_scalar_struct.fulDen 		= i_value;
-//				} else if (strcmp(i_name, 	"fulLhv") 		== 0) {
-//						fahrzg_scalar_struct.fulLhv 		= i_value;
-//				}
-//		}	
-
-
 		return params_scalar_struct;
-//return 0;
 }

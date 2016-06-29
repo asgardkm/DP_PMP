@@ -106,22 +106,45 @@ void clcDP_port(const struct0_T *inputparams, const struct1_T *testparams, const
 
 // print out some outputs
 int m;
+// optPreInxTn3
+for (m = 0; m < 52800; m++)
+	printf("optPreInxTn3 data[%d]: %4.3f\n", m, optPreInxTn3->data[m]);
 printf("\n\noptPreInxTn3 dims: %d\n", optPreInxTn3->numDimensions);
 for (m = 0; m < optPreInxTn3->numDimensions; m++)
 		printf("optPreInxTn3 size[%d]: %d\n", m, optPreInxTn3->size[m]);
 printf("optPreInxTn3 allocatedSize: %d\n:", optPreInxTn3->allocatedSize);
 printf("optPreInxTn3.canFreeData: %d\n", optPreInxTn3->canFreeData);
-//for (m = 0; m < optPreInxTn3->allocatedSize; m++)
-//printf("optPreInxTn3 data[%d]: %d\n", m, optPreInxTn3->data[m]);
-printf("optPreInxTn3 data[341]: %4.4f\n", optPreInxTn3->data[341]);
 
 
-printf("\nfulEngOptTn3 dims: %d\n", fulEngOptTn3->numDimensions);
-for (m = 0; m < fulEngOptTn3->numDimensions; m++)
-		printf("fulEngOptTn3 size[%d]: %d\n", m, fulEngOptTn3->size[m]);
-printf("fulEngOptTn3 allocateSize: %d\n", fulEngOptTn3->allocatedSize);
-printf("fulEngOptTn3.canFreeData: %d\n", fulEngOptTn3->canFreeData);
-printf("fulEngOptTn3 data[341]: %4.4f", fulEngOptTn3->data[341]);
+// batFrcOptTn3
+//for (m = 0; m < 52800; m++)
+//	printf("batFrcOptTn3 data[%d]: %4.3f\n", m, batFrcOptTn3->data[m]);
+//printf("\n\batFrcOptTn3 dims: %d\n", batFrcOptTn3->numDimensions);
+for (m = 0; m < batFrcOptTn3->numDimensions; m++)
+		printf("batFrcOptTn3 size[%d]: %d\n", m, batFrcOptTn3->size[m]);
+printf("batFrcOptTn3 allocatedSize: %d\n:", batFrcOptTn3->allocatedSize);
+printf("batFrcOptTn3.canFreeData: %d\n", batFrcOptTn3->canFreeData);
+
+	
+//// fulEngOptTn3
+//for (m = 0; m < fulEngOptTn3->allocatedSize; m++)
+//		printf("fulEngOptTn3 data[%d]: %4.3f\n", m, fulEngOptTn3->data[m]);
+//printf("\nfulEngOptTn3 dims: %d\n", fulEngOptTn3->numDimensions);
+//for (m = 0; m < fulEngOptTn3->numDimensions; m++)
+//		printf("fulEngOptTn3 size[%d]: %d\n", m, fulEngOptTn3->size[m]);
+//printf("fulEngOptTn3 allocateSize: %d\n", fulEngOptTn3->allocatedSize);
+//printf("fulEngOptTn3.canFreeData: %d\n", fulEngOptTn3->canFreeData);
+
+
+//// cos2goActMat
+//for (m = 0; m < cos2goActMat->allocatedSize; m++)
+//		printf("cos2goActMat data[%d]: %4.3f\n", m, cos2goActMat->data[m]);
+//printf("cos2goActMat dims: %d\n", cos2goActMat->numDimensions);
+//for (m = 0; m < cos2goActMat->numDimensions; m++)
+//		printf("cos2goActMat size[%d]: %d\n", m, cos2goActMat->size[m]);
+//printf("cos2goActMat allocateSize: %d\n", cos2goActMat->allocatedSize);
+//printf("cos2goActMat.canFreeData: %d\n", cos2goActMat->canFreeData);
+
 
   /* % Calculating optimal trajectories for result of DP + PMP */
   /*  Vektor - Trajektorie der optimalen kin. Energien */
@@ -148,6 +171,9 @@ printf("fulEngOptTn3 data[341]: %4.4f", fulEngOptTn3->data[341]);
   /*  Matrix der optimalen Kosten der Hamiltonfunktion */
   
   
+  // note: some portion of clcOptTrj_port is causing a memory overflow and is currently
+  // 		not working as a direct MATLAB port. Need to look into function to see what
+  //		is going wrong
 //  clcOptTrj_port(inputparams->wayStp, testparams->wayNum, inputparams->wayInxBeg,
 //                 inputparams->wayInxEnd, testparams->engKinNum,
 //                 tst_array_struct->engKinNumVec_wayInx,
@@ -155,7 +181,6 @@ printf("fulEngOptTn3 data[341]: %4.4f", fulEngOptTn3->data[341]);
 //                 batFrcOptTn3, fulEngOptTn3, cos2goActMat, engKinOptVec,
 //                 batEngDltOptVec, fulEngDltOptVec, staVec, psiEngKinOptVec,
 //                 fulEngOpt);
-
 
   /*  engKinOptVec=0; */
   /*  batEngDltOptVec=0; */

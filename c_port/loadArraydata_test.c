@@ -1,20 +1,31 @@
 // loadArrayData.c
+//
+// old notes (21.06.2016):
+		// first define inputs - sending them into a struct?
+				// can this be made into a structure or something? - 21.06.2016
+				// in a structre, make arrays of:
+				//  - the pointer variable
+				//  - variable buffer
+				//  - string name of text folder value
+				//	- row length of input value
+				//	- col length of input value
+				// and then rearrange similarly to how it was done with scalars?
+				//
+				// output:
+				//  - input structure from c code - and it's header 
+				//		you want to return a pointer of this input structure once
+				//		its been populated by the above pointer variable from buffer
+//---------------------------------------------------------------------------
+// NOTE: POINTER ARITHMETIC WITH 2D ARRAYS:
+// to call the [m][n] value from array with dims dataArray[m_all][n_all] (or [m_all*n_all]):
+//			*((int *)dataArray+m * n_all+n));
+//	OR
+// can also assign a pointer *dataPointer, so that
+//			dataPointer = &dataArray[0][0];
+// and therefore call with
+//			*(dataPointer+m * n_all+n);
+//---------------------------------------------------------------------------
 
-// first define them - sending them into a struct?
-		// can this be made into a structure or something? - 21.06.2016
-		// in a structre, make arrays of:
-		//  - the pointer variable
-		//  - variable buffer
-		//  - string name of text folder value
-		//	- row length of input value
-		//	- col length of input value
-		// and then rearrange similarly to how it was done with scalars?
-		
-		// output:
-		//  - input structure from c code - and it's header 
-		//		you want to return a pointer of this input structure once
-		//		its been populated by the above pointer variable from buffer
-		
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -31,7 +42,6 @@
 double *populateArrayStruct_test(struct varStruct inputStruct, char *prefix);
 
 struct3_T loadArrayData_test(struct1_T tstdat_scalar_struct) {
-//struct cbArrayStruct loadArrayData(struct1_T tstdat_scalar_struct) {
 
 	// read in vectors!
 		
@@ -44,7 +54,7 @@ struct3_T loadArrayData_test(struct1_T tstdat_scalar_struct) {
 		char tst_prefix[100];
 		sprintf(tst_prefix, "%s/tstDat800", raw_data_dir);
 		
-		// define structs for output
+		// define output struct
 		struct3_T tst_array_struct;		
 		
 		// DEFINE TEST DATA ARRAY STRUCTURES
@@ -75,7 +85,9 @@ struct3_T loadArrayData_test(struct1_T tstdat_scalar_struct) {
 	// ================ time to load in vectors! ====================================================
 		
 	// tstDat800.slpVec_wayInx
+		// function call - have a pointer point to the raw data
 		slpVec_wayInx_ptr = populateArrayStruct_test(slpVec_wayInx, tst_prefix);
+		// save each pointed to raw value saved in the respective output structure array element field
 		for (m = 0; m < slpVec_wayInx.row_num; m++) {
 				for (n = 0; n < slpVec_wayInx.col_num; n++) {
 						tst_array_struct.slpVec_wayInx[m * slpVec_wayInx.col_num + n]

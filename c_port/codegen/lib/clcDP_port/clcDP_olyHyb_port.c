@@ -274,14 +274,14 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
   /*    first, intialize start index of the starting charge for intial state */
   batEngPreMat->data[((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1] = batEngBeg;
 
-  printf("batEngPreMat->size[0](%d)* (staBeg-1)(%d): %d\n", batEngPreMat->size[0], 
-  															(int)staBeg - 1, 
-															batEngPreMat->size[0]*((int)staBeg - 1));
-															
-  printf("initial index: %d\n\n", ((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1);
-  
-  printf("batEngPreMat->data[((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1]: %4.4f\n",
-  			 batEngPreMat->data[((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1]);
+//  printf("batEngPreMat->size[0](%d)* (staBeg-1)(%d): %d\n", batEngPreMat->size[0], 
+//  															(int)staBeg - 1, 
+//															batEngPreMat->size[0]*((int)staBeg - 1));
+//															
+//  printf("initial index: %d\n\n", ((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1);
+//  
+//  printf("batEngPreMat->data[((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1]: %4.4f\n",
+//  			 batEngPreMat->data[((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1]);
   
   /*  Initialisierung der Matrix der Kraftstoffenergien */
   /*    initialze the fuel energy matrix */
@@ -385,7 +385,7 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
       /*  akutelle kinetsiche Energie bestimmen */
       /*    determine the current kinetic energy */
       engKinAct = engKinMat_engKinInx_wayInx[loop_ub + 11 * ((int)b_wayInx - 1)];
-
+//		printf("engKinAct: %4.3f\n", engKinAct);
       /*  Schleife über alle möglichen aktuellen Zustände des Antriesstrangs */
       /*    Loop over all possible current powertrain states/all the gears */
       for (b_loop_ub = 0; b_loop_ub < (int)staNum; b_loop_ub++) {
@@ -481,23 +481,21 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
               /*    if there is no valid previous battery energy, jump */
               /*    to the next loop iteration */
               
-              
 //              if((engKinPreInx + batEngPreMat->size[0] * ((int)b_staPre - 1))
 //			   	== (((int)engKinBegInx + batEngPreMat->size[0] * ((int)staBeg - 1)) - 1)
 //				   && wayInx < 6) {
-				if(wayInx < 1) {
-			   		printf("batEngPreMat[%d]: %4.4f\n", engKinPreInx + batEngPreMat->size[0] * ((int)b_staPre - 1),
-					   				 batEngPreMat->data[engKinPreInx + batEngPreMat->size[0] * ((int)b_staPre - 1)]);
-				}
+//				if(wayInx < 1) {
+//			   		printf("batEngPreMat[%d]: %4.4f\n", engKinPreInx + batEngPreMat->size[0] * ((int)b_staPre - 1),
+//					   				 batEngPreMat->data[engKinPreInx + batEngPreMat->size[0] * ((int)b_staPre - 1)]);
+//				}
 
               if (rtIsInf(batEngPreMat->data[engKinPreInx + batEngPreMat->size[0]
                           * ((int)b_staPre - 1)])) {
-                          	      	
-//                          	printf("infinity found\n");
+//                    printf("infinity found\n");
               } else {
-              		printf("found match\n");
-                /*                     %% Antriebsstrangzustand und Strafkosten bestimmen    */
-                /*    determine gear and penalty costs */
+//              		printf("found match\n");
+                /*  % Antriebsstrangzustand und Strafkosten bestimmen    */
+                /*  determine gear and penalty costs */
                 /*  Kosten für Zustandswechsel setzen */
                 /*    set costs for state changes */
                 if (1.0 + (double)b_loop_ub == b_staPre) {
@@ -528,9 +526,9 @@ void clcDP_olyHyb_port(double disFlg, double wayStp, double batEngStp, double
                                    batPwrAux, batEngStp, wayStp, fzg_scalar,
                                    fzg_array, &cosHam, &batFrc, &fulFrc);
                                    
-                printf("cosHam: %4.4f\n", cosHam);
-            	printf("batFrc: %4.4f\n", batFrc);
-            	printf("fulFrc: %4.4f\n", fulFrc);
+//                printf("cosHam: %4.4f\n", cosHam);
+//            	printf("batFrc: %4.4f\n", batFrc);
+//            	printf("fulFrc: %4.4f\n", fulFrc);
             	
                 /*                      % minimale Kosten der Hamiltonfunktion zum aktuellen */
                 /*                      % Punkt bestimmen */

@@ -9,7 +9,7 @@
 // output: struct *input_struct		- points to struct. array (length=num_length) containing grp's mainConfig input vars
 //
 // created 14.June.2016 by Asgard Kaleb Marroquin
-//
+
 #include <stdio.h>
 #include <string.h>				// for strcmp() and strtok() invocations
 #include "readConfig.h"			// this function's header file
@@ -74,7 +74,6 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 	
 		} else { // file couldn't be opened
 				printf ("The file could not be opened.\n");
-//				return 1; // exit function
 		}
 	
 		// close file
@@ -82,7 +81,6 @@ struct model_params *readConfig(char *config_filename, int num_length, char *key
 				printf ("The file could not be closed.\n");
 		}
 	//==========================================================
-		
 		
 	//========== PRINT STRUCT FOR CONFIRMATION =================
 //		printf("Inputs read from %s:\n\n", config_filename);

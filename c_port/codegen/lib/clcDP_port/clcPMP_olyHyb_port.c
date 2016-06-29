@@ -144,16 +144,12 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
     /*    maximum electric motor rotational speed */
     /*  maximale Drehzahl der Kurbelwelle */
     /*    maximum crankshaft rotational speed */
-    
-    
-    
     if ((fzg_array->iceSpdMgd[14850] <= fzg_array->emoSpdMgd[14850]) || rtIsNaN
         (fzg_array->emoSpdMgd[14850])) {
       crsSpdHybMax = fzg_array->iceSpdMgd[14850];
     } else {
       crsSpdHybMax = fzg_array->emoSpdMgd[14850];
     }
-
 
     crsSpdHybMax_not_empty = true;
 
@@ -169,6 +165,7 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
   /*  mittlere Geschwindigkeit im Wegschritt berechnen */
   /*    define the average speed at path_idx step */
   vehVel = sqrt(2.0 * engKinPre / fzg_scalar->vehMas);
+//  printf("vehVel: %4.3f\n", vehVel);
 
   /* % vorzeitiger Funktionsabbruch? */
   /*    premature function termination? */
@@ -181,9 +178,6 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
   /*    by the speed and gearbox translation. Line direction corresponding to */
   /*    the aisles (row rector). EQUATION 1 */
   
-  
-  
-  
   // fzg_scalar->geaRat[] is returning 0!
   
   b_engKinPre[0] = engKinPre;
@@ -191,7 +185,7 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
   for (k = 0; k < 2; k++) {
     crsSpdVec[k] = fzg_array->geaRat[(int)gea - 1] * sqrt(2.0 * b_engKinPre[k] /
       fzg_scalar->vehMas) / fzg_scalar->whlDrr;
-      
+//      	printf("crsSpdVec[%d]: %4.3f\n", k, crsSpdVec[k]);
 //      printf("(int)gea: %d\n", (int)gea);
 //      printf("(int)gea - 1: %d\n", (int)gea - 1);
 //      printf("fzg_array->geaRat[(int)gea - 1]: %4.3f\n", fzg_array->geaRat[(int)gea - 1]);
@@ -207,8 +201,8 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
   k = 0;
   exitg3 = false;
   while ((!exitg3) && (k < 2)) {
-  	printf("crsSpdVec[%d]: %4.3f\n", k, crsSpdVec[k]);
-  	printf("crsSpdHybMax: %4.3f\n", crsSpdHybMax);
+//  	printf("crsSpdVec[%d]: %4.3f\n", k, crsSpdVec[k]);
+//  	printf("crsSpdHybMax: %4.3f\n", crsSpdHybMax);
     if (!!(crsSpdVec[k] > crsSpdHybMax)) {
       y = true;
       exitg3 = true;
@@ -217,9 +211,9 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
     }
   }
   
-	printf("STATUS OF Y(1): %d\n", y);
-	if (!y)
-		printf("11111111111111111111111111111111111111111111111111111111111\n");
+//	printf("STATUS OF Y(1): %d\n", y);
+//	if (!y)
+//		printf("11111111111111111111111111111111111111111111111111111111111\n");
 
   if (y) {
   } else {
@@ -229,9 +223,10 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
     y = false;
     k = 0;
     exitg2 = false;
-    printf("crsSpdVec[%d]: %4.3f\n", k, crsSpdVec[k]);
-    printf("crsSpdHybMin: %4.3f\n", crsSpdHybMin);
+
     while ((!exitg2) && (k < 2)) {
+//    printf("crsSpdVec[%d]: %4.3f\n", k, crsSpdVec[k]);
+//    printf("crsSpdHybMin: %4.3f\n", crsSpdHybMin);
       if (!!(crsSpdVec[k] < crsSpdHybMin)) {
         y = true;
         exitg2 = true;
@@ -240,9 +235,9 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
       }
     }
     
-	printf("STATUS OF Y(2): %d\n", y);
-	if (!y)
-		printf("2222222222222222222222222222222222222222222222222222222222\n");	
+//	printf("STATUS OF Y(2): %d\n", y);
+//	if (!y)
+//		printf("2222222222222222222222222222222222222222222222222222222222\n");	
 		
     if (y) {
     } else {
@@ -301,6 +296,7 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
                  fzg_scalar->whlRosResCof * fzg_scalar->vehMas * 9.81 * cos(slp))
                 + 2.0 * fzg_scalar->drgCof / fzg_scalar->vehMas * engKinPre) *
         fzg_scalar->whlDrr;
+//        printf("whlTrq: %4.3f\n", whlTrq);
 
       /*  Berechnung des Kurbelwellenmoments */
       /*  Hier muss unterschieden werden, ob das Radmoment positiv oder */
@@ -314,7 +310,8 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
       } else {
         crsTrq = whlTrq / fzg_array->geaRat[(int)gea - 1] / fzg_scalar->geaEfy;
       }
-
+//		 printf("crsTrq: %4.3f\n", crsTrq);
+		
       /* % Verbrennungsmotor */
       /*    internal combustion engine */
       /*  maximales Moment des Verbrennungsmotors berechnen */
@@ -328,25 +325,38 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
       iceTrqMin = (fzg_array->iceTrqMinCof[0] * (crsSpdVec[0] * crsSpdVec[0]) +
                    fzg_array->iceTrqMinCof[1] * crsSpdVec[0]) +
         fzg_array->iceTrqMinCof[2];
-
+//		printf("iceTrqMax: %4.3f\n", iceTrqMax);
+//		printf("iceTrqMin: %4.3f\n", iceTrqMin);
       /* % Elektromotor */
       /*    electric motor */
       /*  maximales Moment, dass die E-Maschine liefern kann */
       /*    max torque that the electric motor can provide - from interpolation */
       /*  emoTrqMaxPos = ... */
       /*      lininterp1(par.emoSpdMgd(1,:)',par.emoTrqMax_emoSpd,crsSpd); */
+      
+      
+      
+      
+//      for (k = 0; k < 100; k++) {
+//        b_fzg_array[k] = fzg_array->emoSpdMgd[150 * k];
+////        printf("b_fzg_array[%d]: %4.3f\n", k, b_fzg_array[k]);
+//      }
       for (k = 0; k < 100; k++) {
-        b_fzg_array[k] = fzg_array->emoSpdMgd[150 * k];
+        b_fzg_array[k] = fzg_array->emoSpdMgd[100 * k + k];
+//        printf("b_fzg_array[%d]: %4.3f\n", k, b_fzg_array[k]);
       }
+
 
       emoTrqMaxPos = interp1q(b_fzg_array, fzg_array->emoTrqMax_emoSpd,
         crsSpdVec[0]);
+//        printf("emoTrqMaxPos: %4.3f\n", emoTrqMaxPos);
 
       /*  Die gültigen Kurbelwellenmomente müssen kleiner sein als das */
       /*  Gesamtmoment von E-Motor und Verbrennungsmotor */
       /*    The valid crankshaft moments must be less than the total moment of the */
       /*    electric motor and the ICE.Otherwise, leave the function */
       if (crsTrq > iceTrqMax + emoTrqMaxPos) {
+//      	printf("\nWHOOPS! crsTrq is > iceTrqMax + emoTrqMaxPos\n");
       } else {
         /* % %% Optimaler Momentensplit - Minimierung der Hamiltonfunktion */
         /*        optimum torque split - minimizing the Hamiltonian */
@@ -419,19 +429,25 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
           /*    minimum moment that the EM can provide (max is an input to function) */
           /*  emoTrqMinPos = ... */
           /*      lininterp1(par.emoSpdMgd(1,:)',par.emoTrqMin_emoSpd,crsSpd); */
-          for (k = 0; k < 100; k++) {
-            b_fzg_array[k] = fzg_array->emoSpdMgd[150 * k];
-          }
+          
+          
+//          for (k = 0; k < 100; k++) {
+//            b_fzg_array[k] = fzg_array->emoSpdMgd[150 * k];
+//            printf("b_fzg_array[%d]: %4.3f\n", k, b_fzg_array[k]);
+//          }
+//          for (k = 0; k < 100; k++)
+//          		printf("b_fzg_array[%d]: %4.3f\n", k, b_fzg_array[k]);
 
           emoTrqMinPos = interp1q(b_fzg_array, fzg_array->emoTrqMin_emoSpd,
             crsSpdVec[0]);
-
+//			printf("emoTrqMinPos: %4.3f\n", emoTrqMinPos);
           /* % Verbrennungsmotor berechnen */
           /*  Durch EM zu lieferndes Kurbelwellenmoment */
           /*    crankshaft torque to be delivered by the electric motor (min and max) */
           emoTrqMax = crsTrq - iceTrqMin;
           emoTrqMin = crsTrq - iceTrqMax;
-
+//			printf("emoTrqMax: %4.3f\n", emoTrqMax);
+//			printf("emoTrqMin: %4.3f\n", emoTrqMin);
           /* % Elektromotor berechnen */
           /*    calculate the electric motor */
           if (emoTrqMaxPos < emoTrqMax) {
@@ -470,9 +486,27 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
           batPwrMax = codegen_interp2(fzg_array->emoSpdMgd, fzg_array->emoTrqMgd,
             fzg_array->emoPwr_emoSpd_emoTrq, crsSpdVec[0], emoTrqMax) +
             batPwrAux;
+            
+            
+//            for (k = 0; k < 15000; k++)
+//			printf("	fzg_array->emoSpdMgd[%d]: %4.3f\n", k, fzg_array->emoSpdMgd[k]);
+//			
+//            for (k = 0; k < 15000; k++)			
+//			printf("	fzg_array->emoTrqMgd[%d]: %4.3f\n", k, fzg_array->emoTrqMgd[k]);
+//			
+//            for (k = 0; k < 15000; k++)			
+//			printf("	fzg_array->emoPwr_emoSpd_emoTrq[%d]: %4.3f\n", k, fzg_array->emoPwr_emoSpd_emoTrq[k]);
+			
+			
+//			printf("	crsSpdVec[0]: %4.3f\n", crsSpdVec[0]);
+//			printf("	emoTrqMax: %4.3f\n", emoTrqMax);
+//			printf("\n	batPwrMax: %4.3f\n", batPwrMax);
+			
+			
           batPwrMin = codegen_interp2(fzg_array->emoSpdMgd, fzg_array->emoTrqMgd,
             fzg_array->emoPwr_emoSpd_emoTrq, crsSpdVec[0], emoTrqMin) +
             batPwrAux;
+//            printf("	batPwrMin: %4.3f\n", batPwrMin);
 
           /*  überprüfen, ob Batterieleistung möglich */
           /*    make sure that current battery max power is not above bat max bounds */
@@ -737,9 +771,9 @@ void clcPMP_olyHyb_port(double engKinPre, double engKinAct, double gea, double
       }
     }
   }
-  printf("	*cosHamMin (func): %4.3f\n", *cosHamMin);
-  printf("	*batFrcOut (func): %4.3f\n", *batFrcOut);
-  printf("	*fulFrcOut (func): %4.3f\n", *fulFrcOut);
+//  printf("	*cosHamMin (func): %4.3f\n", *cosHamMin);
+//  printf("	*batFrcOut (func): %4.3f\n", *batFrcOut);
+//  printf("	*fulFrcOut (func): %4.3f\n", *fulFrcOut);
 
   /*  end of function */
 }

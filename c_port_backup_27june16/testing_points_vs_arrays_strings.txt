@@ -1,0 +1,4 @@
+		int numVars;			// number of inputs in mainConfig.txt	
+		char configfile[] = "mainConfig.txt"; 		// define mainConfig.txt file location
+		numVars = findNumVars(&configfile[0]);
+		printf("numVars: %d\n", numVars);

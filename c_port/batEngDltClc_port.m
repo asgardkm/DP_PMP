@@ -50,7 +50,8 @@ emoTrqMinPos = ...
 %   crankshaft torque to be delivered by the electric motor (min and max)
 emoTrqMax = crsTrq - iceTrqMin;
 emoTrqMin = crsTrq - iceTrqMax;
-
+% fprintf('emoTrqMax: %4.3f\n', emoTrqMax);
+% fprintf('emoTrqMin: %4.3f\n', emoTrqMin);
 %% Elektromotor berechnen
 %   calculate the electric motor
 
