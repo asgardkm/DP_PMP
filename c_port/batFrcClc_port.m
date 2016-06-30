@@ -34,7 +34,7 @@ end
 
 % Batterieenergieänderung über dem Weg berechnen. Herleitung der Formel
 % kann zum Beispiel dem Paper mit Chalmers entnommen werden
-%   calculate battery power charge for path_idx. Formula derivation can be 
+%   calculate battery power change for path_idx. Formula derivation can be 
 %   found from other papers (for example, Chalmers paper)
 batFrcCpl = batOcv^2 * ...
     ( sqrt( complex (1 - 4*batRst/batOcv^2*batPwr) ) - 1) / ...
@@ -44,7 +44,7 @@ batFrcCpl = batOcv^2 * ...
 % wird der Term unter der Wurzel negativ. In diesem Fall wird die Ausgabe
 % ungültig geschrieben.
 %   check to make sure that the battery capacity is not exceeded (when the
-%   root becomes negative, the output is no longer valid) (Quadrants 3, 4)
+%   root becomes negative, the output is no longer valid) (must be on real axis)
 if imag(batFrcCpl) ~= 0
     return;
 end

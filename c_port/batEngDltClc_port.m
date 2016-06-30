@@ -97,7 +97,7 @@ if batPwrMax > fzg_scalar.batPwrMax
 end
 
 % überprüfen, ob Batterieleistung möglich
-%   make sure that current battery min power is not below bat min bounds
+%   make sure that current battery min power is not above bat max bounds
 
 if batPwrMin > fzg_scalar.batPwrMax
     batPwrMin = fzg_scalar.batPwrMax;
@@ -105,7 +105,7 @@ end
 
 % Es kann vorkommen, dass mehr Leistung gespeist werden soll, als
 % m�glich ist.
-%   double check that the max and min still remain within the other bounds
+%   check that the max and min still remain within the min bounds
 if batPwrMax < fzg_scalar.batPwrMin
     batPwrMax = fzg_scalar.batPwrMin;
 end

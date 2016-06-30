@@ -279,7 +279,7 @@ if batEngStp > 0
     
     % Es werden 2 Fälle unterschieden:
     %   there are 2 different cases
-    if batEngDltMin > 0 && batEngDltMax > 0
+    if batEngDltMin > 0 && batEngDltMax > 0 % battery will discharge
         
         %% konventionelles Bremsen + Rekuperieren
         %   conventional brakes + recuperation
@@ -309,7 +309,7 @@ else
     batEngDltMaxInx = 0;
 end
 
-% you got a larger min chnage and a max change, you're out of bounds. Leave
+% you got a larger min change than a max change-you're out of bounds. Leave
 % the function
 if batEngDltMaxInx < batEngDltMinInx
     return;
@@ -317,9 +317,8 @@ end
 
 %% Schleife über alle Elektromotormomente
 %   now loop through all the electric-motor torques
-
+% why isn't batEngDltInx discretized wrt batEngStp??
 for batEngDltInx = batEngDltMinInx:batEngDltMaxInx 
-    
     batEngDlt = batEngDltInx * batEngStp;
     batEngAct = batEng + batEngDlt;
     % open circuit voltage over each iteration

@@ -12,8 +12,8 @@ function [...
     crsTrq,...      Skalar - crankshaft torque at given path_idx
     iceTrqMin,...   Skalar - min ICE torque allowed
     iceTrqMax,...   Skalar - max ICE torque
-    fzg_scalar,...      struct - Fahrzeugparameter - nur skalar
-    fzg_array...        struct - Fahrzeugparameter - nur array        
+    fzg_scalar,...  struct - Fahrzeugparameter - nur skalar
+    fzg_array...    struct - Fahrzeugparameter - nur array        
     ) %#codegen
 %
 %FULENGCLC Calculating fuel consumption
@@ -30,9 +30,9 @@ function [...
 %
 % Version vom 25.05.2016: Zero-Order-Hold (keine mittlere Geschwindigkeit)
 %
-% version from 1.06.2016 - removed crsTrq calulations - they are already
+% version from 1.06.2016 - removed crsTrq calculations - they are already
 % done in parent function (clcPMP_olHyb_tmp) and do not change w/ each
-% iteration, making the caluclation here unnecessary
+% iteration, making the calculation here unnecessary
 
 %% Initialisieren der Ausgabe der Funktion
 %   initializing function output
@@ -98,7 +98,7 @@ if iceTrq < iceTrqMin
 elseif iceTrq > iceTrqMax
     fulPwr = inf;
 else   
-    % replacing another coden_interp2
+    % replacing another coden_interp2 no just find fuel power as usual
     fulPwr = codegen_interp2(fzg_array.iceSpdMgd,fzg_array.iceTrqMgd,...
         fzg_array.iceFulPwr_iceSpd_iceTrq,crsSpd,iceTrq);
 %     fulPwr = lininterp2(par.iceSpdMgd(1,:), par.iceTrqMgd(:,1), ...
