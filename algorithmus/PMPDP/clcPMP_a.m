@@ -1,5 +1,5 @@
 function [cosHamMin,batFrcOut,fulFrcOut] = ...
-    clcPMP_olyHyb_port(engKinPre,engKinAct,gea,slp,iceFlg,batEng,psiBatEng,...
+    clcPMP_a(engKinPre,engKinAct,gea,slp,iceFlg,batEng,psiBatEng,...
                   psiTim, batPwrAux,batEngStp,wayStp,fzg_scalar,fzg_array)
 %#codegen
 %CLCPMP Minimizing Hamiltonian: Co-States for soc and time
@@ -150,6 +150,7 @@ vehFrcSlp = fzg_scalar.vehMas * 9.81 * sin(slp);
 % Rollreibungskraft berechnen (Skalar)
 %   calculated rolling friction force - not included in EQ 5???
 vehFrcRol = fzg_scalar.whlRosResCof*fzg_scalar.vehMas * 9.81 * cos(slp);
+
 % Luftwiderstandskraft berechnen (2*c_a/m * E_kin) (Skalar) 
 %   calculated air resistance force 
 vehFrcDrg = 2*fzg_scalar.drgCof/fzg_scalar.vehMas*engKin;
@@ -174,6 +175,7 @@ vehFrcDrg = 2*fzg_scalar.drgCof/fzg_scalar.vehMas*engKin;
 %   caluclating wheel forces (accerlation force + gradient force + rolling
 %   resistance + air resistance)    EQUATION 5
 whlFrc  = vehAcc*fzg_scalar.vehMas + vehFrcSlp + vehFrcRol + vehFrcDrg;
+
 %% Getriebeübersetzung und -verlust
 %   gear ratio and loss
 
@@ -240,7 +242,7 @@ end
 % jedes Momentenpaar kann die Hamiltonfunktion berechnet werden.
 % Ausgegeben wird der minimale Wert der Hamiltonfunktion und die
 % durch das dabei verwendete Elektromotormoment verursachte
-% Batterieladungs�nderung.
+% Batterieladungsänderung.
 %   The procedure is similar to ECMS. It's based on a vector of possible
 %   battery energy changes, from which a battery terminal power can be
 %   calculated.
@@ -250,6 +252,7 @@ end
 %   For every moment-pair the Hamiltonian can be calculated. It
 %   outputs the minimum Hamilotnian value and the battery charge change
 %   caused by the electric motor torque used.
+
 
 %% Elektromotor - Aufstellen des Batterienergievektors
 %   electric motor - positioning the battery energy vectors
@@ -325,7 +328,7 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
         batPwr,...          Skalar für die Batterieleistung in W
         fulFrc ...          Skalar Krafstoffkraft in N
         ] = ...
-        fulEngClc_port...            FUNCTION CALL
+        fulEngClc_a...            FUNCTION CALL
         (wayStp,...         Skalar für die Wegschrittweite in m,
         vehVel,...          Skalar - vehicular velocity
         batPwrAux,...       Nebenverbraucherlast
@@ -339,7 +342,7 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
         fzg_array...        struct - Fahrzeugparameter - nur array        
         );
     
-    batFrc = batFrcClc_port(...      FUNCTION CALL
+    batFrc = batFrcClc_a(...      FUNCTION CALL
         batPwr,...          Skalar - Batterieklemmleistung
         vehVel,...          Skalar - mittlere Geschwindigkeit im Intervall
         fzg_scalar.batRstDch,...   Skalar - Entladewiderstand
