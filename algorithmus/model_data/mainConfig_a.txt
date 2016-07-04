@@ -23,7 +23,6 @@ PARAMS_START
 1,				disFlg,				s
 0,				iceFlg,				flag for having engine always on?
 1,				timeStp,			time step discretization [sec]
-1,				engKinBegInx,		a
 1000,			batEngStp,			a
 0.60,			batEngBegMinRat,	beginning minimum SOC percentage value
 0.60,			batEngBegMaxRat,	beginning maximum SOC percentage value
@@ -34,8 +33,8 @@ PARAMS_START
 1590,			psiTim,				a
 0,				staChgPenCosVal,	a
 1,				wayInxBeg,			a
-800,			wayInxEnd,			a
-5,				staBeg,				a
+1181,			wayInxEnd,			a
+1,				staBeg,				a
 PARAMS_END
 ====================================================================================
 

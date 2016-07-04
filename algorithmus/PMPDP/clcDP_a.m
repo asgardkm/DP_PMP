@@ -1,8 +1,8 @@
 function [          ...  --- AusgangsgrÃ¶ÃŸen:
-    optPreInxTn3,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
-    batFrcOptTn3,   ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn3,   ... Tensor 3. Stufe für die Kraftstoffenergie 
-    cos2goActMat    ... Matrix der optimalen Kosten der Hamiltonfunktion 
+    optPreInxMat,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
+    batFrcOptMat,   ... Tensor 3. Stufe der Batteriekraft
+    fulEngOptMat,   ... Tensor 3. Stufe für die Kraftstoffenergie 
+    cos2goActVec    ... Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =             ...
     clcDP_a...
     (               ... --- Eingangsgrößen:
@@ -16,10 +16,9 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
     wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
     wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
-    engKinBegInx,   ... Skalar für den Index der Anfangsgeschwindigkeit
     engKinNum,      ... Skalar für die max. Anz. an engKin-Stützstellen
     staNum,         ... Skalar für die max. Anzahl an Zustandsstützstellen
-    wayNum,         ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
+    timeNum,         ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
     staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
     engKinNumVec_wayInx,       ... Vektor der Anzahl der kinetischen Energien
     slpVec_wayInx,             ... Vektor der Steigungen in rad
@@ -122,17 +121,20 @@ end
 
 % Tensor 3. Stufe für optimalen VorgÃ¤ngerkoordinaten
 %   tensor3 for optimal previous coordinates/idx
-optPreInxTn3 = zeros(engKinNum,staNum,wayNum);
+% IS NOT MAT SINCE KE IS NO LONGER CONSIDERED - REDUCES A DIMENSION
+optPreInxMat = zeros(staNum,timeNum);
 
 % Tensor 3. Stufe für die Kraftstoffenergie
 %   tensor3 for fuel energy
-fulEngOptTn3 = inf(engKinNum,staNum,wayNum);
+% NOW A MATRIX
+fulEngOptMat = inf(staNum,timeNum);
 %   set initial fuel energy level to 0
-fulEngOptTn3(engKinBegInx,staBeg,wayInxBeg) = 0; 
+fulEngOptMat(staBeg,wayInxBeg) = 0; 
 
 % Tensor 3. Stufe für die Batterienergie
 %   tensor3 for battery energy
-batFrcOptTn3 = inf(engKinNum,staNum,wayNum);
+% NOW A MATRIX
+batFrcOptMat = inf(staNum,timeNum);
 
 %% Berechnung der optimalen VorgÃ¤nger
 %   calculating the optimal predecessors
@@ -140,31 +142,32 @@ batFrcOptTn3 = inf(engKinNum,staNum,wayNum);
 % Initialisieren der Matrix für die Kosten bis zu den Punkten im letzten
 % Wegschritt
 %   initialize the matrix for the cost to the points in the last wayidx
-cos2goPreMat = inf(engKinNum,staNum);
-cos2goActMat = inf(engKinNum,staNum);
+% NOW A VECTOR - REMOVED KE DIMENSION
+cos2goPreVec = inf(staNum, 1);
+cos2goActVec = inf(staNum, 1);
 
 % Erste Initilisierung beim Startindex mit 0 fÃ¼r alle ZustÃ¤nde(concluded)
 %   first, initialize the startidx to 0 for all states
-cos2goPreMat(engKinBegInx,staBeg) = 0;
+cos2goPreVec(staBeg) = 0;
 
 % Initialisierung der Matrix der Batterieenergien
 %   initialize the battery energy matrix
-batEngPreMat = inf(engKinNum,staNum);
+batEngPreVec = inf(staNum, 1);
 
 % Erste Initilisierung beim Startindex mit Startladung fÃ¼r den Startzustand
 %   first, intialize start index of the starting charge for intial state
-batEngPreMat(engKinBegInx,staBeg) = batEngBeg;
+batEngPreVec(staBeg) = batEngBeg;
 
 % Initialisierung der Matrix der Kraftstoffenergien
 %   initialze the fuel energy matrix
-fulEngPreMat = inf(engKinNum,staNum);
+fulEngPreVec = inf(staNum, 1);
 % Erste Initilisierung beim Startindex mit 0 fÃ¼r den Startzustand
 %   first, intialize the start idx for the intitial states to 0
-fulEngPreMat(engKinBegInx,staBeg) = 0;
+fulEngPreVec(staBeg) = 0;
 
-% Schleife Ã¼ber alle Wegpunkte
-%   looping thorugh length of # of grid discretization/indeces (Weginputs)
-for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
+% Schleife über alle Wegpunkte
+%   looping thorugh length of # of discretized time vector
+for wayInx = wayInxBeg+1:wayInxEnd      % TIME IDX LOOP
     
     % mittlere Steigung im betrachteten Intervall 
     %   no longer doing mean, using previous gradiant instead
@@ -180,45 +183,46 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
     % Initialisieren der Matrix fÃ¼r die optimalen Batteriekrafter im
     % Intervall
     %   initialize matrix for optimale battery force intervals (discreti.)
-    batFrcOptMat = inf(engKinNum,staNum);
+    % NOW A VECTOR - REMOVED KE STATE
+    batFrcOptVec = inf(staNum, 1);
         
-    % Initialisieren der Matrix fÃ¼r die Kosten bis zu den Punkten im
+    % Initialisieren der Matrix für die Kosten bis zu den Punkten im
     % aktuellen Wegschritt
     %   initialize cost matrix to points in current path steps (idxs?)
-    cos2goActMat = inf(engKinNum,staNum);
+    cos2goActVec = inf(staNum, 1);
     
     % Initialisieren der Matrix fÃ¼r die Batterieenergie an den Punkten im
     % aktuellen Wegschritt
     %   initialize matrix for battery energy at points along current wayidx
-    batEngActMat = inf(engKinNum,staNum);
+    batEngActVec = inf(staNum, 1);
     
     % Initialisieren der Matrix fÃ¼r die Krafstoffenergie an den Punkten im
     % aktuellen Wegschritt
     %   initialize matrix for fuel energie along current way idxs
-    fulEngActMat = inf(engKinNum,staNum);
+    fulEngActVec = inf(staNum, 1);
     
     % Anzahl der kinetischen Energien im aktuellen und im
     % VorgÃ¤ngerwegschritt
     %   number of kinetic energies in current and past path_idxs
-    engKinNumAct = engKinNumVec_wayInx(wayInx); % look at this loop's KE
-    engKinNumPre = engKinNumVec_wayInx(wayInx-1); % and the previous idx KE
+%     engKinNumAct = engKinNumVec_wayInx(wayInx); % look at this loop's KE
+%     engKinNumPre = engKinNumVec_wayInx(wayInx-1); % and the previous idx KE
     
     % Vektoren der kinetischen Energien im vorherigen Wegschritt
     %   vector of the KE in the previous idx
-    engKinPreVec_engKinInx = ...
-        engKinMat_engKinInx_wayInx(:,wayInx-1);
-    % Vektoren der kinetischen Energien im aktuellen Wegschritt
-    %   KE vector of the current path_idx
-    engKinActVec_engKinInx = ...
-        engKinMat_engKinInx_wayInx(:,wayInx);
+%     engKinPreVec_engKinInx = ...
+%         engKinMat_engKinInx_wayInx(:,wayInx-1);
+%     % Vektoren der kinetischen Energien im aktuellen Wegschritt
+%     %   KE vector of the current path_idx
+%     engKinActVec_engKinInx = ...
+%         engKinMat_engKinInx_wayInx(:,wayInx);
     
     % (FZGfor) Schleife Ã¼ber alle akutellen kinetischen Energien
     %   loop through all the current kinetic energies
-    for engKinActInx = 1:engKinNumAct   % CURRENT KINETIC ENERGY LOOP
-        
-        % akutelle kinetsiche Energie bestimmen
-        %   determine the current kinetic energy
-        engKinAct = engKinActVec_engKinInx(engKinActInx);
+%     for engKinActInx = 1:engKinNumAct   % CURRENT KINETIC ENERGY LOOP
+%         
+%         % akutelle kinetsiche Energie bestimmen
+%         %   determine the current kinetic energy
+%         engKinAct = engKinActVec_engKinInx(engKinActInx);
         
         % Schleife Ã¼ber alle mÃ¶glichen aktuellen ZustÃ¤nde des Antriesstrangs
         %   Loop over all possible current powertrain states/all the gears
@@ -229,7 +233,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
             % Initialisieren der AusgabegrÃ¶ÃŸe der Schleife
             %   preallocate the loop's output size
             %   but this is the hamiltonian cost?
-            cosHamMin = inf;
+%             cosHamMin = inf;
             
             % Initialisieren der Variable fÃ¼r den optimalen Zustandsindex
             %   initializing variable for optimal state index
@@ -301,7 +305,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     %% Batterieenergie beim betrachteten VorgÃ¤nger
                     % battery energy when considering last path_idx
                     %   note: batengPreMat has dims #_KE_states x #_gears
-                    batEng = batEngPreMat(engKinPreInx,staPre);  %#ok<PFBNS>
+                    batEng = batEngPreVec(engKinPreInx,staPre);  %#ok<PFBNS>
                     
                     % Sollte es keinen gÃ¼ltigen VorgÃ¤nger geben, wird zum
                     % nÃ¤chsten Schleifendurchlauf gesprungen
@@ -352,7 +356,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     % combine the min hamil. cost w/ previous costs and 
                     %   gear penalty to get current cost
                     cosAct = cosHam...
-                        + cos2goPreMat(engKinPreInx,staPre)...
+                        + cos2goPreVec(engKinPreInx,staPre)...
                         + staChgPenCos/wayStp;
                     
                     % Wenn der aktuelle Punkt besser ist, als der in
@@ -368,11 +372,11 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                         % new opt. battery energy = (batt. force *
                         % displacement diff) + previous battery energy valu
                         batEngOpt = batFrc * wayStp + ...
-                            batEngPreMat(engKinPreInx,staPre);
+                            batEngPreVec(engKinPreInx,staPre);
                         % new opt. fuel energy = (fuel force * displacement
                         % diff) + previous fuel energy value
                         fulEngOpt = fulFrc * wayStp + ...
-                            fulEngPreMat(engKinPreInx,staPre); %#ok<PFBNS>
+                            fulEngPreVec(engKinPreInx,staPre); %#ok<PFBNS>
                     end
                 end % end of gear changes loop
             end % end of running through previous KE states loop
@@ -380,7 +384,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
             if ~isinf(cosHamMin)
                 % optimale Kosten zum aktuellen Punkt speichern
                 %   save min hamilton value for current point
-                cos2goActMat(engKinActInx,staAct) = cosHamMin;
+                cos2goActVec(engKinActInx,staAct) = cosHamMin;
                 
                 % optimale Batterieenergie zum aktuellen Punkt speichern
                 %   save optimal battery energy for current point
@@ -394,38 +398,38 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                 % FlussgrÃ¶ÃŸe gilt im Intervall
                 %   populate optimal battery energy flux quantity at point 
                 %   that's applicable to current interval
-                batFrcOptMat(engKinActInx,staAct) = batFrcOpt;
+                batFrcOptVec(engKinActInx,staAct) = batFrcOpt;
                 
                 % optimalen VorgÃ¤nger codieren Ã¼ber Funktion sub2ind
                 % und speichern im Tensor
                 %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
-                optPreInxTn3(engKinActInx,staAct,wayInx) = ...
+                optPreInxMat(engKinActInx,staAct,wayInx) = ...
                     sub2ind([engKinNum,staNum],...
                     engKinPreOptInx,staPreOptInx);
             end % end of ~inf(hamiltonian) if-statement
         end % end of looping through all gears
-    end % end of looping through all the current kinetic energy states
+%     end % end of looping through all the current kinetic energy states
     
     % Speichern der Batterieenergie fÃ¼r den nÃ¤chsten Schleifendurchlauf
     %   save battery energy value as previous path_idx val for next loop 
-    batEngPreMat = batEngActMat;
+    batEngPreVec = batEngActMat;
     
     % Speichern der Krafstoffenergie fÃ¼r den nÃ¤chsten Schleifendurchlauf
     %   save fuel energy value as previous path_idx value for the next loop
-    fulEngPreMat = fulEngActMat;
+    fulEngPreVec = fulEngActMat;
     
     % Speichern der Kosten fÃ¼r den nÃ¤chsten Schleifendurchlauf
     %   save cost as previous path_idx value for the next loop
-    cos2goPreMat = cos2goActMat; 
+    cos2goPreVec = cos2goActVec; 
     
     % optimale Kraftstoffenergie zum aktuellen Punkt
     %   optimal fuel energy at current point - save current mat in tensor
-    fulEngOptTn3(:,:,wayInx) = fulEngActMat;
+    fulEngOptMat(:,:,wayInx) = fulEngActMat;
     % optimale Batterieenergie zum aktuellen Punkt
     %   optimal battery force at current point - save current mat in tensor
     % FlussgrÃ¶ÃŸe gilt im Intervall
     %   flux quantity applied over the interval
-    batFrcOptTn3(:,:,wayInx-1) = batFrcOptMat;
+    batFrcOptMat(:,wayInx-1) = batFrcOptVec;
     
     % Ausgabe des aktuellen Schleifendurchlaufs
     %   output for current loop - print to terminal

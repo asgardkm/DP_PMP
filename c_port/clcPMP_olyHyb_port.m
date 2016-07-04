@@ -330,7 +330,7 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
         vehVel,...          Skalar - vehicular velocity
         batPwrAux,...       Nebenverbraucherlast
         batOcv,...          Skalar - battery open circuit voltage
-        batEngDlt, ...      Skalar - Batterieenergieï¿½nderung,
+        batEngDlt, ...      Skalar - Batterieenergieänderung,
         crsSpd,...          Skalar - crankshaft speed at given path_idx
         crsTrq,...          Skalar - crankshaft torque at given path_idx
         iceTrqMin,...       Skalar - min ICE torque allowed

@@ -9,8 +9,8 @@ function ...            --- Ausgangsgr��en:
     ] =             ...
     runAlgorithmusDP(     ...
     inputparams,    ...
-    testparams,     ...
-    fahrparams,     ...
+    tst_scalar_struct,     ...
+    fzg_scalar_struct,     ...
     tst_array_struct,...
     nedc_array_struct,...
     fzg_array_struct...
@@ -35,12 +35,12 @@ wayInxEnd       = inputparams.wayInxEnd;
 staBeg          = inputparams.staBeg;
 
 % get the max 100% battery energy value possible
-batEngMax       = fahrparams.batEngMax;
+batEngMax       = fzg_scalar_struct.batEngMax;
 
-% testparams - originally tstDat800 structure
-staNum          = testparams.staNum;
-% wayNum          = testparams.wayNum;
-% engKinNum       = testparams.engKinNum;
+% tst_scalar_struct - originally tstDat800 structure
+staNum          = tst_scalar_struct.staNum;
+% wayNum          = tst_scalar_struct.wayNum;
+% engKinNum       = tst_scalar_struct.engKinNum;
 slpVec_wayInx               = tst_array_struct.slpVec_wayInx;
 engKinMat_engKinInx_wayInx  = tst_array_struct.engKinMat_engKinInx_wayInx;
 engKinNumVec_wayInx         = tst_array_struct.engKinNumVec_wayInx;
@@ -81,7 +81,7 @@ batEngEndMax = ceil(batEngMax*batEngEndMaxRat/batEngStp) * batEngStp;
 % NOTE . THIS WOULD HAVE TO FALL UNDER A DP LOOP BECAUSE IT IS DEPENDENT ON
 % CURRENT GEAR VALUE. but for now, can be a simple calculation
 gea         = inputparams.staBeg;
-crsSpdVec   = fzg_array.geaRat(gea) * velVec / (fahrparams.whlDrr);
+crsSpdVec   = fzg_array_struct.geaRat(gea) * velVec / (fzg_scalar_struct.whlDrr);
 
 % define boundaries for crankspeed
 % maximale Drehzahl Elektrommotor
@@ -117,16 +117,16 @@ end
 % once crankshaft velocity boundaries are satisfied, caculate wheel forces
 % sum of forces = m*a
 % vehicle slip from gradient
-vehFrcSlp = fahrparams.vehMas * 9.81 * sin(slopeVec);
+vehFrcSlp = fzg_scalar_struct.vehMas * 9.81 * sin(slopeVec);
 % rolling resistance
-vehFrcRol = fahrparams.whlRosResCof*fahrparams.vehMas * 9.81 * cos(slopeVec);
+vehFrcRol = fzg_scalar_struct.whlRosResCof*fzg_scalar_struct.vehMas * 9.81 * cos(slopeVec);
 % air resistance
-vehFrcDrg = fahrparams.drgCof * velVec.^2;
+vehFrcDrg = fzg_scalar_struct.drgCof * velVec.^2;
 
 % calculate force acting on wheel that auto must provide 
 %   (acceleration*mass + gradient force + rolling resistance
 %   + air resistance)    EQUATION 5
-whlFrc  = accVec*fahrparams.vehMas + vehFrcSlp + vehFrcRol + vehFrcDrg;
+whlFrc  = accVec*fzg_scalar_struct.vehMas + vehFrcSlp + vehFrcRol + vehFrcDrg;
 
  % side note: if vehicle velocity is zero, then set force at wheel to zero
 whlFrc(velVec < 0.05) = 0;
@@ -134,39 +134,39 @@ whlFrc(velVec < 0.05) = 0;
 % gear ratio and loss
 %   the weel torque is obtained from the wheel radius of the rolling
 %   resistance force (torque = force * distance (here, wheel radius))
-whlTrq = whlFrc*fahrparams.whlDrr;
+whlTrq = whlFrc*fzg_scalar_struct.whlDrr;
 
 %  - ALSO WOULD PLAY IN DP GEAR LOOP
 %   it's important to determine sign of crankshaft torque (positive or
 %   negative), since only a simple efficiency is used for the transmission
 %   PART OF EQ4  <- perhaps reversed? not too sure
 if whlTrq < 0
-    crsTrq = whlTrq / fzg_array_struct.geaRat(gea) * fahrparams.geaEfy;
+    crsTrq = whlTrq / fzg_array_struct.geaRat(gea) * fzg_scalar_struct.geaEfy;
 else
-    crsTrq = whlTrq / fzg_array_struct.geaRat(gea) / fahrparams.geaEfy;
+    crsTrq = whlTrq / fzg_array_struct.geaRat(gea) / fzg_scalar_struct.geaEfy;
 end
 
 %% internal combustion engine max/min possible torque
 % maximales Moment des Verbrennungsmotors berechnen
 %   calculate max torque of the engine (quadratic based on rotation speed)
-iceTrqMax = fzg_array.iceTrqMaxCof(1) * crsSpdVec.^2 ...
-    + fzg_array.iceTrqMaxCof(2) * crsSpdVec ...
-    + fzg_array.iceTrqMaxCof(3);
+iceTrqMax = fzg_array_struct.iceTrqMaxCof(1) * crsSpdVec.^2 ...
+    + fzg_array_struct.iceTrqMaxCof(2) * crsSpdVec ...
+    + fzg_array_struct.iceTrqMaxCof(3);
 
 % minimales Moment des Verbrennungsmotors berechnen
 %   calculating mimimum ICE moment
-iceTrqMin = fzg_array.iceTrqMinCof(1) * crsSpdVec.^2 ...
-    + fzg_array.iceTrqMinCof(2) * crsSpdVec ...
-    + fzg_array.iceTrqMinCof(3);
+iceTrqMin = fzg_array_struct.iceTrqMinCof(1) * crsSpdVec.^2 ...
+    + fzg_array_struct.iceTrqMinCof(2) * crsSpdVec ...
+    + fzg_array_struct.iceTrqMinCof(3);
 
 %% electric motor max torque
 %   max torque that the electric motor can provide - from interpolation
 emoTrqMaxPos = ...
-    interp1q(fzg_array.emoSpdMgd(1,:)',fzg_array.emoTrqMax_emoSpd,crsSpdVec);
+    interp1q(fzg_array_struct.emoSpdMgd(1,:)',fzg_array_struct.emoTrqMax_emoSpd,crsSpdVec);
 %   a valid crankshaft moments must be less than the total moment of the
 %   electric motor and the ICE. Otherwise, leave the function.
 emoTrqMinPos = ...
-    interp1q(fzg_array.emoSpdMgd(1,:)',fzg_array.emoTrqMin_emoSpd,crsSpdVec);
+    interp1q(fzg_array_struct.emoSpdMgd(1,:)',fzg_array_struct.emoTrqMin_emoSpd,crsSpdVec);
 
 % make sure that the ice and em can satisfy torque demanded required by the
 % input velocity profile
@@ -213,40 +213,54 @@ emoTrqMin = max(emoTrqMinPos,emoTrqMin);
 % 
 % batPwrMin = lininterp2(par.emoSpdMgd(1,:),par.emoTrqMgd(:,1),...
 %     par.emoPwr_emoSpd_emoTrq',crsSpd,emoTrqMin) + batPwrAux;
-batPwrMax = zeros();
-batPwrMax = codegen_interp2(fzg_array.emoSpdMgd,fzg_array.emoTrqMgd,...
-    fzg_array.emoPwr_emoSpd_emoTrq,crsSpdVec,emoTrqMax) + batPwrAux;
+batPwrMax = zeros(length(crsSpdVec), 1);
+batPwrMin = zeros(length(crsSpdVec), 1);
+for i = 1 : length(batPwrMax)
+    batPwrMax(i) = codegen_interp2(fzg_array_struct.emoSpdMgd,fzg_array_struct.emoTrqMgd,...
+        fzg_array_struct.emoPwr_emoSpd_emoTrq,crsSpdVec(i),emoTrqMax(i)) + batPwrAux;
+end
 
-batPwrMin = codegen_interp2(fzg_array.emoSpdMgd,fzg_array.emoTrqMgd,...
-    fzg_array.emoPwr_emoSpd_emoTrq,crsSpd,emoTrqMin) + batPwrAux;
+for i = 1 : length(batPwrMin)
+    batPwrMin(i) = codegen_interp2(fzg_array_struct.emoSpdMgd,fzg_array_struct.emoTrqMgd,...
+        fzg_array_struct.emoPwr_emoSpd_emoTrq,crsSpdVec(i),emoTrqMin(i)) + batPwrAux;
+end
 
 % überprüfen, ob Batterieleistung möglich
 %   make sure that current battery max power is not above bat max bounds
-if batPwrMax > fzg_scalar.batPwrMax
-    batPwrMax = fzg_scalar.batPwrMax;
+if batPwrMax > fzg_scalar_struct.batPwrMax
+    batPwrMax = fzg_scalar_struct.batPwrMax;
 end
 
 % überprüfen, ob Batterieleistung möglich
 %   make sure that current battery min power is not above bat max bounds
 
-if batPwrMin > fzg_scalar.batPwrMax
-    batPwrMin = fzg_scalar.batPwrMax;
+if batPwrMin > fzg_scalar_struct.batPwrMax
+    batPwrMin = fzg_scalar_struct.batPwrMax;
 end
 
 % Es kann vorkommen, dass mehr Leistung gespeist werden soll, als
 % m�glich ist.
 %   check that the max and min still remain within the min bounds
-if batPwrMax < fzg_scalar.batPwrMin
-    batPwrMax = fzg_scalar.batPwrMin;
+if batPwrMax < fzg_scalar_struct.batPwrMin
+    batPwrMax = fzg_scalar_struct.batPwrMin;
 end
 
-if batPwrMin < fzg_scalar.batPwrMin
-    batPwrMin = fzg_scalar.batPwrMin;
+if batPwrMin < fzg_scalar_struct.batPwrMin
+    batPwrMin = fzg_scalar_struct.batPwrMin;
 end
 
-% Batteriespannung aus Kennkurve berechnen
-%   calculating battery voltage of characteristic curve - eq?--------------
-batOcv = batEngAct*fzg_array.batOcvCof_batEng(1,1) + fzg_array.batOcvCof_batEng(1,2);
+
+%% build looping here! loop through time indexes
+for timeIdx = inputparams.wayInxBeg : inputparams.timeStp : inputparams.wayInxEnd
+   
+    % Batteriespannung aus Kennkurve berechnen
+    %   calculating battery voltage of characteristic curve - eq?--------------
+    batOcv = batEngAct*fzg_array_struct.batOcvCof_batEng(1,1) + fzg_array_struct.batOcvCof_batEng(1,2);
+    
+    % calculate the max and min change in battery energy possible
+    % this calculation relies on the battery's voltage (see above code)
+end
+
 
 %% Calculating optimal predecessors with DP + PMP
 fprintf('-Initializing model...\n');
@@ -276,7 +290,7 @@ fprintf('-Initializing model...\n');
     engKinNumVec_wayInx,        ... Vektor der Anzahl der kinetischen Energien
     slpVec_wayInx,              ... Vektor der Steigungen in rad
     engKinMat_engKinInx_wayInx, ... Matrix der kinetischen Energien in J
-    fahrparams,     ... struct der Fahrzeugparameter - NUR SKALARS
+    fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct... struct der Fahrzeugparameter - NUR ARRAYS
     );
 engKinEndInxVal = ceil(engKinNumVec_wayInx(wayInxEnd)/2);

@@ -112,7 +112,7 @@ fulEngOptTn3(engKinBegInx,staBeg,wayInxBeg) = 0;
 %   tensor3 for battery energy
 batFrcOptTn3 = inf(engKinNum,staNum,wayNum);
 
-%% Berechnung der optimalen Vorgänger
+%% Berechnung der optimalen Vorg�nger
 %   calculating the optimal predecessors
 
 % Initialisieren der Matrix für die Kosten bis zu den Punkten im letzten
@@ -317,7 +317,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     [cosHam,batFrc,fulFrc] = ...
                         clcPMP_olyHyb_port(engKinPre,engKinAct,gea,...
                         slp,iceFlg,batEng,psiBatEng,psiTim,batPwrAux,...
-                        batEngStp,wayStp,fzg_scalar, fzg_array);
+                        batEngStp,wayStp,fzg_scalar,fzg_array);
                     
 %                     % minimale Kosten der Hamiltonfunktion zum aktuellen
 %                     % Punkt bestimmen
