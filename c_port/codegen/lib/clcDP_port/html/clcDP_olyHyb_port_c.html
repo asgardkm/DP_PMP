@@ -1,0 +1,702 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>RTW Report - clcDP_olyHyb_port.c</title>
+<script language="JavaScript" type="text/javascript" src="rtwreport_utils.js"></script>
+</head>
+<body bgcolor="#eeeeee" text="#1122aa" onload="try {if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window.document); else local_onload();}} catch(err) {};">
+<p>
+<table border="0" cellspacing="0" cellpadding="6" width="100%%" height="100%%"><tr><td width="100%%" valign="top" bgcolor="#ffffff">
+<h4>File: <a href="../clcDP_olyHyb_port.c" target="rtwreport_document_frame" id="linkToText_plain">clcDP_olyHyb_port.c</a></h4>
+<pre id="RTWcode">
+<a name="1"><font color="#888888 "><i>    1   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="2"><font color="#888888 "><i>    2   </i></font></a><font color="#117755"><I> * Academic License - for use in teaching, academic research, and meeting</i></font>
+<a name="3"><font color="#888888 "><i>    3   </i></font></a><font color="#117755"><I> * course requirements at degree granting institutions only.  Not for</i></font>
+<a name="4"><font color="#888888 "><i>    4   </i></font></a><font color="#117755"><I> * government, commercial, or other organizational use.</i></font>
+<a name="5"><font color="#888888 "><i>    5   </i></font></a><font color="#117755"><I> * File: clcDP_olyHyb_port.c</i></font>
+<a name="6"><font color="#888888 "><i>    6   </i></font></a><font color="#117755"><I> *</i></font>
+<a name="7"><font color="#888888 "><i>    7   </i></font></a><font color="#117755"><I> * MATLAB Coder version            : 2.8</i></font>
+<a name="8"><font color="#888888 "><i>    8   </i></font></a><font color="#117755"><I> * C/C++ source code generated on  : 21-Jun-2016 17:44:08</i></font>
+<a name="9"><font color="#888888 "><i>    9   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="10"><font color="#888888 "><i>   10   </i></font></a>
+<a name="11"><font color="#888888 "><i>   11   </i></font></a><font color="#117755"><i>/* Include Files */</i></font>
+<a name="12"><font color="#888888 "><i>   12   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;rt_nonfinite.h&quot;</font>
+<a name="13"><font color="#888888 "><i>   13   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;clcDP_port.h&quot;</font>
+<a name="14"><font color="#888888 "><i>   14   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;clcDP_olyHyb_port.h&quot;</font>
+<a name="15"><font color="#888888 "><i>   15   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;clcPMP_olyHyb_port.h&quot;</font>
+<a name="16"><font color="#888888 "><i>   16   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;fprintf.h&quot;</font>
+<a name="17"><font color="#888888 "><i>   17   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;clcDP_port_emxutil.h&quot;</font>
+<a name="18"><font color="#888888 "><i>   18   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&lt;stdio.h&gt;</font>
+<a name="19"><font color="#888888 "><i>   19   </i></font></a>
+<a name="20"><font color="#888888 "><i>   20   </i></font></a><font color="#117755"><i>/* Variable Definitions */</i></font>
+<a name="21"><font color="#888888 "><i>   21   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>double</b></font> <a name="var_geaNum">geaNum</a>;
+<a name="22"><font color="#888888 "><i>   22   </i></font></a><font color="#112266"><b>static</b></font> <a href="rtwtypes_h.html#type_boolean_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_boolean_T');" target="_self"><font color="#1122aa">boolean_T</font></a> <a name="var_geaNum_not_empty">geaNum_not_empty</a>;
+<a name="23"><font color="#888888 "><i>   23   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>double</b></font> <a name="var_vehMas">vehMas</a>;
+<a name="24"><font color="#888888 "><i>   24   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>double</b></font> <a name="var_vehAccMin">vehAccMin</a>;
+<a name="25"><font color="#888888 "><i>   25   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>double</b></font> <a name="var_vehAccMax">vehAccMax</a>;
+<a name="26"><font color="#888888 "><i>   26   </i></font></a>
+<a name="27"><font color="#888888 "><i>   27   </i></font></a><font color="#117755"><i>/* Function Definitions */</i></font>
+<a name="28"><font color="#888888 "><i>   28   </i></font></a>
+<a name="29"><font color="#888888 "><i>   29   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="30"><font color="#888888 "><i>   30   </i></font></a><font color="#117755"><I> * --- EingangsgrÃ¶ÃŸen:</i></font>
+<a name="31"><font color="#888888 "><i>   31   </i></font></a><font color="#117755"><I> *  Skalar - Flag fÃ¼r Ausgabe in das Commandwindow</i></font>
+<a name="32"><font color="#888888 "><i>   32   </i></font></a><font color="#117755"><I> *  Skalar für die Wegschrittweite in m</i></font>
+<a name="33"><font color="#888888 "><i>   33   </i></font></a><font color="#117755"><I> *  Skalar der Batteriediskretisierung in J</i></font>
+<a name="34"><font color="#888888 "><i>   34   </i></font></a><font color="#117755"><I> *  Skalar für die Batterieenergie am Beginn in Ws</i></font>
+<a name="35"><font color="#888888 "><i>   35   </i></font></a><font color="#117755"><I> *  Skalar für die Nebenverbrauchlast in W</i></font>
+<a name="36"><font color="#888888 "><i>   36   </i></font></a><font color="#117755"><I> *  Skalar für den Co-State der Batterieenergie</i></font>
+<a name="37"><font color="#888888 "><i>   37   </i></font></a><font color="#117755"><I> *  Skalar für den Co-State der Zeit</i></font>
+<a name="38"><font color="#888888 "><i>   38   </i></font></a><font color="#117755"><I> *  Skalar für die Strafkosten beim Zustandswechsel</i></font>
+<a name="39"><font color="#888888 "><i>   39   </i></font></a><font color="#117755"><I> *  Skalar für Anfangsindex in den Eingangsdaten</i></font>
+<a name="40"><font color="#888888 "><i>   40   </i></font></a><font color="#117755"><I> *  Skalar für Endindex in den Eingangsdaten</i></font>
+<a name="41"><font color="#888888 "><i>   41   </i></font></a><font color="#117755"><I> *  Skalar für den Index der Anfangsgeschwindigkeit</i></font>
+<a name="42"><font color="#888888 "><i>   42   </i></font></a><font color="#117755"><I> *  Skalar für die max. Anz. an engKin-StÃ¼tzstellen</i></font>
+<a name="43"><font color="#888888 "><i>   43   </i></font></a><font color="#117755"><I> *  Skalar für die max. Anzahl an ZustandsstÃ¼tzstellen</i></font>
+<a name="44"><font color="#888888 "><i>   44   </i></font></a><font color="#117755"><I> *  Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen</i></font>
+<a name="45"><font color="#888888 "><i>   45   </i></font></a><font color="#117755"><I> *  Skalar für den Startzustand des Antriebsstrangs</i></font>
+<a name="46"><font color="#888888 "><i>   46   </i></font></a><font color="#117755"><I> *  Vektor der Anzahl der kinetischen Energien</i></font>
+<a name="47"><font color="#888888 "><i>   47   </i></font></a><font color="#117755"><I> *  Vektor der Steigungen in rad</i></font>
+<a name="48"><font color="#888888 "><i>   48   </i></font></a><font color="#117755"><I> *  Matrix der kinetischen Energien in J</i></font>
+<a name="49"><font color="#888888 "><i>   49   </i></font></a><font color="#117755"><I> *  struct der Fahrzeugparameter - NUR SKALARS</i></font>
+<a name="50"><font color="#888888 "><i>   50   </i></font></a><font color="#117755"><I> *  struct der Fahrzeugparameter - NUR ARRAYS</i></font>
+<a name="51"><font color="#888888 "><i>   51   </i></font></a><font color="#117755"><I> * Arguments    : double disFlg</i></font>
+<a name="52"><font color="#888888 "><i>   52   </i></font></a><font color="#117755"><I> *                double wayStp</i></font>
+<a name="53"><font color="#888888 "><i>   53   </i></font></a><font color="#117755"><I> *                double batEngStp</i></font>
+<a name="54"><font color="#888888 "><i>   54   </i></font></a><font color="#117755"><I> *                double batEngBeg</i></font>
+<a name="55"><font color="#888888 "><i>   55   </i></font></a><font color="#117755"><I> *                double batPwrAux</i></font>
+<a name="56"><font color="#888888 "><i>   56   </i></font></a><font color="#117755"><I> *                double psiBatEng</i></font>
+<a name="57"><font color="#888888 "><i>   57   </i></font></a><font color="#117755"><I> *                double psiTim</i></font>
+<a name="58"><font color="#888888 "><i>   58   </i></font></a><font color="#117755"><I> *                double staChgPenCosVal</i></font>
+<a name="59"><font color="#888888 "><i>   59   </i></font></a><font color="#117755"><I> *                double wayInxBeg</i></font>
+<a name="60"><font color="#888888 "><i>   60   </i></font></a><font color="#117755"><I> *                double wayInxEnd</i></font>
+<a name="61"><font color="#888888 "><i>   61   </i></font></a><font color="#117755"><I> *                double engKinBegInx</i></font>
+<a name="62"><font color="#888888 "><i>   62   </i></font></a><font color="#117755"><I> *                double engKinNum</i></font>
+<a name="63"><font color="#888888 "><i>   63   </i></font></a><font color="#117755"><I> *                double staNum</i></font>
+<a name="64"><font color="#888888 "><i>   64   </i></font></a><font color="#117755"><I> *                double wayNum</i></font>
+<a name="65"><font color="#888888 "><i>   65   </i></font></a><font color="#117755"><I> *                double staBeg</i></font>
+<a name="66"><font color="#888888 "><i>   66   </i></font></a><font color="#117755"><I> *                const double engKinNumVec_wayInx[800]</i></font>
+<a name="67"><font color="#888888 "><i>   67   </i></font></a><font color="#117755"><I> *                const double slpVec_wayInx[800]</i></font>
+<a name="68"><font color="#888888 "><i>   68   </i></font></a><font color="#117755"><I> *                const double engKinMat_engKinInx_wayInx[8800]</i></font>
+<a name="69"><font color="#888888 "><i>   69   </i></font></a><font color="#117755"><I> *                const struct2_T *fzg_scalar</i></font>
+<a name="70"><font color="#888888 "><i>   70   </i></font></a><font color="#117755"><I> *                const struct4_T *fzg_array</i></font>
+<a name="71"><font color="#888888 "><i>   71   </i></font></a><font color="#117755"><I> *                emxArray_real_T *optPreInxTn3</i></font>
+<a name="72"><font color="#888888 "><i>   72   </i></font></a><font color="#117755"><I> *                emxArray_real_T *batFrcOptTn3</i></font>
+<a name="73"><font color="#888888 "><i>   73   </i></font></a><font color="#117755"><I> *                emxArray_real_T *fulEngOptTn3</i></font>
+<a name="74"><font color="#888888 "><i>   74   </i></font></a><font color="#117755"><I> *                emxArray_real_T *cos2goActMat</i></font>
+<a name="75"><font color="#888888 "><i>   75   </i></font></a><font color="#117755"><I> * Return Type  : void</i></font>
+<a name="76"><font color="#888888 "><i>   76   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="77"><font color="#888888 "><i>   77   </i></font></a><font color="#112266"><b>void</b></font> <a name="fcn_clcDP_olyHyb_port">clcDP_olyHyb_port</a>(<font color="#112266"><b>double</b></font> disFlg, <font color="#112266"><b>double</b></font> wayStp, <font color="#112266"><b>double</b></font> batEngStp, <font color="#112266"><b>double</b></font>
+<a name="78"><font color="#888888 "><i>   78   </i></font></a>  batEngBeg, <font color="#112266"><b>double</b></font> batPwrAux, <font color="#112266"><b>double</b></font> psiBatEng, <font color="#112266"><b>double</b></font> psiTim, <font color="#112266"><b>double</b></font>
+<a name="79"><font color="#888888 "><i>   79   </i></font></a>  staChgPenCosVal, <font color="#112266"><b>double</b></font> wayInxBeg, <font color="#112266"><b>double</b></font> wayInxEnd, <font color="#112266"><b>double</b></font> engKinBegInx,
+<a name="80"><font color="#888888 "><i>   80   </i></font></a>  <font color="#112266"><b>double</b></font> engKinNum, <font color="#112266"><b>double</b></font> staNum, <font color="#112266"><b>double</b></font> wayNum, <font color="#112266"><b>double</b></font> staBeg, <font color="#112266"><b>const</b></font> <font color="#112266"><b>double</b></font>
+<a name="81"><font color="#888888 "><i>   81   </i></font></a>  engKinNumVec_wayInx[800], <font color="#112266"><b>const</b></font> <font color="#112266"><b>double</b></font> slpVec_wayInx[800], <font color="#112266"><b>const</b></font> <font color="#112266"><b>double</b></font>
+<a name="82"><font color="#888888 "><i>   82   </i></font></a>  engKinMat_engKinInx_wayInx[8800], <font color="#112266"><b>const</b></font> <a href="clcDP_port_types_h.html#type_struct2_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_struct2_T');" target="_self"><font color="#1122aa">struct2_T</font></a> *fzg_scalar, <font color="#112266"><b>const</b></font> <a href="clcDP_port_types_h.html#type_struct4_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_struct4_T');" target="_self"><font color="#1122aa">struct4_T</font></a>
+<a name="83"><font color="#888888 "><i>   83   </i></font></a>  *fzg_array, <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *optPreInxTn3, <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *batFrcOptTn3,
+<a name="84"><font color="#888888 "><i>   84   </i></font></a>  <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *fulEngOptTn3, <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *cos2goActMat)
+<a name="85"><font color="#888888 "><i>   85   </i></font></a><b>{</b>
+<a name="86"><font color="#888888 "><i>   86   </i></font></a>  <font color="#112266"><b>int</b></font> i0;
+<a name="87"><font color="#888888 "><i>   87   </i></font></a>  <font color="#112266"><b>int</b></font> loop_ub;
+<a name="88"><font color="#888888 "><i>   88   </i></font></a>  <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *cos2goPreMat;
+<a name="89"><font color="#888888 "><i>   89   </i></font></a>  <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *batEngPreMat;
+<a name="90"><font color="#888888 "><i>   90   </i></font></a>  <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *fulEngPreMat;
+<a name="91"><font color="#888888 "><i>   91   </i></font></a>  <font color="#112266"><b>int</b></font> wayInx;
+<a name="92"><font color="#888888 "><i>   92   </i></font></a>  <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *batFrcOptMat;
+<a name="93"><font color="#888888 "><i>   93   </i></font></a>  <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *batEngActMat;
+<a name="94"><font color="#888888 "><i>   94   </i></font></a>  <a href="clcDP_port_types_h.html#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *fulEngActMat;
+<a name="95"><font color="#888888 "><i>   95   </i></font></a>  <font color="#112266"><b>double</b></font> b_wayInx;
+<a name="96"><font color="#888888 "><i>   96   </i></font></a>  <font color="#112266"><b>int</b></font> i1;
+<a name="97"><font color="#888888 "><i>   97   </i></font></a>  <font color="#112266"><b>double</b></font> engKinAct;
+<a name="98"><font color="#888888 "><i>   98   </i></font></a>  <font color="#112266"><b>int</b></font> b_loop_ub;
+<a name="99"><font color="#888888 "><i>   99   </i></font></a>  <font color="#112266"><b>double</b></font> cosHamMin;
+<a name="100"><font color="#888888 "><i>  100   </i></font></a>  <font color="#112266"><b>int</b></font> staPreOptInx;
+<a name="101"><font color="#888888 "><i>  101   </i></font></a>  <font color="#112266"><b>double</b></font> engKinPreOptInx;
+<a name="102"><font color="#888888 "><i>  102   </i></font></a>  <font color="#112266"><b>double</b></font> fulEngOpt;
+<a name="103"><font color="#888888 "><i>  103   </i></font></a>  <font color="#112266"><b>double</b></font> batFrcOpt;
+<a name="104"><font color="#888888 "><i>  104   </i></font></a>  <font color="#112266"><b>double</b></font> batEngOpt;
+<a name="105"><font color="#888888 "><i>  105   </i></font></a>  <font color="#112266"><b>int</b></font> staPreMin;
+<a name="106"><font color="#888888 "><i>  106   </i></font></a>  <font color="#112266"><b>double</b></font> staPreMax;
+<a name="107"><font color="#888888 "><i>  107   </i></font></a>  <font color="#112266"><b>int</b></font> engKinPreInx;
+<a name="108"><font color="#888888 "><i>  108   </i></font></a>  <font color="#112266"><b>double</b></font> vehAcc;
+<a name="109"><font color="#888888 "><i>  109   </i></font></a>  <font color="#112266"><b>int</b></font> staPre;
+<a name="110"><font color="#888888 "><i>  110   </i></font></a>  <font color="#112266"><b>double</b></font> b_staPre;
+<a name="111"><font color="#888888 "><i>  111   </i></font></a>  <font color="#112266"><b>double</b></font> staChgPenCos;
+<a name="112"><font color="#888888 "><i>  112   </i></font></a>  <font color="#112266"><b>double</b></font> fulFrc;
+<a name="113"><font color="#888888 "><i>  113   </i></font></a>  <font color="#112266"><b>double</b></font> batFrc;
+<a name="114"><font color="#888888 "><i>  114   </i></font></a>  <font color="#112266"><b>double</b></font> cosHam;
+<a name="115"><font color="#888888 "><i>  115   </i></font></a>  <font color="#112266"><b>double</b></font> cosAct;
+<a name="116"><font color="#888888 "><i>  116   </i></font></a>
+<a name="117"><font color="#888888 "><i>  117   </i></font></a>  <font color="#117755"><i>/*   --- AusgangsgrÃ¶ÃŸen: */</i></font>
+<a name="118"><font color="#888888 "><i>  118   </i></font></a>  <font color="#117755"><i>/*  Tensor 3. Stufe fÃ¼r opt. VorgÃ¤ngerkoordinaten */</i></font>
+<a name="119"><font color="#888888 "><i>  119   </i></font></a>  <font color="#117755"><i>/*  Tensor 3. Stufe der Batteriekraft */</i></font>
+<a name="120"><font color="#888888 "><i>  120   </i></font></a>  <font color="#117755"><i>/*  Tensor 3. Stufe fÃ¼r die Kraftstoffenergie */</i></font>
+<a name="121"><font color="#888888 "><i>  121   </i></font></a>  <font color="#117755"><i>/*  Matrix der optimalen Kosten der Hamiltonfunktion */</i></font>
+<a name="122"><font color="#888888 "><i>  122   </i></font></a>  <font color="#117755"><i>/*  */</i></font>
+<a name="123"><font color="#888888 "><i>  123   </i></font></a>  <font color="#117755"><i>/* INIDP Calculating optimal predecessors with DP + PMP */</i></font>
+<a name="124"><font color="#888888 "><i>  124   </i></font></a>  <font color="#117755"><i>/*  Erstellungsdatum der ersten Version 20.08.2015 - Stephan Uebel */</i></font>
+<a name="125"><font color="#888888 "><i>  125   </i></font></a>  <font color="#117755"><i>/*  */</i></font>
+<a name="126"><font color="#888888 "><i>  126   </i></font></a>  <font color="#117755"><i>/*  Diese Funktion berechnet die optimalen VorgÃ¤nger der Dynamischen */</i></font>
+<a name="127"><font color="#888888 "><i>  127   </i></font></a>  <font color="#117755"><i>/*  Programmierung (DP). Diese subsitutiert die ZustÃ¤nde Zeit und */</i></font>
+<a name="128"><font color="#888888 "><i>  128   </i></font></a>  <font color="#117755"><i>/*  Batterieenergie durch Co-States. Die Kosten werden mit dem */</i></font>
+<a name="129"><font color="#888888 "><i>  129   </i></font></a>  <font color="#117755"><i>/*  Pontryaginschen Minimumsprinzip berechnet. */</i></font>
+<a name="130"><font color="#888888 "><i>  130   </i></font></a>  <font color="#117755"><i>/*    This function calculates the optimum predecessor from dynamic */</i></font>
+<a name="131"><font color="#888888 "><i>  131   </i></font></a>  <font color="#117755"><i>/*    programming (DP). Each state's time and battery power costates are */</i></font>
+<a name="132"><font color="#888888 "><i>  132   </i></font></a>  <font color="#117755"><i>/*    substituted from a Potryagin's Minimum Principle calculation. */</i></font>
+<a name="133"><font color="#888888 "><i>  133   </i></font></a>  <font color="#117755"><i>/*  */</i></font>
+<a name="134"><font color="#888888 "><i>  134   </i></font></a>  <font color="#117755"><i>/*  Variante olyHyb erlaubt nur hybridisches Fahren (Motor ist immer an) */</i></font>
+<a name="135"><font color="#888888 "><i>  135   </i></font></a>  <font color="#117755"><i>/*    variation olyHyb permits only hybrid driving (motor is always on) */</i></font>
+<a name="136"><font color="#888888 "><i>  136   </i></font></a>  <font color="#117755"><i>/*  */</i></font>
+<a name="137"><font color="#888888 "><i>  137   </i></font></a>  <font color="#117755"><i>/*  Ã„nderung am 23.02.2016 - optimale Kosten nicht direkt aus Index von min() */</i></font>
+<a name="138"><font color="#888888 "><i>  138   </i></font></a>  <font color="#117755"><i>/*  bestimmt. Das fÃ¤hrt zu einem anderen Schaltverhalten, da GÃ¤nge teilweise */</i></font>
+<a name="139"><font color="#888888 "><i>  139   </i></font></a>  <font color="#117755"><i>/*  gleiche Kosten verursachen. In dem Fall wird jetzt der niedrigste Gang */</i></font>
+<a name="140"><font color="#888888 "><i>  140   </i></font></a>  <font color="#117755"><i>/*  gewÃ¤hlt, wie in der DP. */</i></font>
+<a name="141"><font color="#888888 "><i>  141   </i></font></a>  <font color="#117755"><i>/*    change on 23.02.2016 - optimal costs are not directly from the min() */</i></font>
+<a name="142"><font color="#888888 "><i>  142   </i></font></a>  <font color="#117755"><i>/*    index. The move to another switching behaviour is because the */</i></font>
+<a name="143"><font color="#888888 "><i>  143   </i></font></a>  <font color="#117755"><i>/*    transitions FZGtially caused the same costs. The lowester gear is now */</i></font>
+<a name="144"><font color="#888888 "><i>  144   </i></font></a>  <font color="#117755"><i>/*    selected in DP */</i></font>
+<a name="145"><font color="#888888 "><i>  145   </i></font></a>  <font color="#117755"><i>/*  */</i></font>
+<a name="146"><font color="#888888 "><i>  146   </i></font></a>  <font color="#117755"><i>/*  !!!! Generelle Festlegung, wie Vektoren/Tensoren zu lesen sind !!!! */</i></font>
+<a name="147"><font color="#888888 "><i>  147   </i></font></a>  <font color="#117755"><i>/*  Werte, die am Anfang und am Ende eines Intervalls gelten, stehen an der */</i></font>
+<a name="148"><font color="#888888 "><i>  148   </i></font></a>  <font color="#117755"><i>/*  jeweiligen Position des Vektors. */</i></font>
+<a name="149"><font color="#888888 "><i>  149   </i></font></a>  <font color="#117755"><i>/*    !!!! Please note, how vectors/tensors are read (??) !!!! */</i></font>
+<a name="150"><font color="#888888 "><i>  150   </i></font></a>  <font color="#117755"><i>/*    Values that are at the beginning and end of an interval are at their */</i></font>
+<a name="151"><font color="#888888 "><i>  151   </i></font></a>  <font color="#117755"><i>/*    respective indexes along the vector. */</i></font>
+<a name="152"><font color="#888888 "><i>  152   </i></font></a>  <font color="#117755"><i>/*  */</i></font>
+<a name="153"><font color="#888888 "><i>  153   </i></font></a>  <font color="#117755"><i>/*  Mittelwerte, d.h. FlussgrÃ¶ÃŸen wie KrÃ¤fte, Leistungen etc., stehen immmer */</i></font>
+<a name="154"><font color="#888888 "><i>  154   </i></font></a>  <font color="#117755"><i>/*  am Anfang des Intervalls fÃ¼r das folgende Intervall. Diese */</i></font>
+<a name="155"><font color="#888888 "><i>  155   </i></font></a>  <font color="#117755"><i>/*  Vektoren/Tensoren sind daher um einen gÃ¼ltigen Eintrag kÃ¼rzer. */</i></font>
+<a name="156"><font color="#888888 "><i>  156   </i></font></a>  <font color="#117755"><i>/*    mean values (eg flow variables like forces, services) are always at the */</i></font>
+<a name="157"><font color="#888888 "><i>  157   </i></font></a>  <font color="#117755"><i>/*    beginning of the interval for the next interval. Those vectors/tensors */</i></font>
+<a name="158"><font color="#888888 "><i>  158   </i></font></a>  <font color="#117755"><i>/*    are therefore shorter by a valid entry (index?). */</i></font>
+<a name="159"><font color="#888888 "><i>  159   </i></font></a>  <font color="#117755"><i>/* % Initialisieren der persistent GrÃ¶ÃŸen */</i></font>
+<a name="160"><font color="#888888 "><i>  160   </i></font></a>  <font color="#117755"><i>/*  Diese werden die nur einmal fÃ¼r die Funktion berechnet */</i></font>
+<a name="161"><font color="#888888 "><i>  161   </i></font></a>  <font color="#117755"><i>/*    assigning input structure values to function persistant variables */</i></font>
+<a name="162"><font color="#888888 "><i>  162   </i></font></a>  <font color="#117755"><i>/*    - just once */</i></font>
+<a name="163"><font color="#888888 "><i>  163   </i></font></a>  <font color="#112266"><b>if</b></font> (!<a href="#var_geaNum_not_empty" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_geaNum_not_empty');" target="_self"><font color="#1122aa">geaNum_not_empty</font></a>) <b>{</b>
+<a name="164"><font color="#888888 "><i>  164   </i></font></a>    <font color="#117755"><i>/*      geaNum    = zeros(1,1); */</i></font>
+<a name="165"><font color="#888888 "><i>  165   </i></font></a>    <font color="#117755"><i>/*      vehMas    = zeros(1,1); */</i></font>
+<a name="166"><font color="#888888 "><i>  166   </i></font></a>    <font color="#117755"><i>/*      vehAccMin = zeros(1,1); */</i></font>
+<a name="167"><font color="#888888 "><i>  167   </i></font></a>    <font color="#117755"><i>/*      vehAccMax = zeros(1,1); */</i></font>
+<a name="168"><font color="#888888 "><i>  168   </i></font></a>    <font color="#117755"><i>/*  Anzahl der GÃ¤nge */</i></font>
+<a name="169"><font color="#888888 "><i>  169   </i></font></a>    <font color="#117755"><i>/*    number of gears */</i></font>
+<a name="170"><font color="#888888 "><i>  170   </i></font></a>    <a href="#var_geaNum" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_geaNum');" target="_self"><font color="#1122aa">geaNum</font></a> = staNum;
+<a name="171"><font color="#888888 "><i>  171   </i></font></a>    <a href="#var_geaNum_not_empty" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_geaNum_not_empty');" target="_self"><font color="#1122aa">geaNum_not_empty</font></a> = true;
+<a name="172"><font color="#888888 "><i>  172   </i></font></a>
+<a name="173"><font color="#888888 "><i>  173   </i></font></a>    <font color="#117755"><i>/*  max number of state nodes */</i></font>
+<a name="174"><font color="#888888 "><i>  174   </i></font></a>    <font color="#117755"><i>/*  Fahrzeugmasse; */</i></font>
+<a name="175"><font color="#888888 "><i>  175   </i></font></a>    <a href="#var_vehMas" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_vehMas');" target="_self"><font color="#1122aa">vehMas</font></a> = fzg_scalar-&gt;vehMas;
+<a name="176"><font color="#888888 "><i>  176   </i></font></a>
+<a name="177"><font color="#888888 "><i>  177   </i></font></a>    <font color="#117755"><i>/*  minmiale und maximale Beschleunigung */</i></font>
+<a name="178"><font color="#888888 "><i>  178   </i></font></a>    <font color="#117755"><i>/*    min and max accerlations (bounds) */</i></font>
+<a name="179"><font color="#888888 "><i>  179   </i></font></a>    <a href="#var_vehAccMin" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_vehAccMin');" target="_self"><font color="#1122aa">vehAccMin</font></a> = fzg_scalar-&gt;vehAccMin;
+<a name="180"><font color="#888888 "><i>  180   </i></font></a>    <a href="#var_vehAccMax" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_vehAccMax');" target="_self"><font color="#1122aa">vehAccMax</font></a> = fzg_scalar-&gt;vehAccMax;
+<a name="181"><font color="#888888 "><i>  181   </i></font></a>
+<a name="182"><font color="#888888 "><i>  182   </i></font></a>    <font color="#117755"><i>/*  In dieser Version ist der Motor immer an */</i></font>
+<a name="183"><font color="#888888 "><i>  183   </i></font></a>  <b>}</b>
+<a name="184"><font color="#888888 "><i>  184   </i></font></a>
+<a name="185"><font color="#888888 "><i>  185   </i></font></a>  <font color="#117755"><i>/* % Initialisieren der Ausgabe der Funktion */</i></font>
+<a name="186"><font color="#888888 "><i>  186   </i></font></a>  <font color="#117755"><i>/*    initialzing function output */</i></font>
+<a name="187"><font color="#888888 "><i>  187   </i></font></a>  <font color="#117755"><i>/*  Tensor 3. Stufe fÃ¼r optimalen VorgÃ¤ngerkoordinaten */</i></font>
+<a name="188"><font color="#888888 "><i>  188   </i></font></a>  <font color="#117755"><i>/*    tensor3 for optimal previous coordinates/idx */</i></font>
+<a name="189"><font color="#888888 "><i>  189   </i></font></a>  i0 = optPreInxTn3-&gt;size[0] * optPreInxTn3-&gt;size[1] * optPreInxTn3-&gt;size[2];
+<a name="190"><font color="#888888 "><i>  190   </i></font></a>  optPreInxTn3-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="191"><font color="#888888 "><i>  191   </i></font></a>  optPreInxTn3-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="192"><font color="#888888 "><i>  192   </i></font></a>  optPreInxTn3-&gt;size[2] = (<font color="#112266"><b>int</b></font>)wayNum;
+<a name="193"><font color="#888888 "><i>  193   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)optPreInxTn3, i0, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="194"><font color="#888888 "><i>  194   </i></font></a>  loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum * (<font color="#112266"><b>int</b></font>)wayNum;
+<a name="195"><font color="#888888 "><i>  195   </i></font></a>  <font color="#112266"><b>for</b></font> (i0 = 0; i0 &lt; loop_ub; i0++) <b>{</b>
+<a name="196"><font color="#888888 "><i>  196   </i></font></a>    optPreInxTn3-&gt;data[i0] = 0.0;
+<a name="197"><font color="#888888 "><i>  197   </i></font></a>  <b>}</b>
+<a name="198"><font color="#888888 "><i>  198   </i></font></a>
+<a name="199"><font color="#888888 "><i>  199   </i></font></a>  <font color="#117755"><i>/*  Tensor 3. Stufe fÃ¼r die Kraftstoffenergie */</i></font>
+<a name="200"><font color="#888888 "><i>  200   </i></font></a>  <font color="#117755"><i>/*    tensor3 for fuel energy */</i></font>
+<a name="201"><font color="#888888 "><i>  201   </i></font></a>  i0 = fulEngOptTn3-&gt;size[0] * fulEngOptTn3-&gt;size[1] * fulEngOptTn3-&gt;size[2];
+<a name="202"><font color="#888888 "><i>  202   </i></font></a>  fulEngOptTn3-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="203"><font color="#888888 "><i>  203   </i></font></a>  fulEngOptTn3-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="204"><font color="#888888 "><i>  204   </i></font></a>  fulEngOptTn3-&gt;size[2] = (<font color="#112266"><b>int</b></font>)wayNum;
+<a name="205"><font color="#888888 "><i>  205   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)fulEngOptTn3, i0, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="206"><font color="#888888 "><i>  206   </i></font></a>  loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum * (<font color="#112266"><b>int</b></font>)wayNum;
+<a name="207"><font color="#888888 "><i>  207   </i></font></a>  <font color="#112266"><b>for</b></font> (i0 = 0; i0 &lt; loop_ub; i0++) <b>{</b>
+<a name="208"><font color="#888888 "><i>  208   </i></font></a>    fulEngOptTn3-&gt;data[i0] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="209"><font color="#888888 "><i>  209   </i></font></a>  <b>}</b>
+<a name="210"><font color="#888888 "><i>  210   </i></font></a>
+<a name="211"><font color="#888888 "><i>  211   </i></font></a>  <font color="#117755"><i>/*    set initial fuel energy level to 0 */</i></font>
+<a name="212"><font color="#888888 "><i>  212   </i></font></a>  fulEngOptTn3-&gt;data[(((<font color="#112266"><b>int</b></font>)engKinBegInx + fulEngOptTn3-&gt;size[0] * ((<font color="#112266"><b>int</b></font>)staBeg
+<a name="213"><font color="#888888 "><i>  213   </i></font></a>    - 1)) + fulEngOptTn3-&gt;size[0] * fulEngOptTn3-&gt;size[1] * ((<font color="#112266"><b>int</b></font>)wayInxBeg - 1))
+<a name="214"><font color="#888888 "><i>  214   </i></font></a>    - 1] = 0.0;
+<a name="215"><font color="#888888 "><i>  215   </i></font></a>
+<a name="216"><font color="#888888 "><i>  216   </i></font></a>  <font color="#117755"><i>/*  Tensor 3. Stufe fÃ¼r die Batterienergie */</i></font>
+<a name="217"><font color="#888888 "><i>  217   </i></font></a>  <font color="#117755"><i>/*    tensor3 for battery energy */</i></font>
+<a name="218"><font color="#888888 "><i>  218   </i></font></a>  i0 = batFrcOptTn3-&gt;size[0] * batFrcOptTn3-&gt;size[1] * batFrcOptTn3-&gt;size[2];
+<a name="219"><font color="#888888 "><i>  219   </i></font></a>  batFrcOptTn3-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="220"><font color="#888888 "><i>  220   </i></font></a>  batFrcOptTn3-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="221"><font color="#888888 "><i>  221   </i></font></a>  batFrcOptTn3-&gt;size[2] = (<font color="#112266"><b>int</b></font>)wayNum;
+<a name="222"><font color="#888888 "><i>  222   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)batFrcOptTn3, i0, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="223"><font color="#888888 "><i>  223   </i></font></a>  loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum * (<font color="#112266"><b>int</b></font>)wayNum;
+<a name="224"><font color="#888888 "><i>  224   </i></font></a>  <font color="#112266"><b>for</b></font> (i0 = 0; i0 &lt; loop_ub; i0++) <b>{</b>
+<a name="225"><font color="#888888 "><i>  225   </i></font></a>    batFrcOptTn3-&gt;data[i0] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="226"><font color="#888888 "><i>  226   </i></font></a>  <b>}</b>
+<a name="227"><font color="#888888 "><i>  227   </i></font></a>
+<a name="228"><font color="#888888 "><i>  228   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_b_emxInit_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emxInit_real_T');" target="_self"><font color="#1122aa">b_emxInit_real_T</font></a>(&amp;cos2goPreMat, 2);
+<a name="229"><font color="#888888 "><i>  229   </i></font></a>
+<a name="230"><font color="#888888 "><i>  230   </i></font></a>  <font color="#117755"><i>/* % Berechnung der optimalen VorgÃ¤nger */</i></font>
+<a name="231"><font color="#888888 "><i>  231   </i></font></a>  <font color="#117755"><i>/*    calculating the optimal predecessors */</i></font>
+<a name="232"><font color="#888888 "><i>  232   </i></font></a>  <font color="#117755"><i>/*  Initialisieren der Matrix fÃ¼r die Kosten bis zu den Punkten im letzten */</i></font>
+<a name="233"><font color="#888888 "><i>  233   </i></font></a>  <font color="#117755"><i>/*  Wegschritt */</i></font>
+<a name="234"><font color="#888888 "><i>  234   </i></font></a>  <font color="#117755"><i>/*    initialize the matrix for the cost to the points in the last wayidx */</i></font>
+<a name="235"><font color="#888888 "><i>  235   </i></font></a>  i0 = cos2goPreMat-&gt;size[0] * cos2goPreMat-&gt;size[1];
+<a name="236"><font color="#888888 "><i>  236   </i></font></a>  cos2goPreMat-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="237"><font color="#888888 "><i>  237   </i></font></a>  cos2goPreMat-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="238"><font color="#888888 "><i>  238   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)cos2goPreMat, i0, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="239"><font color="#888888 "><i>  239   </i></font></a>  loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum;
+<a name="240"><font color="#888888 "><i>  240   </i></font></a>  <font color="#112266"><b>for</b></font> (i0 = 0; i0 &lt; loop_ub; i0++) <b>{</b>
+<a name="241"><font color="#888888 "><i>  241   </i></font></a>    cos2goPreMat-&gt;data[i0] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="242"><font color="#888888 "><i>  242   </i></font></a>  <b>}</b>
+<a name="243"><font color="#888888 "><i>  243   </i></font></a>
+<a name="244"><font color="#888888 "><i>  244   </i></font></a>  i0 = cos2goActMat-&gt;size[0] * cos2goActMat-&gt;size[1];
+<a name="245"><font color="#888888 "><i>  245   </i></font></a>  cos2goActMat-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="246"><font color="#888888 "><i>  246   </i></font></a>  cos2goActMat-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="247"><font color="#888888 "><i>  247   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)cos2goActMat, i0, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="248"><font color="#888888 "><i>  248   </i></font></a>  loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum;
+<a name="249"><font color="#888888 "><i>  249   </i></font></a>  <font color="#112266"><b>for</b></font> (i0 = 0; i0 &lt; loop_ub; i0++) <b>{</b>
+<a name="250"><font color="#888888 "><i>  250   </i></font></a>    cos2goActMat-&gt;data[i0] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="251"><font color="#888888 "><i>  251   </i></font></a>  <b>}</b>
+<a name="252"><font color="#888888 "><i>  252   </i></font></a>
+<a name="253"><font color="#888888 "><i>  253   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_b_emxInit_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emxInit_real_T');" target="_self"><font color="#1122aa">b_emxInit_real_T</font></a>(&amp;batEngPreMat, 2);
+<a name="254"><font color="#888888 "><i>  254   </i></font></a>
+<a name="255"><font color="#888888 "><i>  255   </i></font></a>  <font color="#117755"><i>/*  Erste Initilisierung beim Startindex mit 0 fÃ¼r alle ZustÃ¤nde(concluded) */</i></font>
+<a name="256"><font color="#888888 "><i>  256   </i></font></a>  <font color="#117755"><i>/*    first, initialize the startidx to 0 for all states */</i></font>
+<a name="257"><font color="#888888 "><i>  257   </i></font></a>  cos2goPreMat-&gt;data[((<font color="#112266"><b>int</b></font>)engKinBegInx + cos2goPreMat-&gt;size[0] * ((<font color="#112266"><b>int</b></font>)staBeg -
+<a name="258"><font color="#888888 "><i>  258   </i></font></a>    1)) - 1] = 0.0;
+<a name="259"><font color="#888888 "><i>  259   </i></font></a>
+<a name="260"><font color="#888888 "><i>  260   </i></font></a>  <font color="#117755"><i>/*  Initialisierung der Matrix der Batterieenergien */</i></font>
+<a name="261"><font color="#888888 "><i>  261   </i></font></a>  <font color="#117755"><i>/*    initialize the battery energy matrix */</i></font>
+<a name="262"><font color="#888888 "><i>  262   </i></font></a>  i0 = batEngPreMat-&gt;size[0] * batEngPreMat-&gt;size[1];
+<a name="263"><font color="#888888 "><i>  263   </i></font></a>  batEngPreMat-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="264"><font color="#888888 "><i>  264   </i></font></a>  batEngPreMat-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="265"><font color="#888888 "><i>  265   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)batEngPreMat, i0, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="266"><font color="#888888 "><i>  266   </i></font></a>  loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum;
+<a name="267"><font color="#888888 "><i>  267   </i></font></a>  <font color="#112266"><b>for</b></font> (i0 = 0; i0 &lt; loop_ub; i0++) <b>{</b>
+<a name="268"><font color="#888888 "><i>  268   </i></font></a>    batEngPreMat-&gt;data[i0] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="269"><font color="#888888 "><i>  269   </i></font></a>  <b>}</b>
+<a name="270"><font color="#888888 "><i>  270   </i></font></a>
+<a name="271"><font color="#888888 "><i>  271   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_b_emxInit_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emxInit_real_T');" target="_self"><font color="#1122aa">b_emxInit_real_T</font></a>(&amp;fulEngPreMat, 2);
+<a name="272"><font color="#888888 "><i>  272   </i></font></a>
+<a name="273"><font color="#888888 "><i>  273   </i></font></a>  <font color="#117755"><i>/*  Erste Initilisierung beim Startindex mit Startladung fÃ¼r den Startzustand */</i></font>
+<a name="274"><font color="#888888 "><i>  274   </i></font></a>  <font color="#117755"><i>/*    first, intialize start index of the starting charge for intial state */</i></font>
+<a name="275"><font color="#888888 "><i>  275   </i></font></a>  batEngPreMat-&gt;data[((<font color="#112266"><b>int</b></font>)engKinBegInx + batEngPreMat-&gt;size[0] * ((<font color="#112266"><b>int</b></font>)staBeg -
+<a name="276"><font color="#888888 "><i>  276   </i></font></a>    1)) - 1] = batEngBeg;
+<a name="277"><font color="#888888 "><i>  277   </i></font></a>
+<a name="278"><font color="#888888 "><i>  278   </i></font></a>  <font color="#117755"><i>/*  Initialisierung der Matrix der Kraftstoffenergien */</i></font>
+<a name="279"><font color="#888888 "><i>  279   </i></font></a>  <font color="#117755"><i>/*    initialze the fuel energy matrix */</i></font>
+<a name="280"><font color="#888888 "><i>  280   </i></font></a>  i0 = fulEngPreMat-&gt;size[0] * fulEngPreMat-&gt;size[1];
+<a name="281"><font color="#888888 "><i>  281   </i></font></a>  fulEngPreMat-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="282"><font color="#888888 "><i>  282   </i></font></a>  fulEngPreMat-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="283"><font color="#888888 "><i>  283   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)fulEngPreMat, i0, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="284"><font color="#888888 "><i>  284   </i></font></a>  loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum;
+<a name="285"><font color="#888888 "><i>  285   </i></font></a>  <font color="#112266"><b>for</b></font> (i0 = 0; i0 &lt; loop_ub; i0++) <b>{</b>
+<a name="286"><font color="#888888 "><i>  286   </i></font></a>    fulEngPreMat-&gt;data[i0] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="287"><font color="#888888 "><i>  287   </i></font></a>  <b>}</b>
+<a name="288"><font color="#888888 "><i>  288   </i></font></a>
+<a name="289"><font color="#888888 "><i>  289   </i></font></a>  <font color="#117755"><i>/*  Erste Initilisierung beim Startindex mit 0 fÃ¼r den Startzustand */</i></font>
+<a name="290"><font color="#888888 "><i>  290   </i></font></a>  <font color="#117755"><i>/*    first, intialize the start idx for the intitial states to 0 */</i></font>
+<a name="291"><font color="#888888 "><i>  291   </i></font></a>  fulEngPreMat-&gt;data[((<font color="#112266"><b>int</b></font>)engKinBegInx + fulEngPreMat-&gt;size[0] * ((<font color="#112266"><b>int</b></font>)staBeg -
+<a name="292"><font color="#888888 "><i>  292   </i></font></a>    1)) - 1] = 0.0;
+<a name="293"><font color="#888888 "><i>  293   </i></font></a>
+<a name="294"><font color="#888888 "><i>  294   </i></font></a>  <font color="#117755"><i>/*  Schleife Ã¼ber alle Wegpunkte */</i></font>
+<a name="295"><font color="#888888 "><i>  295   </i></font></a>  <font color="#117755"><i>/*    looping thorugh length of # of grid discretization/indeces (Weginputs) */</i></font>
+<a name="296"><font color="#888888 "><i>  296   </i></font></a>  i0 = (<font color="#112266"><b>int</b></font>)(wayInxEnd + (1.0 - (wayInxBeg + 1.0)));
+<a name="297"><font color="#888888 "><i>  297   </i></font></a>  wayInx = 0;
+<a name="298"><font color="#888888 "><i>  298   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_b_emxInit_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emxInit_real_T');" target="_self"><font color="#1122aa">b_emxInit_real_T</font></a>(&amp;batFrcOptMat, 2);
+<a name="299"><font color="#888888 "><i>  299   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_b_emxInit_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emxInit_real_T');" target="_self"><font color="#1122aa">b_emxInit_real_T</font></a>(&amp;batEngActMat, 2);
+<a name="300"><font color="#888888 "><i>  300   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_b_emxInit_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emxInit_real_T');" target="_self"><font color="#1122aa">b_emxInit_real_T</font></a>(&amp;fulEngActMat, 2);
+<a name="301"><font color="#888888 "><i>  301   </i></font></a>  <font color="#112266"><b>while</b></font> (wayInx &lt;= i0 - 1) <b>{</b>
+<a name="302"><font color="#888888 "><i>  302   </i></font></a>    b_wayInx = (wayInxBeg + 1.0) + (<font color="#112266"><b>double</b></font>)wayInx;
+<a name="303"><font color="#888888 "><i>  303   </i></font></a>
+<a name="304"><font color="#888888 "><i>  304   </i></font></a>    <font color="#117755"><i>/*  PATH IDX LOOP */</i></font>
+<a name="305"><font color="#888888 "><i>  305   </i></font></a>    <font color="#117755"><i>/*  mittlere Steigung im betrachteten Intervall  */</i></font>
+<a name="306"><font color="#888888 "><i>  306   </i></font></a>    <font color="#117755"><i>/*    no longer doing mean, using previous gradiant instead */</i></font>
+<a name="307"><font color="#888888 "><i>  307   </i></font></a>    <font color="#117755"><i>/*     %% Berechnung der kinetischen Energien im aktuellen Wegschritt */</i></font>
+<a name="308"><font color="#888888 "><i>  308   </i></font></a>    <font color="#117755"><i>/*  Vorbereitung der FZGallen Schleife (verhindern von zu grossem */</i></font>
+<a name="309"><font color="#888888 "><i>  309   </i></font></a>    <font color="#117755"><i>/*  Datentransfer und unnÃ¶tigen Berechnungen) */</i></font>
+<a name="310"><font color="#888888 "><i>  310   </i></font></a>    <font color="#117755"><i>/*    Calculating the KE for current index/waypoint. */</i></font>
+<a name="311"><font color="#888888 "><i>  311   </i></font></a>    <font color="#117755"><i>/*    Preperation of FZGallel loop (prevent a too large data transfer, */</i></font>
+<a name="312"><font color="#888888 "><i>  312   </i></font></a>    <font color="#117755"><i>/*    unnecessary computations).    */</i></font>
+<a name="313"><font color="#888888 "><i>  313   </i></font></a>    <font color="#117755"><i>/*  Initialisieren der Matrix fÃ¼r die optimalen Batteriekrafter im */</i></font>
+<a name="314"><font color="#888888 "><i>  314   </i></font></a>    <font color="#117755"><i>/*  Intervall */</i></font>
+<a name="315"><font color="#888888 "><i>  315   </i></font></a>    <font color="#117755"><i>/*    initialize matrix for optimale battery force intervals (discreti.) */</i></font>
+<a name="316"><font color="#888888 "><i>  316   </i></font></a>    i1 = batFrcOptMat-&gt;size[0] * batFrcOptMat-&gt;size[1];
+<a name="317"><font color="#888888 "><i>  317   </i></font></a>    batFrcOptMat-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="318"><font color="#888888 "><i>  318   </i></font></a>    batFrcOptMat-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="319"><font color="#888888 "><i>  319   </i></font></a>    <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)batFrcOptMat, i1, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="320"><font color="#888888 "><i>  320   </i></font></a>    loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum;
+<a name="321"><font color="#888888 "><i>  321   </i></font></a>    <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; loop_ub; i1++) <b>{</b>
+<a name="322"><font color="#888888 "><i>  322   </i></font></a>      batFrcOptMat-&gt;data[i1] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="323"><font color="#888888 "><i>  323   </i></font></a>    <b>}</b>
+<a name="324"><font color="#888888 "><i>  324   </i></font></a>
+<a name="325"><font color="#888888 "><i>  325   </i></font></a>    <font color="#117755"><i>/*  Initialisieren der Matrix fÃ¼r die Kosten bis zu den Punkten im */</i></font>
+<a name="326"><font color="#888888 "><i>  326   </i></font></a>    <font color="#117755"><i>/*  aktuellen Wegschritt */</i></font>
+<a name="327"><font color="#888888 "><i>  327   </i></font></a>    <font color="#117755"><i>/*    initialize cost matrix to points in current path steps (idxs?) */</i></font>
+<a name="328"><font color="#888888 "><i>  328   </i></font></a>    i1 = cos2goActMat-&gt;size[0] * cos2goActMat-&gt;size[1];
+<a name="329"><font color="#888888 "><i>  329   </i></font></a>    cos2goActMat-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="330"><font color="#888888 "><i>  330   </i></font></a>    cos2goActMat-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="331"><font color="#888888 "><i>  331   </i></font></a>    <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)cos2goActMat, i1, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="332"><font color="#888888 "><i>  332   </i></font></a>    loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum;
+<a name="333"><font color="#888888 "><i>  333   </i></font></a>    <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; loop_ub; i1++) <b>{</b>
+<a name="334"><font color="#888888 "><i>  334   </i></font></a>      cos2goActMat-&gt;data[i1] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="335"><font color="#888888 "><i>  335   </i></font></a>    <b>}</b>
+<a name="336"><font color="#888888 "><i>  336   </i></font></a>
+<a name="337"><font color="#888888 "><i>  337   </i></font></a>    <font color="#117755"><i>/*  Initialisieren der Matrix fÃ¼r die Batterieenergie an den Punkten im */</i></font>
+<a name="338"><font color="#888888 "><i>  338   </i></font></a>    <font color="#117755"><i>/*  aktuellen Wegschritt */</i></font>
+<a name="339"><font color="#888888 "><i>  339   </i></font></a>    <font color="#117755"><i>/*    initialize matrix for battery energy at points along current wayidx */</i></font>
+<a name="340"><font color="#888888 "><i>  340   </i></font></a>    i1 = batEngActMat-&gt;size[0] * batEngActMat-&gt;size[1];
+<a name="341"><font color="#888888 "><i>  341   </i></font></a>    batEngActMat-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="342"><font color="#888888 "><i>  342   </i></font></a>    batEngActMat-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="343"><font color="#888888 "><i>  343   </i></font></a>    <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)batEngActMat, i1, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="344"><font color="#888888 "><i>  344   </i></font></a>    loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum;
+<a name="345"><font color="#888888 "><i>  345   </i></font></a>    <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; loop_ub; i1++) <b>{</b>
+<a name="346"><font color="#888888 "><i>  346   </i></font></a>      batEngActMat-&gt;data[i1] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="347"><font color="#888888 "><i>  347   </i></font></a>    <b>}</b>
+<a name="348"><font color="#888888 "><i>  348   </i></font></a>
+<a name="349"><font color="#888888 "><i>  349   </i></font></a>    <font color="#117755"><i>/*  Initialisieren der Matrix fÃ¼r die Krafstoffenergie an den Punkten im */</i></font>
+<a name="350"><font color="#888888 "><i>  350   </i></font></a>    <font color="#117755"><i>/*  aktuellen Wegschritt */</i></font>
+<a name="351"><font color="#888888 "><i>  351   </i></font></a>    <font color="#117755"><i>/*    initialize matrix for fuel energie along current way idxs */</i></font>
+<a name="352"><font color="#888888 "><i>  352   </i></font></a>    i1 = fulEngActMat-&gt;size[0] * fulEngActMat-&gt;size[1];
+<a name="353"><font color="#888888 "><i>  353   </i></font></a>    fulEngActMat-&gt;size[0] = (<font color="#112266"><b>int</b></font>)engKinNum;
+<a name="354"><font color="#888888 "><i>  354   </i></font></a>    fulEngActMat-&gt;size[1] = (<font color="#112266"><b>int</b></font>)staNum;
+<a name="355"><font color="#888888 "><i>  355   </i></font></a>    <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)fulEngActMat, i1, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="356"><font color="#888888 "><i>  356   </i></font></a>    loop_ub = (<font color="#112266"><b>int</b></font>)engKinNum * (<font color="#112266"><b>int</b></font>)staNum;
+<a name="357"><font color="#888888 "><i>  357   </i></font></a>    <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; loop_ub; i1++) <b>{</b>
+<a name="358"><font color="#888888 "><i>  358   </i></font></a>      fulEngActMat-&gt;data[i1] = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="359"><font color="#888888 "><i>  359   </i></font></a>    <b>}</b>
+<a name="360"><font color="#888888 "><i>  360   </i></font></a>
+<a name="361"><font color="#888888 "><i>  361   </i></font></a>    <font color="#117755"><i>/*  Anzahl der kinetischen Energien im aktuellen und im */</i></font>
+<a name="362"><font color="#888888 "><i>  362   </i></font></a>    <font color="#117755"><i>/*  VorgÃ¤ngerwegschritt */</i></font>
+<a name="363"><font color="#888888 "><i>  363   </i></font></a>    <font color="#117755"><i>/*    number of kinetic energies in current and past path_idxs */</i></font>
+<a name="364"><font color="#888888 "><i>  364   </i></font></a>    <font color="#117755"><i>/*  look at this loop's KE */</i></font>
+<a name="365"><font color="#888888 "><i>  365   </i></font></a>    <font color="#117755"><i>/*  and the previous idx KE */</i></font>
+<a name="366"><font color="#888888 "><i>  366   </i></font></a>    <font color="#117755"><i>/*  Vektoren der kinetischen Energien im vorherigen Wegschritt */</i></font>
+<a name="367"><font color="#888888 "><i>  367   </i></font></a>    <font color="#117755"><i>/*    vector of the KE in the previous idx */</i></font>
+<a name="368"><font color="#888888 "><i>  368   </i></font></a>    <font color="#117755"><i>/*  Vektoren der kinetischen Energien im aktuellen Wegschritt */</i></font>
+<a name="369"><font color="#888888 "><i>  369   </i></font></a>    <font color="#117755"><i>/*    KE vector of the current path_idx */</i></font>
+<a name="370"><font color="#888888 "><i>  370   </i></font></a>    <font color="#117755"><i>/*  (FZGfor) Schleife Ã¼ber alle akutellen kinetischen Energien */</i></font>
+<a name="371"><font color="#888888 "><i>  371   </i></font></a>    <font color="#117755"><i>/*    loop through all the current kinetic energies */</i></font>
+<a name="372"><font color="#888888 "><i>  372   </i></font></a>    <font color="#112266"><b>for</b></font> (loop_ub = 0; loop_ub &lt; (<font color="#112266"><b>int</b></font>)engKinNumVec_wayInx[(<font color="#112266"><b>int</b></font>)b_wayInx - 1];
+<a name="373"><font color="#888888 "><i>  373   </i></font></a>         loop_ub++) <b>{</b>
+<a name="374"><font color="#888888 "><i>  374   </i></font></a>      <font color="#117755"><i>/*  CURRENT KINETIC ENERGY LOOP */</i></font>
+<a name="375"><font color="#888888 "><i>  375   </i></font></a>      <font color="#117755"><i>/*  akutelle kinetsiche Energie bestimmen */</i></font>
+<a name="376"><font color="#888888 "><i>  376   </i></font></a>      <font color="#117755"><i>/*    determine the current kinetic energy */</i></font>
+<a name="377"><font color="#888888 "><i>  377   </i></font></a>      engKinAct = engKinMat_engKinInx_wayInx[loop_ub + 11 * ((<font color="#112266"><b>int</b></font>)b_wayInx - 1)];
+<a name="378"><font color="#888888 "><i>  378   </i></font></a>
+<a name="379"><font color="#888888 "><i>  379   </i></font></a>      <font color="#117755"><i>/*  Schleife Ã¼ber alle mÃ¶glichen aktuellen ZustÃ¤nde des Antriesstrangs */</i></font>
+<a name="380"><font color="#888888 "><i>  380   </i></font></a>      <font color="#117755"><i>/*    Loop over all possible current powertrain states/all the gears */</i></font>
+<a name="381"><font color="#888888 "><i>  381   </i></font></a>      <font color="#112266"><b>for</b></font> (b_loop_ub = 0; b_loop_ub &lt; (<font color="#112266"><b>int</b></font>)staNum; b_loop_ub++) <b>{</b>
+<a name="382"><font color="#888888 "><i>  382   </i></font></a>        <font color="#117755"><i>/*  ALL GEARS LOOP */</i></font>
+<a name="383"><font color="#888888 "><i>  383   </i></font></a>        <font color="#117755"><i>/*             %% Initialsiieren */</i></font>
+<a name="384"><font color="#888888 "><i>  384   </i></font></a>        <font color="#117755"><i>/*    note-you are preallocating over each powertrain state loop */</i></font>
+<a name="385"><font color="#888888 "><i>  385   </i></font></a>        <font color="#117755"><i>/*  Initialisieren der AusgabegrÃ¶ÃŸe der Schleife */</i></font>
+<a name="386"><font color="#888888 "><i>  386   </i></font></a>        <font color="#117755"><i>/*    preallocate the loop's output size */</i></font>
+<a name="387"><font color="#888888 "><i>  387   </i></font></a>        <font color="#117755"><i>/*    but this is the hamiltonian cost? */</i></font>
+<a name="388"><font color="#888888 "><i>  388   </i></font></a>        cosHamMin = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="389"><font color="#888888 "><i>  389   </i></font></a>
+<a name="390"><font color="#888888 "><i>  390   </i></font></a>        <font color="#117755"><i>/*  Initialisieren der Variable fÃ¼r den optimalen Zustandsindex */</i></font>
+<a name="391"><font color="#888888 "><i>  391   </i></font></a>        <font color="#117755"><i>/*    initializing variable for optimal state index */</i></font>
+<a name="392"><font color="#888888 "><i>  392   </i></font></a>        staPreOptInx = 0;
+<a name="393"><font color="#888888 "><i>  393   </i></font></a>
+<a name="394"><font color="#888888 "><i>  394   </i></font></a>        <font color="#117755"><i>/*  Initialisieren der Variable fÃ¼r die Koordinaten des optimalen */</i></font>
+<a name="395"><font color="#888888 "><i>  395   </i></font></a>        <font color="#117755"><i>/*  VorgÃ¤ngers */</i></font>
+<a name="396"><font color="#888888 "><i>  396   </i></font></a>        <font color="#117755"><i>/*    initializing variable for optimal coords/KE for prev. idx */</i></font>
+<a name="397"><font color="#888888 "><i>  397   </i></font></a>        engKinPreOptInx = 0.0;
+<a name="398"><font color="#888888 "><i>  398   </i></font></a>
+<a name="399"><font color="#888888 "><i>  399   </i></font></a>        <font color="#117755"><i>/*  Initialisieren der optimalen KraftstoffenergieÃ¤nderung zum */</i></font>
+<a name="400"><font color="#888888 "><i>  400   </i></font></a>        <font color="#117755"><i>/*  betrachteten Punkt */</i></font>
+<a name="401"><font color="#888888 "><i>  401   </i></font></a>        <font color="#117755"><i>/*    preallocate the optimum fuel energy change to the point */</i></font>
+<a name="402"><font color="#888888 "><i>  402   </i></font></a>        <font color="#117755"><i>/*    considered */</i></font>
+<a name="403"><font color="#888888 "><i>  403   </i></font></a>        fulEngOpt = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="404"><font color="#888888 "><i>  404   </i></font></a>
+<a name="405"><font color="#888888 "><i>  405   </i></font></a>        <font color="#117755"><i>/*  Initialisieren der optimalen Batteriekraft zum */</i></font>
+<a name="406"><font color="#888888 "><i>  406   </i></font></a>        <font color="#117755"><i>/*  betrachteten Punkt */</i></font>
+<a name="407"><font color="#888888 "><i>  407   </i></font></a>        <font color="#117755"><i>/*    preallocate the optimal battery force to the point under */</i></font>
+<a name="408"><font color="#888888 "><i>  408   </i></font></a>        <font color="#117755"><i>/*    consideration */</i></font>
+<a name="409"><font color="#888888 "><i>  409   </i></font></a>        batFrcOpt = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="410"><font color="#888888 "><i>  410   </i></font></a>
+<a name="411"><font color="#888888 "><i>  411   </i></font></a>        <font color="#117755"><i>/*  Initialisieren der optimalen Batterieenergie zum */</i></font>
+<a name="412"><font color="#888888 "><i>  412   </i></font></a>        <font color="#117755"><i>/*  betrachteten Punkt */</i></font>
+<a name="413"><font color="#888888 "><i>  413   </i></font></a>        <font color="#117755"><i>/*    initialize the optimal battery power (up to boundry limits) */</i></font>
+<a name="414"><font color="#888888 "><i>  414   </i></font></a>        batEngOpt = <a href="rt_nonfinite_c.html#var_rtInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_rtInf');" target="_self"><font color="#1122aa">rtInf</font></a>;
+<a name="415"><font color="#888888 "><i>  415   </i></font></a>
+<a name="416"><font color="#888888 "><i>  416   </i></font></a>        <font color="#117755"><i>/*             %% VorgÃ¤ngerzustÃ¤nde beschrÃ¤nken */</i></font>
+<a name="417"><font color="#888888 "><i>  417   </i></font></a>        <font color="#117755"><i>/*    Restrictions on predecessor operation states */</i></font>
+<a name="418"><font color="#888888 "><i>  418   </i></font></a>        <font color="#117755"><i>/*  Festlegen, welche VorgÃ¤nger mÃ¶glich sind: */</i></font>
+<a name="419"><font color="#888888 "><i>  419   </i></font></a>        <font color="#117755"><i>/*  Es sind im Maximum die Anzahl der GÃ¤nge +  1 als VorgÃ¤nger */</i></font>
+<a name="420"><font color="#888888 "><i>  420   </i></font></a>        <font color="#117755"><i>/*  mÃ¶glich, denn vom Segeln kann in jeden Gang im elektrischen */</i></font>
+<a name="421"><font color="#888888 "><i>  421   </i></font></a>        <font color="#117755"><i>/*  Fahren und Segeln gewechselt  werden */</i></font>
+<a name="422"><font color="#888888 "><i>  422   </i></font></a>        <font color="#117755"><i>/*    Determine which predecessors are possible: */</i></font>
+<a name="423"><font color="#888888 "><i>  423   </i></font></a>        <font color="#117755"><i>/*    There are at maximum 'number of gears'+1 possible for the */</i></font>
+<a name="424"><font color="#888888 "><i>  424   </i></font></a>        <font color="#117755"><i>/*    predecessors, because from the sail in every Gear in */</i></font>
+<a name="425"><font color="#888888 "><i>  425   </i></font></a>        <font color="#117755"><i>/*    electric travel and the sails will be changed (???) */</i></font>
+<a name="426"><font color="#888888 "><i>  426   </i></font></a>        <font color="#117755"><i>/*  VorgÃ¤ngerzustÃ¤nde des Antriebsstrangs beschrÃ¤nken */</i></font>
+<a name="427"><font color="#888888 "><i>  427   </i></font></a>        <font color="#117755"><i>/*    determine gear possibilities - ie u(g)  */</i></font>
+<a name="428"><font color="#888888 "><i>  428   </i></font></a>        <font color="#112266"><b>if</b></font> (1.0 &gt;= (1.0 + (<font color="#112266"><b>double</b></font>)b_loop_ub) - 1.0) <b>{</b>
+<a name="429"><font color="#888888 "><i>  429   </i></font></a>          staPreMin = 1;
+<a name="430"><font color="#888888 "><i>  430   </i></font></a>        <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="431"><font color="#888888 "><i>  431   </i></font></a>          staPreMin = (<font color="#112266"><b>int</b></font>)((1.0 + (<font color="#112266"><b>double</b></font>)b_loop_ub) - 1.0);
+<a name="432"><font color="#888888 "><i>  432   </i></font></a>        <b>}</b>
+<a name="433"><font color="#888888 "><i>  433   </i></font></a>
+<a name="434"><font color="#888888 "><i>  434   </i></font></a>        <font color="#112266"><b>if</b></font> (<a href="#var_geaNum" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_geaNum');" target="_self"><font color="#1122aa">geaNum</font></a> &lt;= (1.0 + (<font color="#112266"><b>double</b></font>)b_loop_ub) + 1.0) <b>{</b>
+<a name="435"><font color="#888888 "><i>  435   </i></font></a>          staPreMax = <a href="#var_geaNum" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_geaNum');" target="_self"><font color="#1122aa">geaNum</font></a>;
+<a name="436"><font color="#888888 "><i>  436   </i></font></a>        <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="437"><font color="#888888 "><i>  437   </i></font></a>          staPreMax = (1.0 + (<font color="#112266"><b>double</b></font>)b_loop_ub) + 1.0;
+<a name="438"><font color="#888888 "><i>  438   </i></font></a>        <b>}</b>
+<a name="439"><font color="#888888 "><i>  439   </i></font></a>
+<a name="440"><font color="#888888 "><i>  440   </i></font></a>        <font color="#117755"><i>/*             %% Schleife Ã¼ber alle kinetischen Energien (VorgÃ¤nger) */</i></font>
+<a name="441"><font color="#888888 "><i>  441   </i></font></a>        <font color="#117755"><i>/*    loop through all the kinetic energies (previous state idxs) */</i></font>
+<a name="442"><font color="#888888 "><i>  442   </i></font></a>        <font color="#112266"><b>for</b></font> (engKinPreInx = 0; engKinPreInx &lt; (<font color="#112266"><b>int</b></font>)engKinNumVec_wayInx[(<font color="#112266"><b>int</b></font>)
+<a name="443"><font color="#888888 "><i>  443   </i></font></a>             b_wayInx - 2]; engKinPreInx++) <b>{</b>
+<a name="444"><font color="#888888 "><i>  444   </i></font></a>          <font color="#117755"><i>/*  PREVIOUS KE LOOP */</i></font>
+<a name="445"><font color="#888888 "><i>  445   </i></font></a>          <font color="#117755"><i>/*  kinetsiche Energie des betrachten(consider) VorgÃ¤ngerspunkts */</i></font>
+<a name="446"><font color="#888888 "><i>  446   </i></font></a>          <font color="#117755"><i>/*  bestimmen(determine) */</i></font>
+<a name="447"><font color="#888888 "><i>  447   </i></font></a>          <font color="#117755"><i>/*    determine the kinetic energy of the previous path_idx */</i></font>
+<a name="448"><font color="#888888 "><i>  448   </i></font></a>          <font color="#117755"><i>/*  PrÃ¼fen(check), ob eine erlaubte Beschleunigung vorliegt. */</i></font>
+<a name="449"><font color="#888888 "><i>  449   </i></font></a>          <font color="#117755"><i>/*  Ansonsten zum nÃ¤chsten Schleifendurchlauf springen */</i></font>
+<a name="450"><font color="#888888 "><i>  450   </i></font></a>          <font color="#117755"><i>/*    Check whether an allowable acceleration exists. */</i></font>
+<a name="451"><font color="#888888 "><i>  451   </i></font></a>          <font color="#117755"><i>/*    Otherwise, jump to the next iteration */</i></font>
+<a name="452"><font color="#888888 "><i>  452   </i></font></a>          vehAcc = (engKinAct - engKinMat_engKinInx_wayInx[engKinPreInx + 11 *
+<a name="453"><font color="#888888 "><i>  453   </i></font></a>                    ((<font color="#112266"><b>int</b></font>)b_wayInx - 2)]) / <a href="#var_vehMas" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_vehMas');" target="_self"><font color="#1122aa">vehMas</font></a> / wayStp;
+<a name="454"><font color="#888888 "><i>  454   </i></font></a>          <font color="#112266"><b>if</b></font> ((vehAcc &lt; <a href="#var_vehAccMin" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_vehAccMin');" target="_self"><font color="#1122aa">vehAccMin</font></a>) || (vehAcc &gt; <a href="#var_vehAccMax" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_vehAccMax');" target="_self"><font color="#1122aa">vehAccMax</font></a>)) <b>{</b>
+<a name="455"><font color="#888888 "><i>  455   </i></font></a>          <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="456"><font color="#888888 "><i>  456   </i></font></a>            <font color="#117755"><i>/*  Schleife Ã¼ber allen ZustÃ¤nde (relativer Index) */</i></font>
+<a name="457"><font color="#888888 "><i>  457   </i></font></a>            <font color="#117755"><i>/*    Loop through all the states (relative index) */</i></font>
+<a name="458"><font color="#888888 "><i>  458   </i></font></a>            i1 = (<font color="#112266"><b>int</b></font>)(staPreMax + (1.0 - (<font color="#112266"><b>double</b></font>)staPreMin));
+<a name="459"><font color="#888888 "><i>  459   </i></font></a>            <font color="#112266"><b>for</b></font> (staPre = 0; staPre &lt; i1; staPre++) <b>{</b>
+<a name="460"><font color="#888888 "><i>  460   </i></font></a>              b_staPre = (<font color="#112266"><b>double</b></font>)staPreMin + (<font color="#112266"><b>double</b></font>)staPre;
+<a name="461"><font color="#888888 "><i>  461   </i></font></a>
+<a name="462"><font color="#888888 "><i>  462   </i></font></a>              <font color="#117755"><i>/*  CURRENT GEAR CHANGE LOOP */</i></font>
+<a name="463"><font color="#888888 "><i>  463   </i></font></a>              <font color="#117755"><i>/*                     %% Batterieenergie beim betrachteten VorgÃ¤nger */</i></font>
+<a name="464"><font color="#888888 "><i>  464   </i></font></a>              <font color="#117755"><i>/*  battery energy when considering last path_idx */</i></font>
+<a name="465"><font color="#888888 "><i>  465   </i></font></a>              <font color="#117755"><i>/*    note: batengPreMat has dims #_KE_states x #_gears */</i></font>
+<a name="466"><font color="#888888 "><i>  466   </i></font></a>              <font color="#117755"><i>/*  Sollte es keinen gÃ¼ltigen VorgÃ¤nger geben, wird zum */</i></font>
+<a name="467"><font color="#888888 "><i>  467   </i></font></a>              <font color="#117755"><i>/*  nÃ¤chsten Schleifendurchlauf gesprungen */</i></font>
+<a name="468"><font color="#888888 "><i>  468   </i></font></a>              <font color="#117755"><i>/*    if there is no valid previous battery energy, jump */</i></font>
+<a name="469"><font color="#888888 "><i>  469   </i></font></a>              <font color="#117755"><i>/*    to the next loop iteration */</i></font>
+<a name="470"><font color="#888888 "><i>  470   </i></font></a>              <font color="#112266"><b>if</b></font> (<a href="rt_nonfinite_c.html#fcn_rtIsInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsInf');" target="_self"><font color="#1122aa">rtIsInf</font></a>(batEngPreMat-&gt;data[engKinPreInx + batEngPreMat-&gt;size[0]
+<a name="471"><font color="#888888 "><i>  471   </i></font></a>                          * ((<font color="#112266"><b>int</b></font>)b_staPre - 1)])) <b>{</b>
+<a name="472"><font color="#888888 "><i>  472   </i></font></a>              <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="473"><font color="#888888 "><i>  473   </i></font></a>                <font color="#117755"><i>/*                     %% Antriebsstrangzustand und Strafkosten bestimmen    */</i></font>
+<a name="474"><font color="#888888 "><i>  474   </i></font></a>                <font color="#117755"><i>/*    determine gear and penalty costs */</i></font>
+<a name="475"><font color="#888888 "><i>  475   </i></font></a>                <font color="#117755"><i>/*  Kosten fÃ¼r Zustandswechsel setzen */</i></font>
+<a name="476"><font color="#888888 "><i>  476   </i></font></a>                <font color="#117755"><i>/*    set costs for state changes */</i></font>
+<a name="477"><font color="#888888 "><i>  477   </i></font></a>                <font color="#112266"><b>if</b></font> (1.0 + (<font color="#112266"><b>double</b></font>)b_loop_ub == b_staPre) <b>{</b>
+<a name="478"><font color="#888888 "><i>  478   </i></font></a>                  <font color="#117755"><i>/*  Entspricht der VorgÃ¤ngerzustand dem aktuellen  */</i></font>
+<a name="479"><font color="#888888 "><i>  479   </i></font></a>                  <font color="#117755"><i>/*  Zustand werden keine Kosten gesetzt */</i></font>
+<a name="480"><font color="#888888 "><i>  480   </i></font></a>                  <font color="#117755"><i>/*    staying in current state? set penalty cost to 0 */</i></font>
+<a name="481"><font color="#888888 "><i>  481   </i></font></a>                  staChgPenCos = 0.0;
+<a name="482"><font color="#888888 "><i>  482   </i></font></a>                <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="483"><font color="#888888 "><i>  483   </i></font></a>                  <font color="#117755"><i>/*  Ansonsten einfache Zustandswechselkosten */</i></font>
+<a name="484"><font color="#888888 "><i>  484   </i></font></a>                  <font color="#117755"><i>/*  berechnen */</i></font>
+<a name="485"><font color="#888888 "><i>  485   </i></font></a>                  <font color="#117755"><i>/*    otherwise apply a penalty cost to changing gear */</i></font>
+<a name="486"><font color="#888888 "><i>  486   </i></font></a>                  staChgPenCos = staChgPenCosVal;
+<a name="487"><font color="#888888 "><i>  487   </i></font></a>
+<a name="488"><font color="#888888 "><i>  488   </i></font></a>                  <font color="#117755"><i>/* &lt;-penCos is input */</i></font>
+<a name="489"><font color="#888888 "><i>  489   </i></font></a>                <b>}</b>
+<a name="490"><font color="#888888 "><i>  490   </i></font></a>
+<a name="491"><font color="#888888 "><i>  491   </i></font></a>                <font color="#117755"><i>/*                     %% Berechnung der optimalen Kosten zum aktuellen Punkt */</i></font>
+<a name="492"><font color="#888888 "><i>  492   </i></font></a>                <font color="#117755"><i>/*    calculating optimal cost to the current point */</i></font>
+<a name="493"><font color="#888888 "><i>  493   </i></font></a>                <font color="#117755"><i>/*  externe Funktion ausfÃ¼hren, die minimale Kosten der */</i></font>
+<a name="494"><font color="#888888 "><i>  494   </i></font></a>                <font color="#117755"><i>/*  Hamiltonfunktion zurÃ¼ckgibt */</i></font>
+<a name="495"><font color="#888888 "><i>  495   </i></font></a>                <font color="#117755"><i>/*    run the min-cost Hamiltonian finding function  */</i></font>
+<a name="496"><font color="#888888 "><i>  496   </i></font></a>                <a href="clcPMP_olyHyb_port_c.html#fcn_clcPMP_olyHyb_port" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_clcPMP_olyHyb_port');" target="_self"><font color="#1122aa">clcPMP_olyHyb_port</font></a>(engKinMat_engKinInx_wayInx[engKinPreInx + 11 *
+<a name="497"><font color="#888888 "><i>  497   </i></font></a>                                   ((<font color="#112266"><b>int</b></font>)b_wayInx - 2)], engKinAct, 1.0 +
+<a name="498"><font color="#888888 "><i>  498   </i></font></a>                                   (<font color="#112266"><b>double</b></font>)b_loop_ub, slpVec_wayInx[(<font color="#112266"><b>int</b></font>)
+<a name="499"><font color="#888888 "><i>  499   </i></font></a>                                   b_wayInx - 2], batEngPreMat-&gt;
+<a name="500"><font color="#888888 "><i>  500   </i></font></a>                                   data[engKinPreInx + batEngPreMat-&gt;size[0] *
+<a name="501"><font color="#888888 "><i>  501   </i></font></a>                                   ((<font color="#112266"><b>int</b></font>)b_staPre - 1)], psiBatEng, psiTim,
+<a name="502"><font color="#888888 "><i>  502   </i></font></a>                                   batPwrAux, batEngStp, wayStp, fzg_scalar,
+<a name="503"><font color="#888888 "><i>  503   </i></font></a>                                   fzg_array, &amp;cosHam, &amp;batFrc, &amp;fulFrc);
+<a name="504"><font color="#888888 "><i>  504   </i></font></a>
+<a name="505"><font color="#888888 "><i>  505   </i></font></a>                <font color="#117755"><i>/*                      % minimale Kosten der Hamiltonfunktion zum aktuellen */</i></font>
+<a name="506"><font color="#888888 "><i>  506   </i></font></a>                <font color="#117755"><i>/*                      % Punkt bestimmen */</i></font>
+<a name="507"><font color="#888888 "><i>  507   </i></font></a>                <font color="#117755"><i>/*                      [cosHamMin,optPreInx] ... */</i></font>
+<a name="508"><font color="#888888 "><i>  508   </i></font></a>                <font color="#117755"><i>/*                          = min([cosHam... */</i></font>
+<a name="509"><font color="#888888 "><i>  509   </i></font></a>                <font color="#117755"><i>/*                          + cos2goPreMat(engKinPreInx,staPre)... */</i></font>
+<a name="510"><font color="#888888 "><i>  510   </i></font></a>                <font color="#117755"><i>/*                          + staChgPenCos... */</i></font>
+<a name="511"><font color="#888888 "><i>  511   </i></font></a>                <font color="#117755"><i>/*                          ,cosHamMin]); %#ok&lt;PFBNS&gt; */</i></font>
+<a name="512"><font color="#888888 "><i>  512   </i></font></a>                <font color="#117755"><i>/*  combine the min hamil. cost w/ previous costs and  */</i></font>
+<a name="513"><font color="#888888 "><i>  513   </i></font></a>                <font color="#117755"><i>/*    gear penalty to get current cost */</i></font>
+<a name="514"><font color="#888888 "><i>  514   </i></font></a>                cosAct = (cosHam + cos2goPreMat-&gt;data[engKinPreInx +
+<a name="515"><font color="#888888 "><i>  515   </i></font></a>                          cos2goPreMat-&gt;size[0] * ((<font color="#112266"><b>int</b></font>)b_staPre - 1)]) +
+<a name="516"><font color="#888888 "><i>  516   </i></font></a>                  staChgPenCos / wayStp;
+<a name="517"><font color="#888888 "><i>  517   </i></font></a>
+<a name="518"><font color="#888888 "><i>  518   </i></font></a>                <font color="#117755"><i>/*  Wenn der aktuelle Punkt besser ist, als der in */</i></font>
+<a name="519"><font color="#888888 "><i>  519   </i></font></a>                <font color="#117755"><i>/*  cosHamMin gespeicherte Wert, werden die AusgabegrÃ¶ÃŸen */</i></font>
+<a name="520"><font color="#888888 "><i>  520   </i></font></a>                <font color="#117755"><i>/*  neu beschrieben. */</i></font>
+<a name="521"><font color="#888888 "><i>  521   </i></font></a>                <font color="#117755"><i>/*    if current point is better than the cost value */</i></font>
+<a name="522"><font color="#888888 "><i>  522   </i></font></a>                <font color="#117755"><i>/*    stored in CosHamMin, then rewrite the output */</i></font>
+<a name="523"><font color="#888888 "><i>  523   </i></font></a>                <font color="#112266"><b>if</b></font> (cosAct &lt; cosHamMin) <b>{</b>
+<a name="524"><font color="#888888 "><i>  524   </i></font></a>                  cosHamMin = cosAct;
+<a name="525"><font color="#888888 "><i>  525   </i></font></a>
+<a name="526"><font color="#888888 "><i>  526   </i></font></a>                  <font color="#117755"><i>/*  new hamil. cost */</i></font>
+<a name="527"><font color="#888888 "><i>  527   </i></font></a>                  staPreOptInx = (<font color="#112266"><b>int</b></font>)b_staPre;
+<a name="528"><font color="#888888 "><i>  528   </i></font></a>
+<a name="529"><font color="#888888 "><i>  529   </i></font></a>                  <font color="#117755"><i>/*  new optimal gear idx */</i></font>
+<a name="530"><font color="#888888 "><i>  530   </i></font></a>                  engKinPreOptInx = 1.0 + (<font color="#112266"><b>double</b></font>)engKinPreInx;
+<a name="531"><font color="#888888 "><i>  531   </i></font></a>
+<a name="532"><font color="#888888 "><i>  532   </i></font></a>                  <font color="#117755"><i>/*  new optimal KEidx */</i></font>
+<a name="533"><font color="#888888 "><i>  533   </i></font></a>                  batFrcOpt = batFrc;
+<a name="534"><font color="#888888 "><i>  534   </i></font></a>
+<a name="535"><font color="#888888 "><i>  535   </i></font></a>                  <font color="#117755"><i>/*  new optimal battery force */</i></font>
+<a name="536"><font color="#888888 "><i>  536   </i></font></a>                  <font color="#117755"><i>/*  new opt. battery energy = (batt. force * */</i></font>
+<a name="537"><font color="#888888 "><i>  537   </i></font></a>                  <font color="#117755"><i>/*  displacement diff) + previous battery energy valu */</i></font>
+<a name="538"><font color="#888888 "><i>  538   </i></font></a>                  batEngOpt = batFrc * wayStp + batEngPreMat-&gt;data[engKinPreInx
+<a name="539"><font color="#888888 "><i>  539   </i></font></a>                    + batEngPreMat-&gt;size[0] * ((<font color="#112266"><b>int</b></font>)b_staPre - 1)];
+<a name="540"><font color="#888888 "><i>  540   </i></font></a>
+<a name="541"><font color="#888888 "><i>  541   </i></font></a>                  <font color="#117755"><i>/*  new opt. fuel energy = (fuel force * displacement */</i></font>
+<a name="542"><font color="#888888 "><i>  542   </i></font></a>                  <font color="#117755"><i>/*  diff) + previous fuel energy value */</i></font>
+<a name="543"><font color="#888888 "><i>  543   </i></font></a>                  fulEngOpt = fulFrc * wayStp + fulEngPreMat-&gt;data[engKinPreInx
+<a name="544"><font color="#888888 "><i>  544   </i></font></a>                    + fulEngPreMat-&gt;size[0] * ((<font color="#112266"><b>int</b></font>)b_staPre - 1)];
+<a name="545"><font color="#888888 "><i>  545   </i></font></a>                <b>}</b>
+<a name="546"><font color="#888888 "><i>  546   </i></font></a>              <b>}</b>
+<a name="547"><font color="#888888 "><i>  547   </i></font></a>            <b>}</b>
+<a name="548"><font color="#888888 "><i>  548   </i></font></a>
+<a name="549"><font color="#888888 "><i>  549   </i></font></a>            <font color="#117755"><i>/*  end of gear changes loop */</i></font>
+<a name="550"><font color="#888888 "><i>  550   </i></font></a>          <b>}</b>
+<a name="551"><font color="#888888 "><i>  551   </i></font></a>        <b>}</b>
+<a name="552"><font color="#888888 "><i>  552   </i></font></a>
+<a name="553"><font color="#888888 "><i>  553   </i></font></a>        <font color="#117755"><i>/*  end of running through previous KE states loop */</i></font>
+<a name="554"><font color="#888888 "><i>  554   </i></font></a>        <font color="#112266"><b>if</b></font> (!<a href="rt_nonfinite_c.html#fcn_rtIsInf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsInf');" target="_self"><font color="#1122aa">rtIsInf</font></a>(cosHamMin)) <b>{</b>
+<a name="555"><font color="#888888 "><i>  555   </i></font></a>          <font color="#117755"><i>/*  optimale Kosten zum aktuellen Punkt speichern */</i></font>
+<a name="556"><font color="#888888 "><i>  556   </i></font></a>          <font color="#117755"><i>/*    save min hamilton value for current point */</i></font>
+<a name="557"><font color="#888888 "><i>  557   </i></font></a>          cos2goActMat-&gt;data[loop_ub + cos2goActMat-&gt;size[0] * b_loop_ub] =
+<a name="558"><font color="#888888 "><i>  558   </i></font></a>            cosHamMin;
+<a name="559"><font color="#888888 "><i>  559   </i></font></a>
+<a name="560"><font color="#888888 "><i>  560   </i></font></a>          <font color="#117755"><i>/*  optimale Batterieenergie zum aktuellen Punkt speichern */</i></font>
+<a name="561"><font color="#888888 "><i>  561   </i></font></a>          <font color="#117755"><i>/*    save optimal battery energy for current point */</i></font>
+<a name="562"><font color="#888888 "><i>  562   </i></font></a>          batEngActMat-&gt;data[loop_ub + batEngActMat-&gt;size[0] * b_loop_ub] =
+<a name="563"><font color="#888888 "><i>  563   </i></font></a>            batEngOpt;
+<a name="564"><font color="#888888 "><i>  564   </i></font></a>
+<a name="565"><font color="#888888 "><i>  565   </i></font></a>          <font color="#117755"><i>/*  optimale Krafstoffenergie zum aktuellen Punkt speichern */</i></font>
+<a name="566"><font color="#888888 "><i>  566   </i></font></a>          <font color="#117755"><i>/*    save optimal fuel energy for current point */</i></font>
+<a name="567"><font color="#888888 "><i>  567   </i></font></a>          fulEngActMat-&gt;data[loop_ub + fulEngActMat-&gt;size[0] * b_loop_ub] =
+<a name="568"><font color="#888888 "><i>  568   </i></font></a>            fulEngOpt;
+<a name="569"><font color="#888888 "><i>  569   </i></font></a>
+<a name="570"><font color="#888888 "><i>  570   </i></font></a>          <font color="#117755"><i>/*  optimale Batterieenergie zum aktuellen Punkt */</i></font>
+<a name="571"><font color="#888888 "><i>  571   </i></font></a>          <font color="#117755"><i>/*  FlussgrÃ¶ÃŸe gilt im Intervall */</i></font>
+<a name="572"><font color="#888888 "><i>  572   </i></font></a>          <font color="#117755"><i>/*    populate optimal battery energy flux quantity at point  */</i></font>
+<a name="573"><font color="#888888 "><i>  573   </i></font></a>          <font color="#117755"><i>/*    that's applicable to current interval */</i></font>
+<a name="574"><font color="#888888 "><i>  574   </i></font></a>          batFrcOptMat-&gt;data[loop_ub + batFrcOptMat-&gt;size[0] * b_loop_ub] =
+<a name="575"><font color="#888888 "><i>  575   </i></font></a>            batFrcOpt;
+<a name="576"><font color="#888888 "><i>  576   </i></font></a>
+<a name="577"><font color="#888888 "><i>  577   </i></font></a>          <font color="#117755"><i>/*  optimalen VorgÃ¤nger codieren Ã¼ber Funktion sub2ind */</i></font>
+<a name="578"><font color="#888888 "><i>  578   </i></font></a>          <font color="#117755"><i>/*  und speichern im Tensor */</i></font>
+<a name="579"><font color="#888888 "><i>  579   </i></font></a>          <font color="#117755"><i>/*    opt. predecessor idx encoding w/ sub2ind, store in Tn3 */</i></font>
+<a name="580"><font color="#888888 "><i>  580   </i></font></a>          optPreInxTn3-&gt;data[(loop_ub + optPreInxTn3-&gt;size[0] * b_loop_ub) +
+<a name="581"><font color="#888888 "><i>  581   </i></font></a>            optPreInxTn3-&gt;size[0] * optPreInxTn3-&gt;size[1] * ((<font color="#112266"><b>int</b></font>)b_wayInx - 1)]
+<a name="582"><font color="#888888 "><i>  582   </i></font></a>            = (<font color="#112266"><b>int</b></font>)engKinPreOptInx + (<font color="#112266"><b>int</b></font>)engKinNum * (staPreOptInx - 1);
+<a name="583"><font color="#888888 "><i>  583   </i></font></a>        <b>}</b>
+<a name="584"><font color="#888888 "><i>  584   </i></font></a>
+<a name="585"><font color="#888888 "><i>  585   </i></font></a>        <font color="#117755"><i>/*  end of ~inf(hamiltonian) if-statement */</i></font>
+<a name="586"><font color="#888888 "><i>  586   </i></font></a>      <b>}</b>
+<a name="587"><font color="#888888 "><i>  587   </i></font></a>
+<a name="588"><font color="#888888 "><i>  588   </i></font></a>      <font color="#117755"><i>/*  end of looping through all gears */</i></font>
+<a name="589"><font color="#888888 "><i>  589   </i></font></a>    <b>}</b>
+<a name="590"><font color="#888888 "><i>  590   </i></font></a>
+<a name="591"><font color="#888888 "><i>  591   </i></font></a>    <font color="#117755"><i>/*  end of looping through all the current kinetic energy states */</i></font>
+<a name="592"><font color="#888888 "><i>  592   </i></font></a>    <font color="#117755"><i>/*  Speichern der Batterieenergie fÃ¼r den nÃ¤chsten Schleifendurchlauf */</i></font>
+<a name="593"><font color="#888888 "><i>  593   </i></font></a>    <font color="#117755"><i>/*    save battery energy value as previous path_idx val for next loop  */</i></font>
+<a name="594"><font color="#888888 "><i>  594   </i></font></a>    i1 = batEngPreMat-&gt;size[0] * batEngPreMat-&gt;size[1];
+<a name="595"><font color="#888888 "><i>  595   </i></font></a>    batEngPreMat-&gt;size[0] = batEngActMat-&gt;size[0];
+<a name="596"><font color="#888888 "><i>  596   </i></font></a>    batEngPreMat-&gt;size[1] = batEngActMat-&gt;size[1];
+<a name="597"><font color="#888888 "><i>  597   </i></font></a>    <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)batEngPreMat, i1, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="598"><font color="#888888 "><i>  598   </i></font></a>    loop_ub = batEngActMat-&gt;size[0] * batEngActMat-&gt;size[1];
+<a name="599"><font color="#888888 "><i>  599   </i></font></a>    <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; loop_ub; i1++) <b>{</b>
+<a name="600"><font color="#888888 "><i>  600   </i></font></a>      batEngPreMat-&gt;data[i1] = batEngActMat-&gt;data[i1];
+<a name="601"><font color="#888888 "><i>  601   </i></font></a>    <b>}</b>
+<a name="602"><font color="#888888 "><i>  602   </i></font></a>
+<a name="603"><font color="#888888 "><i>  603   </i></font></a>    <font color="#117755"><i>/*  Speichern der Krafstoffenergie fÃ¼r den nÃ¤chsten Schleifendurchlauf */</i></font>
+<a name="604"><font color="#888888 "><i>  604   </i></font></a>    <font color="#117755"><i>/*    save fuel energy value as previous path_idx value for the next loop */</i></font>
+<a name="605"><font color="#888888 "><i>  605   </i></font></a>    i1 = fulEngPreMat-&gt;size[0] * fulEngPreMat-&gt;size[1];
+<a name="606"><font color="#888888 "><i>  606   </i></font></a>    fulEngPreMat-&gt;size[0] = fulEngActMat-&gt;size[0];
+<a name="607"><font color="#888888 "><i>  607   </i></font></a>    fulEngPreMat-&gt;size[1] = fulEngActMat-&gt;size[1];
+<a name="608"><font color="#888888 "><i>  608   </i></font></a>    <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)fulEngPreMat, i1, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="609"><font color="#888888 "><i>  609   </i></font></a>    loop_ub = fulEngActMat-&gt;size[0] * fulEngActMat-&gt;size[1];
+<a name="610"><font color="#888888 "><i>  610   </i></font></a>    <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; loop_ub; i1++) <b>{</b>
+<a name="611"><font color="#888888 "><i>  611   </i></font></a>      fulEngPreMat-&gt;data[i1] = fulEngActMat-&gt;data[i1];
+<a name="612"><font color="#888888 "><i>  612   </i></font></a>    <b>}</b>
+<a name="613"><font color="#888888 "><i>  613   </i></font></a>
+<a name="614"><font color="#888888 "><i>  614   </i></font></a>    <font color="#117755"><i>/*  Speichern der Kosten fÃ¼r den nÃ¤chsten Schleifendurchlauf */</i></font>
+<a name="615"><font color="#888888 "><i>  615   </i></font></a>    <font color="#117755"><i>/*    save cost as previous path_idx value for the next loop */</i></font>
+<a name="616"><font color="#888888 "><i>  616   </i></font></a>    i1 = cos2goPreMat-&gt;size[0] * cos2goPreMat-&gt;size[1];
+<a name="617"><font color="#888888 "><i>  617   </i></font></a>    cos2goPreMat-&gt;size[0] = cos2goActMat-&gt;size[0];
+<a name="618"><font color="#888888 "><i>  618   </i></font></a>    cos2goPreMat-&gt;size[1] = cos2goActMat-&gt;size[1];
+<a name="619"><font color="#888888 "><i>  619   </i></font></a>    <a href="clcDP_port_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="clcDP_port_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)cos2goPreMat, i1, (<font color="#112266"><b>int</b></font>)<font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
+<a name="620"><font color="#888888 "><i>  620   </i></font></a>    loop_ub = cos2goActMat-&gt;size[0] * cos2goActMat-&gt;size[1];
+<a name="621"><font color="#888888 "><i>  621   </i></font></a>    <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; loop_ub; i1++) <b>{</b>
+<a name="622"><font color="#888888 "><i>  622   </i></font></a>      cos2goPreMat-&gt;data[i1] = cos2goActMat-&gt;data[i1];
+<a name="623"><font color="#888888 "><i>  623   </i></font></a>    <b>}</b>
+<a name="624"><font color="#888888 "><i>  624   </i></font></a>
+<a name="625"><font color="#888888 "><i>  625   </i></font></a>    <font color="#117755"><i>/*  optimale Kraftstoffenergie zum aktuellen Punkt */</i></font>
+<a name="626"><font color="#888888 "><i>  626   </i></font></a>    <font color="#117755"><i>/*    optimal fuel energy at current point - save current mat in tensor */</i></font>
+<a name="627"><font color="#888888 "><i>  627   </i></font></a>    loop_ub = fulEngActMat-&gt;size[1];
+<a name="628"><font color="#888888 "><i>  628   </i></font></a>    <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; loop_ub; i1++) <b>{</b>
+<a name="629"><font color="#888888 "><i>  629   </i></font></a>      b_loop_ub = fulEngActMat-&gt;size[0];
+<a name="630"><font color="#888888 "><i>  630   </i></font></a>      <font color="#112266"><b>for</b></font> (engKinPreInx = 0; engKinPreInx &lt; b_loop_ub; engKinPreInx++) <b>{</b>
+<a name="631"><font color="#888888 "><i>  631   </i></font></a>        fulEngOptTn3-&gt;data[(engKinPreInx + fulEngOptTn3-&gt;size[0] * i1) +
+<a name="632"><font color="#888888 "><i>  632   </i></font></a>          fulEngOptTn3-&gt;size[0] * fulEngOptTn3-&gt;size[1] * ((<font color="#112266"><b>int</b></font>)b_wayInx - 1)] =
+<a name="633"><font color="#888888 "><i>  633   </i></font></a>          fulEngActMat-&gt;data[engKinPreInx + fulEngActMat-&gt;size[0] * i1];
+<a name="634"><font color="#888888 "><i>  634   </i></font></a>      <b>}</b>
+<a name="635"><font color="#888888 "><i>  635   </i></font></a>    <b>}</b>
+<a name="636"><font color="#888888 "><i>  636   </i></font></a>
+<a name="637"><font color="#888888 "><i>  637   </i></font></a>    <font color="#117755"><i>/*  optimale Batterieenergie zum aktuellen Punkt */</i></font>
+<a name="638"><font color="#888888 "><i>  638   </i></font></a>    <font color="#117755"><i>/*    optimal battery force at current point - save current mat in tensor */</i></font>
+<a name="639"><font color="#888888 "><i>  639   </i></font></a>    <font color="#117755"><i>/*  FlussgrÃ¶ÃŸe gilt im Intervall */</i></font>
+<a name="640"><font color="#888888 "><i>  640   </i></font></a>    <font color="#117755"><i>/*    flux quantity applied over the interval */</i></font>
+<a name="641"><font color="#888888 "><i>  641   </i></font></a>    loop_ub = batFrcOptMat-&gt;size[1];
+<a name="642"><font color="#888888 "><i>  642   </i></font></a>    <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; loop_ub; i1++) <b>{</b>
+<a name="643"><font color="#888888 "><i>  643   </i></font></a>      b_loop_ub = batFrcOptMat-&gt;size[0];
+<a name="644"><font color="#888888 "><i>  644   </i></font></a>      <font color="#112266"><b>for</b></font> (engKinPreInx = 0; engKinPreInx &lt; b_loop_ub; engKinPreInx++) <b>{</b>
+<a name="645"><font color="#888888 "><i>  645   </i></font></a>        batFrcOptTn3-&gt;data[(engKinPreInx + batFrcOptTn3-&gt;size[0] * i1) +
+<a name="646"><font color="#888888 "><i>  646   </i></font></a>          batFrcOptTn3-&gt;size[0] * batFrcOptTn3-&gt;size[1] * ((<font color="#112266"><b>int</b></font>)b_wayInx - 2)] =
+<a name="647"><font color="#888888 "><i>  647   </i></font></a>          batFrcOptMat-&gt;data[engKinPreInx + batFrcOptMat-&gt;size[0] * i1];
+<a name="648"><font color="#888888 "><i>  648   </i></font></a>      <b>}</b>
+<a name="649"><font color="#888888 "><i>  649   </i></font></a>    <b>}</b>
+<a name="650"><font color="#888888 "><i>  650   </i></font></a>
+<a name="651"><font color="#888888 "><i>  651   </i></font></a>    <font color="#117755"><i>/*  Ausgabe des aktuellen Schleifendurchlaufs */</i></font>
+<a name="652"><font color="#888888 "><i>  652   </i></font></a>    <font color="#117755"><i>/*    output for current loop - print to terminal */</i></font>
+<a name="653"><font color="#888888 "><i>  653   </i></font></a>    <font color="#112266"><b>if</b></font> (disFlg != 0.0) <b>{</b>
+<a name="654"><font color="#888888 "><i>  654   </i></font></a>      <a href="fprintf_c.html#fcn_d_fprintf" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_d_fprintf');" target="_self"><font color="#1122aa">d_fprintf</font></a>(b_wayInx - wayInxBeg, (b_wayInx - wayInxBeg) / (wayInxEnd -
+<a name="655"><font color="#888888 "><i>  655   </i></font></a>                 wayInxBeg) * 100.0);
+<a name="656"><font color="#888888 "><i>  656   </i></font></a>    <b>}</b>
+<a name="657"><font color="#888888 "><i>  657   </i></font></a>
+<a name="658"><font color="#888888 "><i>  658   </i></font></a>    wayInx++;
+<a name="659"><font color="#888888 "><i>  659   </i></font></a>  <b>}</b>
+<a name="660"><font color="#888888 "><i>  660   </i></font></a>
+<a name="661"><font color="#888888 "><i>  661   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxFree_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxFree_real_T');" target="_self"><font color="#1122aa">emxFree_real_T</font></a>(&amp;fulEngActMat);
+<a name="662"><font color="#888888 "><i>  662   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxFree_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxFree_real_T');" target="_self"><font color="#1122aa">emxFree_real_T</font></a>(&amp;batEngActMat);
+<a name="663"><font color="#888888 "><i>  663   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxFree_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxFree_real_T');" target="_self"><font color="#1122aa">emxFree_real_T</font></a>(&amp;batFrcOptMat);
+<a name="664"><font color="#888888 "><i>  664   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxFree_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxFree_real_T');" target="_self"><font color="#1122aa">emxFree_real_T</font></a>(&amp;fulEngPreMat);
+<a name="665"><font color="#888888 "><i>  665   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxFree_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxFree_real_T');" target="_self"><font color="#1122aa">emxFree_real_T</font></a>(&amp;batEngPreMat);
+<a name="666"><font color="#888888 "><i>  666   </i></font></a>  <a href="clcDP_port_emxutil_c.html#fcn_emxFree_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxFree_real_T');" target="_self"><font color="#1122aa">emxFree_real_T</font></a>(&amp;cos2goPreMat);
+<a name="667"><font color="#888888 "><i>  667   </i></font></a>
+<a name="668"><font color="#888888 "><i>  668   </i></font></a>  <font color="#117755"><i>/*  end of looping through all discretized path indexes */</i></font>
+<a name="669"><font color="#888888 "><i>  669   </i></font></a>  <font color="#117755"><i>/*  END OF FUNCTION */</i></font>
+<a name="670"><font color="#888888 "><i>  670   </i></font></a><b>}</b>
+<a name="671"><font color="#888888 "><i>  671   </i></font></a>
+<a name="672"><font color="#888888 "><i>  672   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="673"><font color="#888888 "><i>  673   </i></font></a><font color="#117755"><I> * Arguments    : void</i></font>
+<a name="674"><font color="#888888 "><i>  674   </i></font></a><font color="#117755"><I> * Return Type  : void</i></font>
+<a name="675"><font color="#888888 "><i>  675   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="676"><font color="#888888 "><i>  676   </i></font></a><font color="#112266"><b>void</b></font> <a name="fcn_geaNum_not_empty_init">geaNum_not_empty_init</a>(<font color="#112266"><b>void</b></font>)
+<a name="677"><font color="#888888 "><i>  677   </i></font></a><b>{</b>
+<a name="678"><font color="#888888 "><i>  678   </i></font></a>  <a href="#var_geaNum_not_empty" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_geaNum_not_empty');" target="_self"><font color="#1122aa">geaNum_not_empty</font></a> = false;
+<a name="679"><font color="#888888 "><i>  679   </i></font></a><b>}</b>
+<a name="680"><font color="#888888 "><i>  680   </i></font></a>
+<a name="681"><font color="#888888 "><i>  681   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="682"><font color="#888888 "><i>  682   </i></font></a><font color="#117755"><I> * File trailer for clcDP_olyHyb_port.c</i></font>
+<a name="683"><font color="#888888 "><i>  683   </i></font></a><font color="#117755"><I> *</i></font>
+<a name="684"><font color="#888888 "><i>  684   </i></font></a><font color="#117755"><I> * [EOF]</i></font>
+<a name="685"><font color="#888888 "><i>  685   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="686"><font color="#888888 "><i>  686   </i></font></a></pre>
+</td></tr></table>
+</p>
+</body>
+</html>

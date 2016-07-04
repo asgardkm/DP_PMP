@@ -1,0 +1,11 @@
+clcOptTrj_tmp_mex.mexw64
+b_emxInit_real_T		b_emxInit_real_T
+clcOptTrj_tmp		clcOptTrj_tmp
+clcOptTrj_tmp_atexit		clcOptTrj_tmp_atexit
+clcOptTrj_tmp_initialize		clcOptTrj_tmp_initialize
+clcOptTrj_tmp_terminate		clcOptTrj_tmp_terminate
+emlrtMexFcnProperties		emlrtMexFcnProperties
+emxEnsureCapacity		emxEnsureCapacity
+emxFree_real_T		emxFree_real_T
+emxInit_real_T		emxInit_real_T
+mexFunction		mexFunction

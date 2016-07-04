@@ -1,1 +1,0 @@
-d = myMult(rand(3,4), rand(4,5))

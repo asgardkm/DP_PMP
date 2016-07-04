@@ -1,0 +1,18 @@
+clcDP_port_mex.mexw64
+b_emlrt_marshallIn		b_emlrt_marshallIn
+b_emxInit_int32_T		b_emxInit_int32_T
+b_emxInit_real_T		b_emxInit_real_T
+c_emxInit_real_T		c_emxInit_real_T
+clcDP_port		clcDP_port
+clcDP_port_atexit		clcDP_port_atexit
+clcDP_port_initialize		clcDP_port_initialize
+clcDP_port_terminate		clcDP_port_terminate
+emlrtMexFcnProperties		emlrtMexFcnProperties
+emlrt_marshallOut		emlrt_marshallOut
+emxEnsureCapacity		emxEnsureCapacity
+emxFree_int32_T		emxFree_int32_T
+emxFree_real_T		emxFree_real_T
+emxInit_int32_T		emxInit_int32_T
+emxInit_real_T		emxInit_real_T
+mexFunction		mexFunction
+t_emlrt_marshallIn		t_emlrt_marshallIn

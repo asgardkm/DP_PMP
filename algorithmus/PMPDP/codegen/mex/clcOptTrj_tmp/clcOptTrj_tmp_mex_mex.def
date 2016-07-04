@@ -1,0 +1,12 @@
+LIBRARY clcOptTrj_tmp_mex.mexw64
+EXPORTS
+mexFunction
+emlrtMexFcnProperties
+clcOptTrj_tmp
+b_emxInit_real_T
+emxEnsureCapacity
+emxFree_real_T
+emxInit_real_T
+clcOptTrj_tmp_initialize
+clcOptTrj_tmp_terminate
+clcOptTrj_tmp_atexit
