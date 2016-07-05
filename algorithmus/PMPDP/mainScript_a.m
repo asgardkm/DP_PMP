@@ -23,7 +23,6 @@ write_bool      = 1;
     batEngDltOptVec,    ... Vektor - optimale Batterieenergieänderung
     fulEngDltOptVec,    ... Vektor - optimale Kraftstoffenergieänderung
     staVec,             ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-    psiEngKinOptVec,    ... Vektor - costate für kinetische Energie
     fulEngOpt,          ... Skalar - optimale Kraftstoffenergie
     resVld]             ...
     = runAlgorithmusDP( ...

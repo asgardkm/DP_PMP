@@ -30,7 +30,7 @@ batFrc = inf;
 % making battery resistance value a vector 
 batRstVec = zeros(length(batPwr), 1);
 batRstVec(batPwr > 0)  = batRstDch;
-batRstVec(batPwr <= 0) = batRstChr;
+batRstVec(~batPwr > 0) = batRstChr;
 % if batPwr > 0
 %     batRst = batRstDch;
 % else
@@ -42,8 +42,8 @@ batRstVec(batPwr <= 0) = batRstChr;
 %   calculate battery power change for path_idx. Formula derivation can be 
 %   found from other papers (for example, Chalmers paper)
 batFrcCpl = batOcv^2 * ...
-    ( sqrt( complex (1 - 4*batRstVec/batOcv^2.*batPwr) ) - 1) ./ ...
-    ( 2*batRstVec.*vel );
+    ( sqrt( complex (1 - 4*batRstVec/batOcv^2*batPwr) ) - 1) / ...
+    ( 2*batRst*vel );
 
 % Sollte die physikalisch mögliche Batterieleistung überschritten werden,
 % wird der Term unter der Wurzel negativ. In diesem Fall wird die Ausgabe

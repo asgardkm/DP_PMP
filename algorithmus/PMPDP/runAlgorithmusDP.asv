@@ -20,7 +20,6 @@ function ...            --- Ausgangsgrˆﬂen:
 disFlg          = inputparams.disFlg;
 iceFlg          = inputparams.iceFlg;
 timeStp         = inputparams.timeStp;
-engKinBegInx    = inputparams.engKinBegInx;
 batEngStp       = inputparams.batEngStp;
 batEngBegMinRat = inputparams.batEngBegMinRat;
 batEngBegMaxRat = inputparams.batEngBegMaxRat;
@@ -60,6 +59,20 @@ accVec      = accVecRaw(timeBool);
 disVec      = velVec * timeStp;
 slopeVec    = slopeVecRaw(timeBool);
 
+% determine time length of interval
+timeNum = length(timeVec);
+
+
+% Pr√ºfen(check), ob eine erlaubte Beschleunigung vorliegt.
+% Ansonsten zum n√§chsten Schleifendurchlauf springen
+%   Check whether an allowable acceleration exists - if not, warn user
+% vehAcc = (engKinAct-engKinPre)/vehMas/wayStp;
+if any(accVec < vehAccMin) || any(accVec > vehAccMax)
+    overdemandAcc = find(accVec<vehAccMin || accVec>vehAccMax);
+    fprintf('NOTE: acceleration demanded from speed profile cannot be supplied by the set model bounds (see idx %i)\n', overdemandAcc(1));
+    fprintf('Demanded torque: %4.2f\n', accVec(overdemandedAcc));
+    fprintf('vehAccMax');
+end
 %% define battery engine value from input ratios
 % make sure that the ratio SOC is discretized to given input energy steps
 batEngBegMin    = floor(batEngMax*batEngBegMinRat/batEngStp) * batEngStp;
@@ -250,6 +263,8 @@ if batPwrMin < fzg_scalar_struct.batPwrMin
 end
 
 
+
+
 %% build looping here! loop through time indexes
 for timeIdx = inputparams.wayInxBeg : inputparams.timeStp : inputparams.wayInxEnd
    
@@ -258,7 +273,23 @@ for timeIdx = inputparams.wayInxBeg : inputparams.timeStp : inputparams.wayInxEn
     batOcv = batEngAct*fzg_array_struct.batOcvCof_batEng(1,1) + fzg_array_struct.batOcvCof_batEng(1,2);
     
     % calculate the max and min change in battery energy possible
-    % this calculation relies on the battery's voltage (see above code)
+    % this calculation relies on the battery's voltage , which changes
+    % depending on the current battery energy (see above code)
+    batEngDltMin = batFrcClc_port(... FUNCTION CALL - min delta bat.energy
+    batPwrMax,...           Skalar - Batterieklemmleistung
+    vel,...                 Skalar - mittlere Geschwindigkeit im Intervall
+    fzg_scalar.batRstDch,...Skalar - Entladewiderstand
+    fzg_scalar.batRstChr,...Skalar - Ladewiderstand
+    batOcv...               Skalar - battery open-circuit voltage 
+    ) * timeStp; % <-multiply by CHANGE IN TIME
+
+batEngDltMax = batFrcClc_port(... FUNCTION CALL - max delta bat.energy
+    batPwrMin,...           Skalar - Batterieklemmleistung
+    vel,...                 Skalar - mittlere Geschwindigkeit im Intervall
+    fzg_scalar.batRstDch,...Skalar - Entladewiderstand
+    fzg_scalar.batRstChr,...Skalar - Ladewiderstand
+    batOcv...               Skalar - battery open-circuit voltage 
+    ) * timeStp;
 end
 
 
@@ -282,10 +313,9 @@ fprintf('-Initializing model...\n');
     staChgPenCosVal,... Skalar f¸r die Strafkosten beim Zustandswechsel
     wayInxBeg,      ... Skalar f¸r Anfangsindex in den Eingangsdaten
     wayInxEnd,      ... Skalar f¸r Endindex in den Eingangsdaten
-    engKinBegInx,   ... Skalar f¸r den Index der Anfangsgeschwindigkeit
     engKinNum,      ... Skalar f¸r die max. Anz. an engKin-St¸tzstellen
     staNum,         ... Skalar f¸r die max. Anzahl an Zustandsst¸tzstellen
-    wayNum,         ... Skalar f¸r die max. Anzahl an Wegst¸tzstellen
+    timeNum,         ... Skalar f¸r die max. Anzahl an Wegst¸tzstellen
     staBeg,         ... Skalar f¸r den Startzustand des Antriebsstrangs
     engKinNumVec_wayInx,        ... Vektor der Anzahl der kinetischen Energien
     slpVec_wayInx,              ... Vektor der Steigungen in rad

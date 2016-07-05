@@ -21,7 +21,7 @@ Model parameters
 Value,			Variable Name,  	Description (examples in brackets)
 PARAMS_START
 1,				disFlg,				s
-0,				iceFlg,				flag for having engine always on?
+0,				iceFlgBool,			flag for having engine always on?
 1,				timeStp,			time step discretization [sec]
 1000,			batEngStp,			a
 0.60,			batEngBegMinRat,	beginning minimum SOC percentage value
@@ -29,11 +29,11 @@ PARAMS_START
 0.30,			batEngEndMinRat,	ending minimum SOC percentage value
 0.90,			batEngEndMaxRat,	ending maximum SOC percentage value
 0,				batPwrAux,			a
--2.61,			psiBatEng,			a
-1590,			psiTim,				a
 0,				staChgPenCosVal,	a
 1,				wayInxBeg,			a
 1181,			wayInxEnd,			a
+1,				engBeg,				initial state of engine (1-off, 2-on)
+1,				engEnd,				final state of engine 	(1-off, 2-on)
 1,				staBeg,				a
 PARAMS_END
 ====================================================================================
