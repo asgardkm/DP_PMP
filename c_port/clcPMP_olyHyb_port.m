@@ -79,7 +79,7 @@ end
 %   initializing the commonly required parameters
 
 % mittlere kinetische Energie im Wegschritt berechnen
-%   define the average kinetic energy at path_idx step - is just previous KE
+%   define the average kinetic energy at path_idx step-is just previous KE
 engKin = engKinPre;
 % mittlere Geschwindigkeit im Wegschritt berechnen
 %   define the average speed at path_idx step
@@ -108,7 +108,7 @@ end
 
 % Falls die Drehzahl des Verbrennungsmotors niedriger als die
 % Leerlaufdrehzahl ist,
-%   stop if crankhaft rotional speed is lower than the idling speed
+%   stop if crankshaft rotional speed is lower than the idling speed
 if iceFlg && any(crsSpdVec < crsSpdHybMin)
     return;
 end

@@ -3,14 +3,13 @@ function [cosHamMin,batFrcOut,fulFrcOut] = ...
             engStaPre,  ...
             engStaAct,  ...
             gea,        ...
-            slp,        ...
             iceFlg,     ...
             batEng,     ...
-            whlTrq,     ...
             batPwrAux,  ...
             batEngStp,  ...
-            wayStp,     ...
-            velVec,     ...
+            timeStp,     ...
+            vehVelVec,     ...
+            whlTrqPre,     ...
             fzg_scalar_struct, ...
             fzg_array_struct)
 %#codegen
@@ -38,8 +37,8 @@ function [cosHamMin,batFrcOut,fulFrcOut] = ...
 %                                ^^ electric auxiliary power consumed (W)
 % batEngStp     - Double(1,1)  - Drehmomentschritt
 %                                ^^ torque step <- no, it's a battery step
-% wayStp        - Double(1,1)  - Intervallschrittweite in m
-%                                ^^ interval step distance (m)
+% timeStp        - Double(1,1)  - Intervallschrittweite in m
+%                                ^^ interval step distance - now [sec]
 % fzg_scalar_struct    - Struct(1,1)  - Modelldaten - nur skalar
 % fzg_array_struct     - Struct(1,1)  - Modelldaten - nur arrays                             
 
@@ -96,7 +95,9 @@ end
 % calculated for every KE state (they do not exist here), velocity for the
 % crs can be calculated vector style for each gear, as vehVel can be
 % inputted as a vector
-crsSpd  = fzg_array_struct.geaRat(gea) * vehVel / (fzg_scalar_struct.whlDrr);
+%
+% but may need to do this time index by time index instead
+crsSpdVec  = fzg_array_struct.geaRat(gea) * vehVelVec / (fzg_scalar_struct.whlDrr);
 
 % Abbruch, wenn die Drehzahlen der Kurbelwelle zu hoch im hybridischen
 % Modus
@@ -117,7 +118,10 @@ end
 if ~iceFlg && any(crsSpdVec > crsSpdEmoMax)
     return;
 end
-
+% use previous time idx's crankshaft rotational speed for calculations
+crsSpd = crsSpdVec(1);
+% use previous vehicle velocity time index for calculations
+vehVel = vehVelVec(1);
 %% Getriebeübersetzung und -verlust
 %   gear ratio and loss
 
@@ -128,34 +132,40 @@ end
 %   it's important to determine sign of crankshaft torque (positive or
 %   negative), since only a simple efficiency is used for the transmission
 %   PART OF EQ4  <- perhaps reversed? not too sure
-if whlTrq < 0
-    crsTrq = whlTrq / fzg_array_struct.geaRat(gea) * fzg_scalar_struct.geaEfy;
+if whlTrqPre < 0
+    crsTrq = whlTrqPre / fzg_array_struct.geaRat(gea) * fzg_scalar_struct.geaEfy;
 else
-    crsTrq = whlTrq / fzg_array_struct.geaRat(gea) / fzg_scalar_struct.geaEfy;
+    crsTrq = whlTrqPre / fzg_array_struct.geaRat(gea) / fzg_scalar_struct.geaEfy;
 end
 
 %% Verbrennungsmotor
 %   internal combustion engine
 
-% maximales Moment des Verbrennungsmotors berechnen
-%   calculate max torque of the engine (quadratic based on rotation speed)
-iceTrqMax = fzg_array_struct.iceTrqMaxCof(1) * crsSpd.^2 ...
-    + fzg_array_struct.iceTrqMaxCof(2) * crsSpd ...
-    + fzg_array_struct.iceTrqMaxCof(3);
+% if engine is turned on
+if engStaPre
+    % maximales Moment des Verbrennungsmotors berechnen
+    %   calculate max torque of the engine (quadratic based on rotation speed)
+    iceTrqMax = fzg_array_struct.iceTrqMaxCof(1) * crsSpd.^2 ...
+        + fzg_array_struct.iceTrqMaxCof(2) * crsSpd ...
+        + fzg_array_struct.iceTrqMaxCof(3);
 
-% minimales Moment des Verbrennungsmotors berechnen
-%   calculating mimimum ICE moment
-iceTrqMin = fzg_array_struct.iceTrqMinCof(1) * crsSpd.^2 ...
-    + fzg_array_struct.iceTrqMinCof(2) * crsSpd ...
-    + fzg_array_struct.iceTrqMinCof(3);
+    % minimales Moment des Verbrennungsmotors berechnen
+    %   calculating mimimum ICE moment
+    iceTrqMin = fzg_array_struct.iceTrqMinCof(1) * crsSpd.^2 ...
+        + fzg_array_struct.iceTrqMinCof(2) * crsSpd ...
+        + fzg_array_struct.iceTrqMinCof(3);
+    
+% if engine is turned off
+else                       
+   iceTrqMax = 0;
+   iceTrqMin = 0;
+end
 
 %% Elektromotor
 %   electric motor
-
+%
 % maximales Moment, dass die E-Maschine liefern kann
 %   max torque that the electric motor can provide - from interpolation
-% emoTrqMaxPos = ...
-%     lininterp1(par.emoSpdMgd(1,:)',par.emoTrqMax_emoSpd,crsSpd);
 emoTrqMaxPos = ...
     interp1q(fzg_array_struct.emoSpdMgd(1,:)',fzg_array_struct.emoTrqMax_emoSpd,crsSpd);
 
@@ -260,16 +270,16 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
     % open circuit voltage over each iteration
     batOcv = batEngAct*fzg_array_struct.batOcvCof_batEng(1,1)+fzg_array_struct.batOcvCof_batEng(1,2);
     
-    [ ...
-        batPwr,...          Skalar für die Batterieleistung in W
+    [   batPwr,...          Skalar f�r die Batterieleistung in W
         fulFrc ...          Skalar Krafstoffkraft in N
         ] = ...
         fulEngClc_a...            FUNCTION CALL
-        (wayStp,...         Skalar für die Wegschrittweite in m,
+        (timeStp,...        Skalar f�r die Wegschrittweite in m,
         vehVel,...          Skalar - vehicular velocity
         batPwrAux,...       Nebenverbraucherlast
         batOcv,...          Skalar - battery open circuit voltage
         batEngDlt, ...      Skalar - Batterieenergie�nderung,
+        engStaPre,      ... previous state of engine (off-on)
         crsSpd,...          Skalar - crankshaft speed at given path_idx
         crsTrq,...          Skalar - crankshaft torque at given path_idx
         iceTrqMin,...       Skalar - min ICE torque allowed
@@ -278,6 +288,7 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
         fzg_array_struct...        struct - Fahrzeugparameter - nur array        
         );
     
+    % calculate the battery force required for specified fuel energy level
     batFrc = batFrcClc_a(...      FUNCTION CALL
         batPwr,...          Skalar - Batterieklemmleistung
         vehVel,...          Skalar - mittlere Geschwindigkeit im Intervall
@@ -289,9 +300,7 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
     %% Hamiltonfunktion bestimmen
     %   determine the hamiltonian
     % Eq (29b)
-    [cosHamMin,optPreInx] = min([fulFrc ...
-        + psiBatEng * batFrc...
-        + psiTim / vehVel,cosHamMin]);
+    [cosHamMin,optPreInx] = min([fulFrc,cosHamMin]);
     
     % Wenn der aktuelle Punkt besser ist, als der in cosHamMin
     % gespeicherte Wert, werden die Ausgabegrößen neu beschrieben.

@@ -39,7 +39,7 @@ batEngMax       = fzg_scalar_struct.batEngMax;
 staNum          = tst_scalar_struct.staNum;
 % wayNum          = tst_scalar_struct.wayNum;
 % engKinNum       = tst_scalar_struct.engKinNum;
-slpVec_wayInx               = tst_array_struct.slpVec_wayInx;
+% slpVec_wayInx               = tst_array_struct.slpVec_wayInx;
 engKinMat_engKinInx_wayInx  = tst_array_struct.engKinMat_engKinInx_wayInx;
 engKinNumVec_wayInx         = tst_array_struct.engKinNumVec_wayInx;
 
@@ -66,12 +66,12 @@ timeNum = length(timeVec);
 % Ansonsten zum n√§chsten Schleifendurchlauf springen
 %   Check whether an allowable acceleration exists - if not, warn user
 % vehAcc = (engKinAct-engKinPre)/vehMas/wayStp;
-if any(accVec < vehAccMin) || any(accVec > vehAccMax)
-    overdemandAcc = find(accVec<vehAccMin || accVec>vehAccMax);
+if any(accVec < fzg_scalar_struct.vehAccMin) || any(accVec > fzg_scalar_struct.vehAccMax)
+    overdemandAcc = find(accVec<fzg_scalar_struct.vehAccMin || accVec>fzg_scalar_struct.vehAccMax);
     fprintf('NOTE: acceleration demanded from speed profile cannot be supplied by the set model bounds (see idx %i)\n', overdemandAcc(1));
     fprintf('Demanded acceleration: %4.3f\n', accVec(overdemandedAcc));
-    fprintf('vehAccMin: %4.3\n', vehAccMin);
-    fprintf('vehAccMax: %4.3\n', vehAccMax);
+    fprintf('vehAccMin: %4.3\n', fzg_scalar_struct.vehAccMin);
+    fprintf('vehAccMax: %4.3\n', fzg_scalar_struct.vehAccMax);
 end
 
 %% define battery engine value from input ratios
@@ -113,11 +113,11 @@ batEngEndMax = ceil(batEngMax*batEngEndMaxRat/batEngStp) * batEngStp;
 
 % Steigungskraft aus der mittleren Steigung berechnen (Skalar)
 %   gradiant force from the calculated (average) gradient
-vehFrcSlp = fzg_scalar_struct.vehMas * 9.81 * sin(slp);
+vehFrcSlp = fzg_scalar_struct.vehMas * 9.81 * sin(slopeVec);
 
 % Rollreibungskraft berechnen (Skalar)
 %   calculated rolling friction force - not included in EQ 5???
-vehFrcRol = fzg_scalar_struct.whlRosResCof*fzg_scalar_struct.vehMas * 9.81 * cos(slp);
+vehFrcRol = fzg_scalar_struct.whlRosResCof*fzg_scalar_struct.vehMas * 9.81 * cos(slopeVec);
 
 % Luftwiderstandskraft berechnen (2*c_a/m * E_kin) (Skalar) 
 %   calculated air resistance force 
@@ -142,7 +142,7 @@ vehFrcDrg = fzg_scalar_struct.drgCof * velVec.^2;
 % Rollwiderstandskraft + Luftwiderstandskraft)
 %   caluclating wheel forces (accerlation force + gradient force + rolling
 %   resistance + air resistance)    EQUATION 5
-whlFrc  = vehAcc*fzg_scalar_struct.vehMas + vehFrcSlp + vehFrcRol + vehFrcDrg;
+whlFrc  = accVec*fzg_scalar_struct.vehMas + vehFrcSlp + vehFrcRol + vehFrcDrg;
 % side note: if vehicle velocity is zero, then set force at wheel to zero
 whlFrc(velVec < 0.05) = 0;
 
@@ -389,16 +389,14 @@ fprintf('-Initializing model...\n');
     engBeg,         ... scalar - beginnnig engine state
     engEnd,         ... scalar - end engine state
     staBeg,         ... Skalar f¸r den Startzustand des Antriebsstrangs
-    slpVec_wayInx,  ... Vektor der Steigungen in rad
+    velVec,         ... velocity vector contiaing input speed profile
+    whlTrq,         ... wheel torque demand vector for the speed profile
+...%     slpVec_wayInx,  ... Vektor der Steigungen in rad
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct... struct der Fahrzeugparameter - NUR ARRAYS
     );
 engKinEndInxVal = ceil(engKinNumVec_wayInx(wayInxEnd)/2);
 staEnd = staBeg;
-
-
-
-
 
 
 %% Calculating optimal trajectories for result of DP + PMP

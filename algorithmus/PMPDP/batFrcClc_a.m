@@ -28,22 +28,28 @@ batFrc = inf;
 %   Assining battery resistance value
 %
 % making battery resistance value a vector 
-batRstVec = zeros(length(batPwr), 1);
-batRstVec(batPwr > 0)  = batRstDch;
-batRstVec(batPwr <= 0) = batRstChr;
-% if batPwr > 0
-%     batRst = batRstDch;
-% else
-%     batRst = batRstChr;
-% end
+% batRstVec = zeros(length(batPwr), 1);
+% batRstVec(batPwr > 0)  = batRstDch;
+% batRstVec(batPwr <= 0) = batRstChr;
+if batPwr > 0
+    batRst = batRstDch;
+else
+    batRst = batRstChr;
+end
 
 % Batterieenergieänderung über dem Weg berechnen. Herleitung der Formel
 % kann zum Beispiel dem Paper mit Chalmers entnommen werden
 %   calculate battery power change for path_idx. Formula derivation can be 
 %   found from other papers (for example, Chalmers paper)
-batFrcCpl = batOcv^2 * ...
-    ( sqrt( complex (1 - 4*batRstVec/batOcv^2.*batPwr) ) - 1) ./ ...
-    ( 2*batRstVec.*vel );
+%
+% BUT! If vehicle is stationary, no change in battery energy is necessary!
+if vel == 0
+    batFrcCpl = 0;
+else
+    batFrcCpl = batOcv^2 * ...
+        ( sqrt( complex (1 - 4*batRst/batOcv^2*batPwr) ) - 1) ./ ...
+        ( 2*batRst*vel );
+end
 
 % Sollte die physikalisch mögliche Batterieleistung überschritten werden,
 % wird der Term unter der Wurzel negativ. In diesem Fall wird die Ausgabe
