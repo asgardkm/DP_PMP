@@ -8,7 +8,7 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     (               ... --- Eingangsgrößen:
     disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
     iceFlgBool,     ...skalar - is engine toggle on/off allowed?
-    timeStp,         ... Skalar für die Wegschrittweite in m
+    timeStp,        ... Skalar für die Wegschrittweite in m
     batEngStp,      ... Skalar der Batteriediskretisierung in J
     batEngBeg,      ... Skalar für die Batterieenergie am Beginn in Ws
     batPwrAux,      ... Skalar für die Nebenverbrauchlast in W
@@ -21,7 +21,7 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     engEnd,         ... scalar - end engine state
     staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
     velVec,         ... velocity vector contiaing input speed profile
-    whlTrq,         ... wheel torque demand vector for the speed profile,         ...
+    whlTrq,         ... wheel torque demand vector for the speed profile
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
     )%#codegen
@@ -31,6 +31,9 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
 % speed and slope profile wrt time, not distance. 
 %
 % 06.07.2016 - replacing KE state dimension with engine control
+% Since engine control will be treated as a boolean 0-1 value, for indexing
+% values with on-off possibilities, a value of 1 is added to the boolean
+% value in order to create 'indexable numbers' (ie, 1 and 2 for off and on)
 %
 % Differences:
 %   - Kinetic energy is not a state/costate variable considered. 
@@ -179,7 +182,8 @@ engStaVec_wayInx(wayInxBeg) = engBeg;
 engStaVec_wayInx(wayInxEnd) = engEnd;
 
 % define a vector for containing the values of engine control off-on
-engStaMat_geaNum_wayInx = zeros(length(geaNum), wayInxEnd);
+engStaMat_geaNum_wayInx = zeros(1, wayInxEnd);
+
 % Schleife über alle Wegpunkte
 %   looping thorugh length of # of discretized time vector
 for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
@@ -218,14 +222,14 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     fulEngActMat = inf(engNum, geaNum);
     
     % Anzahl der kinetischen Energien im aktuellen und im
-    % VorgÃ¤ngerwegschritt
+    % Vorgängerwegschritt
     %   number of kinetic energies in current and past path_idxs
-    engStaNumAct = engStaVec_wayInx(wayInx); % look at this loop's KE
     engStaNumPre = engStaVec_wayInx(wayInx-1); % and the previous idx KE
-    
+    engStaNumAct = engStaVec_wayInx(wayInx);   % look at this loop's KE
+
     % define previous and actual engine status (on-off)
-    engStaValPre = engStaMat_geaNum_wayInx(:, wayInx - 1);
-    engStaValAct = engStaMat_geaNum_wayInx(:, wayInx); 
+%     engStaValPre = engStaMat_geaNum_wayInx(wayInx - 1);
+%     engStaValAct = engStaMat_geaNum_wayInx(wayInx); 
 
     % create vector storing current and previous velocity info
     vehVelVec = [velVec(wayInx) velVec(wayInx-1)];
@@ -234,10 +238,10 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     whlTrqPre = whlTrq(wayInx - 1);
     
 %%  go through the possible engine state on-off possibilities
-    for engStaActInx = 1:engStaNumAct   % CURRENT ENGINE STATE LOOP
+    for engStaActInx = 0:(engStaNumAct-1)   % CURRENT ENGINE STATE LOOP
                          
         % go through off and on version of engine 
-        engStaAct = engStaValAct(engStaActInx);
+        engStaAct = engStaActInx;
         
         % Schleife Ã¼ber alle mÃ¶glichen aktuellen ZustÃ¤nde des Antriesstrangs
         %   Loop over all possible current powertrain states/all the gears
@@ -301,10 +305,10 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
             %   loop through all the kinetic energies (previous state idxs)
             %
             % new - loop through previous engine control
-            for engStaPreInx = 1:engStaNumPre % PREVIOUS gear state loop
+            for engStaPreInx = 0:(engStaNumPre-1) % PREVIOUS gear state loop
 
                 % value of previous idx engine control state
-                engStaPre = engStaValPre(engStaPreInx); %#ok<PFBNS>
+                engStaPre = engStaPreInx; %#ok<PFBNS>
 
                 % Schleife Ã¼ber allen ZustÃ¤nde (relativer Index)
                 %   Loop through all the gear states (relative index)
@@ -342,7 +346,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                         geaStaChgPenCos = staChgPenCosVal; %<-penCos is input
                     end
                     
-                    if engStaAct == geaStaPre
+                    if engStaAct == engStaPre
                         engStaChgPenCos = 0;
                     else 
                         engStaChgPenCos = staChgPenCosVal;
@@ -384,7 +388,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     % combine the min hamil. cost w/ previous costs and 
                     %   gear penalty to get current cost
                     fulAct = minFul...
-                        + cos2goPreMat(engStaPreInx,geaStaPre)...
+                        + cos2goPreMat(engStaPreInx+1,geaStaPre)...
                         + geaStaChgPenCos/timeStp + engStaChgPenCos/timeStp;
                     
                     % Wenn der aktuelle Punkt besser ist, als der in
@@ -407,11 +411,11 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                         %       batFrc calculation in batFrcClc_a()
                         %   -   why not output that calculation instead?
                         batEngOpt = batFrc * timeStp + ...
-                            batEngPreMat(engStaPreInx,geaStaPre);
+                            batEngPreMat(engStaPreInx+1,geaStaPre);
                         % new opt. fuel energy = (fuel force * time diff)
                         %   + previous fuel energy value
                         fulEngOpt = fulFrc * timeStp + ...
-                            fulEngPreMat(engStaPreInx,geaStaPre);%#ok<PFBNS>
+                            fulEngPreMat(engStaPreInx+1,geaStaPre);%#ok<PFBNS>
                     end
                 end % end of gear changes loop
             end % end of running through previous engine state ctrl loop
@@ -419,28 +423,28 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
             if ~isinf(minFul)
                 % optimale Kosten zum aktuellen Punkt speichern
                 %   save min hamilton value for current point
-                cos2goActMat(engStaActInx,geaStaAct) = minFul;
+                cos2goActMat(engStaActInx+1,geaStaAct) = minFul;
                 
                 % optimale Batterieenergie zum aktuellen Punkt speichern
                 %   save optimal battery energy for current point
-                batEngActMat(engStaActInx,geaStaAct) = batEngOpt;
+                batEngActMat(engStaActInx+1,geaStaAct) = batEngOpt;
                 
                 % optimale Krafstoffenergie zum aktuellen Punkt speichern
                 %   save optimal fuel energy for current point
-                fulEngActMat(engStaActInx,geaStaAct) = fulEngOpt;
+                fulEngActMat(engStaActInx+1,geaStaAct) = fulEngOpt;
 
                 % optimale Batterieenergie zum aktuellen Punkt
                 % FlussgrÃ¶ÃŸe gilt im Intervall
                 %   populate optimal battery energy flux quantity at point 
                 %   that's applicable to current interval
-                batFrcOptMat(engStaActInx,geaStaAct) = batFrcOpt;
+                batFrcOptMat(engStaActInx+1,geaStaAct) = batFrcOpt;
                 
                 % optimalen VorgÃ¤nger codieren Ã¼ber Funktion sub2ind
                 % und speichern im Tensor
                 %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
-                optPreInxTn3(engStaActInx,geaStaAct,wayInx) = ...
+                optPreInxTn3(engStaActInx+1,geaStaAct,wayInx) = ...
                     sub2ind([engNum,geaNum],...
-                    engStaPreOptInx,geaStaPreOptInx);
+                    engStaPreOptInx+1,geaStaPreOptInx);
             end % end of ~inf(hamiltonian) if-statement
         end % end of looping through all gears
     end % end of looping through all the current engine control states

@@ -32,8 +32,8 @@ PARAMS_START
 0,				staChgPenCosVal,	a
 1,				wayInxBeg,			a
 1181,			wayInxEnd,			a
-1,				engBeg,				initial state of engine (1-off, 2-on)
-1,				engEnd,				final state of engine 	(1-off, 2-on)
+1,				engBeg,				initial state of engine (0-off, 1-on)
+1,				engEnd,				final state of engine 	(0-off, 1-on)
 1,				staBeg,				a
 PARAMS_END
 ====================================================================================
@@ -54,7 +54,7 @@ Test data parameters used on a 800 path_index long run.
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
 TSTDAT_START
-1,				staNum,				Number of gears in model
+6,				staNum,				Number of gears in model
 TSTDAT_END
 ====================================================================================
 
