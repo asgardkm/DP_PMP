@@ -1,7 +1,6 @@
-function [cosHamMin,batFrcOut,fulFrcOut] = ...
+function [minFulLvl,batFrcOut,fulFrcOut] = ...
     clcPMP_a(...
             engStaPre,  ...
-            engStaAct,  ...
             gea,        ...
             iceFlg,     ...
             batEng,     ...
@@ -22,6 +21,8 @@ function [cosHamMin,batFrcOut,fulFrcOut] = ...
 % Massenaufschlag durch Trägheitsmoment herausgenommen
 % ^^Mass increment removed by inertia
 %
+% % 06.07.2016 - replacing KE state dimension with engine control
+
 %% Inputdefinition
 % engStaPre     - Double(1,1)  - engine state at start of interval (J)
 % engStaAct     - Double(1,1)  - engine state at end of interval (J)
@@ -47,7 +48,7 @@ function [cosHamMin,batFrcOut,fulFrcOut] = ...
 
 % Ausgabewert des Minimums der Hamiltonfunktion
 %   output for minimizing the hamiltonian
-cosHamMin = inf;
+minFulLvl = inf;
 % Batterieladungsänderung im Wegschritt beir minimaler Hamiltonfunktion
 %   battery change in path_idx step with the minial hamiltonian
 batFrcOut = inf;
@@ -300,7 +301,7 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
     %% Hamiltonfunktion bestimmen
     %   determine the hamiltonian
     % Eq (29b)
-    [cosHamMin,optPreInx] = min([fulFrc,cosHamMin]);
+    [minFulLvl,optPreInx] = min([fulFrc,minFulLvl]);
     
     % Wenn der aktuelle Punkt besser ist, als der in cosHamMin
     % gespeicherte Wert, werden die Ausgabegrößen neu beschrieben.

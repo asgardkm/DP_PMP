@@ -1,20 +1,20 @@
 function [ ...
-    batEngDltMin,...Skalar - änderung der minimalen Batterieenergieänderung
-    batEngDltMax... Skalar - änderung der maximalen Batterieenergieänderung
-    ] =         ...
-    batEngDltClc_a...
-    (           ...
-    timeStp,     ... Skalar - time step inteval
-    vehVel,        ... Skalar - Geschwindigkeit im Intervall
-    batPwrAux,  ... Skalar - Nebenverbraucherlast
-    batEngAct,  ... Skalar - Batterieenergie
+    batEngDltMin,   ...Skalar - �nderung der minimalen Batterieenergieänderung
+    batEngDltMax    ... Skalar - �nderung der maximalen Batterieenergieänderung
+    ] =             ...
+    batEngDltClc_a  ...
+    (               ...
+    timeStp,        ... Skalar - time step inteval
+    vehVel,         ... Skalar - Geschwindigkeit im Intervall
+    batPwrAux,      ... Skalar - Nebenverbraucherlast
+    batEngAct,      ... Skalar - Batterieenergie
     fzg_scalar_struct, ... struct - Fahrzeugparameter - nur skalar
     fzg_array_struct,  ... struct - Fahrzeugparameter - nur array
-    crsSpd,     ... Skalar - crankshaft rotational speed
-    crsTrq,     ... Skalar - crankshaft torque
-    iceTrqMin,  ... Skalar - min ICE torque allowed
-    iceTrqMax,  ... Skalar - max ICE torque
-    emoTrqMaxPos... Skalar - max EM torque possible
+    crsSpd,         ... Skalar - crankshaft rotational speed
+    crsTrq,         ... Skalar - crankshaft torque
+    iceTrqMin,      ... Skalar - min ICE torque allowed
+    iceTrqMax,      ... Skalar - max ICE torque
+    emoTrqMaxPos    ... Skalar - max EM torque possible
     )%#codegen
 %BatEngDltClc Calculates the change in battery energy
 %
@@ -29,6 +29,8 @@ function [ ...
 %
 % Version vom 25.05.2016: Zero-Order-Hold (keine mittlere Geschwindigkeit)
 %                         ^^ Zero-Order-Hold (no average velocities)
+%
+% 06.07.2016 - replacing KE state dimension with engine control
 
 %% Initialisieren der Ausgabe der Funktion
 %   initializing the function output (delta battery_energy min and max)

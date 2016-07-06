@@ -1,10 +1,10 @@
-function [ batFrc ...   Skalar - Batteriekraft (E')
+function [ batFrc   ... Skalar - Batteriekraft (E')
     ] = batFrcClc_a(...
-    batPwr,...          Skalar - Batterieklemmleistung
-    vel,...             Skalar - mittlere Geschwindigkeit im Intervall
-    batRstDch,...       Skalar - Entladewiderstand
-    batRstChr,...       Skalar - Ladewiderstand
-    batOcv...           Skalar - battery open-circuit voltage 
+    batPwr,         ... Skalar - Batterieklemmleistung
+    vel,            ... Skalar - mittlere Geschwindigkeit im Intervall
+    batRstDch,      ... Skalar - Entladewiderstand
+    batRstChr,      ... Skalar - Ladewiderstand
+    batOcv          ... Skalar - battery open-circuit voltage 
     )%#codegen
 %BATFRCCLC Calculating losses in battery
 %   Batteriekraft (E') aus Verlusten in der Batterie berechnen
@@ -12,7 +12,8 @@ function [ batFrc ...   Skalar - Batteriekraft (E')
 %
 % Version vom 25.05.2016: Zero-Order-Hold (keine mittlere Geschwindigkeit)
 %                           Zero-Order-Hold (average velocity is NOT used)
-
+%
+% 06.07.2016 - replacing KE state dimension with engine control
 %% Initialisieren der Ausgabe der Funktion
 %   initializing the function output
 batFrc = inf;
