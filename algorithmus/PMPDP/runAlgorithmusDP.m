@@ -89,6 +89,75 @@ batEngBeg = batEngBegMin + batEngBegIdx_Possible(randi(numel(batEngBegIdx_Possib
 batEngEndMin = floor(batEngMax*batEngEndMinRat/batEngStp) * batEngStp;
 batEngEndMax = ceil(batEngMax*batEngEndMaxRat/batEngStp) * batEngStp;
 
+
+
+
+%% Längsdynamik berechnen
+%   calculate longitundinal dynamics
+% Es wird eine konstante Beschleunigung angenommen, die im Wegschritt
+% wayStp das Fahrzeug von velPre auf velAct beschleunigt.
+%   constant acceleration assumed when transitioning from velPre to velAct
+%   for the selected wayStp path_idx step distance
+
+% Berechnen der konstanten Beschleunigung
+%   calculate the constant acceleration
+% vehAcc = (engKinAct - engKinPre) / (fzg_scalar_struct.vehMas*wayStp);
+
+% Aus der mittleren kinetischen Energie im Intervall, der mittleren
+% Steigung und dem Gang lässt sich über die Fahrwiderstandsgleichung
+% die nötige Fahrwiderstandskraft berechnen, die aufgebracht werden
+% muss, um diese zu realisieren.
+%   from the (avg) kinetic energy in the interval, the (avg) slope and
+%   transition can calculate the necessary traction force on the driving
+%   resistance equation (PART OF EQUATION 5)
+
+% Steigungskraft aus der mittleren Steigung berechnen (Skalar)
+%   gradiant force from the calculated (average) gradient
+vehFrcSlp = fzg_scalar_struct.vehMas * 9.81 * sin(slp);
+
+% Rollreibungskraft berechnen (Skalar)
+%   calculated rolling friction force - not included in EQ 5???
+vehFrcRol = fzg_scalar_struct.whlRosResCof*fzg_scalar_struct.vehMas * 9.81 * cos(slp);
+
+% Luftwiderstandskraft berechnen (2*c_a/m * E_kin) (Skalar) 
+%   calculated air resistance force 
+vehFrcDrg = fzg_scalar_struct.drgCof * velVec.^2;
+
+%% Berechnung der minimalen kosten der Hamiltonfunktion
+%   Calculating the minimum cost of the Hamiltonian
+
+%% Berechnen der Kraft am Rad für Antriebsstrangmodus
+%   calculate the force on the wheel for the drivetrain mode
+
+% % dynamische Fahrzeugmasse bei Fahrzeugmotor an berechnen. Das
+% % heißt es werden Trägheitsmoment von Verbrennungsmotor,
+% % Elektromotor und Rädern mit einbezogen.
+%   calculate dynamic vehicle mass with the vehicle engine (with the moment
+%   of intertia of the ICE, electric motor, and wheels)
+% vehMasDyn = (par.iceMoi_geaRat(gea) +...
+%     par.emoGeaMoi_geaRat(gea) + par.whlMoi)/par.whlDrr^2 ...
+%     + par.vehMas;
+
+% Radkraft berechnen (Beschleunigungskraft + Steigungskraft +
+% Rollwiderstandskraft + Luftwiderstandskraft)
+%   caluclating wheel forces (accerlation force + gradient force + rolling
+%   resistance + air resistance)    EQUATION 5
+whlFrc  = vehAcc*fzg_scalar_struct.vehMas + vehFrcSlp + vehFrcRol + vehFrcDrg;
+% side note: if vehicle velocity is zero, then set force at wheel to zero
+whlFrc(velVec < 0.05) = 0;
+
+
+% Das Drehmoment des Rades ergibt sich über den Radhalbmesser aus
+% der Fahrwiderstandskraft.
+%   the weel torque is obtained from the wheel radius of the rolling
+%   resistance force (torque = force * distance (in this case, radius)
+whlTrq = whlFrc*fzg_scalar_struct.whlDrr;
+
+
+
+
+
+
 % %% manipulate speed profile - find crankshaft torque throughout profile
 % % crankshaft rotational velocity: gear_ratio*velocity/wheel_radius
 % % CURRENTLY ASSUME ONLY ONE GEAR - STARTING GEAR

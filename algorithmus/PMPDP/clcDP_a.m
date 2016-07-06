@@ -22,7 +22,7 @@ function [          ...  --- Ausgangsgrößen:
     engEnd,         ... scalar - end engine state
     staBeg,         ... Skalar f�r den Startzustand des Antriebsstrangs
     slpVec_wayInx,  ... Vektor der Steigungen in rad
-    vehAcc,         ...
+    vehVec,         ...
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array       ... struct der Fahrzeugparameter - NUR ARRAYS
     )%#codegen
@@ -229,7 +229,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     for engStaActInx = 1:engStaNumAct   % CURRENT ENGINE STATE LOOP
         
         % go through off and on version of engine 
-        engStaAct = engStaActValPre_gear(engStaActInx);
+        engStaAct = engStaValAct(engStaActInx);
         
         % Schleife über alle möglichen aktuellen Zustände des Antriesstrangs
         %   Loop over all possible current powertrain states/all the gears
@@ -300,7 +300,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 %   determine the kinetic energy of the previous path_idx
                 %
                 % value of previous idx engine control state
-                engKinPre = engKinPreVec_engKinInx(engKinPreInx); %#ok<PFBNS>
+                engKinPre = engStaValPre(engStaPreInx); %#ok<PFBNS>
                 
                 % Prüfen(check), ob eine erlaubte Beschleunigung vorliegt.
                 % Ansonsten zum nächsten Schleifendurchlauf springen
@@ -357,7 +357,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     [cosHam,batFrc,fulFrc] = ...
                         clcPMP_a(gea,...
                         slp,iceFlg,batEng,batPwrAux,...
-                        batEngStp,wayStp, vehAcc, fzg_scalar_struct, fzg_array);
+                        batEngStp,wayStp, vehVel, fzg_scalar_struct, fzg_array);
                     
 %                     % minimale Kosten der Hamiltonfunktion zum aktuellen
 %                     % Punkt bestimmen
