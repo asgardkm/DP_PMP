@@ -286,7 +286,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     %   if there is no valid previous battery energy, jump
                     %   to the next loop iteration
                     if isinf(batEng)
-                        continue; % HOW TO OVERCOME INITIAL INFINITY VALUE?
+                        continue; 
                     end
                     
                     %% Antriebsstrangzustand und Strafkosten bestimmen   
@@ -295,7 +295,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     % Kosten für Zustandswechsel setzen
                     %   set costs for state changes
                     if staAct == staPre
-                        % Entspricht der Vorgängerzustand dem aktuellen 
+                        % Entspricht der Vorg�ngerzustand dem aktuellen 
                         % Zustand werden keine Kosten gesetzt
                         %   staying in current state? set penalty cost to 0
                         staChgPenCos = 0;                       
@@ -317,7 +317,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     [cosHam,batFrc,fulFrc] = ...
                         clcPMP_olyHyb_port(engKinPre,engKinAct,gea,...
                         slp,iceFlg,batEng,psiBatEng,psiTim,batPwrAux,...
-                        batEngStp,wayStp,fzg_scalar,fzg_array);
+                        batEngStp,wayStp,fzg_scalar_struct,fzg_array_struct);
                     
 %                     % minimale Kosten der Hamiltonfunktion zum aktuellen
 %                     % Punkt bestimmen

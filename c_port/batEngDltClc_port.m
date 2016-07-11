@@ -118,7 +118,7 @@ end
 %   calculating battery voltage of characteristic curve - eq?--------------
 batOcv = batEngAct*fzg_array_struct.batOcvCof_batEng(1,1) + fzg_array_struct.batOcvCof_batEng(1,2);
 
-batEngDltMin = batFrcClc_a(... FUNCTION CALL - min delta bat.energy
+batEngDltMin = batFrcClc_port(... FUNCTION CALL - min delta bat.energy
     batPwrMax,...           Skalar - Batterieklemmleistung
     vel,...                 Skalar - mittlere Geschwindigkeit im Intervall
     fzg_scalar.batRstDch,...Skalar - Entladewiderstand
@@ -126,7 +126,7 @@ batEngDltMin = batFrcClc_a(... FUNCTION CALL - min delta bat.energy
     batOcv...               Skalar - battery open-circuit voltage 
     ) * wayStp; % <-multiply by delta_S
 
-batEngDltMax = batFrcClc_a(... FUNCTION CALL - max delta bat.energy
+batEngDltMax = batFrcClc_port(... FUNCTION CALL - max delta bat.energy
     batPwrMin,...           Skalar - Batterieklemmleistung
     vel,...                 Skalar - mittlere Geschwindigkeit im Intervall
     fzg_scalar.batRstDch,...Skalar - Entladewiderstand

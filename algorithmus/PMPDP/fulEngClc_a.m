@@ -13,8 +13,8 @@ function [...
     crsTrq,         ... Skalar - crankshaft torque at given path_idx
     iceTrqMin,      ... Skalar - min ICE torque allowed
     iceTrqMax,      ... Skalar - max ICE torque
-    fzg_scalar,     ... struct - Fahrzeugparameter - nur skalar
-    fzg_array       ... struct - Fahrzeugparameter - nur array        
+    fzg_scalar_struct,     ... struct - Fahrzeugparameter - nur skalar
+    fzg_array_struct       ... struct - Fahrzeugparameter - nur array        
     ) %#codegen
 %
 %FULENGCLC Calculating fuel consumption
@@ -56,9 +56,9 @@ batFrc = batEngDlt / timeStp;
 %   Case analysis - check if battery is charging or discharging. Set
 %   resistance accordingly
 if batFrc < 0
-    batRst = fzg_scalar.batRstDch;
+    batRst = fzg_scalar_struct.batRstDch;
 else
-    batRst = fzg_scalar.batRstChr;
+    batRst = fzg_scalar_struct.batRstChr;
 end
 
 % elektrische Leistung des Elektromotors
@@ -113,8 +113,8 @@ elseif iceTrq > iceTrqMax
     fulFrc = inf;
 else   
     % replacing another coden_interp2 no just find fuel power as usual
-    fulPwr = codegen_interp2(fzg_array.iceSpdMgd,fzg_array.iceTrqMgd,...
-        fzg_array.iceFulPwr_iceSpd_iceTrq,crsSpd,iceTrq);
+    fulPwr = codegen_interp2(fzg_array_struct.iceSpdMgd,fzg_array_struct.iceTrqMgd,...
+        fzg_array_struct.iceFulPwr_iceSpd_iceTrq,crsSpd,iceTrq);
     fulFrc = fulPwr/vel;
 end
 
