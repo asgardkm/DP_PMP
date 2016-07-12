@@ -180,11 +180,11 @@ end
 
 %% %% Optimaler Momentensplit - Minimierung der Hamiltonfunktion
 %       optimum torque split - minimizing the Hamiltonian
-% Die Vorgehensweise ist ähnlich wie bei der ECMS. Es wird ein Vektor der
-% möglichen Batterieenergieänderungen aufgestellt. Aus diesen lässt sich 
-% eine Batterieklemmleistung berechnen. Aus der über das
+% Die Vorgehensweise ist �hnlich wie bei der ECMS. Es wird ein Vektor der
+% m�glichen Batterieenergie�nderungen aufgestellt. Aus diesen l�sst sich 
+% eine Batterieklemmleistung berechnen. Aus der �ber das
 % Kurbelwellenmoment, ein Elektromotormoment berechnet werden kann.
-% Über das geforderte Kurbelwellenmoment, kann für jedes Moment des 
+% Über das geforderte Kurbelwellenmoment, kann f�r jedes Moment des 
 % Elektromotors ein Moment des Verbrennungsmotors gefunden werden. Für 
 % jedes Momentenpaar kann die Hamiltonfunktion berechnet werden.
 % Ausgegeben wird der minimale Wert der Hamiltonfunktion und die
@@ -200,28 +200,27 @@ end
 %   outputs the minimum Hamilotnian value and the battery charge change
 %   caused by the electric motor torque used.
 
-
 %% Elektromotor - Aufstellen des Batterienergievektors
 %   electric motor - positioning the battery energy vectors
 
 if batEngStp > 0
     [ ...
-        batEngDltMin,...Skalar - änderung der minimalen Batterieenergieänderung
-        batEngDltMax... Skalar - änderung der maximalen Batterieenergieänderung
-        ] = ...
-        batEngDltClc_a... FUNCTION CALL
-        (...
-        timeStp,...      Skalar - time step interval
-        vehVel,...      Skalar - mittlere Geschwindigkeit im Intervall
-        batPwrAux,...   Skalar - Nebenverbraucherlast
-        batEng,...      Skalar - Batterieenergie
-        fzg_scalar_struct,...  struct - Fahrzeugparameter - nur skalar
-        fzg_array_struct,...   struct - Fahrzeugparameter - nur array
-        crsSpd,...      Skalar - crankshaft rotational speed
-        crsTrq,...      Skalar - crankshaft torque
-        iceTrqMin,...   Skalar - min ICE torque allowed
-        iceTrqMax,...   Skalar - max ICE torque allowed
-        emoTrqMaxPos... Skalar - max EM torque possible
+        batEngDltMin,       ... Skalar - änderung der minimalen Batterieenergieänderung
+        batEngDltMax        ... Skalar - änderung der maximalen Batterieenergieänderung
+        ] =                 ...
+        batEngDltClc_a      ... FUNCTION CALL
+        (                   ...
+        timeStp,            ... Skalar - time step interval
+        vehVel,             ... Skalar - mittlere Geschwindigkeit im Intervall
+        batPwrAux,          ... Skalar - Nebenverbraucherlast
+        batEng,             ... Skalar - Batterieenergie
+        fzg_scalar_struct,  ... struct - Fahrzeugparameter - nur skalar
+        fzg_array_struct,   ... struct - Fahrzeugparameter - nur array
+        crsSpd,             ... Skalar - crankshaft rotational speed
+        crsTrq,             ... Skalar - crankshaft torque
+        iceTrqMin,          ... Skalar - min ICE torque allowed
+        iceTrqMax,          ... Skalar - max ICE torque allowed
+        emoTrqMaxPos        ... Skalar - max EM torque possible
         );
     
     % Es werden 2 Fälle unterschieden:
@@ -254,6 +253,19 @@ if batEngStp > 0
 else
     batEngDltMinInx = 0;
     batEngDltMaxInx = 0;
+end
+
+% NOTE: if the engine is off, the EM cannot fluctuate how much torque to 
+% assign to the crankshaft, since it must satisfy ALL the demanded torque
+% - there is no partial split.
+% as a result, the same batEngDlt value will be used for min and max. But,
+% the max value of the two must be used, since undershooting the minimum
+% needed torque will not do.
+if ~engStaPre
+    batEngDltTmpVec     = [batEngDltMinInx batEngDltMaxInx];
+   [~, batEngDltTmpInx] = max(abs(batEngDltTmpVec));
+   batEngDltMinInx      = batEngDltTmpVec(batEngDltTmpInx);
+   batEngDltMaxInx      = batEngDltMinInx;
 end
 
 % you got a larger min change than a max change-you're out of bounds. Leave

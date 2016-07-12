@@ -186,8 +186,8 @@ engStaMat_geaNum_wayInx = zeros(1, wayInxEnd);
 
 % Schleife über alle Wegpunkte
 %   looping thorugh length of # of discretized time vector
-% for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
-for wayInx = wayInxBeg+1 : timeStp : 13
+for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
+% for wayInx = wayInxBeg+1 : timeStp : 13
 
     % mittlere Steigung im betrachteten Intervall 
     %   no longer doing mean, using previous gradiant instead
