@@ -7,30 +7,33 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     clcDP_a         ...
     (               ... --- Eingangsgrößen:
     disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
-    iceFlgBool,     ...skalar - is engine toggle on/off allowed?
-    timeStp,         ... Skalar für die Wegschrittweite in m
+    timeStp,        ... Skalar für die Wegschrittweite in m
     batEngStp,      ... Skalar der Batteriediskretisierung in J
     batEngBeg,      ... Skalar für die Batterieenergie am Beginn in Ws
     batPwrAux,      ... Skalar für die Nebenverbrauchlast in W
     staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
     wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
     wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
-    engKinNum,      ... Skalar für die max. Anz. an engKin-Stützstellen
-    staNum,         ... Skalar für die max. Anzahl an Zustandsstützstellen
+    iceFlgBool,     ... bool - define if engine off-on can be toggled
     timeNum,        ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
     engBeg,         ... scalar - beginnnig engine state
     engEnd,         ... scalar - end engine state
     staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
-...%     slpVec_wayInx,  ... Vektor der Steigungen in rad
-    vehVel,         ... velocity vector contiaing input speed profile
-    whlTrq,         ... wheel torque demand vector for the speed profile,         ...
+    velVec,         ... velocity vector contiaing input speed profile
+    whlTrq,         ... wheel torque demand vector for the speed profile
+    tst_scalar_struct,     ... struct w/ tst data state var params
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
-    fzg_array       ... struct der Fahrzeugparameter - NUR ARRAYS
+    fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
     )%#codegen
 %
 % 01.07.2016 - asgard kaleb marroquin - creating new algorithm based solely 
 % on DP for minimizing fuel use based on battery charge value with a given
 % speed and slope profile wrt time, not distance. 
+%
+% 06.07.2016 - replacing KE state dimension with engine control
+% Since engine control will be treated as a boolean 0-1 value, for indexing
+% values with on-off possibilities, a value of 1 is added to the boolean
+% value in order to create 'indexable numbers' (ie, 1 and 2 for off and on)
 %
 % Differences:
 %   - Kinetic energy is not a state/costate variable considered. 
@@ -65,7 +68,7 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
 %   variation olyHyb permits only hybrid driving (motor is always on)
 %
 % Ã„nderung am 23.02.2016 - optimale Kosten nicht direkt aus Index von min()
-% bestimmt. Das fÃ¤hrt zu einem anderen Schaltverhalten, da GÃ¤nge teilweise
+% bestimmt. Das fÃ¤hrt zu einem anderen Schaltverhalten, da Gänge teilweise
 % gleiche Kosten verursachen. In dem Fall wird jetzt der niedrigste Gang
 % gewÃ¤hlt, wie in der DP.
 %   change on 23.02.2016 - optimal costs are not directly from the min()
@@ -92,7 +95,7 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
 %   assigning input structure values to function persistant variables
 %   - just once
 % persistent geaNum vehMas vehAccMin vehAccMax iceFlg
-persistent geaNum iceFlg engNum
+persistent geaNum engNum engStaMin engStaMax iceFlg
 
 if isempty(geaNum)
     
@@ -105,8 +108,10 @@ if isempty(geaNum)
     engNum = 2;
     % Anzahl der GÃ¤nge
     %   number of gears
-    geaNum = staNum; % max number of state nodes
+    geaNum = tst_scalar_struct.staNum; % max number of state nodes
     
+    engStaMin = tst_scalar_struct.engStaMin;
+    engStaMax = tst_scalar_struct.engStaMax;
     % Fahrzeugmasse;
 %     vehMas = fzg_scalar_struct.vehMas;
  
@@ -179,11 +184,13 @@ engStaVec_wayInx(wayInxBeg) = engBeg;
 engStaVec_wayInx(wayInxEnd) = engEnd;
 
 % define a vector for containing the values of engine control off-on
-engStaMat_geaNum_wayInx = zeros(length(geaNum), wayInxEnd);
+engStaMat_geaNum_wayInx = zeros(1, wayInxEnd);
+
 % Schleife über alle Wegpunkte
 %   looping thorugh length of # of discretized time vector
 for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
-    
+% for wayInx = wayInxBeg+1 : timeStp : 13
+
     % mittlere Steigung im betrachteten Intervall 
     %   no longer doing mean, using previous gradiant instead
 %     slp = slpVec_wayInx(wayInx-1);
@@ -217,29 +224,30 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     %   initialize matrix for fuel energie along current way idxs
     fulEngActMat = inf(engNum, geaNum);
     
-    % Anzahl der kinetischen Energien im aktuellen und im
-    % VorgÃ¤ngerwegschritt
-    %   number of kinetic energies in current and past path_idxs
-    engStaNumAct = engStaVec_wayInx(wayInx); % look at this loop's KE
-    engStaNumPre = engStaVec_wayInx(wayInx-1); % and the previous idx KE
     
-    % define previous and actual engine status (on-off)
-    engStaValPre = engStaMat_geaNum_wayInx(:, wayInx - 1);
-    engStaValAct = engStaMat_geaNum_wayInx(:, wayInx); 
+    % possible engine state changes for current and past path_idxs
+    engStaNumPre = engStaVec_wayInx(wayInx-1); % and the previous idx KE
+    engStaNumAct = engStaVec_wayInx(wayInx);   % look at this loop's KE
 
+    % define previous and actual engine status - VALUE (on-off)
+    engStaValPre = engStaMat_geaNum_wayInx(wayInx - 1);
+    engStaValAct = engStaMat_geaNum_wayInx(wayInx); 
+
+    
     % create vector storing current and previous velocity info
-    vehVelVec = [vehVel(wayInx) vehVel(wayInx-1)];
+    vehVelVec = [velVec(wayInx-1) velVec(wayInx)];
     
     % fetch previous time idx wheel torque
     whlTrqPre = whlTrq(wayInx - 1);
     
 %%  go through the possible engine state on-off possibilities
-    for engStaActInx = 1:engStaNumAct   % CURRENT ENGINE STATE LOOP
+%   checking if the engine can be off or on for this index
+    for engStaActInx = engStaMin:engStaMax   % CURRENT ENGINE STATE LOOP
                          
         % go through off and on version of engine 
-        engStaAct = engStaValAct(engStaActInx);
+        engStaAct = engStaActInx;
         
-        % Schleife Ã¼ber alle mÃ¶glichen aktuellen ZustÃ¤nde des Antriesstrangs
+        % Schleife über alle möglichen aktuellen Zustände des Antriesstrangs
         %   Loop over all possible current powertrain states/all the gears
         for geaStaAct = 1:geaNum           % ALL GEARS LOOP
             %% Initialsiieren
@@ -249,8 +257,9 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
             %   preallocate the loop's output size
             %   but this is the hamiltonian cost?
 %             cosHamMin = inf;
+            minFulMin = inf;
             
-            % Initialisieren der Variable fÃ¼r den optimalen Zustandsindex
+            % Initialisieren der Variable für den optimalen Zustandsindex
             %   initializing variable for optimal state index
             geaStaPreOptInx = 0;
             
@@ -279,6 +288,16 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
             %   initialize the optimal battery power (up to boundry limits)
             batEngOpt = inf;
             
+            %% defining previous engine state control w/ iceFlg
+            if ~iceFlg
+                    engStaPreIdx = engStaValPre;
+            else
+                    engStaPreIdx = 
+                    
+            % if the motor must always be on - loop only through same state
+                    
+            end
+            
             %% VorgÃ¤ngerzustÃ¤nde beschrÃ¤nken
             %   Restrictions on predecessor operation states
           
@@ -301,10 +320,10 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
             %   loop through all the kinetic energies (previous state idxs)
             %
             % new - loop through previous engine control
-            for engStaPreInx = 1:engStaNumPre % PREVIOUS gear state loop
+            for engStaPreInx = 0:(engStaNumPre-1) % PREVIOUS gear state loop
 
                 % value of previous idx engine control state
-                engStaPre = engStaValPre(engStaPreInx); %#ok<PFBNS>
+                engStaPre = engStaPreInx; %#ok<PFBNS>
 
                 % Schleife Ã¼ber allen ZustÃ¤nde (relativer Index)
                 %   Loop through all the gear states (relative index)
@@ -321,11 +340,11 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     %   if there is no valid previous battery energy, jump
                     %   to the next loop iteration
                     if isinf(batEng)
-                        continue; % HOW TO OVERCOME INITIAL INFINITY VALUE?
+                        continue;
                     end
                     
                     %% Antriebsstrangzustand und Strafkosten bestimmen   
-                    %   determine gear and penalty costs
+                    %   determine gear and engine  penalty costs
                     
                     % Kosten fÃ¼r Zustandswechsel setzen
                     %   set costs for state changes
@@ -333,15 +352,20 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                         % Entspricht der VorgÃ¤ngerzustand dem aktuellen 
                         % Zustand werden keine Kosten gesetzt
                         %   staying in current state? set penalty cost to 0
-                        staChgPenCos = 0;                       
+                        geaStaChgPenCos = 0;                       
                         
                     else
                         % Ansonsten einfache Zustandswechselkosten
                         % berechnen
                         %   otherwise apply a penalty cost to changing gear
-                        staChgPenCos = staChgPenCosVal; %<-penCos is input
+                        geaStaChgPenCos = staChgPenCosVal; %<-penCos is input
                     end
                     
+                    if engStaAct == engStaPre
+                        engStaChgPenCos = 0;
+                    else 
+                        engStaChgPenCos = staChgPenCosVal;
+                    end
                     
                     %% Berechnung der optimalen Kosten zum aktuellen Punkt
                     %   calculating optimal cost to the current point
@@ -358,7 +382,6 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     [minFul,batFrc,fulFrc] =        ...
                         clcPMP_a(engStaPre,         ...  
                                 gea,                ...
-                                iceFlg,             ...
                                 batEng,             ...
                                 batPwrAux,          ...
                                 batEngStp,          ...
@@ -366,7 +389,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                                 vehVelVec,          ...
                                 whlTrqPre,          ... use prev idx whlTrq
                                 fzg_scalar_struct,  ...
-                                fzg_array);
+                                fzg_array_struct);
                     
 %                     % minimale Kosten der Hamiltonfunktion zum aktuellen
 %                     % Punkt bestimmen
@@ -378,70 +401,77 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     
                     % combine the min hamil. cost w/ previous costs and 
                     %   gear penalty to get current cost
-                    cosAct = minFul...
-                        + cos2goPreMat(engStaPreInx,geaStaPre)...
-                        + staChgPenCos/wayStp;
+                    fulAct = minFul...
+                        + cos2goPreMat(engStaPreInx+1,geaStaPre)...
+                        + geaStaChgPenCos/timeStp + engStaChgPenCos/timeStp;
                     
                     % Wenn der aktuelle Punkt besser ist, als der in
                     % cosHamMin gespeicherte Wert, werden die Ausgabegrüßen
                     % neu beschrieben.
                     %   if current point is better than the cost value
                     %   stored in CosHamMin, then rewrite the output
-                    if cosAct < cosHamMin
-                        cosHamMin = cosAct;             % new hamil. cost
+                    % 
+                    %   WHAT IF - WE INCLUDED <= ? WHY NOT? BOTH OPTIONS
+                    %   WOULD BE EQUALLY OPTIMAL
+                    %   - will implement as of 06.07.2016
+                    if fulAct < minFulMin
+                        minFulMin = fulAct;             % new hamil. cost
                         geaStaPreOptInx = geaStaPre;    % new opt gear idx
-                        engKinPreOptInx = engKinPreInx; % new optimal KEidx
+                        engStaPreOptInx = engStaPre;    % new opt eng state
                         batFrcOpt = batFrc;             % new opt bat force
                         % new opt. battery energy = (batt. force *
-                        % displacement diff) + previous battery energy valu
-                        batEngOpt = batFrc * wayStp + ...
-                            batEngPreMat(engKinPreInx,geaStaPre);
-                        % new opt. fuel energy = (fuel force * displacement
-                        % diff) + previous fuel energy value
-                        fulEngOpt = fulFrc * wayStp + ...
-                            fulEngPreMat(engKinPreInx,geaStaPre);%#ok<PFBNS>
+                        %   time diff) + previous battery energy valu
+                        %   - NOTE: batFrc*timeStp calc is the same as the
+                        %       batFrc calculation in batFrcClc_a()
+                        %   -   why not output that calculation instead?
+                        batEngOpt = batFrc * timeStp + ...
+                            batEngPreMat(engStaPre+1,geaStaPre);
+                        % new opt. fuel energy = (fuel force * time diff)
+                        %   + previous fuel energy value
+                        fulEngOpt = fulFrc * timeStp + ...
+                            fulEngPreMat(engStaPre+1,geaStaPre);%#ok<PFBNS>
                     end
                 end % end of gear changes loop
             end % end of running through previous engine state ctrl loop
             
-            if ~isinf(cosHamMin)
+            if ~isinf(minFulMin)
                 % optimale Kosten zum aktuellen Punkt speichern
                 %   save min hamilton value for current point
-                cos2goActMat(engKinActInx,geaStaAct) = cosHamMin;
+                cos2goActMat(engStaActInx+1,geaStaAct) = minFulMin;
                 
                 % optimale Batterieenergie zum aktuellen Punkt speichern
                 %   save optimal battery energy for current point
-                batEngActMat(engKinActInx,geaStaAct) = batEngOpt;
+                batEngActMat(engStaActInx+1,geaStaAct) = batEngOpt;
                 
                 % optimale Krafstoffenergie zum aktuellen Punkt speichern
                 %   save optimal fuel energy for current point
-                fulEngActMat(engKinActInx,geaStaAct) = fulEngOpt;
+                fulEngActMat(engStaActInx+1,geaStaAct) = fulEngOpt;
 
                 % optimale Batterieenergie zum aktuellen Punkt
-                % FlussgrÃ¶ÃŸe gilt im Intervall
+                % Flussgröße gilt im Intervall
                 %   populate optimal battery energy flux quantity at point 
                 %   that's applicable to current interval
-                batFrcOptMat(engKinActInx,geaStaAct) = batFrcOpt;
+                batFrcOptMat(engStaActInx+1,geaStaAct) = batFrcOpt;
                 
-                % optimalen VorgÃ¤nger codieren Ã¼ber Funktion sub2ind
+                % optimalen Vorgänger codieren über Funktion sub2ind
                 % und speichern im Tensor
                 %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
-                optPreInxTn3(engKinActInx,geaStaAct,wayInx) = ...
-                    sub2ind([engKinNum,geaNum],...
-                    engKinPreOptInx,geaStaPreOptInx);
+                optPreInxTn3(engStaActInx+1,geaStaAct,wayInx) = ...
+                    sub2ind([engNum,geaNum],...
+                    engStaPreOptInx+1,geaStaPreOptInx);
             end % end of ~inf(hamiltonian) if-statement
         end % end of looping through all gears
     end % end of looping through all the current engine control states
     
-    % Speichern der Batterieenergie fÃ¼r den nÃ¤chsten Schleifendurchlauf
+    % Speichern der Batterieenergie für den nächsten Schleifendurchlauf
     %   save battery energy value as previous path_idx val for next loop 
     batEngPreMat = batEngActMat;
     
-    % Speichern der Krafstoffenergie fÃ¼r den nÃ¤chsten Schleifendurchlauf
+    % Speichern der Krafstoffenergie für den nÃ¤chsten Schleifendurchlauf
     %   save fuel energy value as previous path_idx value for the next loop
     fulEngPreMat = fulEngActMat;
     
-    % Speichern der Kosten fÃ¼r den nÃ¤chsten Schleifendurchlauf
+    % Speichern der Kosten für den nächsten Schleifendurchlauf
     %   save cost as previous path_idx value for the next loop
     cos2goPreMat = cos2goActMat; 
     
@@ -450,9 +480,9 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     fulEngOptTn3(:,:,wayInx) = fulEngActMat;
     % optimale Batterieenergie zum aktuellen Punkt
     %   optimal battery force at current point - save current mat in tensor
-    % FlussgrÃ¶ÃŸe gilt im Intervall
+    % Flussgröße gilt im Intervall
     %   flux quantity applied over the interval
-    batFrcOptTn3(:,wayInx-1) = batFrcOptMat;
+    batFrcOptTn3(:,:,wayInx-1) = batFrcOptMat;
     
     % Ausgabe des aktuellen Schleifendurchlaufs
     %   output for current loop - print to terminal

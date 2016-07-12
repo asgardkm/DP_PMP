@@ -68,13 +68,12 @@ emoPwrEle = -batFrc * vel ... innere Batterieleistung / internal batt power
     - batPwrAux; ...          Nebenverbrauchlast / auxiliary power
     
 %% Elektromotor
-
 % Ermitteln des Kurbelwellenmoments durch EM aus Batterieleistung
 %   determine crankshaft torque cauesd by EM's battery power
 %       switching out codegen_interp2 for lininterp2-just might work!
 %
 % again, if vehicle is stationary, then electric motor's torque is zero
-if vel == 0
+if vel < abs(fzg_scalar_struct.vehVelThresh)
     emoTrq = 0;
 else
     emoTrq = codegen_interp2(fzg_array_struct.emoSpdMgd,fzg_array_struct.emoPwrMgd,...

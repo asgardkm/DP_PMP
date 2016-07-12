@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * clcDP_port.c
  *
  * Code generation for function 'clcDP_port'
@@ -120,13 +116,8 @@ void clcDP_port(const emlrtStack *sp, const struct0_T *inputparams, const
                     fzg_array_struct, optPreInxTn3, batFrcOptTn3, fulEngOptTn3,
                     cos2goActMat);
   d0 = inputparams->wayInxEnd;
-  if (d0 == (int32_T)muDoubleScalarFloor(d0)) {
-    i0 = (int32_T)d0;
-  } else {
-    i0 = (int32_T)emlrtIntegerCheckR2012b(d0, &emlrtDCI, sp);
-  }
-
-  emlrtDynamicBoundsCheckR2012b(i0, 1, 800, &emlrtBCI, sp);
+  i0 = (int32_T)emlrtIntegerCheckFastR2012b(d0, &emlrtDCI, sp);
+  emlrtDynamicBoundsCheckFastR2012b(i0, 1, 800, &emlrtBCI, sp);
 
   /* % Calculating optimal trajectories for result of DP + PMP */
   /*  Vektor - Trajektorie der optimalen kin. Energien */

@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * batFrcClc_port.c
  *
  * Code generation for function 'batFrcClc_port'
@@ -24,10 +20,6 @@ real_T batFrcClc_port(real_T batPwr, real_T vel, real_T batRstDch, real_T
   real_T batFrcCpl_re;
   real_T yr;
   real_T yi;
-  real_T ar;
-  real_T ai;
-  real_T br;
-  real_T batFrcCpl_im;
 
   /*    Skalar - Batteriekraft (E') */
   /*           Skalar - Batterieklemmleistung */
@@ -61,7 +53,7 @@ real_T batFrcClc_port(real_T batPwr, real_T vel, real_T batRstDch, real_T
 
   /*  Batterieenergieänderung über dem Weg berechnen. Herleitung der Formel */
   /*  kann zum Beispiel dem Paper mit Chalmers entnommen werden */
-  /*    calculate battery power charge for path_idx. Formula derivation can be  */
+  /*    calculate battery power change for path_idx. Formula derivation can be  */
   /*    found from other papers (for example, Chalmers paper) */
   batFrcCpl_re = 1.0 - 4.0 * batRst / (batOcv * batOcv) * batPwr;
   if (batFrcCpl_re < 0.0) {
@@ -72,26 +64,26 @@ real_T batFrcClc_port(real_T batPwr, real_T vel, real_T batRstDch, real_T
     yi = 0.0;
   }
 
-  ar = batOcv * batOcv * (yr - 1.0);
-  ai = batOcv * batOcv * yi;
-  br = 2.0 * batRst * vel;
-  if (ai == 0.0) {
-    batFrcCpl_re = ar / br;
-    batFrcCpl_im = 0.0;
-  } else if (ar == 0.0) {
+  batFrcCpl_re = batOcv * batOcv * (yr - 1.0);
+  yi *= batOcv * batOcv;
+  yr = 2.0 * batRst * vel;
+  if (yi == 0.0) {
+    batFrcCpl_re /= yr;
+    yr = 0.0;
+  } else if (batFrcCpl_re == 0.0) {
     batFrcCpl_re = 0.0;
-    batFrcCpl_im = ai / br;
+    yr = yi / yr;
   } else {
-    batFrcCpl_re = ar / br;
-    batFrcCpl_im = ai / br;
+    batFrcCpl_re /= yr;
+    yr = yi / yr;
   }
 
   /*  Sollte die physikalisch mögliche Batterieleistung überschritten werden, */
   /*  wird der Term unter der Wurzel negativ. In diesem Fall wird die Ausgabe */
   /*  ungültig geschrieben. */
   /*    check to make sure that the battery capacity is not exceeded (when the */
-  /*    root becomes negative, the output is no longer valid) (Quadrants 3, 4) */
-  if (batFrcCpl_im != 0.0) {
+  /*    root becomes negative, the output is no longer valid) (must be on real axis) */
+  if (yr != 0.0) {
   } else {
     batFrc = batFrcCpl_re;
   }

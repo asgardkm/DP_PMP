@@ -34,7 +34,7 @@ PARAMS_START
 1181,			wayInxEnd,			a
 1,				engBeg,				initial state of engine (0-off, 1-on)
 1,				engEnd,				final state of engine 	(0-off, 1-on)
-1,				staBeg,				a
+3,				staBeg,				a
 PARAMS_END
 ====================================================================================
 
@@ -54,7 +54,11 @@ Test data parameters used on a 800 path_index long run.
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
 TSTDAT_START
-6,				staNum,				Number of gears in model
+3,				staNum,				Number of gears in model
+3,				geaStaMin,			low gear limit
+3,				geaStaMax,			high gear limit
+0,				engStaMin,			low engine state boundary (0-off, 1-on)
+1,				engStaMax,			high ^^; can set both equal for always off/on ice
 TSTDAT_END
 ====================================================================================
 
@@ -74,8 +78,9 @@ Test data parameters used on a 800 path_index long run.
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
 FAHRZEUG_START
-5,				vehVelMin,			a
+5,				vehVelMin,			IS THIS VALUE NECESSARY WHEN VEHICLE IS STOPPING?
 30,				vehVelMax,			a
+0.005, 			vehVelThresh,		limit from which FZG is now considered stationary
 1.5,			vehAccMax,			a
 -1.5,			vehAccMin,			a
 0.39,			drgCof,				a

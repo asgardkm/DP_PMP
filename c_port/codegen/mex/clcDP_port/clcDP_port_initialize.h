@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * clcDP_port_initialize.h
  *
  * Code generation for function 'clcDP_port_initialize'
@@ -25,7 +21,7 @@
 #include "clcDP_port_types.h"
 
 /* Function Declarations */
-extern void clcDP_port_initialize(void);
+extern void clcDP_port_initialize(emlrtContext *aContext);
 
 #endif
 

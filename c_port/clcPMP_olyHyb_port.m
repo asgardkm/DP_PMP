@@ -1,6 +1,6 @@
 function [cosHamMin,batFrcOut,fulFrcOut] = ...
     clcPMP_olyHyb_port(engKinPre,engKinAct,gea,slp,iceFlg,batEng,psiBatEng,...
-                  psiTim, batPwrAux,batEngStp,wayStp,fzg_scalar,fzg_array)
+                  psiTim, batPwrAux,batEngStp,wayStp,fzg_scalar_struct,fzg_array_struct)
 %#codegen
 %CLCPMP Minimizing Hamiltonian: Co-States for soc and time
 % Erstellungsdatum der ersten Version 19.08.2015 - Stephan Uebel
@@ -35,8 +35,8 @@ function [cosHamMin,batFrcOut,fulFrcOut] = ...
 %                                ^^ torque step <- no, it's a battery step
 % wayStp        - Double(1,1)  - Intervallschrittweite in m
 %                                ^^ interval step distance (m)
-% fzg_scalar    - Struct(1,1)  - Modelldaten - nur skalar
-% fzg_array     - Struct(1,1)  - Modelldaten _ nur arrays                             
+% fzg_scalar_struct    - Struct(1,1)  - Modelldaten - nur skalar
+% fzg_array_struct     - Struct(1,1)  - Modelldaten _ nur arrays                             
 
 %% Initialisieren der Ausgabe der Funktion
 %   initializing function output
@@ -63,15 +63,15 @@ if isempty(crsSpdHybMax)
     
     % maximale Drehzahl Elektrommotor
     %   maximum electric motor rotational speed
-    crsSpdEmoMax = fzg_array.emoSpdMgd(1,end);
+    crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
     
     % maximale Drehzahl der Kurbelwelle
     %   maximum crankshaft rotational speed
-    crsSpdHybMax = min(fzg_array.iceSpdMgd(1,end),crsSpdEmoMax);
+    crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end),crsSpdEmoMax);
     
     % minimale Drehzahl der Kurbelwelle
     %   minimum crankshaft rotational speed
-    crsSpdHybMin = fzg_array.iceSpdMgd(1,1);
+    crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
     
 end
 
@@ -83,7 +83,7 @@ end
 engKin = engKinPre;
 % mittlere Geschwindigkeit im Wegschritt berechnen
 %   define the average speed at path_idx step
-vehVel = sqrt( 2 * engKin / fzg_scalar.vehMas );
+vehVel = sqrt( 2 * engKin / fzg_scalar_struct.vehMas );
 
 %% vorzeitiger Funktionsabbruch?
 %   premature function termination?
@@ -96,8 +96,8 @@ vehVel = sqrt( 2 * engKin / fzg_scalar.vehMas );
 %   from the vehicle's kinetic energy, the crankshaft speed is calculated
 %   by the speed and gearbox translation. Line direction corresponding to
 %   the aisles (row rector). EQUATION 1
-crsSpdVec = fzg_array.geaRat(gea) * ...
-    sqrt(2*[engKinPre,engKinAct]/fzg_scalar.vehMas) / (fzg_scalar.whlDrr);
+crsSpdVec = fzg_array_struct.geaRat(gea) * ...
+    sqrt(2*[engKinPre,engKinAct]/fzg_scalar_struct.vehMas) / (fzg_scalar_struct.whlDrr);
 
 % Abbruch, wenn die Drehzahlen der Kurbelwelle zu hoch im hybridischen
 % Modus
@@ -133,7 +133,7 @@ crsSpd = crsSpdVec(1);
 
 % Berechnen der konstanten Beschleunigung
 %   calculate the constant acceleration
-vehAcc = (engKinAct - engKinPre) / (fzg_scalar.vehMas*wayStp);
+vehAcc = (engKinAct - engKinPre) / (fzg_scalar_struct.vehMas*wayStp);
 
 % Aus der mittleren kinetischen Energie im Intervall, der mittleren
 % Steigung und dem Gang lässt sich über die Fahrwiderstandsgleichung
@@ -145,14 +145,14 @@ vehAcc = (engKinAct - engKinPre) / (fzg_scalar.vehMas*wayStp);
 
 % Steigungskraft aus der mittleren Steigung berechnen (Skalar)
 %   gradiant force from the calculated (average) gradient
-vehFrcSlp = fzg_scalar.vehMas * 9.81 * sin(slp);
+vehFrcSlp = fzg_scalar_struct.vehMas * 9.81 * sin(slp);
 
 % Rollreibungskraft berechnen (Skalar)
 %   calculated rolling friction force - not included in EQ 5???
-vehFrcRol = fzg_scalar.whlRosResCof*fzg_scalar.vehMas * 9.81 * cos(slp);
+vehFrcRol = fzg_scalar_struct.whlRosResCof*fzg_scalar_struct.vehMas * 9.81 * cos(slp);
 % Luftwiderstandskraft berechnen (2*c_a/m * E_kin) (Skalar) 
 %   calculated air resistance force 
-vehFrcDrg = 2*fzg_scalar.drgCof/fzg_scalar.vehMas*engKin;
+vehFrcDrg = 2*fzg_scalar_struct.drgCof/fzg_scalar_struct.vehMas*engKin;
 
 %% Berechnung der minimalen kosten der Hamiltonfunktion
 %   Calculating the minimum cost of the Hamiltonian
@@ -173,7 +173,7 @@ vehFrcDrg = 2*fzg_scalar.drgCof/fzg_scalar.vehMas*engKin;
 % Rollwiderstandskraft + Luftwiderstandskraft)
 %   caluclating wheel forces (accerlation force + gradient force + rolling
 %   resistance + air resistance)    EQUATION 5
-whlFrc  = vehAcc*fzg_scalar.vehMas + vehFrcSlp + vehFrcRol + vehFrcDrg;
+whlFrc  = vehAcc*fzg_scalar_struct.vehMas + vehFrcSlp + vehFrcRol + vehFrcDrg;
 %% Getriebeübersetzung und -verlust
 %   gear ratio and loss
 
@@ -181,7 +181,7 @@ whlFrc  = vehAcc*fzg_scalar.vehMas + vehFrcSlp + vehFrcRol + vehFrcDrg;
 % der Fahrwiderstandskraft.
 %   the weel torque is obtained from the wheel radius of the rolling
 %   resistance force (torque = force * distance (in this case, radius)
-whlTrq = whlFrc*fzg_scalar.whlDrr;
+whlTrq = whlFrc*fzg_scalar_struct.whlDrr;
 
 % Berechnung des Kurbelwellenmoments
 % Hier muss unterschieden werden, ob das Radmoment positiv oder
@@ -191,9 +191,9 @@ whlTrq = whlFrc*fzg_scalar.whlDrr;
 %   negative), since only a simple efficiency is used for the transmission
 %   PART OF EQ4  <- perhaps reversed? not too sure
 if whlTrq < 0
-    crsTrq = whlTrq / fzg_array.geaRat(gea) * fzg_scalar.geaEfy;
+    crsTrq = whlTrq / fzg_array_struct.geaRat(gea) * fzg_scalar_struct.geaEfy;
 else
-    crsTrq = whlTrq / fzg_array.geaRat(gea) / fzg_scalar.geaEfy;
+    crsTrq = whlTrq / fzg_array_struct.geaRat(gea) / fzg_scalar_struct.geaEfy;
 end
 
 %% Verbrennungsmotor
@@ -201,15 +201,15 @@ end
 
 % maximales Moment des Verbrennungsmotors berechnen
 %   calculate max torque of the engine (quadratic based on rotation speed)
-iceTrqMax = fzg_array.iceTrqMaxCof(1) * crsSpd^2 ...
-    + fzg_array.iceTrqMaxCof(2) * crsSpd ...
-    + fzg_array.iceTrqMaxCof(3);
+iceTrqMax = fzg_array_struct.iceTrqMaxCof(1) * crsSpd^2 ...
+    + fzg_array_struct.iceTrqMaxCof(2) * crsSpd ...
+    + fzg_array_struct.iceTrqMaxCof(3);
 
 % minimales Moment des Verbrennungsmotors berechnen
 %   calculating mimimum ICE moment
-iceTrqMin = fzg_array.iceTrqMinCof(1) * crsSpd^2 ...
-    + fzg_array.iceTrqMinCof(2) * crsSpd ...
-    + fzg_array.iceTrqMinCof(3);
+iceTrqMin = fzg_array_struct.iceTrqMinCof(1) * crsSpd^2 ...
+    + fzg_array_struct.iceTrqMinCof(2) * crsSpd ...
+    + fzg_array_struct.iceTrqMinCof(3);
 
 %% Elektromotor
 %   electric motor
@@ -219,7 +219,7 @@ iceTrqMin = fzg_array.iceTrqMinCof(1) * crsSpd^2 ...
 % emoTrqMaxPos = ...
 %     lininterp1(par.emoSpdMgd(1,:)',par.emoTrqMax_emoSpd,crsSpd);
 emoTrqMaxPos = ...
-    interp1q(fzg_array.emoSpdMgd(1,:)',fzg_array.emoTrqMax_emoSpd,crsSpd);
+    interp1q(fzg_array_struct.emoSpdMgd(1,:)',fzg_array_struct.emoTrqMax_emoSpd,crsSpd);
 
 % Die gültigen Kurbelwellenmomente müssen kleiner sein als das
 % Gesamtmoment von E-Motor und Verbrennungsmotor
@@ -265,8 +265,8 @@ if batEngStp > 0
         vehVel,...      Skalar - mittlere Geschwindigkeit im Intervall
         batPwrAux,...   Skalar - Nebenverbraucherlast
         batEng,...      Skalar - Batterieenergie
-        fzg_scalar,...  struct - Fahrzeugparameter - nur skalar
-        fzg_array,...   struct - Fahrzeugparameter - nur array
+        fzg_scalar_struct,...  struct - Fahrzeugparameter - nur skalar
+        fzg_array_struct,...   struct - Fahrzeugparameter - nur array
         crsSpd,...      Skalar - crankshaft rotational speed
         crsTrq,...      Skalar - crankshaft torque
         iceTrqMin,...   Skalar - min ICE torque allowed
@@ -319,7 +319,7 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
     batEngDlt = batEngDltInx * batEngStp;
     batEngAct = batEng + batEngDlt;
     % open circuit voltage over each iteration
-    batOcv = batEngAct*fzg_array.batOcvCof_batEng(1,1)+fzg_array.batOcvCof_batEng(1,2);
+    batOcv = batEngAct*fzg_array_struct.batOcvCof_batEng(1,1)+fzg_array_struct.batOcvCof_batEng(1,2);
     
     [ ...
         batPwr,...          Skalar für die Batterieleistung in W
@@ -335,15 +335,15 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
         crsTrq,...          Skalar - crankshaft torque at given path_idx
         iceTrqMin,...       Skalar - min ICE torque allowed
         iceTrqMax,...       Skalar - max ICE torque
-        fzg_scalar,...      struct - Fahrzeugparameter - nur skalar
-        fzg_array...        struct - Fahrzeugparameter - nur array        
+        fzg_scalar_struct,...      struct - Fahrzeugparameter - nur skalar
+        fzg_array_struct...        struct - Fahrzeugparameter - nur array        
         );
     
     batFrc = batFrcClc_port(...      FUNCTION CALL
         batPwr,...          Skalar - Batterieklemmleistung
         vehVel,...          Skalar - mittlere Geschwindigkeit im Intervall
-        fzg_scalar.batRstDch,...   Skalar - Entladewiderstand
-        fzg_scalar.batRstChr,...   Skalar - Ladewiderstand
+        fzg_scalar_struct.batRstDch,...   Skalar - Entladewiderstand
+        fzg_scalar_struct.batRstChr,...   Skalar - Ladewiderstand
         batOcv...           Skalar - battery open circuit voltage
         );    
     

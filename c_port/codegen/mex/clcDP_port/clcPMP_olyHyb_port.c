@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * clcPMP_olyHyb_port.c
  *
  * Code generation for function 'clcPMP_olyHyb_port'
@@ -24,47 +20,47 @@
 static real_T crsSpdHybMax;
 static boolean_T crsSpdHybMax_not_empty;
 static real_T crsSpdHybMin;
-static emlrtRSInfo i_emlrtRSI = { 328, "clcPMP_olyHyb_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
+static emlrtRSInfo i_emlrtRSI = { 324, "clcPMP_olyHyb_port",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
 };
 
-static emlrtRSInfo j_emlrtRSI = { 261, "clcPMP_olyHyb_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
+static emlrtRSInfo j_emlrtRSI = { 258, "clcPMP_olyHyb_port",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
 };
 
 static emlrtRSInfo k_emlrtRSI = { 100, "clcPMP_olyHyb_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
 };
 
 static emlrtRSInfo l_emlrtRSI = { 86, "clcPMP_olyHyb_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
 };
 
 static emlrtRSInfo m_emlrtRSI = { 14, "sqrt",
-  "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\elfun\\sqrt.m"
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\elfun\\sqrt.m"
 };
 
-static emlrtRSInfo n_emlrtRSI = { 86, "batEngDltClc_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\batEngDltClc_port.m"
+static emlrtRSInfo n_emlrtRSI = { 87, "batEngDltClc_port",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\batEngDltClc_port.m"
 };
 
-static emlrtRSInfo o_emlrtRSI = { 89, "batEngDltClc_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\batEngDltClc_port.m"
+static emlrtRSInfo o_emlrtRSI = { 90, "batEngDltClc_port",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\batEngDltClc_port.m"
 };
 
 static emlrtRSInfo p_emlrtRSI = { 70, "fulEngClc_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\fulEngClc_port.m" };
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\fulEngClc_port.m" };
 
 static emlrtRSInfo q_emlrtRSI = { 102, "fulEngClc_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\fulEngClc_port.m" };
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\fulEngClc_port.m" };
 
 static emlrtBCInfo mb_emlrtBCI = { 1, 6, 99, 13, "fzg_array.geaRat",
   "clcPMP_olyHyb_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m",
   0 };
 
-static emlrtRTEInfo s_emlrtRTEI = { 321, 1, "clcPMP_olyHyb_port",
-  "C:\\Users\\s0032360\\Documents\\gitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
+static emlrtRTEInfo t_emlrtRTEI = { 318, 1, "clcPMP_olyHyb_port",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\c_port\\clcPMP_olyHyb_port.m"
 };
 
 /* Function Definitions */
@@ -73,7 +69,7 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
   batPwrAux, real_T batEngStp, real_T wayStp, const struct2_T *fzg_scalar, const
   struct4_T *fzg_array, real_T *cosHamMin, real_T *batFrcOut, real_T *fulFrcOut)
 {
-  real_T mtmp;
+  real_T whlTrq;
   real_T vehVel;
   real_T b_engKinPre[2];
   real_T crsSpdVec[2];
@@ -82,31 +78,16 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
   boolean_T exitg3;
   boolean_T exitg2;
   real_T crsSpd;
-  real_T whlTrq;
   real_T crsTrq;
   real_T iceTrqMax;
   real_T iceTrqMin;
   real_T b_fzg_array[100];
-  real_T emoTrqMaxPos;
   real_T emoTrqMinPos;
   real_T emoTrqMax;
-  real_T emoTrqMin;
-  real_T batPwrMax;
-  real_T batPwrMin;
-  real_T batOcv;
-  real_T batEngDltMin;
-  real_T batEngDltMax;
   real_T batEngDltMinInx;
-  real_T batEngDltMaxInx;
+  real_T batOcv;
   int32_T batEngDltInx;
-  real_T batEngDlt;
-  real_T fulFrc;
-  real_T batFrc;
-  real_T b_batFrc;
-  real_T batPwr;
-  real_T emoTrq;
-  real_T iceTrq;
-  real_T fulPwr;
+  real_T b_emoTrqMinPos;
   int32_T ixstart;
   int32_T itmp;
   int32_T ix;
@@ -188,17 +169,17 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
   /* % Initialisieren der allgemein benötigten Kenngrößen */
   /*    initializing the commonly required parameters */
   /*  mittlere kinetische Energie im Wegschritt berechnen */
-  /*    define the average kinetic energy at path_idx step - is just previous KE */
+  /*    define the average kinetic energy at path_idx step-is just previous KE */
   /*  mittlere Geschwindigkeit im Wegschritt berechnen */
   /*    define the average speed at path_idx step */
-  mtmp = 2.0 * engKinPre / fzg_scalar->vehMas;
+  whlTrq = 2.0 * engKinPre / fzg_scalar->vehMas;
   st.site = &l_emlrtRSI;
-  if (mtmp < 0.0) {
+  if (whlTrq < 0.0) {
     b_st.site = &m_emlrtRSI;
     eml_error(&b_st);
   }
 
-  vehVel = muDoubleScalarSqrt(mtmp);
+  vehVel = muDoubleScalarSqrt(whlTrq);
 
   /* % vorzeitiger Funktionsabbruch? */
   /*    premature function termination? */
@@ -229,7 +210,7 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
   }
 
   k = (int32_T)gea;
-  emlrtDynamicBoundsCheckR2012b(k, 1, 6, &mb_emlrtBCI, sp);
+  emlrtDynamicBoundsCheckFastR2012b(k, 1, 6, &mb_emlrtBCI, sp);
   for (k = 0; k < 2; k++) {
     crsSpdVec[k] = fzg_array->geaRat[(int32_T)gea - 1] * crsSpdVec[k] /
       fzg_scalar->whlDrr;
@@ -242,7 +223,7 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
   k = 0;
   exitg3 = false;
   while ((!exitg3) && (k < 2)) {
-    if (!!(crsSpdVec[k] > crsSpdHybMax)) {
+    if (!((crsSpdVec[k] > crsSpdHybMax) == 0)) {
       y = true;
       exitg3 = true;
     } else {
@@ -254,12 +235,12 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
   } else {
     /*  Falls die Drehzahl des Verbrennungsmotors niedriger als die */
     /*  Leerlaufdrehzahl ist, */
-    /*    stop if crankhaft rotional speed is lower than the idling speed */
+    /*    stop if crankshaft rotional speed is lower than the idling speed */
     y = false;
     k = 0;
     exitg2 = false;
     while ((!exitg2) && (k < 2)) {
-      if (!!(crsSpdVec[k] < crsSpdHybMin)) {
+      if (!((crsSpdVec[k] < crsSpdHybMin) == 0)) {
         y = true;
         exitg2 = true;
       } else {
@@ -365,14 +346,13 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
         b_fzg_array[k] = fzg_array->emoSpdMgd[150 * k];
       }
 
-      emoTrqMaxPos = interp1q(b_fzg_array, fzg_array->emoTrqMax_emoSpd,
-        crsSpdVec[0]);
+      whlTrq = interp1q(b_fzg_array, fzg_array->emoTrqMax_emoSpd, crsSpdVec[0]);
 
       /*  Die gültigen Kurbelwellenmomente müssen kleiner sein als das */
       /*  Gesamtmoment von E-Motor und Verbrennungsmotor */
       /*    The valid crankshaft moments must be less than the total moment of the */
       /*    electric motor and the ICE.Otherwise, leave the function */
-      if (crsTrq > iceTrqMax + emoTrqMaxPos) {
+      if (crsTrq > iceTrqMax + whlTrq) {
       } else {
         /* % %% Optimaler Momentensplit - Minimierung der Hamiltonfunktion */
         /*        optimum torque split - minimizing the Hamiltonian */
@@ -385,7 +365,7 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
         /*  jedes Momentenpaar kann die Hamiltonfunktion berechnet werden. */
         /*  Ausgegeben wird der minimale Wert der Hamiltonfunktion und die */
         /*  durch das dabei verwendete Elektromotormoment verursachte */
-        /*  Batterieladungsänderung. */
+        /*  Batterieladungs�nderung. */
         /*    The procedure is similar to ECMS. It's based on a vector of possible */
         /*    battery energy changes, from which a battery terminal power can be */
         /*    calculated. */
@@ -458,24 +438,26 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
           /*  Durch EM zu lieferndes Kurbelwellenmoment */
           /*    crankshaft torque to be delivered by the electric motor (min and max) */
           emoTrqMax = crsTrq - iceTrqMin;
-          emoTrqMin = crsTrq - iceTrqMax;
+          batEngDltMinInx = crsTrq - iceTrqMax;
 
+          /*  fprintf('emoTrqMax: %4.3f\n', emoTrqMax); */
+          /*  fprintf('emoTrqMin: %4.3f\n', emoTrqMin); */
           /* % Elektromotor berechnen */
           /*    calculate the electric motor */
-          if (emoTrqMaxPos < emoTrqMax) {
+          if (whlTrq < emoTrqMax) {
             /*  Moment des Elektromotors bei maximaler Entladung der Batterie */
             /*    EM torque at max battery discharge */
-            emoTrqMax = emoTrqMaxPos;
+            emoTrqMax = whlTrq;
           }
 
-          if (emoTrqMaxPos < emoTrqMin) {
+          if (whlTrq < batEngDltMinInx) {
             /*  Moment des Elektromotors bei minimaler Entladung der Batterie */
             /*    EM torque at min battery discharge */
-            emoTrqMin = emoTrqMaxPos;
+            batEngDltMinInx = whlTrq;
           }
 
           emoTrqMax = muDoubleScalarMax(emoTrqMinPos, emoTrqMax);
-          emoTrqMin = muDoubleScalarMax(emoTrqMinPos, emoTrqMin);
+          batEngDltMinInx = muDoubleScalarMax(emoTrqMinPos, batEngDltMinInx);
 
           /* % Berechnung der änderung der Batterieladung */
           /*    calculating the change in battery charge */
@@ -491,35 +473,35 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
           /*  batPwrMin = lininterp2(par.emoSpdMgd(1,:),par.emoTrqMgd(:,1),... */
           /*      par.emoPwr_emoSpd_emoTrq',crsSpd,emoTrqMin) + batPwrAux; */
           b_st.site = &n_emlrtRSI;
-          batPwrMax = codegen_interp2(&b_st, fzg_array->emoSpdMgd,
+          whlTrq = codegen_interp2(&b_st, fzg_array->emoSpdMgd,
             fzg_array->emoTrqMgd, fzg_array->emoPwr_emoSpd_emoTrq, crsSpdVec[0],
             emoTrqMax) + batPwrAux;
           b_st.site = &o_emlrtRSI;
-          batPwrMin = codegen_interp2(&b_st, fzg_array->emoSpdMgd,
+          emoTrqMinPos = codegen_interp2(&b_st, fzg_array->emoSpdMgd,
             fzg_array->emoTrqMgd, fzg_array->emoPwr_emoSpd_emoTrq, crsSpdVec[0],
-            emoTrqMin) + batPwrAux;
+            batEngDltMinInx) + batPwrAux;
 
           /*  überprüfen, ob Batterieleistung möglich */
           /*    make sure that current battery max power is not above bat max bounds */
-          if (batPwrMax > fzg_scalar->batPwrMax) {
-            batPwrMax = fzg_scalar->batPwrMax;
+          if (whlTrq > fzg_scalar->batPwrMax) {
+            whlTrq = fzg_scalar->batPwrMax;
           }
 
           /*  überprüfen, ob Batterieleistung möglich */
-          /*    make sure that current battery min power is not below bat min bounds */
-          if (batPwrMin > fzg_scalar->batPwrMax) {
-            batPwrMin = fzg_scalar->batPwrMax;
+          /*    make sure that current battery min power is not above bat max bounds */
+          if (emoTrqMinPos > fzg_scalar->batPwrMax) {
+            emoTrqMinPos = fzg_scalar->batPwrMax;
           }
 
           /*  Es kann vorkommen, dass mehr Leistung gespeist werden soll, als */
           /*  m�glich ist. */
-          /*    double check that the max and min still remain within the other bounds */
-          if (batPwrMax < fzg_scalar->batPwrMin) {
-            batPwrMax = fzg_scalar->batPwrMin;
+          /*    check that the max and min still remain within the min bounds */
+          if (whlTrq < fzg_scalar->batPwrMin) {
+            whlTrq = fzg_scalar->batPwrMin;
           }
 
-          if (batPwrMin < fzg_scalar->batPwrMin) {
-            batPwrMin = fzg_scalar->batPwrMin;
+          if (emoTrqMinPos < fzg_scalar->batPwrMin) {
+            emoTrqMinPos = fzg_scalar->batPwrMin;
           }
 
           /*  Batteriespannung aus Kennkurve berechnen */
@@ -533,7 +515,7 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
           /* Skalar - Entladewiderstand */
           /* Skalar - Ladewiderstand */
           /*                Skalar - battery open-circuit voltage */
-          batEngDltMin = batFrcClc_port(batPwrMax, vehVel, fzg_scalar->batRstDch,
+          emoTrqMax = batFrcClc_port(whlTrq, vehVel, fzg_scalar->batRstDch,
             fzg_scalar->batRstChr, batOcv) * wayStp;
 
           /*  <-multiply by delta_S */
@@ -543,12 +525,13 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
           /* Skalar - Entladewiderstand */
           /* Skalar - Ladewiderstand */
           /*                Skalar - battery open-circuit voltage */
-          batEngDltMax = batFrcClc_port(batPwrMin, vehVel, fzg_scalar->batRstDch,
+          whlTrq = batFrcClc_port(emoTrqMinPos, vehVel, fzg_scalar->batRstDch,
             fzg_scalar->batRstChr, batOcv) * wayStp;
 
           /*  Es werden 2 Fälle unterschieden: */
           /*    there are 2 different cases */
-          if ((batEngDltMin > 0.0) && (batEngDltMax > 0.0)) {
+          if ((emoTrqMax > 0.0) && (whlTrq > 0.0)) {
+            /*  battery will discharge */
             /*         %% konventionelles Bremsen + Rekuperieren */
             /*    conventional brakes + recuperation */
             /*  */
@@ -565,31 +548,32 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
             /*    so if both min and max changes in battery energy are */
             /*    increasing, then set the delta min to zero */
             batEngDltMinInx = 0.0;
-            batEngDltMaxInx = muDoubleScalarFloor(batEngDltMax / batEngStp);
+            whlTrq = muDoubleScalarFloor(whlTrq / batEngStp);
           } else {
-            batEngDltMinInx = muDoubleScalarCeil(batEngDltMin / batEngStp);
-            batEngDltMaxInx = muDoubleScalarFloor(batEngDltMax / batEngStp);
+            batEngDltMinInx = muDoubleScalarCeil(emoTrqMax / batEngStp);
+            whlTrq = muDoubleScalarFloor(whlTrq / batEngStp);
           }
         } else {
           batEngDltMinInx = 0.0;
-          batEngDltMaxInx = 0.0;
+          whlTrq = 0.0;
         }
 
-        /*  you got a larger min chnage and a max change, you're out of bounds. Leave */
+        /*  you got a larger min change than a max change-you're out of bounds. Leave */
         /*  the function */
-        if (batEngDltMaxInx < batEngDltMinInx) {
+        if (whlTrq < batEngDltMinInx) {
         } else {
           /* % Schleife über alle Elektromotormomente */
           /*    now loop through all the electric-motor torques */
-          k = (int32_T)(batEngDltMaxInx + (1.0 - batEngDltMinInx));
-          emlrtForLoopVectorCheckR2012b(batEngDltMinInx, 1.0, batEngDltMaxInx,
-            mxDOUBLE_CLASS, k, &s_emlrtRTEI, sp);
+          /*  why isn't batEngDltInx discretized wrt batEngStp?? */
+          k = (int32_T)(whlTrq + (1.0 - batEngDltMinInx));
+          emlrtForLoopVectorCheckR2012b(batEngDltMinInx, 1.0, whlTrq,
+            mxDOUBLE_CLASS, k, &t_emlrtRTEI, sp);
           batEngDltInx = 0;
           while (batEngDltInx <= k - 1) {
-            batEngDlt = (batEngDltMinInx + (real_T)batEngDltInx) * batEngStp;
+            whlTrq = (batEngDltMinInx + (real_T)batEngDltInx) * batEngStp;
 
             /*  open circuit voltage over each iteration */
-            batOcv = (batEng + batEngDlt) * fzg_array->batOcvCof_batEng[0] +
+            batOcv = (batEng + whlTrq) * fzg_array->batOcvCof_batEng[0] +
               fzg_array->batOcvCof_batEng[1];
 
             /*           Skalar für die Batterieleistung in W */
@@ -599,7 +583,7 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
             /*           Skalar - vehicular velocity */
             /*        Nebenverbraucherlast */
             /*           Skalar - battery open circuit voltage */
-            /*       Skalar - Batterieenergie�nderung, */
+            /*       Skalar - Batterieenergie�nderung, */
             /*           Skalar - crankshaft speed at given path_idx */
             /*           Skalar - crankshaft torque at given path_idx */
             /*        Skalar - min ICE torque allowed */
@@ -619,8 +603,8 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
             /*       Skalar - crankshaft torque at given path_idx */
             /*    Skalar - min ICE torque allowed */
             /*    Skalar - max ICE torque */
-            /*       struct - Fahrzeugparameter - nur skalar */
-            /*         struct - Fahrzeugparameter - nur array */
+            /*   struct - Fahrzeugparameter - nur skalar */
+            /*     struct - Fahrzeugparameter - nur array */
             /*  */
             /* FULENGCLC Calculating fuel consumption */
             /*  Erstellungsdatum der ersten Version 04.09.2015 - Stephan Uebel */
@@ -636,19 +620,19 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
             /*  */
             /*  Version vom 25.05.2016: Zero-Order-Hold (keine mittlere Geschwindigkeit) */
             /*  */
-            /*  version from 1.06.2016 - removed crsTrq calulations - they are already */
+            /*  version from 1.06.2016 - removed crsTrq calculations - they are already */
             /*  done in parent function (clcPMP_olHyb_tmp) and do not change w/ each */
-            /*  iteration, making the caluclation here unnecessary */
+            /*  iteration, making the calculation here unnecessary */
             /* % Initialisieren der Ausgabe der Funktion */
             /*    initializing function output */
             /*    Skalar - electric battery power (W) */
-            fulFrc = rtInf;
+            emoTrqMax = rtInf;
 
             /*    Skalar - fuel force intialization (N) */
             /* % Batterie */
             /*  Batterieenergieänderung über dem Weg (Batteriekraft) */
             /*    Change in battery energy over the path_idx way (ie battery power) */
-            batFrc = batEngDlt / wayStp;
+            emoTrqMinPos = whlTrq / wayStp;
 
             /*  Fallunterscheidung, ob Batterie geladen oder entladen wird */
             /*    Case analysis - check if battery is charging or discharging. Set */
@@ -657,14 +641,15 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
             /*    electric power from electric motor - DERIVATION? dunno */
             /*  innere Batterieleistung / internal batt power */
             /* dissipat. Leist. / dissipated */
-            if (batFrc < 0.0) {
-              b_batFrc = fzg_scalar->batRstDch;
+            if (emoTrqMinPos < 0.0) {
+              b_emoTrqMinPos = fzg_scalar->batRstDch;
             } else {
-              b_batFrc = fzg_scalar->batRstChr;
+              b_emoTrqMinPos = fzg_scalar->batRstChr;
             }
 
-            batPwr = (-batFrc * vehVel - batFrc * batFrc * (vehVel * vehVel) /
-                      (batOcv * batOcv) * b_batFrc) - batPwrAux;
+            emoTrqMinPos = (-emoTrqMinPos * vehVel - emoTrqMinPos * emoTrqMinPos
+                            * (vehVel * vehVel) / (batOcv * batOcv) *
+                            b_emoTrqMinPos) - batPwrAux;
 
             /*           Nebenverbrauchlast / auxiliary power */
             /* % Elektromotor */
@@ -673,13 +658,13 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
             /*        switching out codegen_interp2 for lininterp2-just might work! */
             /*  */
             b_st.site = &p_emlrtRSI;
-            emoTrq = codegen_interp2(&b_st, fzg_array->emoSpdMgd,
+            whlTrq = codegen_interp2(&b_st, fzg_array->emoSpdMgd,
               fzg_array->emoPwrMgd, fzg_array->emoTrq_emoSpd_emoPwr, crsSpd,
-              batPwr);
+              emoTrqMinPos);
 
             /*  emoTrq = lininterp2(par.emoSpdMgd(1,:), par.emoPwrMgd(:,1),... */
             /*      par.emoTrq_emoSpd_emoPwr',crsSpd,emoPwrEle); */
-            if (muDoubleScalarIsInf(emoTrq)) {
+            if (muDoubleScalarIsInf(whlTrq)) {
             } else {
               /*  Grenzen des Elektromotors müssen hier nicht überprüft werden, da die */
               /*  Ladungsdeltas schon so gewählt wurden, dass das maximale Motormoment */
@@ -689,23 +674,23 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
               /* % Verbrennungsmotor */
               /*  Ermitteln des Kurbelwellenmoments durch den Verbrennungsmotor */
               /*    Determining the crankshaft moment from the ICE */
-              iceTrq = crsTrq - emoTrq;
+              whlTrq = crsTrq - whlTrq;
 
               /*  Wenn das Verbrennungsmotormoment kleiner als das minimale */
               /*  Moment ist, ist dieser in der Schubabschaltung. Das */
               /*  verbleibende Moment liefern die Bremsen */
               /*    If engine torque is less than the min torque, fuel is cut. The */
               /*    remaining torque is deliver the brakes. */
-              if (iceTrq < iceTrqMin) {
-                fulPwr = 0.0;
-              } else if (iceTrq > iceTrqMax) {
-                fulPwr = rtInf;
+              if (whlTrq < iceTrqMin) {
+                whlTrq = 0.0;
+              } else if (whlTrq > iceTrqMax) {
+                whlTrq = rtInf;
               } else {
-                /*  replacing another coden_interp2 */
+                /*  replacing another coden_interp2 no just find fuel power as usual */
                 b_st.site = &q_emlrtRSI;
-                fulPwr = codegen_interp2(&b_st, fzg_array->iceSpdMgd,
+                whlTrq = codegen_interp2(&b_st, fzg_array->iceSpdMgd,
                   fzg_array->iceTrqMgd, fzg_array->iceFulPwr_iceSpd_iceTrq,
-                  crsSpd, iceTrq);
+                  crsSpd, whlTrq);
 
                 /*      fulPwr = lininterp2(par.iceSpdMgd(1,:), par.iceTrqMgd(:,1), ... */
                 /*          par.iceFulPwr_iceSpd_iceTrq', crsSpd, iceTrq); */
@@ -713,7 +698,7 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
 
               /*  Berechnen der Kraftstoffkraft */
               /*    calculate fuel force */
-              fulFrc = fulPwr / vehVel;
+              emoTrqMax = whlTrq / vehVel;
 
               /*  Berechnen der Kraftstoffvolumenänderung */
               /*  caluclate change in fuel volume - energy, no? */
@@ -726,15 +711,16 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
             /*    Skalar - Entladewiderstand */
             /*    Skalar - Ladewiderstand */
             /*            Skalar - battery open circuit voltage */
-            batFrc = batFrcClc_port(batPwr, vehVel, fzg_scalar->batRstDch,
-              fzg_scalar->batRstChr, batOcv);
+            emoTrqMinPos = batFrcClc_port(emoTrqMinPos, vehVel,
+              fzg_scalar->batRstDch, fzg_scalar->batRstChr, batOcv);
 
             /*     %% Hamiltonfunktion bestimmen */
             /*    determine the hamiltonian */
             /*  Eq (29b) */
-            crsSpdVec[0] = (fulFrc + psiBatEng * batFrc) + psiTim / vehVel;
+            crsSpdVec[0] = (emoTrqMax + psiBatEng * emoTrqMinPos) + psiTim /
+              vehVel;
             ixstart = 1;
-            mtmp = crsSpdVec[0];
+            whlTrq = crsSpdVec[0];
             itmp = 1;
             if (muDoubleScalarIsNaN(crsSpdVec[0])) {
               ix = 2;
@@ -742,7 +728,7 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
               while ((!exitg1) && (ix < 3)) {
                 ixstart = 2;
                 if (!muDoubleScalarIsNaN(*cosHamMin)) {
-                  mtmp = *cosHamMin;
+                  whlTrq = *cosHamMin;
                   itmp = 2;
                   exitg1 = true;
                 } else {
@@ -751,26 +737,24 @@ void clcPMP_olyHyb_port(const emlrtStack *sp, real_T engKinPre, real_T engKinAct
               }
             }
 
-            if ((ixstart < 2) && (*cosHamMin < mtmp)) {
-              mtmp = *cosHamMin;
+            if ((ixstart < 2) && (*cosHamMin < whlTrq)) {
+              whlTrq = *cosHamMin;
               itmp = 2;
             }
 
-            *cosHamMin = mtmp;
+            *cosHamMin = whlTrq;
 
             /*  Wenn der aktuelle Punkt besser ist, als der in cosHamMin */
             /*  gespeicherte Wert, werden die Ausgabegrößen neu beschrieben. */
             /*    if the current point is better than the stored cosHamMin value, */
             /*    then the output values are rewritten (selected prev. value is = 2) */
             if (itmp == 1) {
-              *batFrcOut = batFrc;
-              *fulFrcOut = fulFrc;
+              *batFrcOut = emoTrqMinPos;
+              *fulFrcOut = emoTrqMax;
             }
 
             batEngDltInx++;
-            if (*emlrtBreakCheckR2012bFlagVar != 0) {
-              emlrtBreakCheckR2012b(sp);
-            }
+            emlrtBreakCheckFastR2012b(emlrtBreakCheckR2012bFlagVar, sp);
           }
         }
       }

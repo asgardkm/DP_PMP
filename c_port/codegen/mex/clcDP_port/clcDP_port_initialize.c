@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * clcDP_port_initialize.c
  *
  * Code generation for function 'clcDP_port_initialize'
@@ -35,12 +31,12 @@ static void clcDP_port_once(void)
   clcDP_olyHyb_port_init();
 }
 
-void clcDP_port_initialize(void)
+void clcDP_port_initialize(emlrtContext *aContext)
 {
   emlrtStack st = { NULL, NULL, NULL };
 
   emlrtBreakCheckR2012bFlagVar = emlrtGetBreakCheckFlagAddressR2012b();
-  emlrtCreateRootTLS(&emlrtRootTLSGlobal, &emlrtContextGlobal, NULL, 1);
+  emlrtCreateRootTLS(&emlrtRootTLSGlobal, aContext, NULL, 1);
   st.tls = emlrtRootTLSGlobal;
   emlrtClearAllocCountR2012b(&st, false, 0U, 0);
   emlrtEnterRtStackR2012b(&st);

@@ -2,7 +2,6 @@ function [minFulLvl,batFrcOut,fulFrcOut] = ...
     clcPMP_a(...
             engStaPre,  ...
             gea,        ...
-            iceFlg,     ...
             batEng,     ...
             batPwrAux,  ...
             batEngStp,  ...
@@ -30,7 +29,7 @@ function [minFulLvl,batFrcOut,fulFrcOut] = ...
 %                                ^^ gear
 % slp           - Double(1,1)  - Steigung in rad
 %                                ^^ slope in radians
-% iceFlg        - Boolean(1,1) - Flag für Motorzustand
+% iceFlg        - Boolean(1,1) - Flag für Motorzustand-REMOVED 12.07.2016
 %                                ^^ flag for motor condition
 % batEng        - Double(1,1)  - Batterieenergie in J
 %                                ^^ battery energy (J)
@@ -72,6 +71,9 @@ if isempty(crsSpdHybMax)
     
     % maximale Drehzahl der Kurbelwelle
     %   maximum crankshaft rotational speed
+    % 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
+    % ARE WE SECTNIG THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
+    % EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
     crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end),crsSpdEmoMax);
     
     % minimale Drehzahl der Kurbelwelle
@@ -102,21 +104,21 @@ crsSpdVec  = fzg_array_struct.geaRat(gea) * vehVelVec / (fzg_scalar_struct.whlDr
 
 % Abbruch, wenn die Drehzahlen der Kurbelwelle zu hoch im hybridischen
 % Modus
-%   stop if the crankshaft rotatoinal speed is too high in hybrid mode
-if iceFlg && any(crsSpdVec > crsSpdHybMax)
+%   stop if the crankshaft rotational speed is too high in hybrid mode
+if engStaPre && any(crsSpdVec > crsSpdHybMax)
     return;
 end
 
 % Falls die Drehzahl des Verbrennungsmotors niedriger als die
 % Leerlaufdrehzahl ist,
 %   stop if crankhaft rotional speed is lower than the idling speed
-if iceFlg && any(crsSpdVec < crsSpdHybMin)
+if engStaPre && any(crsSpdVec < crsSpdHybMin)
     return;
 end
 
 % Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
 %   check if electric motor speed limit is maintained
-if ~iceFlg && any(crsSpdVec > crsSpdEmoMax)
+if ~engStaPre && any(crsSpdVec > crsSpdEmoMax)
     return;
 end
 % use previous time idx's crankshaft rotational speed for calculations
@@ -173,7 +175,7 @@ emoTrqMaxPos = ...
 % Die g�ltigen Kurbelwellenmomente müssen kleiner sein als das
 % Gesamtmoment von E-Motor und Verbrennungsmotor
 %   The valid crankshaft moments must be less than the total moment of the
-%   electric motor and the ICE.Otherwise, leave the function
+%   electric motor and the ICE. Otherwise, leave the function
 if crsTrq > iceTrqMax + emoTrqMaxPos; 
     return;
 end
@@ -225,7 +227,7 @@ if batEngStp > 0
     
     % Es werden 2 Fälle unterschieden:
     %   there are 2 different cases
-    if batEngDltMin > 0 && batEngDltMax > 0 % battery will discharge
+    if batEngDltMin > 0 && batEngDltMax > 0% battery will charge(yes?)
         
         %% konventionelles Bremsen + Rekuperieren
         %   conventional brakes + recuperation
@@ -307,6 +309,7 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
         vehVel,...          Skalar - mittlere Geschwindigkeit im Intervall
         fzg_scalar_struct.batRstDch,...   Skalar - Entladewiderstand
         fzg_scalar_struct.batRstChr,...   Skalar - Ladewiderstand
+        fzg_scalar_struct.vehVelThresh,...
         batOcv...           Skalar - battery open circuit voltage
         );    
     

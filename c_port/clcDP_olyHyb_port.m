@@ -24,8 +24,8 @@ function [          ...  --- Ausgangsgr√∂√üen:
     engKinNumVec_wayInx,       ... Vektor der Anzahl der kinetischen Energien
     slpVec_wayInx,  ... Vektor der Steigungen in rad
     engKinMat_engKinInx_wayInx,... Matrix der kinetischen Energien in J
-    fzg_scalar,     ... struct der Fahrzeugparameter - NUR SKALARS
-    fzg_array       ... struct der Fahrzeugparameter - NUR ARRAYS
+    fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
+    fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
     )%#codegen
 %
 %INIDP Calculating optimal predecessors with DP + PMP
@@ -83,12 +83,12 @@ if isempty(geaNum)
     geaNum = staNum; % max number of state nodes
     
     % Fahrzeugmasse;
-    vehMas = fzg_scalar.vehMas;
+    vehMas = fzg_scalar_struct.vehMas;
  
     % minmiale und maximale Beschleunigung
     %   min and max accerlations (bounds)
-    vehAccMin = fzg_scalar.vehAccMin;
-    vehAccMax = fzg_scalar.vehAccMax;
+    vehAccMin = fzg_scalar_struct.vehAccMin;
+    vehAccMax = fzg_scalar_struct.vehAccMax;
     
     % In dieser Version ist der Motor immer an
     iceFlg = true;
@@ -190,7 +190,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
     engKinActVec_engKinInx = ...
         engKinMat_engKinInx_wayInx(:,wayInx);
     
-    % (FZGfor) Schleife √ºber alle akutellen kinetischen Energien
+    % (FZGfor) Schleife ¸ber alle akutellen kinetischen Energien
     %   loop through all the current kinetic energies
     for engKinActInx = 1:engKinNumAct   % CURRENT KINETIC ENERGY LOOP
         
@@ -198,13 +198,14 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
         %   determine the current kinetic energy
         engKinAct = engKinActVec_engKinInx(engKinActInx);
          
-        % Schleife √ºber alle m√∂glichen aktuellen Zust√§nde des Antriesstrangs
+        % Schleife ¸ber alle mˆglichen aktuellen Zust‰nde des Antriesstrangs
         %   Loop over all possible current powertrain states/all the gears
         for staAct = 1:staNum           % ALL GEARS LOOP
+            fprintf('#### ACTUAL STATE: KE %i GEAR %i ######\n', engKinActInx, staAct);
             %% Initialsiieren
             %   note-you are preallocating over each powertrain state loop
             
-            % Initialisieren der Ausgabegr√∂√üe der Schleife
+            % Initialisieren der Ausgabegrˆﬂe der Schleife
             %   preallocate the loop's output size
             %   but this is the hamiltonian cost?
             cosHamMin = inf;
@@ -247,7 +248,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
             %   predecessors, because from the sail in every Gear in
             %   electric travel and the sails will be changed (???)
             
-            % Vorg√§ngerzust√§nde des Antriebsstrangs beschr√§nken
+            % Vorg‰ngerzust‰nde des Antriebsstrangs beschr√§nken
             %   determine gear possibilities - ie u(g) 
             staPreMin = max(1,staAct-1);
             staPreMax = min(geaNum,staAct+1);
@@ -271,7 +272,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     continue;
                 end
 
-                % Schleife √ºber allen Zust√§nde (relativer Index)
+                % Schleife ¸ber allen Zust√§nde (relativer Index)
                 %   Loop through all the states (relative index)
                 for staPre = staPreMin:staPreMax % CURRENT GEAR CHANGE LOOP
                     
@@ -332,9 +333,11 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     cosAct = cosHam...
                         + cos2goPreMat(engKinPreInx,staPre)...
                         + staChgPenCos/wayStp;
-                    
+                    fprintf('cosHam KE %i gear %i: %4.3f\n', engKinPreInx, staPre, cosHam);
+                    fprintf('cosAct KE %i gear %i: %4.3f\n', engKinPreInx, staPre, cosAct);
+                    fprintf('cosHamMin_old: %4.3f\n', cosHamMin);
                     % Wenn der aktuelle Punkt besser ist, als der in
-                    % cosHamMin gespeicherte Wert, werden die Ausgabegr√∂√üen
+                    % cosHamMin gespeicherte Wert, werden die Ausgabegrˆﬂen
                     % neu beschrieben.
                     %   if current point is better than the cost value
                     %   stored in CosHamMin, then rewrite the output
@@ -352,6 +355,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                         fulEngOpt = fulFrc * wayStp + ...
                             fulEngPreMat(engKinPreInx,staPre); %#ok<PFBNS>
                     end
+                    fprintf('cosHamMin_new: %4.3f\n\n', cosHamMin);
                 end % end of gear changes loop
             end % end of running through previous KE states loop
             
@@ -382,6 +386,7 @@ for wayInx = wayInxBeg+1:wayInxEnd      % PATH IDX LOOP
                     engKinPreOptInx,staPreOptInx);
             end % end of ~inf(hamiltonian) if-statement
         end % end of looping through all gears
+    fprintf('##################################\n\n');
     end % end of looping through all the current kinetic energy states
     
     % Speichern der Batterieenergie f√ºr den n√§chsten Schleifendurchlauf

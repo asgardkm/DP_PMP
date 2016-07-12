@@ -4,6 +4,7 @@ function [ batFrc   ... Skalar - Batteriekraft (E')
     vel,            ... Skalar - mittlere Geschwindigkeit im Intervall
     batRstDch,      ... Skalar - Entladewiderstand
     batRstChr,      ... Skalar - Ladewiderstand
+    vehVelThresh,   ... scalar-min val where veh is moving
     batOcv          ... Skalar - battery open-circuit voltage 
     )%#codegen
 %BATFRCCLC Calculating losses in battery
@@ -38,13 +39,15 @@ else
     batRst = batRstChr;
 end
 
-% BatterieenergieÃ¤nderung Ã¼ber dem Weg berechnen. Herleitung der Formel
+% Batterieenergieänderung über dem Weg berechnen. Herleitung der Formel
 % kann zum Beispiel dem Paper mit Chalmers entnommen werden
 %   calculate battery power change for path_idx. Formula derivation can be 
 %   found from other papers (for example, Chalmers paper)
 %
 % BUT! If vehicle is stationary, no change in battery energy is necessary!
-if vel == 0
+%
+% ########### 12.07.2016 - threshold for v~= 0 is needed!!!!!! ############
+if vel < abs(vehVelThresh)
     batFrcCpl = 0;
 else
     batFrcCpl = batOcv^2 * ...
@@ -52,9 +55,9 @@ else
         ( 2*batRst*vel );
 end
 
-% Sollte die physikalisch mÃ¶gliche Batterieleistung Ã¼berschritten werden,
+% Sollte die physikalisch mögliche Batterieleistung überschritten werden,
 % wird der Term unter der Wurzel negativ. In diesem Fall wird die Ausgabe
-% ungÃ¼ltig geschrieben.
+% ungültig geschrieben.
 %   check to make sure that the battery capacity is not exceeded (when the
 %   root becomes negative, the output is no longer valid) (must be on real axis)
 if imag(batFrcCpl) ~= 0

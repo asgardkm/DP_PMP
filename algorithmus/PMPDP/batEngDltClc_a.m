@@ -130,6 +130,7 @@ batEngDltMin = batFrcClc_a(     ... FUNCTION CALL - min delta bat.energy
     vehVel,                     ...Skalar - mittlere Geschwindigkeit im Intervall
     fzg_scalar_struct.batRstDch,...Skalar - Entladewiderstand
     fzg_scalar_struct.batRstChr,...Skalar - Ladewiderstand
+    fzg_scalar_struct.vehVelThresh, ... scalar-min val where veh is moving
     batOcv                      ...Skalar - battery open-circuit voltage 
     ) * timeStp; % <-multiply by delta_time
 
@@ -138,6 +139,7 @@ batEngDltMax = batFrcClc_a(     ... FUNCTION CALL - max delta bat.energy
     vehVel,                     ...Skalar - mittlere Geschwindigkeit im Intervall
     fzg_scalar_struct.batRstDch,...Skalar - Entladewiderstand
     fzg_scalar_struct.batRstChr,...Skalar - Ladewiderstand
+    fzg_scalar_struct.vehVelThresh, ... scalar-min val where veh is moving
     batOcv                      ...Skalar - battery open-circuit voltage 
     ) * timeStp;
 

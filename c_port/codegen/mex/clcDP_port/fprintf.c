@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * fprintf.c
  *
  * Code generation for function 'fprintf'
@@ -18,19 +14,19 @@
 
 /* Variable Definitions */
 static emlrtRSInfo e_emlrtRSI = { 35, "fprintf",
-  "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
-static emlrtRSInfo v_emlrtRSI = { 38, "fprintf",
-  "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
+static emlrtRSInfo w_emlrtRSI = { 38, "fprintf",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
 static emlrtMCInfo emlrtMCI = { 69, 14, "fprintf",
-  "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
-static emlrtRSInfo ob_emlrtRSI = { 69, "fprintf",
-  "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
+static emlrtRSInfo qb_emlrtRSI = { 69, "fprintf",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
 /* Function Declarations */
@@ -52,53 +48,52 @@ static const mxArray *b_feval(const emlrtStack *sp, const mxArray *b, const
   location)
 {
   const mxArray *pArrays[5];
-  const mxArray *m8;
+  const mxArray *m13;
   pArrays[0] = b;
   pArrays[1] = c;
   pArrays[2] = d;
   pArrays[3] = e;
   pArrays[4] = f;
-  return emlrtCallMATLABR2012b(sp, 1, &m8, 5, pArrays, "feval", true, location);
+  return emlrtCallMATLABR2012b(sp, 1, &m13, 5, pArrays, "feval", true, location);
 }
 
 static real_T c_fprintf(const emlrtStack *sp)
 {
-  int32_T i1;
-  static const char_T cv0[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
-
-  char_T u[7];
   const mxArray *y;
   static const int32_T iv0[2] = { 1, 7 };
 
   const mxArray *m0;
-  static const char_T formatSpec[24] = { '-', 'I', 'n', 'i', 't', 'i', 'a', 'l',
-    'i', 'z', 'i', 'n', 'g', ' ', 'm', 'o', 'd', 'e', 'l', '.', '.', '.', '\\',
-    'n' };
+  char_T cv0[7];
+  int32_T i;
+  static const char_T cv1[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
 
-  char_T b_u[24];
   const mxArray *b_y;
   static const int32_T iv1[2] = { 1, 24 };
+
+  char_T cv2[24];
+  static const char_T cv3[24] = { '-', 'I', 'n', 'i', 't', 'i', 'a', 'l', 'i',
+    'z', 'i', 'n', 'g', ' ', 'm', 'o', 'd', 'e', 'l', '.', '.', '.', '\\', 'n' };
 
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  for (i1 = 0; i1 < 7; i1++) {
-    u[i1] = cv0[i1];
-  }
-
   y = NULL;
   m0 = emlrtCreateCharArray(2, iv0);
-  emlrtInitCharArrayR2013a(sp, 7, m0, &u[0]);
-  emlrtAssign(&y, m0);
-  for (i1 = 0; i1 < 24; i1++) {
-    b_u[i1] = formatSpec[i1];
+  for (i = 0; i < 7; i++) {
+    cv0[i] = cv1[i];
   }
 
+  emlrtInitCharArrayR2013a(sp, 7, m0, cv0);
+  emlrtAssign(&y, m0);
   b_y = NULL;
   m0 = emlrtCreateCharArray(2, iv1);
-  emlrtInitCharArrayR2013a(sp, 24, m0, &b_u[0]);
+  for (i = 0; i < 24; i++) {
+    cv2[i] = cv3[i];
+  }
+
+  emlrtInitCharArrayR2013a(sp, 24, m0, cv2);
   emlrtAssign(&b_y, m0);
-  st.site = &ob_emlrtRSI;
+  st.site = &qb_emlrtRSI;
   return emlrt_marshallIn(&st, feval(&st, y, emlrt_marshallOut(1.0), b_y,
     &emlrtMCI), "feval");
 }
@@ -106,43 +101,43 @@ static real_T c_fprintf(const emlrtStack *sp)
 static real_T e_fprintf(const emlrtStack *sp, real_T varargin_1, real_T
   varargin_2)
 {
-  int32_T i21;
-  static const char_T cv2[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
-
-  char_T u[7];
   const mxArray *y;
-  static const int32_T iv4[2] = { 1, 7 };
+  static const int32_T iv8[2] = { 1, 7 };
 
-  const mxArray *m1;
-  static const char_T formatSpec[48] = { 'S', 'c', 'h', 'l', 'e', 'i', 'f', 'e',
-    ' ', '%', '1', '.', '0', 'f', ' ', 'b', 'e', 'r', 'e', 'c', 'h', 'n', 'e',
-    't', '.', ' ', '%', '1', '.', '0', 'f', ' ', '%', '%', ' ', 'g', 'e', 's',
-    'c', 'h', 'a', 'f', 'f', 't', '.', ' ', '\\', 'r' };
+  const mxArray *m3;
+  char_T cv10[7];
+  int32_T i;
+  static const char_T cv11[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
 
-  char_T b_u[48];
   const mxArray *b_y;
-  static const int32_T iv5[2] = { 1, 48 };
+  static const int32_T iv9[2] = { 1, 48 };
+
+  char_T cv12[48];
+  static const char_T cv13[48] = { 'S', 'c', 'h', 'l', 'e', 'i', 'f', 'e', ' ',
+    '%', '1', '.', '0', 'f', ' ', 'b', 'e', 'r', 'e', 'c', 'h', 'n', 'e', 't',
+    '.', ' ', '%', '1', '.', '0', 'f', ' ', '%', '%', ' ', 'g', 'e', 's', 'c',
+    'h', 'a', 'f', 'f', 't', '.', ' ', '\\', 'r' };
 
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  for (i21 = 0; i21 < 7; i21++) {
-    u[i21] = cv2[i21];
-  }
-
   y = NULL;
-  m1 = emlrtCreateCharArray(2, iv4);
-  emlrtInitCharArrayR2013a(sp, 7, m1, &u[0]);
-  emlrtAssign(&y, m1);
-  for (i21 = 0; i21 < 48; i21++) {
-    b_u[i21] = formatSpec[i21];
+  m3 = emlrtCreateCharArray(2, iv8);
+  for (i = 0; i < 7; i++) {
+    cv10[i] = cv11[i];
   }
 
+  emlrtInitCharArrayR2013a(sp, 7, m3, cv10);
+  emlrtAssign(&y, m3);
   b_y = NULL;
-  m1 = emlrtCreateCharArray(2, iv5);
-  emlrtInitCharArrayR2013a(sp, 48, m1, &b_u[0]);
-  emlrtAssign(&b_y, m1);
-  st.site = &ob_emlrtRSI;
+  m3 = emlrtCreateCharArray(2, iv9);
+  for (i = 0; i < 48; i++) {
+    cv12[i] = cv13[i];
+  }
+
+  emlrtInitCharArrayR2013a(sp, 48, m3, cv12);
+  emlrtAssign(&b_y, m3);
+  st.site = &qb_emlrtRSI;
   return emlrt_marshallIn(&st, b_feval(&st, y, emlrt_marshallOut(1.0), b_y,
     emlrt_marshallOut(varargin_1), emlrt_marshallOut(varargin_2), &emlrtMCI),
     "feval");
@@ -164,50 +159,50 @@ static const mxArray *feval(const emlrtStack *sp, const mxArray *b, const
   mxArray *c, const mxArray *d, emlrtMCInfo *location)
 {
   const mxArray *pArrays[3];
-  const mxArray *m7;
+  const mxArray *m10;
   pArrays[0] = b;
   pArrays[1] = c;
   pArrays[2] = d;
-  return emlrtCallMATLABR2012b(sp, 1, &m7, 3, pArrays, "feval", true, location);
+  return emlrtCallMATLABR2012b(sp, 1, &m10, 3, pArrays, "feval", true, location);
 }
 
 static real_T g_fprintf(const emlrtStack *sp)
 {
-  int32_T i61;
-  static const char_T cv3[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
-
-  char_T u[7];
   const mxArray *y;
-  static const int32_T iv7[2] = { 1, 7 };
+  static const int32_T iv19[2] = { 1, 7 };
 
-  const mxArray *m3;
-  static const char_T formatSpec[11] = { '\\', 'n', '\\', 'n', 'd', 'o', 'n',
-    'e', '!', '\\', 'n' };
+  const mxArray *m6;
+  char_T cv25[7];
+  int32_T i;
+  static const char_T cv26[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
 
-  char_T b_u[11];
   const mxArray *b_y;
-  static const int32_T iv8[2] = { 1, 11 };
+  static const int32_T iv20[2] = { 1, 11 };
+
+  char_T cv27[11];
+  static const char_T cv28[11] = { '\\', 'n', '\\', 'n', 'd', 'o', 'n', 'e', '!',
+    '\\', 'n' };
 
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  for (i61 = 0; i61 < 7; i61++) {
-    u[i61] = cv3[i61];
-  }
-
   y = NULL;
-  m3 = emlrtCreateCharArray(2, iv7);
-  emlrtInitCharArrayR2013a(sp, 7, m3, &u[0]);
-  emlrtAssign(&y, m3);
-  for (i61 = 0; i61 < 11; i61++) {
-    b_u[i61] = formatSpec[i61];
+  m6 = emlrtCreateCharArray(2, iv19);
+  for (i = 0; i < 7; i++) {
+    cv25[i] = cv26[i];
   }
 
+  emlrtInitCharArrayR2013a(sp, 7, m6, cv25);
+  emlrtAssign(&y, m6);
   b_y = NULL;
-  m3 = emlrtCreateCharArray(2, iv8);
-  emlrtInitCharArrayR2013a(sp, 11, m3, &b_u[0]);
-  emlrtAssign(&b_y, m3);
-  st.site = &ob_emlrtRSI;
+  m6 = emlrtCreateCharArray(2, iv20);
+  for (i = 0; i < 11; i++) {
+    cv27[i] = cv28[i];
+  }
+
+  emlrtInitCharArrayR2013a(sp, 11, m6, cv27);
+  emlrtAssign(&b_y, m6);
+  st.site = &qb_emlrtRSI;
   return emlrt_marshallIn(&st, feval(&st, y, emlrt_marshallOut(1.0), b_y,
     &emlrtMCI), "feval");
 }
@@ -226,7 +221,7 @@ void d_fprintf(const emlrtStack *sp, real_T formatSpec, real_T varargin_1)
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &v_emlrtRSI;
+  st.site = &w_emlrtRSI;
   e_fprintf(&st, formatSpec, varargin_1);
 }
 

@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * _coder_clcDP_port_api.c
  *
  * Code generation for function '_coder_clcDP_port_api'
@@ -16,11 +12,10 @@
 #include "fprintf.h"
 #include "clcDP_port_emxutil.h"
 #include "clcDP_port_mexutil.h"
-#include "clcDP_port_data.h"
 #include <stdio.h>
 
 /* Variable Definitions */
-static emlrtRTEInfo l_emlrtRTEI = { 1, 1, "_coder_clcDP_port_api", "" };
+static emlrtRTEInfo n_emlrtRTEI = { 1, 1, "_coder_clcDP_port_api", "" };
 
 /* Function Declarations */
 static void ab_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
@@ -78,15 +73,15 @@ static void y_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
 static void ab_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId, real_T ret[3])
 {
-  int32_T iv15[2];
-  int32_T i69;
-  for (i69 = 0; i69 < 2; i69++) {
-    iv15[i69] = 1 + (i69 << 1);
+  int32_T iv27[2];
+  int32_T i20;
+  for (i20 = 0; i20 < 2; i20++) {
+    iv27[i20] = 1 + (i20 << 1);
   }
 
-  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv15);
-  for (i69 = 0; i69 < 3; i69++) {
-    ret[i69] = (*(real_T (*)[3])mxGetData(src))[i69];
+  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv27);
+  for (i20 = 0; i20 < 3; i20++) {
+    ret[i20] = (*(real_T (*)[3])mxGetData(src))[i20];
   }
 
   emlrtDestroyArray(&src);
@@ -95,26 +90,26 @@ static void ab_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
 static const mxArray *b_emlrt_marshallOut(const emxArray_real_T *u)
 {
   const mxArray *y;
-  static const int32_T iv9[1] = { 0 };
+  static const int32_T iv21[1] = { 0 };
 
-  const mxArray *m5;
+  const mxArray *m8;
   y = NULL;
-  m5 = emlrtCreateNumericArray(1, iv9, mxDOUBLE_CLASS, mxREAL);
-  mxSetData((mxArray *)m5, (void *)u->data);
-  emlrtSetDimensions((mxArray *)m5, u->size, 1);
-  emlrtAssign(&y, m5);
+  m8 = emlrtCreateNumericArray(1, iv21, mxDOUBLE_CLASS, mxREAL);
+  mxSetData((mxArray *)m8, (void *)u->data);
+  emlrtSetDimensions((mxArray *)m8, u->size, 1);
+  emlrtAssign(&y, m8);
   return y;
 }
 
 static void bb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId, real_T ret[100])
 {
-  int32_T iv16[1];
-  int32_T i70;
-  iv16[0] = 100;
-  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 1U, iv16);
-  for (i70 = 0; i70 < 100; i70++) {
-    ret[i70] = (*(real_T (*)[100])mxGetData(src))[i70];
+  int32_T iv28[1];
+  int32_T i21;
+  iv28[0] = 100;
+  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 1U, iv28);
+  for (i21 = 0; i21 < 100; i21++) {
+    ret[i21] = (*(real_T (*)[100])mxGetData(src))[i21];
   }
 
   emlrtDestroyArray(&src);
@@ -133,10 +128,10 @@ static void c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *inputparams,
 static const mxArray *c_emlrt_marshallOut(const boolean_T u)
 {
   const mxArray *y;
-  const mxArray *m6;
+  const mxArray *m9;
   y = NULL;
-  m6 = emlrtCreateLogicalScalar(u);
-  emlrtAssign(&y, m6);
+  m9 = emlrtCreateLogicalScalar(u);
+  emlrtAssign(&y, m9);
   return y;
 }
 
@@ -451,12 +446,12 @@ static void s_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
 static void u_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId, real_T ret[800])
 {
-  int32_T iv10[1];
-  int32_T i62;
-  iv10[0] = 800;
-  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 1U, iv10);
-  for (i62 = 0; i62 < 800; i62++) {
-    ret[i62] = (*(real_T (*)[800])mxGetData(src))[i62];
+  int32_T iv22[1];
+  int32_T i13;
+  iv22[0] = 800;
+  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 1U, iv22);
+  for (i13 = 0; i13 < 800; i13++) {
+    ret[i13] = (*(real_T (*)[800])mxGetData(src))[i13];
   }
 
   emlrtDestroyArray(&src);
@@ -465,17 +460,17 @@ static void u_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
 static void v_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId, real_T ret[8800])
 {
-  int32_T iv11[2];
-  int32_T i63;
-  int32_T i64;
-  for (i63 = 0; i63 < 2; i63++) {
-    iv11[i63] = 11 + 789 * i63;
+  int32_T iv23[2];
+  int32_T i14;
+  int32_T i15;
+  for (i14 = 0; i14 < 2; i14++) {
+    iv23[i14] = 11 + 789 * i14;
   }
 
-  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv11);
-  for (i63 = 0; i63 < 800; i63++) {
-    for (i64 = 0; i64 < 11; i64++) {
-      ret[i64 + 11 * i63] = (*(real_T (*)[8800])mxGetData(src))[i64 + 11 * i63];
+  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv23);
+  for (i14 = 0; i14 < 800; i14++) {
+    for (i15 = 0; i15 < 11; i15++) {
+      ret[i15 + 11 * i14] = (*(real_T (*)[8800])mxGetData(src))[i15 + 11 * i14];
     }
   }
 
@@ -485,15 +480,15 @@ static void v_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
 static void w_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId, real_T ret[2])
 {
-  int32_T iv12[2];
-  int32_T i65;
-  for (i65 = 0; i65 < 2; i65++) {
-    iv12[i65] = 1 + i65;
+  int32_T iv24[2];
+  int32_T i16;
+  for (i16 = 0; i16 < 2; i16++) {
+    iv24[i16] = 1 + i16;
   }
 
-  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv12);
-  for (i65 = 0; i65 < 2; i65++) {
-    ret[i65] = (*(real_T (*)[2])mxGetData(src))[i65];
+  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv24);
+  for (i16 = 0; i16 < 2; i16++) {
+    ret[i16] = (*(real_T (*)[2])mxGetData(src))[i16];
   }
 
   emlrtDestroyArray(&src);
@@ -502,15 +497,15 @@ static void w_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
 static void x_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId, real_T ret[6])
 {
-  int32_T iv13[2];
-  int32_T i66;
-  for (i66 = 0; i66 < 2; i66++) {
-    iv13[i66] = 1 + 5 * i66;
+  int32_T iv25[2];
+  int32_T i17;
+  for (i17 = 0; i17 < 2; i17++) {
+    iv25[i17] = 1 + 5 * i17;
   }
 
-  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv13);
-  for (i66 = 0; i66 < 6; i66++) {
-    ret[i66] = (*(real_T (*)[6])mxGetData(src))[i66];
+  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv25);
+  for (i17 = 0; i17 < 6; i17++) {
+    ret[i17] = (*(real_T (*)[6])mxGetData(src))[i17];
   }
 
   emlrtDestroyArray(&src);
@@ -519,18 +514,18 @@ static void x_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
 static void y_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId, real_T ret[15000])
 {
-  int32_T iv14[2];
-  int32_T i67;
-  int32_T i68;
-  for (i67 = 0; i67 < 2; i67++) {
-    iv14[i67] = 150 + -50 * i67;
+  int32_T iv26[2];
+  int32_T i18;
+  int32_T i19;
+  for (i18 = 0; i18 < 2; i18++) {
+    iv26[i18] = 150 + -50 * i18;
   }
 
-  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv14);
-  for (i67 = 0; i67 < 100; i67++) {
-    for (i68 = 0; i68 < 150; i68++) {
-      ret[i68 + 150 * i67] = (*(real_T (*)[15000])mxGetData(src))[i68 + 150 *
-        i67];
+  emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, iv26);
+  for (i18 = 0; i18 < 100; i18++) {
+    for (i19 = 0; i19 < 150; i19++) {
+      ret[i19 + 150 * i18] = (*(real_T (*)[15000])mxGetData(src))[i19 + 150 *
+        i18];
     }
   }
 
@@ -555,11 +550,11 @@ void clcDP_port_api(clcDP_portStackData *SD, const mxArray * const prhs[5],
 
   st.tls = emlrtRootTLSGlobal;
   emlrtHeapReferenceStackEnterFcnR2012b(&st);
-  c_emxInit_real_T(&st, &engKinOptVec, 1, &l_emlrtRTEI, true);
-  c_emxInit_real_T(&st, &batEngDltOptVec, 1, &l_emlrtRTEI, true);
-  c_emxInit_real_T(&st, &fulEngDltOptVec, 1, &l_emlrtRTEI, true);
-  c_emxInit_real_T(&st, &staVec, 1, &l_emlrtRTEI, true);
-  c_emxInit_real_T(&st, &psiEngKinOptVec, 1, &l_emlrtRTEI, true);
+  c_emxInit_real_T(&st, &engKinOptVec, 1, &n_emlrtRTEI, true);
+  c_emxInit_real_T(&st, &batEngDltOptVec, 1, &n_emlrtRTEI, true);
+  c_emxInit_real_T(&st, &fulEngDltOptVec, 1, &n_emlrtRTEI, true);
+  c_emxInit_real_T(&st, &staVec, 1, &n_emlrtRTEI, true);
+  c_emxInit_real_T(&st, &psiEngKinOptVec, 1, &n_emlrtRTEI, true);
 
   /* Marshall function inputs */
   c_emlrt_marshallIn(&st, emlrtAliasP(prhs[0]), "inputparams", &inputparams);

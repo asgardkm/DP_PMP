@@ -1,92 +1,67 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * _coder_clcDP_port_mex.c
  *
- * Code generation for function '_coder_clcDP_port_mex'
+ * Code generation for function 'clcDP_port'
  *
  */
 
 /* Include files */
-#include "clcDP_port.h"
-#include "_coder_clcDP_port_mex.h"
-#include "clcDP_port_terminate.h"
+#include "mex.h"
 #include "_coder_clcDP_port_api.h"
 #include "clcDP_port_initialize.h"
-#include "clcDP_port_data.h"
-#include <stdio.h>
-
-/* Variable Definitions */
-static clcDP_portStackData *clcDP_portStackDataGlobal = NULL;
+#include "clcDP_port_terminate.h"
 
 /* Function Declarations */
-static void clcDP_port_mexFunction(clcDP_portStackData *SD, int32_T nlhs,
-  mxArray *plhs[7], int32_T nrhs, const mxArray *prhs[5]);
+static void clcDP_port_mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]);
+
+/* Variable Definitions */
+emlrtContext emlrtContextGlobal = { true, false, EMLRT_VERSION_INFO, NULL, "clcDP_port", NULL, false, {2045744189U,2170104910U,2743257031U,4284093946U}, NULL };
+void *emlrtRootTLSGlobal = NULL;
 
 /* Function Definitions */
-static void clcDP_port_mexFunction(clcDP_portStackData *SD, int32_T nlhs,
-  mxArray *plhs[7], int32_T nrhs, const mxArray *prhs[5])
+static void clcDP_port_mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-  int32_T n;
-  const mxArray *inputs[5];
   const mxArray *outputs[7];
-  int32_T b_nlhs;
+  const mxArray *inputs[5];
+  int n = 0;
+  int nOutputs = (nlhs < 1 ? 1 : nlhs);
+  int nInputs = nrhs;
   emlrtStack st = { NULL, NULL, NULL };
-
+  clcDP_portStackData* clcDP_portStackDataLocal = (clcDP_portStackData*)mxCalloc(1,sizeof(clcDP_portStackData));
+  /* Module initialization. */
+  clcDP_port_initialize(&emlrtContextGlobal);
   st.tls = emlrtRootTLSGlobal;
-
   /* Check for proper number of arguments. */
   if (nrhs != 5) {
-    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, 12, 5, 4,
-                        10, "clcDP_port");
+    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, mxINT32_CLASS, 5, mxCHAR_CLASS, 10, "clcDP_port");
+  } else if (nlhs > 7) {
+    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:TooManyOutputArguments", 3, mxCHAR_CLASS, 10, "clcDP_port");
   }
-
-  if (nlhs > 7) {
-    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:TooManyOutputArguments", 3, 4, 10,
-                        "clcDP_port");
-  }
-
   /* Temporary copy for mex inputs. */
-  for (n = 0; n < nrhs; n++) {
+  for (n = 0; n < nInputs; ++n) {
     inputs[n] = prhs[n];
-    if (*emlrtBreakCheckR2012bFlagVar != 0) {
-      emlrtBreakCheckR2012b(&st);
-    }
   }
-
   /* Call the function. */
-  clcDP_port_api(SD, inputs, outputs);
-
+  clcDP_port_api(clcDP_portStackDataLocal, inputs, outputs);
   /* Copy over outputs to the caller. */
-  if (nlhs < 1) {
-    b_nlhs = 1;
-  } else {
-    b_nlhs = nlhs;
+  for (n = 0; n < nOutputs; ++n) {
+    plhs[n] = emlrtReturnArrayR2009a(outputs[n]);
   }
-
-  emlrtReturnArrays(b_nlhs, plhs, outputs);
-
-  /* Module termination. */
+  /* Module finalization. */
   clcDP_port_terminate();
+  mxFree(clcDP_portStackDataLocal);
 }
 
-void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray
-                 *prhs[])
+void clcDP_port_atexit_wrapper(void)
 {
-  clcDP_portStackDataGlobal = (clcDP_portStackData *)mxCalloc(1, sizeof
-    (clcDP_portStackData));
-
-  /* Initialize the memory manager. */
-  mexAtExit(clcDP_port_atexit);
-
-  /* Module initialization. */
-  clcDP_port_initialize();
-
-  /* Dispatch the entry-point. */
-  clcDP_port_mexFunction(clcDP_portStackDataGlobal, nlhs, plhs, nrhs, prhs);
-  mxFree(clcDP_portStackDataGlobal);
+   clcDP_port_atexit();
 }
 
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
+{
+  /* Initialize the memory manager. */
+  mexAtExit(clcDP_port_atexit_wrapper);
+  /* Dispatch the entry-point. */
+  clcDP_port_mexFunction(nlhs, plhs, nrhs, prhs);
+}
 /* End of code generation (_coder_clcDP_port_mex.c) */

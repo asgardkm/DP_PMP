@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * clcDP_port_data.h
  *
  * Code generation for function 'clcDP_port_data'
@@ -25,12 +21,11 @@
 #include "clcDP_port_types.h"
 
 /* Variable Declarations */
-extern emlrtCTX emlrtRootTLSGlobal;
 extern const volatile char_T *emlrtBreakCheckR2012bFlagVar;
-extern emlrtContext emlrtContextGlobal;
-extern emlrtRSInfo s_emlrtRSI;
-extern emlrtRSInfo t_emlrtRSI;
-extern emlrtRSInfo u_emlrtRSI;
+extern emlrtRSInfo v_emlrtRSI;
+extern emlrtMCInfo d_emlrtMCI;
+extern clcDP_portStackData *clcDP_portStackDataLocal;
+extern emlrtRSInfo tb_emlrtRSI;
 
 #endif
 

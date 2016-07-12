@@ -36,7 +36,7 @@ staBeg          = inputparams.staBeg;
 batEngMax       = fzg_scalar_struct.batEngMax;
 
 % tst_scalar_struct - originally tstDat800 structure
-staNum          = tst_scalar_struct.staNum;
+% staNum          = tst_scalar_struct.staNum;
 % wayNum          = tst_scalar_struct.wayNum;
 % engKinNum       = tst_scalar_struct.engKinNum;
 % slpVec_wayInx               = tst_array_struct.slpVec_wayInx;
@@ -168,15 +168,16 @@ fprintf('-Initializing model...\n');
     staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
     wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
     wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
-    staNum,         ... Skalar für die max. Anzahl an Zustandsstützstellen
+    iceFlgBool,     ... bool - define if engine off-on can be toggled
     timeNum,        ... Skalar für die max. Anzahl an Wegstützstellen
     engBeg,         ... scalar - beginnnig engine state
     engEnd,         ... scalar - end engine state
     staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
     velVec,         ... velocity vector contiaing input speed profile
     whlTrq,         ... wheel torque demand vector for the speed profile
+    tst_scalar_struct,     ... struct w/ tst data state var params
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
-    fzg_array_struct... struct der Fahrzeugparameter - NUR ARRAYS
+    fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
     );
 engKinEndInxVal = ceil(engKinNumVec_wayInx(wayInxEnd)/2);
 staEnd = staBeg;

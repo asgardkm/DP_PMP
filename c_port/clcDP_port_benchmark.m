@@ -19,6 +19,8 @@ write_bool      = 1;
 [inputparams, testparams, fahrparams, tst_array_struct, fzg_array_struct]...
          = init_port(config_filename, datafile_dir, write_bool);
 %% call clcDP_port()
+%call the mex equivalent - first move to directory
+% addpath('codegen/mex/clcDP_port');
 [engKinOptVec,          ... Vektor - Trajektorie der optimalen kin. Energien
     batEngDltOptVec,    ... Vektor - optimale Batterieenergieänderung
     fulEngDltOptVec,    ... Vektor - optimale Kraftstoffenergieänderung

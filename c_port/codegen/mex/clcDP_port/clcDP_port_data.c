@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * clcDP_port_data.c
  *
  * Code generation for function 'clcDP_port_data'
@@ -16,21 +12,18 @@
 #include <stdio.h>
 
 /* Variable Definitions */
-emlrtCTX emlrtRootTLSGlobal = NULL;
 const volatile char_T *emlrtBreakCheckR2012bFlagVar;
-emlrtContext emlrtContextGlobal = { true, false, 131418U, NULL, "clcDP_port",
-  NULL, false, { 2045744189U, 2170104910U, 2743257031U, 4284093946U }, NULL };
-
-emlrtRSInfo s_emlrtRSI = { 39, "sub2ind",
-  "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\elmat\\sub2ind.m"
+emlrtRSInfo v_emlrtRSI = { 20, "eml_int_forloop_overflow_check",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_int_forloop_overflow_check.m"
 };
 
-emlrtRSInfo t_emlrtRSI = { 71, "sub2ind",
-  "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\elmat\\sub2ind.m"
+emlrtMCInfo d_emlrtMCI = { 28, 19, "assert",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\shared\\coder\\coder\\+coder\\+internal\\assert.m"
 };
 
-emlrtRSInfo u_emlrtRSI = { 20, "eml_int_forloop_overflow_check",
-  "C:\\Program Files\\MATLAB\\R2015a\\toolbox\\eml\\lib\\matlab\\eml\\eml_int_forloop_overflow_check.m"
+clcDP_portStackData *clcDP_portStackDataLocal;
+emlrtRSInfo tb_emlrtRSI = { 28, "assert",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\shared\\coder\\coder\\+coder\\+internal\\assert.m"
 };
 
 /* End of code generation (clcDP_port_data.c) */

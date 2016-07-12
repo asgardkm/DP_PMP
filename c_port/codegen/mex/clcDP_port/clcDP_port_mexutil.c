@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * clcDP_port_mexutil.c
  *
  * Code generation for function 'clcDP_port_mexutil'
@@ -26,14 +22,31 @@ real_T b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   return y;
 }
 
+const mxArray *b_message(const emlrtStack *sp, const mxArray *b, emlrtMCInfo
+  *location)
+{
+  const mxArray *pArray;
+  const mxArray *m12;
+  pArray = b;
+  return emlrtCallMATLABR2012b(sp, 1, &m12, 1, &pArray, "message", true,
+    location);
+}
+
 const mxArray *emlrt_marshallOut(const real_T u)
 {
   const mxArray *y;
-  const mxArray *m4;
+  const mxArray *m7;
   y = NULL;
-  m4 = emlrtCreateDoubleScalar(u);
-  emlrtAssign(&y, m4);
+  m7 = emlrtCreateDoubleScalar(u);
+  emlrtAssign(&y, m7);
   return y;
+}
+
+void error(const emlrtStack *sp, const mxArray *b, emlrtMCInfo *location)
+{
+  const mxArray *pArray;
+  pArray = b;
+  emlrtCallMATLABR2012b(sp, 0, NULL, 1, &pArray, "error", true, location);
 }
 
 real_T t_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const

@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * clcDP_olyHyb_port.h
  *
  * Code generation for function 'clcDP_olyHyb_port'
@@ -30,9 +26,10 @@ extern void clcDP_olyHyb_port(const emlrtStack *sp, real_T disFlg, real_T wayStp
   psiTim, real_T staChgPenCosVal, real_T wayInxBeg, real_T wayInxEnd, real_T
   engKinBegInx, real_T engKinNum, real_T staNum, real_T wayNum, real_T staBeg,
   const real_T engKinNumVec_wayInx[800], const real_T slpVec_wayInx[800], const
-  real_T engKinMat_engKinInx_wayInx[8800], const struct2_T *fzg_scalar, const
-  struct4_T *fzg_array, emxArray_real_T *optPreInxTn3, emxArray_real_T
-  *batFrcOptTn3, emxArray_real_T *fulEngOptTn3, emxArray_real_T *cos2goActMat);
+  real_T engKinMat_engKinInx_wayInx[8800], const struct2_T *fzg_scalar_struct,
+  const struct4_T *fzg_array_struct, emxArray_real_T *optPreInxTn3,
+  emxArray_real_T *batFrcOptTn3, emxArray_real_T *fulEngOptTn3, emxArray_real_T *
+  cos2goActMat);
 extern void clcDP_olyHyb_port_init(void);
 extern void geaNum_not_empty_init(void);
 extern void iceFlg_not_empty_init(void);

@@ -1,6 +1,6 @@
 START_DIR = C:\Users\s0032360\DOCUME~1\GitHub\DP_PMP\c_port
 
-MATLAB_ROOT = C:\PROGRA~1\MATLAB\R2015a
+MATLAB_ROOT = C:\PROGRA~1\MATLAB\R2014b
 MAKEFILE = clcDP_port_mex.mk
 
 include clcDP_port_mex.mki
@@ -23,8 +23,8 @@ SRC_FILES =  \
 	clcOptTrj_port.c \
 	diff.c \
 	_coder_clcDP_port_api.c \
-	_coder_clcDP_port_mex.c \
 	clcDP_port_emxutil.c \
+	_coder_clcDP_port_mex.c \
 	_coder_clcDP_port_info.c
 
 MEX_FILE_NAME_WO_EXT = clcDP_port_mex
@@ -36,8 +36,8 @@ SYS_LIBS =
 
 #
 #====================================================================
-# gmake makefile fragment for building MEX functions using LCC
-# Copyright 2007-2012 The MathWorks, Inc.
+# gmake makefile fragment for building MEX functions using MSVC
+# Copyright 2007-2013 The MathWorks, Inc.
 #====================================================================
 #
 SHELL = cmd
@@ -46,70 +46,86 @@ CC = $(COMPILER)
 LD = $(LINKER)
 .SUFFIXES: .$(OBJEXT)
 
-OBJLIST += $(SRC_FILES:.c=.$(OBJEXT))
-MEXSTUB = $(MEX_FILE_NAME_WO_EXT)2.$(OBJEXT)
-LCCSTUB = $(MEX_FILE_NAME_WO_EXT)_lccstub.$(OBJEXT)
+OBJLISTC = $(SRC_FILES:.c=.$(OBJEXT))
+OBJLIST  = $(OBJLISTC:.cpp=.$(OBJEXT))
 
-target: $(TARGET)
+ifneq (,$(findstring $(EMC_COMPILER),msvc80 msvc90 msvc100 msvc100free msvc110 msvc120 msvcsdk))
+  TARGETMT = $(TARGET).manifest
+  MEX = $(TARGETMT)
+  STRICTFP = /fp:strict
+else
+  MEX = $(TARGET)
+  STRICTFP = /Op
+endif
 
-ML_INCLUDES = -I"$(MATLAB_ROOT)\simulink\include"
-ML_INCLUDES+= -I"$(MATLAB_ROOT)\toolbox\shared\simtargets"
-SYS_INCLUDE = $(ML_INCLUDES)
+target: $(MEX)
 
-LCC_ROOT = $(MATLAB_ROOT)\sys\lcc64\lcc64
+MATLAB_INCLUDES = /I "$(MATLAB_ROOT)\simulink\include"
+MATLAB_INCLUDES+= /I "$(MATLAB_ROOT)\toolbox\shared\simtargets"
+SYS_INCLUDE = $(MATLAB_INCLUDES)
 
 # Additional includes
 
-SYS_INCLUDE += -I"$(START_DIR)"
-SYS_INCLUDE += -I"$(START_DIR)\codegen\mex\clcDP_port"
-SYS_INCLUDE += -I"$(START_DIR)\codegen\mex\clcDP_port\interface"
-SYS_INCLUDE += -I"$(MATLAB_ROOT)\extern\include"
-SYS_INCLUDE += -I"."
+SYS_INCLUDE += /I "$(START_DIR)"
+SYS_INCLUDE += /I "$(START_DIR)\codegen\mex\clcDP_port"
+SYS_INCLUDE += /I "$(START_DIR)\codegen\mex\clcDP_port\interface"
+SYS_INCLUDE += /I "$(MATLAB_ROOT)\extern\include"
+SYS_INCLUDE += /I "."
 
-EML_LIBS = libemlrt.lib libcovrt.lib libut.lib libmwblas.lib libmwmathutil.lib
-SYS_LIBS += $(EML_LIBS)
-
-DIRECTIVES = $(MEX_FILE_NAME_WO_EXT)_mex.def
-
-COMP_FLAGS = $(COMPFLAGS) -DMX_COMPAT_32
-LINK_FLAGS0= $(subst $(MEXSTUB),$(LCCSTUB),$(LINKFLAGS))
-LINK_FLAGS = $(filter-out "mexFunction.def", $(LINK_FLAGS0))
-
-
+DIRECTIVES = $(MEX_FILE_NAME_WO_EXT)_mex.arf
+COMP_FLAGS = $(COMPFLAGS) $(OMPFLAGS) -DMX_COMPAT_32
+LINK_FLAGS = $(filter-out /export:mexFunction, $(LINKFLAGS))
+LINK_FLAGS += /NODEFAULTLIB:LIBCMT
 ifeq ($(EMC_CONFIG),optim)
-  COMP_FLAGS += $(OPTIMFLAGS)
+  COMP_FLAGS += $(OPTIMFLAGS) $(STRICTFP)
   LINK_FLAGS += $(LINKOPTIMFLAGS)
 else
   COMP_FLAGS += $(DEBUGFLAGS)
   LINK_FLAGS += $(LINKDEBUGFLAGS)
 endif
-LINK_FLAGS += -o $(TARGET)
+LINK_FLAGS += $(OMPLINKFLAGS)
+LINK_FLAGS += /OUT:$(TARGET)
 LINK_FLAGS += 
 
 CFLAGS =  $(COMP_FLAGS) $(USER_INCLUDE) $(SYS_INCLUDE)
+CPPFLAGS =  $(CFLAGS)
 
 %.$(OBJEXT) : %.c
 	$(CC) $(CFLAGS) "$<"
 
+%.$(OBJEXT) : %.cpp
+	$(CC) $(CPPFLAGS) "$<"
+
 # Additional sources
 
 %.$(OBJEXT) : $(START_DIR)/%.c
-	$(CC) -Fo"$@" $(CFLAGS) "$<"
+	$(CC) $(CFLAGS) "$<"
 
 %.$(OBJEXT) : $(START_DIR)\codegen\mex\clcDP_port/%.c
-	$(CC) -Fo"$@" $(CFLAGS) "$<"
+	$(CC) $(CFLAGS) "$<"
 
 %.$(OBJEXT) : interface/%.c
-	$(CC) -Fo"$@" $(CFLAGS) "$<"
+	$(CC) $(CFLAGS) "$<"
 
 
 
-$(LCCSTUB) : $(LCC_ROOT)\mex\lccstub.c
-	$(CC) -Fo$(LCCSTUB) $(CFLAGS) "$<"
+%.$(OBJEXT) : $(START_DIR)/%.cpp
+	$(CC) $(CPPFLAGS) "$<"
 
-$(TARGET): $(OBJLIST) $(LCCSTUB) $(MAKEFILE) $(DIRECTIVES)
-	$(LD) $(LINK_FLAGS) $(OBJLIST) $(LINKFLAGSPOST) $(SYS_LIBS) $(DIRECTIVES)
+%.$(OBJEXT) : $(START_DIR)\codegen\mex\clcDP_port/%.cpp
+	$(CC) $(CPPFLAGS) "$<"
+
+%.$(OBJEXT) : interface/%.cpp
+	$(CC) $(CPPFLAGS) "$<"
+
+
+
+$(TARGET): $(OBJLIST) $(MAKEFILE) $(DIRECTIVES)
+	$(LD) $(LINK_FLAGS) $(OBJLIST) $(USER_LIBS) $(SYS_LIBS) @$(DIRECTIVES)
 	@cmd /C "echo Build completed using compiler $(EMC_COMPILER)"
+
+$(TARGETMT): $(TARGET)
+	mt -outputresource:"$(TARGET);2" -manifest "$(TARGET).manifest"
 
 #====================================================================
 

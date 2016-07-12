@@ -1,8 +1,4 @@
 /*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
  * clcDP_port_mexutil.h
  *
  * Code generation for function 'clcDP_port_mexutil'
@@ -34,7 +30,10 @@ extern real_T b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
 
 #endif
 
+extern const mxArray *b_message(const emlrtStack *sp, const mxArray *b,
+  emlrtMCInfo *location);
 extern const mxArray *emlrt_marshallOut(const real_T u);
+extern void error(const emlrtStack *sp, const mxArray *b, emlrtMCInfo *location);
 extern real_T t_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId);
 
