@@ -21,6 +21,8 @@ function [          ...  --- Ausgangsgrößen:
     staBeg,         ... Skalar f�r den Startzustand des Antriebsstrangs
     velVec,         ... velocity vector contiaing input speed profile
     whlTrq,         ... wheel torque demand vector for the speed profile
+    batEngEndMin,   ... SOC lower limit
+    batEngEndMax,   ... SOC upper limit
     tst_scalar_struct,     ... struct w/ tst data state var params
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
@@ -389,6 +391,8 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                                 timeStp,            ...
                                 vehVelVec,          ...
                                 whlTrqPre,          ... use prev idx whlTrq
+                                batEngEndMin,       ... SOC lower limit
+                                batEngEndMax,       ... SOC upper limit
                                 fzg_scalar_struct,  ...
                                 fzg_array_struct);
                     

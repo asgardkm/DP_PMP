@@ -106,17 +106,14 @@ else
     clcFlg = clcFlgInp;
 end
 
-
-
 %% Laden der Eingangsdaten
-
 % Laden der Modelldaten
-par = load('vehMdl.mat') % enthält: par (struct)
+par = load('vehMdl.mat'); % enthält: par (struct)
 
 % % Laden der Referenzdaten (Ausgangsbasis für Optimierung)
 % load('refDat.mat') % enthält: refWayVec, refVelVec und refSlpVec
+load('nefz.mat') % enthält: refWayVec, refVelVec und refSlpVec
 load('nedc.mat')    % load input speed profile
-% load('nefz.mat') % enthält: refWayVec, refVelVec und refSlpVec
 % refWayVec = (0:10:1000)';
 % refVelVec = 10*ones(size(refWayVec));
 % refSlpVec = zeros(size(refWayVec));%0*.15*sin(refWayVec/1000);
@@ -132,12 +129,9 @@ else
     par.batOcvCof_batEng = [0 97.188760127129020];
 end
 
-
 %% Initialisierung der Ausgabe der Funktion
 
 %% Präzision des Ergebnisses
-
-
 if ~loaFlg
     % Diskretisierung der Batterieenergie in J
     % Um Unterschiede von Gangwechseln beim elektrischen Fahren aufzulösen, ist
@@ -239,8 +233,8 @@ infVal = 1e25;
 engKinVar = 60000; % J % 8 km/h bei 50 km/h
 
 % Anfangs- und Endindex der Nutzerdaten
-% refInxBeg = find(refWayVec >= 0,1,'first');
-% refInxEnd = find(refWayVec >= 8190,1,'first');
+refInxBeg = find(refWayVec >= 0,1,'first');
+refInxEnd = find(refWayVec >= 8190,1,'first');
 
 if ~loaFlg
     % Nebenverbrauchlast in W
@@ -249,9 +243,7 @@ if ~loaFlg
     if batPwrAux < 0
         error('Nebenverbrauchlast muss größer 0 sein.')
     end
-    
 end
-
 
 %% maximale Dimensionen des Zustandsraums
 

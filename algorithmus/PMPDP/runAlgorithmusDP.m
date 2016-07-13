@@ -41,8 +41,8 @@ engStaNum       = tst_scalar_struct.engStaNum;
 % wayNum          = tst_scalar_struct.wayNum;
 % engKinNum       = tst_scalar_struct.engKinNum;
 % slpVec_wayInx               = tst_array_struct.slpVec_wayInx;
-engKinMat_engKinInx_wayInx  = tst_array_struct.engKinMat_engKinInx_wayInx;
-engKinNumVec_wayInx         = tst_array_struct.engKinNumVec_wayInx;
+% engKinMat_engKinInx_wayInx  = tst_array_struct.engKinMat_engKinInx_wayInx;
+% engKinNumVec_wayInx         = tst_array_struct.engKinNumVec_wayInx;
 
 % nedc_array_struct - save vector values
 timeVecRaw  = nedc_array_struct.vehVel(:,1);
@@ -182,6 +182,8 @@ fprintf('-Initializing model...\n');
     staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
     velVec,         ... velocity vector contiaing input speed profile
     whlTrq,         ... wheel torque demand vector for the speed profile
+    batEngEndMin,   ... SOC lower limit
+    batEngEndMax,   ... SOC upper limit
     tst_scalar_struct,     ... struct w/ tst data state var params
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS

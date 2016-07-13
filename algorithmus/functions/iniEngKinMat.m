@@ -80,7 +80,9 @@ end
 for wayInx = wayInxBeg+1:wayInxEnd
     % Zielzeit berechnen durch Kumulieren der Zeiten für jedes Intervall
     % Zero-Order-Hold
-    timEndRef = timEndRef + wayStp / velVec(wayInx-1);
+%     timEndRef = timEndRef + wayStp / velVec(wayInx-1);
+    timEndRef = timEndRef + wayStp / velVec(wayInx);
+    fprintf('timEndRef: %4.3f\n', timEndRef);
 end
 
 %% Matrix der kinetischen Energie berechnen
