@@ -7,6 +7,7 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     clcDP_a         ...
     (               ... --- Eingangsgrößen:
     disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
+    iceFlgBool,     ... bool - define if engine off-on can be toggled
     timeStp,        ... Skalar für die Wegschrittweite in m
     batEngStp,      ... Skalar der Batteriediskretisierung in J
     batEngBeg,      ... Skalar für die Batterieenergie am Beginn in Ws
@@ -14,10 +15,9 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
     wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
     wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
-    iceFlgBool,     ... bool - define if engine off-on can be toggled
     timeNum,        ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
     engBeg,         ... scalar - beginnnig engine state
-    engEnd,         ... scalar - end engine state
+    engStaVec_wayInx,... scalar - end engine state
     staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
     velVec,         ... velocity vector contiaing input speed profile
     whlTrq,         ... wheel torque demand vector for the speed profile
@@ -104,8 +104,8 @@ if isempty(geaNum)
 %     vehAccMin = zeros(1,1);
 %     vehAccMax = zeros(1,1);
     
-    % number of engine states possible (1 = OFF; 2 = ON);
-    engNum      = 2;
+    % number of engine states possible (0 = OFF; 1 = ON);
+    engNum      = tst_scalar_struct.engStaNum;
     engStaMin   = tst_scalar_struct.engStaMin;
     engStaMax   = tst_scalar_struct.engStaMax;
     % Anzahl der GÃ¤nge
@@ -142,7 +142,7 @@ optPreInxTn3 = zeros(engNum, geaNum,timeNum);
 % NOW A MATRIX
 fulEngOptTn3 = inf(engNum, geaNum,timeNum);
 %   set initial fuel energy level to 0
-fulEngOptTn3(engBeg, staBeg, wayInxBeg) = 0; 
+fulEngOptTn3(engBeg+1, staBeg, wayInxBeg) = 0; 
 
 % Tensor 3. Stufe für die Batterienergie
 %   tensor3 for battery energy
@@ -161,7 +161,7 @@ cos2goActMat = inf(engNum, geaNum);
 
 % Erste Initilisierung beim Startindex mit 0 für alle Zustände (concluded)
 %   first, initialize the startidx to 0 for all states
-cos2goPreMat(engBeg, staBeg) = 0;
+cos2goPreMat(engBeg+1, staBeg) = 0;
 
 % Initialisierung der Matrix der Batterieenergien
 %   initialize the battery energy matrix
@@ -169,21 +169,14 @@ batEngPreMat = inf(engNum, geaNum);
 
 % Erste Initilisierung beim Startindex mit Startladung für den Startzustand
 %   first, intialize start index of the starting charge for intial state
-batEngPreMat(engBeg, staBeg) = batEngBeg;
+batEngPreMat(engBeg+1, staBeg) = batEngBeg;
 
 % Initialisierung der Matrix der Kraftstoffenergien
 %   initialze the fuel energy matrix
 fulEngPreMat = inf(engNum, geaNum);
 % Erste Initilisierung beim Startindex mit 0 für den Startzustand
 %   first, intialize the start idx for the intitial states to 0
-fulEngPreMat(engBeg, staBeg) = 0;
-
-% define vector for possibilities of engine state on-off values
-%   2 = can toggle (two states, on-of)
-%   1 = cannot toggle, must stay in current state for idx (most likely off)
-engStaVec_wayInx = ones(wayInxEnd, 1)*2;
-engStaVec_wayInx(wayInxBeg) = engBeg;
-engStaVec_wayInx(wayInxEnd) = engEnd;
+fulEngPreMat(engBeg+1, staBeg) = 0;
 
 % define a vector for containing the values of engine control off-on
 % engStaMat_geaNum_wayInx = zeros(1, wayInxEnd);
@@ -191,7 +184,7 @@ engStaVec_wayInx(wayInxEnd) = engEnd;
 % Schleife über alle Wegpunkte
 %   looping thorugh length of # of discretized time vector
 for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
-% for wayInx = wayInxBeg+1 : timeStp : 35
+% for wayInx = wayInxBeg+1 : timeStp : 5
 % for wayInx = wayInxBeg+1 : timeStp : 1175
 
     % mittlere Steigung im betrachteten Intervall 
@@ -473,7 +466,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     engStaPreOptInx+1,geaStaPreOptInx);
             end % end of ~inf(hamiltonian) if-statement
         end % end of looping through all gears
-        fprintf('##################################\n\n');
+        fprintf('##################################\n');
     end % end of looping through all the current engine control states
     fprintf('##################################\n\n');
 

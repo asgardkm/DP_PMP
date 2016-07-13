@@ -32,9 +32,9 @@ PARAMS_START
 0,				staChgPenCosVal,	a
 1,				wayInxBeg,			a
 1181,			wayInxEnd,			a
-1,				engBeg,				initial state of engine (0-off, 1-on)
-1,				engEnd,				final state of engine 	(0-off, 1-on)
-3,				staBeg,				a
+0,				engBeg,				initial state of engine (0-off, 1-on)
+0,				engEnd,				final state of engine 	(0-off, 1-on)
+1,				staBeg,				a
 PARAMS_END
 ====================================================================================
 
@@ -54,9 +54,10 @@ Test data parameters used on a 800 path_index long run.
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
 TSTDAT_START
-3,				staNum,				Number of gears in model
-3,				geaStaMin,			low gear limit
-3,				geaStaMax,			high gear limit
+6,				staNum,				Number of gears in model
+1,				geaStaMin,			low gear limit
+6,				geaStaMax,			high gear limit
+2,				engStaNum,			number of states engine can take (1:no toggle; 2:toggle btwn 0 and 1)
 0,				engStaMin,			low engine state boundary (0-off, 1-on)
 1,				engStaMax,			high ^^; can set both equal for always off/on ice
 TSTDAT_END

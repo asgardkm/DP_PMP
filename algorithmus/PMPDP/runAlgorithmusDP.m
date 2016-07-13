@@ -2,7 +2,7 @@ function ...            --- Ausgangsgrößen:
 [engKinOptVec,      ... Vektor - Trajektorie der optimalen kin. Energien
     batEngDltOptVec,... Vektor - optimale Batterieenergieänderung
     fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieänderung
-    staVec,         ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
+    geaStaVec,         ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     fulEngOpt,      ... Skalar - optimale Kraftstoffenergie
     resVld          ...
     ] =             ...
@@ -36,7 +36,8 @@ staBeg          = inputparams.staBeg;
 batEngMax       = fzg_scalar_struct.batEngMax;
 
 % tst_scalar_struct - originally tstDat800 structure
-% staNum          = tst_scalar_struct.staNum;
+staNum          = tst_scalar_struct.staNum;
+engStaNum       = tst_scalar_struct.engStaNum;
 % wayNum          = tst_scalar_struct.wayNum;
 % engKinNum       = tst_scalar_struct.engKinNum;
 % slpVec_wayInx               = tst_array_struct.slpVec_wayInx;
@@ -149,6 +150,13 @@ whlFrc(velVec < 0.05) = 0;
 %   resistance force (torque = force * distance (in this case, radius)
 whlTrq = whlFrc*fzg_scalar_struct.whlDrr;
 
+%% define vector for possibilities of engine state on-off values
+%   2 = can toggle (two states, on-of)
+%   1 = cannot toggle, must stay in current state for idx (most likely off)
+engStaVec_wayInx = ones(wayInxEnd, 1)*2;
+engStaVec_wayInx(wayInxBeg) = engBeg;
+engStaVec_wayInx(wayInxEnd) = engEnd;
+
 %% Calculating optimal predecessors with DP + PMP
 fprintf('-Initializing model...\n');
 [... --- Ausgangsgrößen:
@@ -161,17 +169,16 @@ fprintf('-Initializing model...\n');
     (               ... --- Eingangsgrößen:
     disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
     iceFlgBool,     ... skalar - is engine toggle on/off allowed?
-    timeStp,         ... Skalar für die Wegschrittweite in m
+    timeStp,        ... Skalar für die Wegschrittweite in m
     batEngStp,      ... Skalar der Batteriediskretisierung in J 
     batEngBeg,      ... Skalar für die Batterieenergie am Beginn in Ws
     batPwrAux,      ... Skalar für die Nebenverbrauchlast in W
     staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
     wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
     wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
-    iceFlgBool,     ... bool - define if engine off-on can be toggled
     timeNum,        ... Skalar für die max. Anzahl an Wegstützstellen
     engBeg,         ... scalar - beginnnig engine state
-    engEnd,         ... scalar - end engine state
+    engStaVec_wayInx,...
     staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
     velVec,         ... velocity vector contiaing input speed profile
     whlTrq,         ... wheel torque demand vector for the speed profile
@@ -179,30 +186,37 @@ fprintf('-Initializing model...\n');
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
     );
-engKinEndInxVal = ceil(engKinNumVec_wayInx(wayInxEnd)/2);
-staEnd = staBeg;
 
+%% end conditions 
+% why the rounding though?
+engStaEndInxVal = ceil(engStaVec_wayInx(wayInxEnd)/2);
+% end gear condition
+staEnd = staBeg;
+% end engine condition
+engEnd;
+
+% end battery charge condition - HOW TO IMPLEMENT??
+batEngEndMin;
+batEngEndMax;
 
 %% Calculating optimal trajectories for result of DP + PMP
-[engKinOptVec,      ... Vektor - Trajektorie der optimalen kin. Energien
+[...
     batEngDltOptVec,... Vektor - optimale Batterieenergieänderung
     fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieänderung
-    staVec,         ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-    psiEngKinOptVec,... Vektor - costate für kinetische Energie
+    geaStaVec,      ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     fulEngOpt       ... Skalar - optimale Kraftstoffenergie
     ] =             ...
-    clcOptTrj_port  ... FUNKTION
-    (false,         ... Flag, ob Zielzustand genutzt werden muss
-    wayStp,         ... Skalar für die Wegschrittweite in m
-    wayNum,         ... Skalar für die max. Anzahl an Wegstützstellen
+    clcOptTrj_a     ... FUNKTION
+    (disFlg,        ... Flag, ob Zielzustand genutzt werden muss - CHANGE VAR NAME ITS THE SAME VAR FOR 2 DIFFERENT USES IN 2 FUNCTIONS
+    timeStp,        ... Skalar für die Wegschrittweite in m
+    timeNum,        ... Skalar für die max. Anzahl an Wegstützstellen
     wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
     wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
     staEnd,         ... Skalar für den finalen Zustand
-    engKinNum,      ... Skalar für die max. Anz. an engKin-Stützstellen
-    engKinEndInxVal,... Skalar für Zielindex der kinetischen Energie
+    engEnd,         ... scalar - final engine state
+    engStaEndInxVal,... Skalar für Zielindex der kinetischen Energie
     staNum,         ... Skalar für die max. Anzahl an Zustandsstützstellen
-    engKinNumVec_wayInx,        ... Vektor der Anzahl der kinetischen Energien
-    engKinMat_engKinInx_wayInx, ... Matrix der kinetischen Energien in J
+    engStaNum,      ... scalar - for number of states engine can take
     optPreInxTn3,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
     batFrcOptTn3,   ... Tensor 3. Stufe der Batteriekraft
     fulEngOptTn3,   ... Tensor 3. Stufe für die Kraftstoffenergie
