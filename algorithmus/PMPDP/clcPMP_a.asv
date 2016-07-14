@@ -287,19 +287,17 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
     batEngDlt   = batEngDltInx * batEngStp;
     batEngAct   = batEng + batEngDlt;
     
-%     % checks for SOC
-%     % if battery SOC is too low, ice needs to provide more torque - which
-%     % means we need as small as a E' possible -> exit for loop
-%     if batEngAct < batEngEndMin
-%         fprintf('bat level is too low\n');
-%         break;
-%     end
-%     % if battery SOC is too high, em needs to dispense more torque - which
-%     % means we need a bigger E' -> continue loop to a higher E' value
-%     if batEngAct > batEngEndMax
-%         fprintf('bat level is too high\n');
-%         continue;
-%     end
+    % checks for SOC
+    % if battery SOC is too low, ice needs to provide more torque - which
+    % means we need as small as a E' possible -> exit for loop
+    if batEngAct < batEngEndMin
+        break;
+    end
+    % if battery SOC is too high, em needs to dispense more torque - which
+    % means we need a bigger E' -> continue loop to a higher E' value
+    if batEndAct > batEngEndMax
+        continue;
+    end
     
     % open circuit voltage over each iteration
     batOcv = batEngAct*fzg_array_struct.batOcvCof_batEng(1,1)+fzg_array_struct.batOcvCof_batEng(1,2);
@@ -338,7 +336,7 @@ for batEngDltInx = batEngDltMinInx:batEngDltMaxInx
     [minFulLvl,optPreInx] = min([fulFrc,minFulLvl]);
     
     % Wenn der aktuelle Punkt besser ist, als der in cosHamMin
-    % gespeicherte Wert, werden die Ausgabegrößen neu beschrieben.
+    % gespeicherte Wert, werden die AusgabegrÃ¶ÃŸen neu beschrieben.
     %   if the current point is better than the stored cosHamMin value,
     %   then the output values are rewritten (selected prev. value is = 2)
     if optPreInx == 1
