@@ -1,6 +1,6 @@
-function[inputparams, testparams, fahrparams, ...
+function[inputparams, tst_scalar_struct, fzg_scalar_struct, ...
          tst_array_struct, nedc_array_struct, fzg_array_struct] ...
-         = init_a(config_filename, datafile_dir, write_bool)
+         = init_focus(config_filename, datafile_dir, write_bool)
 % function : initialze structure variables for inputs to clcDP_port()
 %
 % input  :
@@ -16,12 +16,14 @@ tst_array_dir   = fullfile(datafile_dir, 'tst_array.mat');
 fzg_array_dir   = fullfile(datafile_dir, 'fzg_array.mat');  
 
 nedc_array_dir  = fullfile(datafile_dir, 'nedc_array.mat');   
+
+focus_data = load(fullfile(datafile_dir, 'MODEL_DATA_IAM'));
           
 %% Laden der Modelldaten - SCALAR DATA
 % load in data from text file (if running model through matlab and are 
 % ignoring simulink (mainConfig.txt)
 % - saving SCALAR values
-[inputparams, testparams, fahrparams] = readConfig_a(config_filename);
+[inputparams, tst_scalar_struct, fzg_scalar_struct] = readConfig_a(config_filename);
  
 %% SAVE & WRITE / LOAD ARRAY DATA
 % first check if array data has already been parsed and saved 
@@ -38,6 +40,55 @@ else % otherwise, proceed to generate array data and save it
 end
 fprintf('done!\n');    
 
+
+%% rewrite some parameters from focus_data into the other structs
+% drag coefficient
+fzg_scalar_struct.drgCof    = focus_data.Drag_coeff;
+% vehicle mass
+fzg_scalar_struct.vehMas    = focus_data.Vehicle_mass;
+%rolling resistance
+fzg_scalar_struct.whlRosResCof = focus_data.Rolling_resistance_coeff;
+% Dynmaic Rolling Radius (Wheel)
+fzg_scalar_struct.whlDrr    = focus_data.Dynamic_rolling_radius_of_wheels;
+% Battery Resistance
+fzg_scalar_struct.batRstChr = focus_data.Battery_resistance;
+fzg_scalar_struct.batRstDch = focus_data.Battery_resistance;
+% OCV wrt SOC
+% Battery Power Limits
+fzg_scalar_struct.batPwrMax = focus_data.Battery_Power_limit;
+fzg_scalar_struct.barPwrMin = -focus_data.Battery_Power_limit;
+% Max Battery Energy
+fzg_scalar_struct.batEngMax = focus_data.Battery_Maximal_energy;
+% Gear Ratios (ignore the '0' gear)
+fzg_array_struct.geaRat     = focus_data.Gear_box_value_eff(2:end,2);
+% Gear Efficiency - now a vector, not a scalar anymore
+fzg_array_struct.geaEfy     = focus_data.Gear_box_value_eff(2:end,3);
+% Fuel Density
+% Fuel Lower Heating Value
+% Fuel Power wrt ICE speed and torque (rad/s)
+fzg_array_struct.icePwr_emoSpd_emoTrq = focus_data.ICE_fuel_power_data;
+% ICE speed meshgrid/vector (N*m)
+fzg_array_struct.iceSpdMgd = focus_data.ICE_fuel_speed_axis;
+% ICE torque meshgird/vector
+fzg_array_struct.iceTrqMgd = focus_data.ICE_fuel_torque_axis;
+% boundaries of ICE torque wrt ICE speed(rad/s)
+fzg_array_struct.iceTrqMax_emoSpd = focus_data.ICE_TQ_max_vs_Speed(:,2);
+fzg_array_struct.iceTrqMin_emoSpd = focus_data.ICE_TQ_min_vs_Speed(:,2);
+
+% Electric power EM speed and torque
+fzg_array_struct.emoPwr_emoSpd_emoTrq = focus_data.MOT_elec_power_data;
+
+% EM speed meshgrid/vector
+fzg_array_struct.emoSpdMgd  = focus_data.MOT_elec_speed_axis;
+% EM torque meshgrid/vector
+fzg_array_struct.emoTrqMgd  = focus_data.MOT_elec_torque_axis;
+% boundaries of EM torque wrt EM speed (rad/s)
+fzg_array_struct.emoTrqMax_emoSpd = focus_data.MOT_TQ_max_vs_Speed;
+fzg_array_struct.emoTrqMin_emoSpd = focus_data.MOT_TQ_min_vs_Speed;
+% EM torque wrt EM speed and power
+fzg_array_struct.emoTrq_emoSpd_emoPwr = focus_data.MOT_Power_limits_vs_Speed
+% EM power meshgrid/vector
+% EM power boundaries
 %% notes:
 %   c code will read in array data
 %   needed bc MATLAB_CODER cannot process load() function
