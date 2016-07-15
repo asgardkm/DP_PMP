@@ -23,7 +23,6 @@ PARAMS_START
 1,				disFlg,				bool - for displaying data on command window (also ensures target trajectory?? check later in clcOptTrj)
 0,				iceFlgBool,			bool - flag for having engine always on?
 1,				timeStp,			time step discretization [sec]
-1000,			batEngStp,			discretized battery energy step size
 0.60,			batEngBegMinRat,	beginning minimum SOC percentage value
 0.60,			batEngBegMaxRat,	beginning maximum SOC percentage value
 0.30,			batEngEndMinRat,	ending minimum SOC percentage value
@@ -40,7 +39,7 @@ PARAMS_END
 
 
 
-______________________________**TEST DATA PARAMETERS**______________________________
+______________________________** STATE PARAMETERS**_________________________________
 
 Test data parameters used on a 800 path_index long run.
 !!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 
@@ -60,6 +59,9 @@ TSTDAT_START
 2,				engStaNum,			number of states engine can take (1:no toggle; 2:toggle btwn 0 and 1)
 0,				engStaMin,			low engine state boundary (0-off, 1-on)
 1,				engStaMax,			high ^^; can set both equal for always off/on ice
+0,				batEngMin,			minimum battery energy level possible
+1000,			batEngStp,			discretized battery energy step size
+2704300,		batEngMax,			maximum battery energy level possible
 TSTDAT_END
 ====================================================================================
 
@@ -90,7 +92,6 @@ FAHRZEUG_START
 0.3156,			whlDrr,				a
 0.0334,			batRstChr,			why
 0.0406,			batRstDch,			hello
-2704300,		batEngMax,			there
 20000,			batPwrMax,			how
 -25000,			batPwrMin,			you
 0.9806,			geaEfy,				doing

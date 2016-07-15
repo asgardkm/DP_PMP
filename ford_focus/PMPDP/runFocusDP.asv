@@ -6,7 +6,7 @@ function ...            --- Ausgangsgrößen:
     fulEngOpt,      ... Skalar - optimale Kraftstoffenergie
     resVld          ...
     ] =             ...
-    runAlgorithmusDP(       ...
+    runFocusDP(       ...
     inputparams,            ...
     tst_scalar_struct,      ...
     fzg_scalar_struct,      ...
@@ -19,7 +19,6 @@ function ...            --- Ausgangsgrößen:
 disFlg          = inputparams.disFlg;
 iceFlgBool      = inputparams.iceFlgBool;
 timeStp         = inputparams.timeStp;
-batEngStp       = inputparams.batEngStp;
 batEngBegMinRat = inputparams.batEngBegMinRat;
 batEngBegMaxRat = inputparams.batEngBegMaxRat;
 batEngEndMinRat = inputparams.batEngEndMinRat;
@@ -33,7 +32,8 @@ wayInxEnd       = inputparams.wayInxEnd;
 staBeg          = inputparams.staBeg;
 
 % get the max 100% battery energy value possible
-batEngMax       = fzg_scalar_struct.batEngMax;
+batEngStp       = tst_scalar_struct.batEngStp;
+batEngMax       = tst_scalar_struct.batEngMax;
 
 % tst_scalar_struct - originally tstDat800 structure
 staNum          = tst_scalar_struct.staNum;
@@ -49,18 +49,18 @@ timeVecRaw  = nedc_array_struct.vehVel(:,1);
 velVecRaw   = nedc_array_struct.vehVel(:,2);
 slopeVecRaw = nedc_array_struct.refSlpVec;
 % acceleration : dV/dt
-accVecRaw  = gradient(velVecRaw);
+accVecRaw   = gradient(velVecRaw);
 
 % discretize raw data wrt time interval step size
 timeVec     = timeVecRaw(1) : timeStp : timeVecRaw(end);
-[timeBool, timeIdx]= ismember(timeVecRaw, timeVec);
+[timeBool, ~]= ismember(timeVecRaw, timeVec);
 velVec      = velVecRaw(timeBool);
 accVec      = accVecRaw(timeBool);
-disVec      = velVec * timeStp;
+% disVec      = velVec * timeStp;
 slopeVec    = slopeVecRaw(timeBool);
 
 % determine time length of interval
-timeNum = length(timeVec);
+timeNum     = length(timeVec);
 
 
 % PrÃ¼fen(check), ob eine erlaubte Beschleunigung vorliegt.
@@ -103,7 +103,7 @@ batEngEndMax = ceil(batEngMax*batEngEndMaxRat/batEngStp) * batEngStp;
 
 % Aus der mittleren kinetischen Energie im Intervall, der mittleren
 % Steigung und dem Gang lÃ¤sst sich Ã¼ber die Fahrwiderstandsgleichung
-% die nÃ¶tige Fahrwiderstandskraft berechnen, die aufgebracht werden
+% die nötige Fahrwiderstandskraft berechnen, die aufgebracht werden
 % muss, um diese zu realisieren.
 %   from the (avg) kinetic energy in the interval, the (avg) slope and
 %   transition can calculate the necessary traction force on the driving
@@ -121,9 +121,6 @@ vehFrcRol = fzg_scalar_struct.whlRosResCof*fzg_scalar_struct.vehMas * 9.81 * cos
 %   calculated air resistance force 
 vehFrcDrg = fzg_scalar_struct.drgCof * velVec.^2;
 
-%% Berechnung der minimalen kosten der Hamiltonfunktion
-%   Calculating the minimum cost of the Hamiltonian
-
 %% Berechnen der Kraft am Rad fÃ¼r Antriebsstrangmodus
 %   calculate the force on the wheel for the drivetrain mode
 
@@ -133,8 +130,7 @@ vehFrcDrg = fzg_scalar_struct.drgCof * velVec.^2;
 %   calculate dynamic vehicle mass with the vehicle engine (with the moment
 %   of intertia of the ICE, electric motor, and wheels)
 % vehMasDyn = (par.iceMoi_geaRat(gea) +...
-%     par.emoGeaMoi_geaRat(gea) + par.whlMoi)/par.whlDrr^2 ...
-%     + par.vehMas;
+%     par.emoGeaMoi_geaRat(gea) + par.whlMoi)/par.whlDrr^2 + par.vehMas;
 
 % Radkraft berechnen (Beschleunigungskraft + Steigungskraft +
 % Rollwiderstandskraft + Luftwiderstandskraft)
@@ -157,9 +153,23 @@ engStaVec_wayInx = ones(wayInxEnd, 1)*2;
 engStaVec_wayInx(wayInxBeg) = engBeg;
 engStaVec_wayInx(wayInxEnd) = engEnd;
 
+
+%% define battery looping vector
+batValVec = tst_scalar_struct.batEngMin : ...
+            tst_scalar_struct.batEngStp : ...
+            tst_scalar_struct.batEngMax ;
+        
+% make sure that the max/min electric power values are discretized right
+if mod(fzg_scalar_struct.batPwrMax, tst_scalar_struct.batEngStp)
+    fzg_scalar_struct.batPwrMax=floor(fzg_scalar_struct.batPwrMax/tst_scalar_struct.batEngStp)*tst_scalar_struct.batEngStp;
+    fzg_scalar_struct.batPwrMin=ceil(fzg_scalar_struct.batPwrMin/tst_scalar_struct.batEngStp)*tst_scalar_struct.batEngStp;
+    fprintf('Note: E'' limits weren''t discretized to E'' step size.\n');
+    fprintf('   Old max E'' %i is now %in', )
+end
+
 %% Calculating optimal predecessors with DP + PMP
 fprintf('-Initializing model...\n');
-[... --- Ausgangsgrößen:
+[                   ... --- Ausgangsgrößen:
     optPreInxTn3,   ...  Tensor 3. Stufe für opt. Vorgängerkoordinaten
     batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
     fulEngOptTn3,   ...  Tensor 3. Stufe für die Kraftstoffenergie 
@@ -197,9 +207,9 @@ staEnd = staBeg;
 % end engine condition
 engEnd;
 
-% end battery charge condition - HOW TO IMPLEMENT??
-batEngEndMin;
-batEngEndMax;
+% % end battery charge condition - HOW TO IMPLEMENT??
+% batEngEndMin;
+% batEngEndMax;
 
 %% Calculating optimal trajectories for result of DP + PMP
 [...

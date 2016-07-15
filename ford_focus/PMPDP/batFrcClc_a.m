@@ -28,11 +28,6 @@ batFrc = inf;
 %   calculate the change in battery energy along path_idx in exterior func,  
 %   distinguished whether battery is charging or discharging.
 %   Assining battery resistance value
-%
-% making battery resistance value a vector 
-% batRstVec = zeros(length(batPwr), 1);
-% batRstVec(batPwr > 0)  = batRstDch;
-% batRstVec(batPwr <= 0) = batRstChr;
 if batPwr > 0
     batRst = batRstDch;
 else
