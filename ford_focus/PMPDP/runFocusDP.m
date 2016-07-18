@@ -181,7 +181,7 @@ fprintf('-Initializing model...\n');
     fulEngOptTn3,   ...  Tensor 3. Stufe für die Kraftstoffenergie 
     cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =             ... 
-    clcDP_a         ... FUNKTION
+    clcDP_focus     ... FUNKTION
     (               ... --- Eingangsgrößen:
     disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
     iceFlgBool,     ... skalar - is engine toggle on/off allowed?
@@ -222,7 +222,7 @@ engEnd;
     batEngDltOptVec,... Vektor - optimale Batterieenergieänderung
     fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieänderung
     geaStaVec,      ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-    engStaVec,   ... vector showing optimal engine contorl w/ profile
+    engStaVec,      ... vector showing optimal engine contorl w/ profile
     fulEngOpt       ... Skalar - optimale Kraftstoffenergie
     ] =             ...
     clcOptTrj_a     ... FUNKTION

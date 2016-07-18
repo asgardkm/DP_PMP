@@ -41,7 +41,7 @@ function [minFulLvl,batFrcOut,fulFrcOut] = ...
 %                                ^^ electric auxiliary power consumed (W)
 % batEngStp     - Double(1,1)  - Drehmomentschritt
 %                                ^^ torque step <- no, it's a battery step
-% timeStp        - Double(1,1)  - Intervallschrittweite in m
+% timeStp       - Double(1,1)  - Intervallschrittweite in m
 %                                ^^ interval step distance - now [sec]
 % fzg_scalar_struct    - Struct(1,1)  - Modelldaten - nur skalar
 % fzg_array_struct     - Struct(1,1)  - Modelldaten - nur arrays                             

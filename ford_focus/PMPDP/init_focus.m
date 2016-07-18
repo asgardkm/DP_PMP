@@ -55,7 +55,7 @@ fzg_scalar_struct.batRstChr     = focus_data.Battery_resistance;
 fzg_scalar_struct.batRstDch     = focus_data.Battery_resistance;
 
 % OCV wrt SOC
-fzg_scalar_struct.SOC_vs_OCV    = focus_data.OCV_vs_SOC;
+fzg_array_struct.SOC_vs_OCV    = focus_data.OCV_vs_SOC;
 % Battery Power Limits
 fzg_scalar_struct.batPwrMax     = focus_data.Battery_Power_limit;
 fzg_scalar_struct.batPwrMin     = -focus_data.Battery_Power_limit;
