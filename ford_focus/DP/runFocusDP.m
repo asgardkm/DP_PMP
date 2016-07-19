@@ -1,7 +1,7 @@
-function ...            --- Ausgangsgrößen:
+function ...            --- Ausgangsgrï¿½ï¿½en:
 [engKinOptVec,      ... Vektor - Trajektorie der optimalen kin. Energien
-    batEngDltOptVec,... Vektor - optimale Batterieenergieänderung
-    fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieänderung
+    batEngDltOptVec,... Vektor - optimale Batterieenergieï¿½nderung
+    fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieï¿½nderung
     geaStaVec,         ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     fulEngOpt,      ... Skalar - optimale Kraftstoffenergie
     resVld          ...
@@ -103,7 +103,7 @@ batEngEndMax = ceil(batEngMax*batEngEndMaxRat/batEngStp) * batEngStp;
 
 % Aus der mittleren kinetischen Energie im Intervall, der mittleren
 % Steigung und dem Gang lÃ¤sst sich Ã¼ber die Fahrwiderstandsgleichung
-% die nötige Fahrwiderstandskraft berechnen, die aufgebracht werden
+% die nï¿½tige Fahrwiderstandskraft berechnen, die aufgebracht werden
 % muss, um diese zu realisieren.
 %   from the (avg) kinetic energy in the interval, the (avg) slope and
 %   transition can calculate the necessary traction force on the driving
@@ -175,31 +175,28 @@ end
 
 %% Calculating optimal predecessors with DP + PMP
 fprintf('-Initializing model...\n');
-[                   ... --- Ausgangsgrößen:
-    optPreInxTn3,   ...  Tensor 3. Stufe für opt. Vorgängerkoordinaten
+[                   ... --- Ausgangsgrï¿½ï¿½en:
+    optPreInxTn3,   ...  Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn3,   ...  Tensor 3. Stufe für die Kraftstoffenergie 
+    fulEngOptTn3,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
     cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =             ... 
     clcDP_focus     ... FUNKTION
-    (               ... --- Eingangsgrößen:
-    disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
+    (               ... --- Eingangsgrï¿½ï¿½en:
+    disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
     iceFlgBool,     ... skalar - is engine toggle on/off allowed?
-    timeStp,        ... Skalar für die Wegschrittweite in m
-    batEngStp,      ... Skalar der Batteriediskretisierung in J 
-    batEngBeg,      ... Skalar für die Batterieenergie am Beginn in Ws
-    batPwrAux,      ... Skalar für die Nebenverbrauchlast in W
-    staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
-    wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
-    wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
-    timeNum,        ... Skalar für die max. Anzahl an Wegstützstellen
+    timeStp,        ... Skalar fï¿½r die Wegschrittweite in m
+    batEngBeg,      ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
+    batPwrAux,      ... Skalar fï¿½r die Nebenverbrauchlast in W
+    staChgPenCosVal,... Skalar fï¿½r die Strafkosten beim Zustandswechsel
+    wayInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
+    wayInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
+    timeNum,        ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
     engBeg,         ... scalar - beginnnig engine state
     engStaVec_wayInx,...
-    staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
+    staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
     velVec,         ... velocity vector contiaing input speed profile
     whlTrq,         ... wheel torque demand vector for the speed profile
-    batEngEndMin,   ... SOC lower limit
-    batEngEndMax,   ... SOC upper limit
     tst_scalar_struct,     ... struct w/ tst data state var params
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
@@ -219,26 +216,26 @@ engEnd;
 
 %% Calculating optimal trajectories for result of DP + PMP
 [...
-    batEngDltOptVec,... Vektor - optimale Batterieenergieänderung
-    fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieänderung
+    batEngDltOptVec,... Vektor - optimale Batterieenergieï¿½nderung
+    fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieï¿½nderung
     geaStaVec,      ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     engStaVec,      ... vector showing optimal engine contorl w/ profile
     fulEngOpt       ... Skalar - optimale Kraftstoffenergie
     ] =             ...
     clcOptTrj_a     ... FUNKTION
     (disFlg,        ... Flag, ob Zielzustand genutzt werden muss - CHANGE VAR NAME ITS THE SAME VAR FOR 2 DIFFERENT USES IN 2 FUNCTIONS
-    timeStp,        ... Skalar für die Wegschrittweite in m
-    timeNum,        ... Skalar für die max. Anzahl an Wegstützstellen
-    wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
-    wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
-    staEnd,         ... Skalar für den finalen Zustand
+    timeStp,        ... Skalar fï¿½r die Wegschrittweite in m
+    timeNum,        ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
+    wayInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
+    wayInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
+    staEnd,         ... Skalar fï¿½r den finalen Zustand
     engEnd,         ... scalar - final engine state
-    engStaEndInxVal,... Skalar für Zielindex der kinetischen Energie
-    staNum,         ... Skalar für die max. Anzahl an Zustandsstützstellen
+    engStaEndInxVal,... Skalar fï¿½r Zielindex der kinetischen Energie
+    staNum,         ... Skalar fï¿½r die max. Anzahl an Zustandsstï¿½tzstellen
     engStaNum,      ... scalar - for number of states engine can take
-    optPreInxTn3,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
+    optPreInxTn3,   ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batFrcOptTn3,   ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn3,   ... Tensor 3. Stufe für die Kraftstoffenergie
+    fulEngOptTn3,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie
     cos2goActMat    ... Matrix der optimalen Kosten der Hamiltonfunktion 
     );
 

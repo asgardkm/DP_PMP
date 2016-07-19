@@ -1,9 +1,10 @@
 % mainScript_a.m
 % this script will be for running DP fuel-minimizing optimization algorithm
 %% define work directory
-cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\PMPDP\');
+% cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\PMPDP\');
+cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/ford_focus/DP')
+
 addpath('../model_data', '../functions')
-% cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/RCP')
 
 %% define clcDP structure inputs
 % define init_a() inputs
@@ -20,8 +21,8 @@ write_bool      = 1;
          = init_focus(config_filename, datafile_dir, write_bool);
 %% call clcDP_port()
 [engKinOptVec,          ... Vektor - Trajektorie der optimalen kin. Energien
-    batEngDltOptVec,    ... Vektor - optimale Batterieenergieänderung
-    fulEngDltOptVec,    ... Vektor - optimale Kraftstoffenergieänderung
+    batEngDltOptVec,    ... Vektor - optimale Batterieenergieï¿½nderung
+    fulEngDltOptVec,    ... Vektor - optimale Kraftstoffenergieï¿½nderung
     staVec,             ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     fulEngOpt,          ... Skalar - optimale Kraftstoffenergie
     resVld]             ...

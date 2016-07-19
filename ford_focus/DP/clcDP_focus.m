@@ -1,27 +1,25 @@
 function [          ...  --- AusgangsgrÃ¶ÃŸen:
-    optPreInxTn4,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
+    optPreInxTn4,   ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn4,   ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn4,   ... Tensor 3. Stufe für die Kraftstoffenergie 
+    fulEngOptTn4,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
     cos2goActTn3    ... Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =             ...
     clcDP_focus     ...
-    (               ... --- Eingangsgrößen:
-    disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
+    (               ... --- Eingangsgrï¿½ï¿½en:
+    disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
     iceFlgBool,     ... bool - define if engine off-on can be toggled
-    timeStp,        ... Skalar für die Wegschrittweite in m
-    batEngBeg,      ... Skalar für die Batterieenergie am Beginn in Ws
-    batPwrAux,      ... Skalar für die Nebenverbrauchlast in W
-    staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
-    wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
-    wayInxEnd,      ... Skalar für Endindex in den Eingangsdaten
-    timeNum,        ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
+    timeStp,        ... Skalar fï¿½r die Wegschrittweite in m
+    batEngBeg,      ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
+    batPwrAux,      ... Skalar fï¿½r die Nebenverbrauchlast in W
+    staChgPenCosVal,... Skalar fï¿½r die Strafkosten beim Zustandswechsel
+    wayInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
+    wayInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
+    timeNum,        ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
     engBeg,         ... scalar - beginnnig engine state
     engStaVec_wayInx,... scalar - end engine state
-    staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
+    staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
     velVec,         ... velocity vector contiaing input speed profile
     whlTrq,         ... wheel torque demand vector for the speed profile
-    batEngEndMin,   ... SOC lower limit
-    batEngEndMax,   ... SOC upper limit
     tst_scalar_struct,     ... struct w/ tst data state var params
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
@@ -71,7 +69,7 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
 %   variation olyHyb permits only hybrid driving (motor is always on)
 %
 % Ã„nderung am 23.02.2016 - optimale Kosten nicht direkt aus Index von min()
-% bestimmt. Das fÃ¤hrt zu einem anderen Schaltverhalten, da Gänge teilweise
+% bestimmt. Das fÃ¤hrt zu einem anderen Schaltverhalten, da Gï¿½nge teilweise
 % gleiche Kosten verursachen. In dem Fall wird jetzt der niedrigste Gang
 % gewÃ¤hlt, wie in der DP.
 %   change on 23.02.2016 - optimal costs are not directly from the min()
@@ -139,28 +137,28 @@ end
 %% Initialisieren der Ausgabe der Funktion
 %   initialzing function output
 
-% Tensor 3. Stufe für optimalen VorgÃ¤ngerkoordinaten
+% Tensor 3. Stufe fï¿½r optimalen VorgÃ¤ngerkoordinaten
 %   tensor3 for optimal previous coordinates/idx
 % IS NOT MAT SINCE KE IS NO LONGER CONSIDERED - REDUCES A DIMENSION
 %   - back to being a tensor - adding engine control dimension
 optPreInxTn4 = zeros(engNum, geaNum, batNum, timeNum);
 
-% Tensor 3. Stufe für die Kraftstoffenergie
+% Tensor 3. Stufe fï¿½r die Kraftstoffenergie
 %   tensor3 for fuel energy
 % NOW A MATRIX
 fulEngOptTn4 = inf(engNum, geaNum, batNum, timeNum);
 %   set initial fuel energy level to 0
-batEngIdxBeg = batEngBeg/batEngStp;
+batEngIdxBeg = batEngBeg/batStaStp;
 fulEngOptTn4(engBeg+1, staBeg, batEngIdxBeg, wayInxBeg) = 0; 
 
-% Tensor 3. Stufe für die Batterienergie
+% Tensor 3. Stufe fï¿½r die Batterienergie
 %   tensor3 for battery energy
 batPwrOptTn4 = inf(engNum, geaNum, batNum, timeNum);
 
-%% Berechnung der optimalen Vorgänger
+%% Berechnung der optimalen Vorgï¿½nger
 %   calculating the optimal predecessors
 
-% Initialisieren der Matrix für die Kosten bis zu den Punkten im letzten
+% Initialisieren der Matrix fï¿½r die Kosten bis zu den Punkten im letzten
 % Wegschritt
 %   initialize the matrix for the cost to the points in the last wayidx
 % NOW A VECTOR - REMOVED KE DIMENSION
@@ -168,7 +166,7 @@ batPwrOptTn4 = inf(engNum, geaNum, batNum, timeNum);
 cos2goPreTn3 = inf(engNum, geaNum, batNum);
 cos2goActTn3 = inf(engNum, geaNum, batNum);
 
-% Erste Initilisierung beim Startindex mit 0 für alle Zustände (concluded)
+% Erste Initilisierung beim Startindex mit 0 fï¿½r alle Zustï¿½nde (concluded)
 %   first, initialize the startidx to 0 for all states
 cos2goPreTn3(engBeg+1, staBeg, batEngIdxBeg) = 0;
 
@@ -176,14 +174,14 @@ cos2goPreTn3(engBeg+1, staBeg, batEngIdxBeg) = 0;
 %   initialize the battery energy matrix
 batEngPreTn3 = inf(engNum, geaNum, batNum);
 
-% Erste Initilisierung beim Startindex mit Startladung für den Startzustand
+% Erste Initilisierung beim Startindex mit Startladung fï¿½r den Startzustand
 %   first, intialize start index of the starting charge for intial state
 batEngPreTn3(engBeg+1, staBeg, batNum) = batEngBeg;
 
 % Initialisierung der Matrix der Kraftstoffenergien
 %   initialze the fuel energy matrix
 fulEngPreTn3 = inf(engNum, geaNum, batNum);
-% Erste Initilisierung beim Startindex mit 0 für den Startzustand
+% Erste Initilisierung beim Startindex mit 0 fï¿½r den Startzustand
 %   first, intialize the start idx for the intitial states to 0
 fulEngPreTn3(engBeg+1, staBeg, batEngIdxBeg) = 0;
 
@@ -192,7 +190,7 @@ fulEngPreTn3(engBeg+1, staBeg, batEngIdxBeg) = 0;
 
 % define battery vector to be used for looping
 batStaActIdxVec = batStaMin/batStaStp : batStaMax/batStaStp;
-% Schleife über alle Wegpunkte
+% Schleife ï¿½ber alle Wegpunkte
 %   looping thorugh length of # of discretized time vector
 for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
 % for wayInx = wayInxBeg+1 : timeStp : 5
@@ -204,7 +202,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     
     %% Berechnung der kinetischen Energien im aktuellen Wegschritt
     % Vorbereitung der FZGallen Schleife (verhindern von zu grossem
-    % Datentransfer und unnötigen Berechnungen)
+    % Datentransfer und unnï¿½tigen Berechnungen)
     %   Calculating the KE for current index/waypoint.
     %   Preperation of FZGallel loop (prevent a too large data transfer,
     %   unnecessary computations).   
@@ -216,7 +214,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     % - 06.06.2016 - back to matrix, added engine state dimension
     batPwrOptTn3 = inf(engNum, geaNum, batNum);
         
-    % Initialisieren der Matrix für die Kosten bis zu den Punkten im
+    % Initialisieren der Matrix fï¿½r die Kosten bis zu den Punkten im
     % aktuellen Wegschritt
     %   initialize cost matrix to points in current path steps (idxs?)
     cos2goActTn3 = inf(engNum, geaNum, batNum);
@@ -251,7 +249,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     for engStaAct = engStaMin:engStaMax   % CURRENT ENGINE STATE LOOP                
         % go through off and on version of engine 
 %         engStaAct = engStaActInx;     
-        % Schleife über alle möglichen aktuellen Zustände des Antriesstrangs
+        % Schleife ï¿½ber alle mï¿½glichen aktuellen Zustï¿½nde des Antriesstrangs
         %   Loop over all possible current powertrain states/all the gears
         for geaStaAct = geaStaMin:geaStaMax           % ALL GEARS LOOP
             % loop over all possible current battery values
@@ -262,11 +260,11 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 % convert batStaActIdx back into actual batEng
                 batStaAct = batStaActIdxVec(batStaActIdx) * batStaStp;
                 
-                % Initialisieren der Ausgabegröße der Schleife
+                % Initialisieren der Ausgabegrï¿½ï¿½e der Schleife
                 %   preallocate the loop's output size
 %                 minFulMin = inf;
 
-                % Initialisieren der Variable für den optimalen Zustandsindex
+                % Initialisieren der Variable fï¿½r den optimalen Zustandsindex
                 %   initializing variable for optimal state index
                 geaStaPreOptInx = 0;
 
@@ -276,7 +274,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 % initialize variable for optimal previous bat level
                 batStaPreInx = 0;
 
-                % Initialisieren der optimalen Kraftstoffenergieänderung zum
+                % Initialisieren der optimalen Kraftstoffenergieï¿½nderung zum
                 % betrachteten Punkt
                 %   preallocate the optimum fuel energy change to the point
                 %   considered
@@ -313,19 +311,19 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     engStaPreIdx = engStaAct;
                 end
 
-                %% Vorgängerzustände beschrÃ¤nken
+                %% Vorgï¿½ngerzustï¿½nde beschrÃ¤nken
                 %   Restrictions on predecessor operation states
 
-                % Festlegen, welche Vorgänger möglich sind:
+                % Festlegen, welche Vorgï¿½nger mï¿½glich sind:
                 % Es sind im Maximum die Anzahl der GÃ¤nge +  1 als VorgÃ¤nger
-                % möglich, denn vom Segeln kann in jeden Gang im elektrischen
+                % mï¿½glich, denn vom Segeln kann in jeden Gang im elektrischen
                 % Fahren und Segeln gewechselt  werden
                 %   Determine which predecessors are possible:
                 %   There are at maximum 'number of gears'+1 possible for the
                 %   predecessors, because from the sail in every Gear in
                 %   electric travel and the sails will be changed (???)
 
-                % Vorgängerzustände des Antriebsstrangs beschrÃ¤nken
+                % Vorgï¿½ngerzustï¿½nde des Antriebsstrangs beschrÃ¤nken
                 %   determine gear possibilities - ie u(g) 
                 geaStaPreMin = max(1,geaStaAct-1);
                 geaStaPreMax = min(geaNum,geaStaAct+1);
@@ -352,14 +350,14 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     % calculate E'
                     batStaDlt = batStaAct - batStaPre;
 %                     %#ok<PFBNS>
-                    % Schleife über allen Zustände (relativer Index)
+                    % Schleife ï¿½ber allen Zustï¿½nde (relativer Index)
                     %   Loop through all the gear states (relative index)
                     for geaStaPreIdx = 1 : length(geaStaPreIdxVec) % PREVIOUS GEAR CHANGE LOOP
                         geaStaPre = geaStaPreIdxVec(geaStaPreIdx);
-                           % Kosten für Zustandswechsel setzen
+                           % Kosten fï¿½r Zustandswechsel setzen
                             %   set costs for state changes
                             if geaStaAct == geaStaPre
-                                % Entspricht der Vorgängerzustand dem aktuellen 
+                                % Entspricht der Vorgï¿½ngerzustand dem aktuellen 
                                 % Zustand werden keine Kosten gesetzt
                                 %   staying in current state? set penalty cost to 0
                                 geaStaChgPenCos = 0;                       
@@ -394,7 +392,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                                 gea,                ...
                                 batStaDlt,          ...
                                 batStaPre,          ...
-                                batEngMax,          ...
+                                batStaMax,          ...
                                 batPwrAux,          ...
                                 timeStp,            ...
                                 vehVelVec,          ...
@@ -427,7 +425,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
         %                     fprintf('fulAct engine %i gear %i: %4.3f\n\n', engStaPre, geaStaPre, fulAct);
         %                     fprintf('minFulMin_old: %4.3f\n', minFulMin);
                             % Wenn der aktuelle Punkt besser ist, als der in
-                            % cosHamMin gespeicherte Wert, werden die Ausgabegrüßen
+                            % cosHamMin gespeicherte Wert, werden die Ausgabegrï¿½ï¿½en
                             % neu beschrieben.
                             %   if current point is better than the cost value
                             %   stored in CosHamMin, then rewrite the output
@@ -497,12 +495,12 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     fulEngActTn3(engStaAct+1,geaStaAct,batStaAct)=fulEngOpt;
 
                     % optimale Batterieenergie zum aktuellen Punkt
-                    % Flussgröße gilt im Intervall
+                    % Flussgrï¿½ï¿½e gilt im Intervall
                     %   populate optimal battery energy flux quantity at point 
                     %   that's applicable to current interval
                     batPwrOptTn3(engStaAct+1,geaStaAct,batEngAct)=batStaPreInx;
 
-                    % optimalen Vorgänger codieren über Funktion sub2ind
+                    % optimalen Vorgï¿½nger codieren ï¿½ber Funktion sub2ind
                     % und speichern im Tensor
                     %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
                     optPreInxTn4(engStaAct+1,geaStaAct,batStaAct,wayInx)=...
@@ -516,15 +514,15 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     fprintf('\n');
 %     fprintf('##################################\n\n');
     
-    % Speichern der Kosten für den nächsten Schleifendurchlauf
+    % Speichern der Kosten fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save cost as previous path_idx value for the next loop
     cos2goPreTn3 = cos2goActTn3; 
     
-    % Speichern der Batterieenergie für den nächsten Schleifendurchlauf
+    % Speichern der Batterieenergie fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save battery energy value as previous path_idx val for next loop 
     batEngPreTn3 = batEngActTn3;
     
-    % Speichern der Krafstoffenergie für den nächsten Schleifendurchlauf
+    % Speichern der Krafstoffenergie fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save fuel energy value as previous path_idx value for the next loop
     fulEngPreTn3 = fulEngActTn3;
 
@@ -533,7 +531,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     fulEngOptTn4(:,:,:,wayInx) = fulEngActTn3;
     % optimale Batterieenergie zum aktuellen Punkt
     %   optimal battery force at current point - save current mat in tensor
-    % Flussgröße gilt im Intervall
+    % Flussgrï¿½ï¿½e gilt im Intervall
     %   flux quantity applied over the interval
     batPwrOptTn4(:,:,:,wayInx-1) = batPwrOptTn3;
     

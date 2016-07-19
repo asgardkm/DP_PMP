@@ -2,8 +2,8 @@
 % for matlab_coder purposes - translating clcDP_port into c code
 
 %% define work directory
-cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port');
-% cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/RCP')
+% cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\c_port');
+cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/ford_focus/DP')
 
 %% define clcDP_port structure inputs
 % define init_port() inputs
@@ -22,13 +22,13 @@ write_bool      = 1;
 %call the mex equivalent - first move to directory
 % addpath('codegen/mex/clcDP_port');
 [engKinOptVec,          ... Vektor - Trajektorie der optimalen kin. Energien
-    batEngDltOptVec,    ... Vektor - optimale Batterieenergieänderung
-    fulEngDltOptVec,    ... Vektor - optimale Kraftstoffenergieänderung
+    batEngDltOptVec,    ... Vektor - optimale Batterieenergieï¿½nderung
+    fulEngDltOptVec,    ... Vektor - optimale Kraftstoffenergieï¿½nderung
     staVec,             ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-    psiEngKinOptVec,    ... Vektor - costate für kinetische Energie
+    psiEngKinOptVec,    ... Vektor - costate fï¿½r kinetische Energie
     fulEngOpt,          ... Skalar - optimale Kraftstoffenergie
     resVld]             ...
-    = clcDP_port(       ...
+    = clcDP_focus(       ...
     inputparams,        ...
     testparams,         ...
     fahrparams,         ...
