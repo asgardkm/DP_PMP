@@ -53,6 +53,7 @@ Test data parameters used on a 800 path_index long run.
 ====================================================================================
 Value,			Variable Name,  	Description (examples in brackets)
 TSTDAT_START
+0, 				useGeaSta,			bool - incorporate gea as state(1), or provide own geaVec input(0)
 6,				staNum,				Number of gears in model
 1,				geaStaMin,			low gear limit
 6,				geaStaMax,			high gear limit

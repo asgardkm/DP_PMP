@@ -332,8 +332,8 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 geaStaPreIdxVec = geaStaPreMin : geaStaPreMax;
                 %% restricting predecessor bat level possibilities
                 % change in E cannot exceed bat power levels (P=E'/t')
-                batStaPreMin = max(batStaMin, batStaAct + fzg_scalar_struct.batPwrMin);
-                batStaPreMax = min(batStaMax, batStaAct + fzg_scalar_struct.batPwrMax);
+                batStaPreMin = max(batStaMin, batStaAct + fzg_scalar_struct.batPwrMin*timeStp);
+                batStaPreMax = min(batStaMax, batStaAct + fzg_scalar_struct.batPwrMax*timeStp);
                 
                 batStaPreIdxVec = batStaPreMin/batStaStp : batStaPreMax/batStaStp;
                 

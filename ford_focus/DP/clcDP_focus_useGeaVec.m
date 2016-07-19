@@ -17,7 +17,8 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     timeNum,        ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
     engBeg,         ... scalar - beginnnig engine state
     engStaVec_wayInx,... scalar - end engine state
-    staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
+    ... staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
+    staVec,         ... input gear state vector
     velVec,         ... velocity vector contiaing input speed profile
     whlTrq,         ... wheel torque demand vector for the speed profile
     tst_scalar_struct,     ... struct w/ tst data state var params
@@ -96,38 +97,21 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
 %   assigning input structure values to function persistant variables
 %   - just once
 % persistent geaNum vehMas vehAccMin vehAccMax iceFlg
-persistent engNum engStaMin engStaMax geaNum geaStaMin geaStaMax iceFlg batStaMin batStaStp batStaMax batNum
+persistent engNum engStaMin engStaMax iceFlg batStaMin batStaStp batStaMax batNum
 
-if isempty(geaNum)
-    
-%     geaNum    = zeros(1,1);
-%     vehMas    = zeros(1,1);
-%     vehAccMin = zeros(1,1);
-%     vehAccMax = zeros(1,1);
-    
+if isempty(engNum)
+
     % number of engine states possible (0 = OFF; 1 = ON);
     engNum      = tst_scalar_struct.engStaNum;
     engStaMin   = tst_scalar_struct.engStaMin;
     engStaMax   = tst_scalar_struct.engStaMax;
-    % Anzahl der GÃ¤nge
-    %   number of gears
-    geaNum      = tst_scalar_struct.staNum; % max number of state nodes
-    geaStaMin   = tst_scalar_struct.geaStaMin;
-    geaStaMax   = tst_scalar_struct.geaStaMax;
 
     % battery states
     batStaMin   = tst_scalar_struct.batEngMin;
     batStaStp   = tst_scalar_struct.batEngStp;
     batStaMax   = tst_scalar_struct.batEngMax;
     batNum      = (batStaMax - batStaStp)/batStaStp;
-    % Fahrzeugmasse;
-%     vehMas = fzg_scalar_struct.vehMas;
- 
-    % minmiale und maximale Beschleunigung
-    %   min and max accerlations (bounds)
-%     vehAccMin = fzg_scalar_struct.vehAccMin;
-%     vehAccMax = fzg_scalar_struct.vehAccMax;
-    
+
     % In dieser Version ist der Motor immer an
     % not anymore - iceFlg is whatever is in mainConfig.txt
 %     iceFlg = true;
@@ -180,10 +164,10 @@ batEngPreMat(engBeg+1, batEngIdxBeg) = batEngBeg;
 
 % Initialisierung der Matrix der Kraftstoffenergien
 %   initialze the fuel energy matrix
-fulEngPreTn3 = inf(engNum, geaNum, batNum);
+fulEngPreMat = inf(engNum, batNum);
 % Erste Initilisierung beim Startindex mit 0 fï¿½r den Startzustand
 %   first, intialize the start idx for the intitial states to 0
-fulEngPreTn3(engBeg+1, staBeg, batEngIdxBeg) = 0;
+fulEngPreMat(engBeg+1, batEngIdxBeg) = 0;
 
 % define a vector for containing the values of engine control off-on
 % engStaMat_geaNum_wayInx = zeros(1, wayInxEnd);
@@ -212,7 +196,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     %   initialize matrix for optimale battery force intervals (discreti.)
     % NOW A VECTOR - REMOVED KE STATE
     % - 06.06.2016 - back to matrix, added engine state dimension
-    batPwrOptTn3 = inf(engNum, geaNum, batNum);
+    batPwrOptMat = inf(engNum, batNum);
         
     % Initialisieren der Matrix fï¿½r die Kosten bis zu den Punkten im
     % aktuellen Wegschritt
@@ -222,13 +206,12 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     % Initialisieren der Matrix fÃ¼r die Batterieenergie an den Punkten im
     % aktuellen Wegschritt
     %   initialize matrix for battery energy at points along current wayidx
-    batEngActTn3 = inf(engNum, geaNum, batNum);
+    batEngActMat = inf(engNum, batNum);
     
     % Initialisieren der Matrix fÃ¼r die Krafstoffenergie an den Punkten im
     % aktuellen Wegschritt
     %   initialize matrix for fuel energie along current way idxs
-    fulEngActTn3 = inf(engNum, geaNum, batNum);
-    
+    fulEngActMat = inf(engNum, batNum);
     
     % possible engine state changes for current and past path_idxs
     engStaNumPre = engStaVec_wayInx(wayInx-1); % and the previous idx KE
@@ -244,14 +227,16 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     % fetch previous time idx wheel torque
     whlTrqPre = whlTrq(wayInx - 1);
     
+    % define gear number and efficiency value for this iteration
+    gea = staVec(wayInx-1);
 %%  go through the possible engine state on-off possibilities
 %   checking if the engine can be off or on for this index
     for engStaAct = engStaMin:engStaMax     % CURRENT ENGINE STATE LOOP                
         % go through off and on version of engine 
 %         engStaAct = engStaActInx;     
-        % Schleife über alle moglichen aktuellen Zustände des Antriesstrangs
+        % Schleife über alle möglichen aktuellen Zustände des Antriesstrangs
         %   Loop over all possible current powertrain states/all the gears
-        for geaStaAct = geaStaMin:geaStaMax % ALL GEARS LOOP
+%         for geaStaAct = geaStaMin:geaStaMax % ALL GEARS LOOP
             % loop over all possible current battery values
             for batStaActIdx = 1 : length(batStaActIdxVec)
                 %% Initialisieren
@@ -266,7 +251,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
 
                 % Initialisieren der Variable fï¿½r den optimalen Zustandsindex
                 %   initializing variable for optimal state index
-                geaStaPreOptInx = 0;
+%                 geaStaPreOptInx = 0;
 
                 % initialize variable for optimal previous idx engine control
                 engStaPreOptInx = 0;
@@ -325,11 +310,11 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
 
                 % Vorgï¿½ngerzustï¿½nde des Antriebsstrangs beschrÃ¤nken
                 %   determine gear possibilities - ie u(g) 
-                geaStaPreMin = max(1,geaStaAct-1);
-                geaStaPreMax = min(geaNum,geaStaAct+1);
-                gea = geaStaAct;
+%                 geaStaPreMin = max(1,geaStaAct-1);
+%                 geaStaPreMax = min(geaNum,geaStaAct+1);
+%                 gea = geaStaAct;
                 
-                geaStaPreIdxVec = geaStaPreMin : geaStaPreMax;
+%                 geaStaPreIdxVec = g eaStaPreMin : geaStaPreMax;
                 %% restricting predecessor bat level possibilities
                 % change in E cannot exceed bat power levels (P=E'/t')
                 batStaPreMin = max(batStaMin, batStaAct + fzg_scalar_struct.batPwrMin);
@@ -338,7 +323,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 batStaPreIdxVec = batStaPreMin/batStaStp : batStaPreMax/batStaStp;
                 
                 %% memoization variable for storing möglich fuel values
-                fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum);
+                fulActMat = inf(length(batStaPreIdxVec), engNum);
                 %% loop through previous engine control
                 for batStaPreIdx = 1 : length(batStaPreIdxVec)
                     % value of previous idx engine control state
@@ -353,22 +338,22 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
 %                     %#ok<PFBNS>
                     % Schleife ï¿½ber allen Zustï¿½nde (relativer Index)
                     %   Loop through all the gear states (relative index)
-                    for geaStaPreIdx = 1 : length(geaStaPreIdxVec) % PREVIOUS GEAR CHANGE LOOP
-                        geaStaPre = geaStaPreIdxVec(geaStaPreIdx);
-                           % Kosten fï¿½r Zustandswechsel setzen
-                            %   set costs for state changes
-                            if geaStaAct == geaStaPre
-                                % Entspricht der Vorgï¿½ngerzustand dem aktuellen 
-                                % Zustand werden keine Kosten gesetzt
-                                %   staying in current state? set penalty cost to 0
-                                geaStaChgPenCos = 0;                       
-
-                            else
-                                % Ansonsten einfache Zustandswechselkosten
-                                % berechnen
-                                %   otherwise apply a penalty cost to changing gear
-                                geaStaChgPenCos = staChgPenCosVal; %<-penCos is input
-                            end
+%                     for geaStaPreIdx = 1 : length(geaStaPreIdxVec) % PREVIOUS GEAR CHANGE LOOP
+%                         geaStaPre = geaStaPreIdxVec(geaStaPreIdx);
+%                            % Kosten fï¿½r Zustandswechsel setzen
+%                             %   set costs for state changes
+%                             if geaStaAct == geaStaPre
+%                                 % Entspricht der Vorgï¿½ngerzustand dem aktuellen 
+%                                 % Zustand werden keine Kosten gesetzt
+%                                 %   staying in current state? set penalty cost to 0
+%                                 geaStaChgPenCos = 0;                       
+% 
+%                             else
+%                                 % Ansonsten einfache Zustandswechselkosten
+%                                 % berechnen
+%                                 %   otherwise apply a penalty cost to changing gear
+%                                 geaStaChgPenCos = staChgPenCosVal; %<-penCos is input
+%                             end
                             
                         for engStaPre = engStaPreIdx % PREVIOUS gear state loop
                             
@@ -412,10 +397,10 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
 
                             % combine the min hamil. cost w/ previous costs and 
                             %   gear penalty to get current cost
-                            fulActTn3(batStaPreIdx, geaStaPreIdx,engStaPre+1) ...
+                            fulActMat(batStaPreIdx,engStaPre+1) ...
                                 = minFul...
                                 + cos2goPreMat(engStaPre+1, batStaPreIdx)...
-                                + geaStaChgPenCos/timeStp + engStaChgPenCos/timeStp;
+                                + engStaChgPenCos/timeStp;
                             
                             % save fulAct in a matrix/tensor. find the
                             % minimum value of fulAct after the parfor
@@ -458,15 +443,15 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
 %                             end
                         end
     %                     fprintf('minFulMin_new: %4.3f\n\n', minFulMin);
-                    end % end of gear changes loop
+%                     end % end of gear changes loop
                 end % end of running through previous engine state ctrl loop
 
                 % pull out the minimum value from fulActMat
-                [colmin, colminidx] = min(fulActTn3);
-                [matmin, matminidx] = min(colmin);
-                [minFulMin, engStaPreOptInx] = min(matmin);
-                geaStaPreOptInx = matminidx(engStaPreOptInx);
-                batStaPreInx = colminidx(:,geaStaPreOptInx,engStaPreOptInx);
+                [colmin, colminidx] = min(fulActMat);
+                [minFulMin, engStaPreOptInx] = min(colmin);
+%                 [minFulMin, engStaPreOptInx] = min(matmin);
+                batStaPreInx = colminidx(engStaPreOptInx);
+%                 batStaPreInx = colminidx(:,geaStaPreOptInx,engStaPreOptInx);
                 batStaPreOptInx = batStaPreIdxVec(batStaPreInx);
                 
                 if ~isinf(minFulMin)
@@ -476,12 +461,12 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     %       batFrc calculation in batFrcClc_a()
                     %   -   why not output that calculation instead?
                     batEngOpt = batStaPreOptInx * batStaStp + ...
-                        batEngPreTn3(engStaPreOptInx,geaStaPreOptInx,batStaPreOptInx);
+                        batEngPreMat(engStaPreOptInx,batStaPreOptInx);
                     
                     % new opt. fuel energy = (fuel force * time diff)
                     %   + previous fuel energy value
                     fulEngOpt = minFulMin + ...
-                    fulEngPreTn3(engStaPreOptInx,geaStaPreOptInx,batStaPreOptInx);%%#ok<PFBNS>
+                    fulEngPreMat(engStaPreOptInx,batStaPreOptInx);%%#ok<PFBNS>
                 
                     % optimale Kosten zum aktuellen Punkt speichern
                     %   save min hamilton value for current point
@@ -489,28 +474,28 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
 
                     % optimale Batterieenergie zum aktuellen Punkt speichern
                     %   save optimal battery energy for current point
-                    batEngActTn3(engStaAct+1,geaStaAct,batStaActIdx)=batEngOpt;
+                    batEngActMat(engStaAct+1,batStaActIdx)=batEngOpt;
 
                     % optimale Krafstoffenergie zum aktuellen Punkt speichern
                     %   save optimal fuel energy for current point
-                    fulEngActTn3(engStaAct+1,geaStaAct,batStaActIdx)=fulEngOpt;
+                    fulEngActMat(engStaAct+1,batStaActIdx)=fulEngOpt;
 
                     % optimale Batterieenergie zum aktuellen Punkt
                     % Flussgrï¿½ï¿½e gilt im Intervall
                     %   populate optimal battery energy flux quantity at point 
                     %   that's applicable to current interval
-                    batPwrOptTn3(engStaAct+1,geaStaAct,batStaActIdx)=batStaPreInx;
+                    batPwrOptMat(engStaAct+1,batStaActIdx)=batStaPreInx;
 
                     % optimalen Vorgï¿½nger codieren ï¿½ber Funktion sub2ind
                     % und speichern im Tensor
                     %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
-                    optPreInxTn3(engStaAct+1,geaStaAct,batStaActIdx,wayInx)=...
-                        sub2ind([engNum,geaNum, batNum],...
-                        engStaPreOptInx,geaStaPreOptInx, batStaPreOptInx);
+                    optPreInxTn3(engStaAct+1,batStaActIdx,wayInx)=...
+                        sub2ind([engNum, batNum],...
+                        engStaPreOptInx, batStaPreOptInx);
                 end % end of ~inf(hamiltonian) if-statement
             end %end of looping through all battery states
             fprintf('.');
-        end % end of looping through all gears
+%         end % end of looping through all gears
     end % end of looping through all the current engine control states
     fprintf('\n');
 %     fprintf('##################################\n\n');
@@ -521,20 +506,20 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     
     % Speichern der Batterieenergie fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save battery energy value as previous path_idx val for next loop 
-    batEngPreTn3 = batEngActTn3;
+    batEngPreMat = batEngActMat;
  
     % Speichern der Krafstoffenergie fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save fuel energy value as previous path_idx value for the next loop
-    fulEngPreTn3 = fulEngActTn3;
+    fulEngPreMat = fulEngActMat;
 
     % optimale Kraftstoffenergie zum aktuellen Punkt
     %   optimal fuel energy at current point - save current mat in tensor
-    fulEngOptTn3(:,:,wayInx) = fulEngActTn3;
+    fulEngOptTn3(:,:,wayInx) = fulEngActMat;
     % optimale Batterieenergie zum aktuellen Punkt
     %   optimal battery force at current point - save current mat in tensor
     % Flussgrï¿½ï¿½e gilt im Intervall
     %   flux quantity applied over the interval
-    batPwrOptTn3(:,:,wayInx-1) = batPwrOptTn3;
+    batPwrOptTn3(:,:,wayInx-1) = batPwrOptMat;
     
     % Ausgabe des aktuellen Schleifendurchlaufs
     %   output for current loop - print to terminal

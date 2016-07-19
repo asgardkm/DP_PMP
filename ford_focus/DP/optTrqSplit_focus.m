@@ -234,10 +234,10 @@ if engStaPre
     % torque split
     iceTrq = crsTrq - emoTrq;
 
-    % check if iceTrq is too high or low based on iceTrqMax/MinPos
-    if iceTrq > iceTrqMaxPos 
-        return
-    end
+%     % check if iceTrq is too high or low based on iceTrqMax/MinPos
+%     if iceTrq > iceTrqMaxPos 
+%         return
+%     end
 
     % if iceTrq is negative (which it can't be in this case), don't
     % brake with with engine! Rather, brake with the brakes.
@@ -249,18 +249,17 @@ if engStaPre
         % current iceTrq to respective iceTrqMinPos value
     end
     %% 5. find resultant fuel consumed for this iceTrq
-    fulEng          ... Skalar Krafstoffkraft in N
-        =           ...
-        fulEngClc_focus ... FUNCTION CALL
-        (           ...
-        timeStp,    ... Skalar für die Wegschrittweite in m,
-        vehVel,     ... Skalar - vehicular velocity
-        crsSpd,     ... Skalar - crankshaft speed at given path_idx
-        iceTrq,     ... Skalar - ice torque at given path_idx
-        iceTrqMaxPos, ... Skalar - max ICE torque
-        fzg_scalar_struct,  ... struct - Fahrzeugparameter - nur skalar
-        fzg_array_struct    ... struct - Fahrzeugparameter - nur array        
-        );
+    fulEng =        ... Skalar Krafstoffkraft in N
+    fulEngClc_focus ... FUNCTION CALL
+    (               ...
+    timeStp,        ... Skalar für die Wegschrittweite in m,
+    vehVel,         ... Skalar - vehicular velocity
+    crsSpd,         ... Skalar - crankshaft speed at given path_idx
+    iceTrq,         ... Skalar - ice torque at given path_idx
+    iceTrqMaxPos,   ... Skalar - max ICE torque
+    fzg_scalar_struct,  ... struct - Fahrzeugparameter - nur skalar
+    fzg_array_struct    ... struct - Fahrzeugparameter - nur array        
+    );
 else 
     % if engine is considered off - no torque is coming from the ice
     iceTrq = 0;

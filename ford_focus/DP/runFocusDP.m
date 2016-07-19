@@ -173,35 +173,84 @@ if mod(fzg_scalar_struct.batPwrMax, tst_scalar_struct.batEngStp)
     fprintf('   E'' step size used: %i\n', tst_scalar_struct.batEngStp);
 end
 
-%% Calculating optimal predecessors with DP + PMP
-fprintf('-Initializing model...\n');
-[                   ... --- Ausgangsgr��en:
-    optPreInxTn3,   ...  Tensor 3. Stufe f�r opt. Vorg�ngerkoordinaten
-    batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn3,   ...  Tensor 3. Stufe f�r die Kraftstoffenergie 
-    cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
-    ] =             ... 
-    clcDP_focus     ... FUNKTION
-    (               ... --- Eingangsgr��en:
-    disFlg,         ... Skalar - Flag f�r Ausgabe in das Commandwindow
-    iceFlgBool,     ... skalar - is engine toggle on/off allowed?
-    timeStp,        ... Skalar f�r die Wegschrittweite in m
-    batEngBeg,      ... Skalar f�r die Batterieenergie am Beginn in Ws
-    batPwrAux,      ... Skalar f�r die Nebenverbrauchlast in W
-    staChgPenCosVal,... Skalar f�r die Strafkosten beim Zustandswechsel
-    wayInxBeg,      ... Skalar f�r Anfangsindex in den Eingangsdaten
-    wayInxEnd,      ... Skalar f�r Endindex in den Eingangsdaten
-    timeNum,        ... Skalar f�r die max. Anzahl an Wegst�tzstellen
-    engBeg,         ... scalar - beginnnig engine state
-    engStaVec_wayInx,...
-    staBeg,         ... Skalar f�r den Startzustand des Antriebsstrangs
-    velVec,         ... velocity vector contiaing input speed profile
-    whlTrq,         ... wheel torque demand vector for the speed profile
-    tst_scalar_struct,     ... struct w/ tst data state var params
-    fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
-    fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
-    );
 
+%% Calculating optimal predecessors with DP
+% two functions: one finding optimal gear state and one with input gea vals
+fprintf('-Initializing model...\n');
+if tst_scalar_struct.useGeaSta
+        [               ... --- Ausgangsgr��en:
+        optPreInxTn3,   ...  Tensor 3. Stufe f�r opt. Vorg�ngerkoordinaten
+        batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
+        fulEngOptTn3,   ...  Tensor 3. Stufe f�r die Kraftstoffenergie 
+        cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
+        ] =             ... 
+        clcDP_focus     ... FUNKTION
+        (               ... --- Eingangsgr��en:
+        disFlg,         ... Skalar - Flag f�r Ausgabe in das Commandwindow
+        iceFlgBool,     ... skalar - is engine toggle on/off allowed?
+        timeStp,        ... Skalar f�r die Wegschrittweite in m
+        batEngBeg,      ... Skalar f�r die Batterieenergie am Beginn in Ws
+        batPwrAux,      ... Skalar f�r die Nebenverbrauchlast in W
+        staChgPenCosVal,... Skalar f�r die Strafkosten beim Zustandswechsel
+        wayInxBeg,      ... Skalar f�r Anfangsindex in den Eingangsdaten
+        wayInxEnd,      ... Skalar f�r Endindex in den Eingangsdaten
+        timeNum,        ... Skalar f�r die max. Anzahl an Wegst�tzstellen
+        engBeg,         ... scalar - beginnnig engine state
+        engStaVec_wayInx,...
+        staBeg,         ... Skalar f�r den Startzustand des Antriebsstrangs
+        velVec,         ... velocity vector contiaing input speed profile
+        whlTrq,         ... wheel torque demand vector for the speed profile
+        tst_scalar_struct,     ... struct w/ tst data state var params
+        fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
+        fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
+        );
+    
+else
+        % writiing up a gear changing model
+        % develop random vector for switching gear
+        randStp = round(rand(1181, 1));
+        randNeg = round(rand(1181, 1));
+        randStp = randStp - randNeg;
+        % preallocate and populate input geaVec
+        staVec = zeros(length(randStp), 1);
+        staVec(1) = staBeg;
+
+        for i = 2 : length(randStp)
+                staVec(i) = staVec(i-1) + randStp(i);
+                % set boundaries
+                staVec(i) = max(tst_scalar_struct.geaStaMin, staVec(i));
+                staVec(i) = min(tst_scalar_struct.geaStaMax, staVec(i));
+        end    
+        % run input_gear_vector version of DP
+        [               ... --- Ausgangsgr��en:
+        optPreInxTn3,   ...  Tensor 3. Stufe f�r opt. Vorg�ngerkoordinaten
+        batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
+        fulEngOptTn3,   ...  Tensor 3. Stufe f�r die Kraftstoffenergie 
+        cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
+        ] =             ... 
+        clcDP_focus_useGeaVec     ... FUNKTION
+        (               ... --- Eingangsgr��en:
+        disFlg,         ... Skalar - Flag f�r Ausgabe in das Commandwindow
+        iceFlgBool,     ... skalar - is engine toggle on/off allowed?
+        timeStp,        ... Skalar f�r die Wegschrittweite in m
+        batEngBeg,      ... Skalar f�r die Batterieenergie am Beginn in Ws
+        batPwrAux,      ... Skalar f�r die Nebenverbrauchlast in W
+        staChgPenCosVal,... Skalar f�r die Strafkosten beim Zustandswechsel
+        wayInxBeg,      ... Skalar f�r Anfangsindex in den Eingangsdaten
+        wayInxEnd,      ... Skalar f�r Endindex in den Eingangsdaten
+        timeNum,        ... Skalar f�r die max. Anzahl an Wegst�tzstellen
+        engBeg,         ... scalar - beginnnig engine state
+        engStaVec_wayInx,...
+        ...staBeg,         ... Skalar f�r den Startzustand des Antriebsstrangs
+        staVec,         ... input gear vector
+        velVec,         ... velocity vector contiaing input speed profile
+        whlTrq,         ... wheel torque demand vector for the speed profile
+        tst_scalar_struct,     ... struct w/ tst data state var params
+        fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
+        fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
+        );
+
+end
 %% end conditions 
 % why the rounding though?
 engStaEndInxVal = ceil(engStaVec_wayInx(wayInxEnd)/2);
