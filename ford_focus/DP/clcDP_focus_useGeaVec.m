@@ -522,7 +522,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     % Speichern der Batterieenergie f�r den n�chsten Schleifendurchlauf
     %   save battery energy value as previous path_idx val for next loop 
     batEngPreTn3 = batEngActTn3;
-    
+ 
     % Speichern der Krafstoffenergie f�r den n�chsten Schleifendurchlauf
     %   save fuel energy value as previous path_idx value for the next loop
     fulEngPreTn3 = fulEngActTn3;

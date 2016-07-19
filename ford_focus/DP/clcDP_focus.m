@@ -485,28 +485,28 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 
                     % optimale Kosten zum aktuellen Punkt speichern
                     %   save min hamilton value for current point
-                    cos2goActTn3(engStaAct+1,geaStaAct,batStaAct)=minFulMin;
+                    cos2goActTn3(engStaAct+1,geaStaAct,batStaActIdx)=minFulMin;
 
                     % optimale Batterieenergie zum aktuellen Punkt speichern
                     %   save optimal battery energy for current point
-                    batEngActTn3(engStaAct+1,geaStaAct,batStaAct)=batEngOpt;
+                    batEngActTn3(engStaAct+1,geaStaAct,batStaActIdx)=batEngOpt;
 
                     % optimale Krafstoffenergie zum aktuellen Punkt speichern
                     %   save optimal fuel energy for current point
-                    fulEngActTn3(engStaAct+1,geaStaAct,batStaAct)=fulEngOpt;
+                    fulEngActTn3(engStaAct+1,geaStaAct,batStaActIdx)=fulEngOpt;
 
                     % optimale Batterieenergie zum aktuellen Punkt
                     % Flussgr��e gilt im Intervall
                     %   populate optimal battery energy flux quantity at point 
                     %   that's applicable to current interval
-                    batPwrOptTn3(engStaAct+1,geaStaAct,batEngAct)=batStaPreInx;
-
+                    batPwrOptTn3(engStaAct+1,geaStaAct,batStaActIdx)=batStaPreInx;
+                    
                     % optimalen Vorg�nger codieren �ber Funktion sub2ind
                     % und speichern im Tensor
                     %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
-                    optPreInxTn4(engStaAct+1,geaStaAct,batStaAct,wayInx)=...
-                        sub2ind([engNum,geaNum],...
-                        engStaPreOptInx+1,geaStaPreOptInx);
+                    optPreInxTn4(engStaAct+1,geaStaAct,batStaActIdx,wayInx)=...
+                        sub2ind([engNum,geaNum, batNum],...
+                        engStaPreOptInx,geaStaPreOptInx, batStaPreOptInx);
                 end % end of ~inf(hamiltonian) if-statement
             end %end of looping through all battery states
             fprintf('.');
