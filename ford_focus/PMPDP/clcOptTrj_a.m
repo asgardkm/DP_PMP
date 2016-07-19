@@ -93,29 +93,29 @@ end
 % how to set a boundary between batEngEndMin and Max??
 engStaOptVec(wayInxEnd) = engStaEndInx;
 
-% Zielzustand des Ausgabevektors fÃ¼r optimale kinetische Energie
+% Zielzustand des Ausgabevektors für optimale kinetische Energie
 % beschreiben
 %   describe the target state of the output vector for the optimal KE
 
 % engKinOptVec(wayInxEnd,1) = ...
 %     engKinMat_engKinInx_wayInx(engKinOptInxVec(wayInxEnd,1),wayInxEnd);
  
-% BatterieenergieÃ¤nderung im letzten Intervall initialisieren
-%   initialize battery engery change's last interval
+% Batterieenergieänderung im letzten Intervall initialisieren
+%   initialize battery energy change's last interval
 batEngDltOptVec(wayInxEnd-1,1) = ...
     batFrcOptTn3(engStaOptVec(wayInxEnd)+1,geaStaOptVec(wayInxEnd-1),wayInxEnd-1)...
     * timeStp;
 
-% Beschreiben der AusgabegrÃ¶ÃŸe der optimalen Kraftstoffenergie
+% Beschreiben der Ausgabegröße der optimalen Kraftstoffenergie
 %   writing the output for the optimal fuel energy
 fulEngOpt = ...
     fulEngOptTn3(engStaOptVec(wayInxEnd)+1,geaStaOptVec(wayInxEnd-1),wayInxEnd);
 
-% Initialisieren des Vektors der optimalen KraftstoffenergieÃ¤nderung
+% Initialisieren des Vektors der optimalen Kraftstoffenergieänderung
 %   intializing the optimum fuel energy change vector
 fulEngDltOptVec = zeros(timeNum,1);
 
-% Costate fÃ¼r die kinetische Energie initialisieren
+% Costate für die kinetische Energie initialisieren
 %   intializing the kinetic energy's costate
 % psiEngKinOptVec = zeros(wayNum,1);
 
