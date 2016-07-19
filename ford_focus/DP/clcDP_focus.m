@@ -176,7 +176,7 @@ batEngPreTn3 = inf(engNum, geaNum, batNum);
 
 % Erste Initilisierung beim Startindex mit Startladung f�r den Startzustand
 %   first, intialize start index of the starting charge for intial state
-batEngPreTn3(engBeg+1, staBeg, batNum) = batEngBeg;
+batEngPreTn3(engBeg+1, staBeg, batEngIdxBeg) = batEngBeg;
 
 % Initialisierung der Matrix der Kraftstoffenergien
 %   initialze the fuel energy matrix

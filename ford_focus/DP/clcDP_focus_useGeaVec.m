@@ -1,8 +1,8 @@
 function [          ...  --- AusgangsgrÃ¶ÃŸen:
-    optPreInxTn4,   ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
-    batPwrOptTn4,   ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn4,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
-    cos2goActTn3    ... Matrix der optimalen Kosten der Hamiltonfunktion 
+    optPreInxTn3,   ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
+    batPwrOptTn3,   ... Tensor 3. Stufe der Batteriekraft
+    fulEngOptTn3,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
+    cos2goActMat    ... Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =             ...
     clcDP_focus_useGeaVec     ...
     (               ... --- Eingangsgrößen:
@@ -146,14 +146,14 @@ optPreInxTn3 = zeros(engNum, batNum, timeNum);
 % Tensor 3. Stufe fï¿½r die Kraftstoffenergie
 %   tensor3 for fuel energy
 % NOW A MATRIX
-fulEngOptTn4 = inf(engNum, geaNum, batNum, timeNum);
+fulEngOptTn3 = inf(engNum, batNum, timeNum);
 %   set initial fuel energy level to 0
 batEngIdxBeg = batEngBeg/batStaStp;
-fulEngOptTn4(engBeg+1, staBeg, batEngIdxBeg, wayInxBeg) = 0; 
+fulEngOptTn3(engBeg+1, batEngIdxBeg, wayInxBeg) = 0; 
 
 % Tensor 3. Stufe fï¿½r die Batterienergie
 %   tensor3 for battery energy
-batPwrOptTn4 = inf(engNum, geaNum, batNum, timeNum);
+batPwrOptTn3 = inf(engNum, batNum, timeNum);
 
 %% Berechnung der optimalen Vorgï¿½nger
 %   calculating the optimal predecessors
@@ -163,20 +163,20 @@ batPwrOptTn4 = inf(engNum, geaNum, batNum, timeNum);
 %   initialize the matrix for the cost to the points in the last wayidx
 % NOW A VECTOR - REMOVED KE DIMENSION
 % not anymore - added engine contorl dimension
-cos2goPreTn3 = inf(engNum, geaNum, batNum);
-cos2goActTn3 = inf(engNum, geaNum, batNum);
+cos2goPreMat = inf(engNum, batNum);
+cos2goActMat = inf(engNum, batNum);
 
 % Erste Initilisierung beim Startindex mit 0 fï¿½r alle Zustï¿½nde (concluded)
 %   first, initialize the startidx to 0 for all states
-cos2goPreTn3(engBeg+1, staBeg, batEngIdxBeg) = 0;
+cos2goPreMat(engBeg+1, batEngIdxBeg) = 0;
 
 % Initialisierung der Matrix der Batterieenergien
 %   initialize the battery energy matrix
-batEngPreTn3 = inf(engNum, geaNum, batNum);
+batEngPreMat = inf(engNum, batNum);
 
 % Erste Initilisierung beim Startindex mit Startladung fï¿½r den Startzustand
 %   first, intialize start index of the starting charge for intial state
-batEngPreTn3(engBeg+1, staBeg, batNum) = batEngBeg;
+batEngPreMat(engBeg+1, batEngIdxBeg) = batEngBeg;
 
 % Initialisierung der Matrix der Kraftstoffenergien
 %   initialze the fuel energy matrix
@@ -217,7 +217,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     % Initialisieren der Matrix fï¿½r die Kosten bis zu den Punkten im
     % aktuellen Wegschritt
     %   initialize cost matrix to points in current path steps (idxs?)
-    cos2goActTn3 = inf(engNum, geaNum, batNum);
+    cos2goActMat = inf(engNum, batNum);
     
     % Initialisieren der Matrix fÃ¼r die Batterieenergie an den Punkten im
     % aktuellen Wegschritt
@@ -414,7 +414,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                             %   gear penalty to get current cost
                             fulActTn3(batStaPreIdx, geaStaPreIdx,engStaPre+1) ...
                                 = minFul...
-                                + cos2goPreTn3(engStaPre+1,geaStaPre, batStaPreIdx)...
+                                + cos2goPreMat(engStaPre+1, batStaPreIdx)...
                                 + geaStaChgPenCos/timeStp + engStaChgPenCos/timeStp;
                             
                             % save fulAct in a matrix/tensor. find the
@@ -485,7 +485,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 
                     % optimale Kosten zum aktuellen Punkt speichern
                     %   save min hamilton value for current point
-                    cos2goActTn3(engStaAct+1,geaStaAct,batStaActIdx)=minFulMin;
+                    cos2goActMat(engStaAct+1,batStaActIdx)=minFulMin;
 
                     % optimale Batterieenergie zum aktuellen Punkt speichern
                     %   save optimal battery energy for current point
@@ -517,7 +517,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
     
     % Speichern der Kosten fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save cost as previous path_idx value for the next loop
-    cos2goPreTn3 = cos2goActTn3; 
+    cos2goPreMat = cos2goActMat; 
     
     % Speichern der Batterieenergie fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save battery energy value as previous path_idx val for next loop 
@@ -529,12 +529,12 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
 
     % optimale Kraftstoffenergie zum aktuellen Punkt
     %   optimal fuel energy at current point - save current mat in tensor
-    fulEngOptTn4(:,:,:,wayInx) = fulEngActTn3;
+    fulEngOptTn3(:,:,wayInx) = fulEngActTn3;
     % optimale Batterieenergie zum aktuellen Punkt
     %   optimal battery force at current point - save current mat in tensor
     % Flussgrï¿½ï¿½e gilt im Intervall
     %   flux quantity applied over the interval
-    batPwrOptTn4(:,:,:,wayInx-1) = batPwrOptTn3;
+    batPwrOptTn3(:,:,wayInx-1) = batPwrOptTn3;
     
     % Ausgabe des aktuellen Schleifendurchlaufs
     %   output for current loop - print to terminal
