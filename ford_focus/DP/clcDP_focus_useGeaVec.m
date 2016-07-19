@@ -4,8 +4,8 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     fulEngOptTn4,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
     cos2goActTn3    ... Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =             ...
-    clcDP_focus     ...
-    (               ... --- Eingangsgrï¿½ï¿½en:
+    clcDP_focus_useGeaVec     ...
+    (               ... --- Eingangsgrößen:
     disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
     iceFlgBool,     ... bool - define if engine off-on can be toggled
     timeStp,        ... Skalar fï¿½r die Wegschrittweite in m
@@ -141,7 +141,7 @@ end
 %   tensor3 for optimal previous coordinates/idx
 % IS NOT MAT SINCE KE IS NO LONGER CONSIDERED - REDUCES A DIMENSION
 %   - back to being a tensor - adding engine control dimension
-optPreInxTn4 = zeros(engNum, geaNum, batNum, timeNum);
+optPreInxTn3 = zeros(engNum, batNum, timeNum);
 
 % Tensor 3. Stufe fï¿½r die Kraftstoffenergie
 %   tensor3 for fuel energy
@@ -485,28 +485,28 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 
                     % optimale Kosten zum aktuellen Punkt speichern
                     %   save min hamilton value for current point
-                    cos2goActTn3(engStaAct+1,geaStaAct,batStaAct)=minFulMin;
+                    cos2goActTn3(engStaAct+1,geaStaAct,batStaActIdx)=minFulMin;
 
                     % optimale Batterieenergie zum aktuellen Punkt speichern
                     %   save optimal battery energy for current point
-                    batEngActTn3(engStaAct+1,geaStaAct,batStaAct)=batEngOpt;
+                    batEngActTn3(engStaAct+1,geaStaAct,batStaActIdx)=batEngOpt;
 
                     % optimale Krafstoffenergie zum aktuellen Punkt speichern
                     %   save optimal fuel energy for current point
-                    fulEngActTn3(engStaAct+1,geaStaAct,batStaAct)=fulEngOpt;
+                    fulEngActTn3(engStaAct+1,geaStaAct,batStaActIdx)=fulEngOpt;
 
                     % optimale Batterieenergie zum aktuellen Punkt
                     % Flussgrï¿½ï¿½e gilt im Intervall
                     %   populate optimal battery energy flux quantity at point 
                     %   that's applicable to current interval
-                    batPwrOptTn3(engStaAct+1,geaStaAct,batEngAct)=batStaPreInx;
+                    batPwrOptTn3(engStaAct+1,geaStaAct,batStaActIdx)=batStaPreInx;
 
                     % optimalen Vorgï¿½nger codieren ï¿½ber Funktion sub2ind
                     % und speichern im Tensor
                     %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
-                    optPreInxTn4(engStaAct+1,geaStaAct,batStaAct,wayInx)=...
-                        sub2ind([engNum,geaNum],...
-                        engStaPreOptInx+1,geaStaPreOptInx);
+                    optPreInxTn3(engStaAct+1,geaStaAct,batStaActIdx,wayInx)=...
+                        sub2ind([engNum,geaNum, batNum],...
+                        engStaPreOptInx,geaStaPreOptInx, batStaPreOptInx);
                 end % end of ~inf(hamiltonian) if-statement
             end %end of looping through all battery states
             fprintf('.');

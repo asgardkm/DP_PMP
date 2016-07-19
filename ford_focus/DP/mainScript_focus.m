@@ -1,8 +1,8 @@
 % mainScript_a.m
 % this script will be for running DP fuel-minimizing optimization algorithm
 %% define work directory
-% cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\PMPDP\');
-cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/ford_focus/DP')
+cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\');
+% cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/ford_focus/DP')
 
 addpath('../model_data', '../functions')
 

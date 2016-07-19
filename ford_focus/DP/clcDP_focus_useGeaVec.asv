@@ -4,8 +4,8 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     fulEngOptTn4,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
     cos2goActTn3    ... Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =             ...
-    clcDP_focus     ...
-    (               ... --- Eingangsgrï¿½ï¿½en:
+    clcDP_focus_useGeaVec     ...
+    (               ... --- Eingangsgrößen:
     disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
     iceFlgBool,     ... bool - define if engine off-on can be toggled
     timeStp,        ... Skalar fï¿½r die Wegschrittweite in m
@@ -141,7 +141,7 @@ end
 %   tensor3 for optimal previous coordinates/idx
 % IS NOT MAT SINCE KE IS NO LONGER CONSIDERED - REDUCES A DIMENSION
 %   - back to being a tensor - adding engine control dimension
-optPreInxTn4 = zeros(engNum, geaNum, batNum, timeNum);
+optPreInxTn3 = zeros(engNum, batNum, timeNum);
 
 % Tensor 3. Stufe fï¿½r die Kraftstoffenergie
 %   tensor3 for fuel energy
@@ -504,7 +504,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                     % optimalen Vorgï¿½nger codieren ï¿½ber Funktion sub2ind
                     % und speichern im Tensor
                     %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
-                    optPreInxTn4(engStaAct+1,geaStaAct,batStaAct,wayInx)=...
+                    optPreInxTn3(engStaAct+1,batStaAct,wayInx)=...
                         sub2ind([engNum,geaNum],...
                         engStaPreOptInx+1,geaStaPreOptInx);
                 end % end of ~inf(hamiltonian) if-statement
