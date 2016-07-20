@@ -19,7 +19,12 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     engStaVec_wayInx,... scalar - end engine state
     staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
     velVec,         ... velocity vector contiaing input speed profile
-    whlTrq,         ... wheel torque demand vector for the speed profile
+    crsSpdMat,      ... crankshaft speed demand for each gear
+    crsTrqMat,      ... crankshaft torque demand for each gear
+    emoTrqMinPosMat,... min emoTrq along speed profile for each gear
+    emoTrqMaxPosMat,... max emoTrq along speed profile for each gear
+    iceTrqMinPosMat,... min iceTrq along speed profile for each gear
+    iceTrqMaxPosMat,... max iceTrq along speed profile for each gear
     tst_scalar_struct,     ... struct w/ tst data state var params
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
@@ -239,19 +244,17 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
 %     engStaValAct = engStaMat_geaNum_wayInx(wayInx); % unnecessary bc 0-1
 
     % create vector storing current and previous velocity info
+        % check later if you can remove this
     vehVelVec = [velVec(wayInx-1) velVec(wayInx)];
-    
-    % fetch previous time idx wheel torque
-    whlTrqPre = whlTrq(wayInx - 1);
-    
+        
 %%  go through the possible engine state on-off possibilities
 %   checking if the engine can be off or on for this index
     for engStaAct = engStaMin:engStaMax     % CURRENT ENGINE STATE LOOP                
-        % go through off and on version of engine 
-%         engStaAct = engStaActInx;     
+ 
         % Schleife über alle moglichen aktuellen Zustände des Antriesstrangs
         %   Loop over all possible current powertrain states/all the gears
         for geaStaAct = geaStaMin:geaStaMax % ALL GEARS LOOP
+            
             % loop over all possible current battery values
             for batStaActIdx = 1 : length(batStaActIdxVec)
                 %% Initialisieren
@@ -262,7 +265,7 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 
                 % Initialisieren der Ausgabegrï¿½ï¿½e der Schleife
                 %   preallocate the loop's output size
-%                 minFulMin = inf;
+                minFulMin = inf;
 
                 % Initialisieren der Variable fï¿½r den optimalen Zustandsindex
                 %   initializing variable for optimal state index
@@ -327,9 +330,9 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 %   determine gear possibilities - ie u(g) 
                 geaStaPreMin = max(1,geaStaAct-1);
                 geaStaPreMax = min(geaNum,geaStaAct+1);
-                gea = geaStaAct;
                 
                 geaStaPreIdxVec = geaStaPreMin : geaStaPreMax;
+                
                 %% restricting predecessor bat level possibilities
                 % change in E cannot exceed bat power levels (P=E'/t')
                 batStaPreMin = max(batStaMin, batStaAct + fzg_scalar_struct.batPwrMin*timeStp);
@@ -339,125 +342,102 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                 
                 %% memoization variable for storing möglich fuel values
                 fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum);
+                
                 %% loop through previous engine control
-                for batStaPreIdx = 1 : length(batStaPreIdxVec)
-                    % value of previous idx engine control state
-                    %   -unnecessary to assign - indexes represent bool values
-                       % loop through all possible previous battery levels
-                    % calculate index for bat state - can move
-                    % outside for loop for improving computation time later
-                    batStaPre = batStaPreIdxVec(batStaPreIdx) * batStaStp;
-%                     %#ok<PFBNS>
-                    % calculate E'
-                    batStaDlt = batStaAct - batStaPre;
-%                     %#ok<PFBNS>
-                    % Schleife ï¿½ber allen Zustï¿½nde (relativer Index)
+                for engStaPre = engStaPreIdx % PREVIOUS gear state loop
+                            
+                    if engStaAct == engStaPre
+                        engStaChgPenCos = 0;
+                    else 
+                        engStaChgPenCos = staChgPenCosVal;
+                    end
+                    % penalty for changning battery level or no?
+                        
+                    % Schleife über allen Zustände (relativer Index)
                     %   Loop through all the gear states (relative index)
                     for geaStaPreIdx = 1 : length(geaStaPreIdxVec) % PREVIOUS GEAR CHANGE LOOP
                         geaStaPre = geaStaPreIdxVec(geaStaPreIdx);
-                           % Kosten fï¿½r Zustandswechsel setzen
-                            %   set costs for state changes
-                            if geaStaAct == geaStaPre
-                                % Entspricht der Vorgï¿½ngerzustand dem aktuellen 
-                                % Zustand werden keine Kosten gesetzt
-                                %   staying in current state? set penalty cost to 0
-                                geaStaChgPenCos = 0;                       
-
-                            else
-                                % Ansonsten einfache Zustandswechselkosten
-                                % berechnen
-                                %   otherwise apply a penalty cost to changing gear
-                                geaStaChgPenCos = staChgPenCosVal; %<-penCos is input
-                            end
-                            
-                        for engStaPre = engStaPreIdx % PREVIOUS gear state loop
-                            
-                            if engStaAct == engStaPre
-                                engStaChgPenCos = 0;
-                            else 
-                                engStaChgPenCos = staChgPenCosVal;
-                            end
-
-                            % penalty for changning battery level or no?
-                            
-                            %% Berechnung der optimalen Kosten zum aktuellen Punkt
-                            %   calculating optimal cost to the current point
-                            
-                            % do it time interval at a time? will remove vector
-                            % aspects
-%                             [minFul, emoTrq, iceTrq, brkTrq] =...
-                            [minFul, ~, ~, ~] =...
-                                optTrqSplit_focus   ...
-                                (                   ...
-                                engStaPre,          ...  
-                                gea,                ...
-                                batStaDlt,          ...
-                                batStaPre,          ...
-                                batStaMax,          ...
-                                batPwrAux,          ...
-                                timeStp,            ...
-                                vehVelVec,          ...
-                                whlTrqPre,          ... use prev idx whlTrq
-                                fzg_scalar_struct,  ...
-                                fzg_array_struct    ...
-                                );
-
-        %                     % minimale Kosten der Hamiltonfunktion zum aktuellen
-        %                     % Punkt bestimmen
-        %                     [cosHamMin,optPreInx] ...
-        %                         = min([cosHam...
-        %                         + cos2goPreMat(engKinPreInx,geaStaPre)...
-        %                         + staChgPenCos...
-        %                         ,cosHamMin]); %#ok<PFBNS>
-
-                            % combine the min hamil. cost w/ previous costs and 
-                            %   gear penalty to get current cost
-                            fulActTn3(batStaPreIdx, geaStaPreIdx,engStaPre+1) ...
-                                = minFul...
-                                + cos2goPreTn3(engStaPre+1,geaStaPre, batStaPreIdx)...
-                                + geaStaChgPenCos/timeStp + engStaChgPenCos/timeStp;
-                            
-                            % save fulAct in a matrix/tensor. find the
-                            % minimum value of fulAct after the parfor
-                            % loop, since you can't do it independently
-                            % during the parfor
-
-        %                     fprintf('minFul engine %i gear %i: %4.3f\n', engStaPre, geaStaPre, minFul);
-        %                     fprintf('fulAct engine %i gear %i: %4.3f\n\n', engStaPre, geaStaPre, fulAct);
-        %                     fprintf('minFulMin_old: %4.3f\n', minFulMin);
-                            % Wenn der aktuelle Punkt besser ist, als der in
-                            % cosHamMin gespeicherte Wert, werden die Ausgabegrï¿½ï¿½en
-                            % neu beschrieben.
-                            %   if current point is better than the cost value
-                            %   stored in CosHamMin, then rewrite the output
-                            % 
-                            %   WHAT IF - WE INCLUDED <= ? WHY NOT? BOTH OPTIONS
-                            %   WOULD BE EQUALLY OPTIMAL
-                            %   - will implement as of 06.07.2016
-%                             if fulAct < minFulMin
-%                                 minFulMin = fulAct;             % new hamil. cost
-%                                 geaStaPreOptInx = geaStaPre;    % new opt gear idx
-%                                 engStaPreOptInx = engStaPre;    % new opt eng state
-%                                 batStaPreOptInx = batStaPre;    % new opt bat state
-%                                 % new opt. battery energy = (batt. force *
-%                                 %   time diff) + previous battery energy valu
-%                                 %   - NOTE: batFrc*timeStp calc is the same as the
-%                                 %       batFrc calculation in batFrcClc_a()
-%                                 %   -   why not output that calculation instead?
-%                                 batEngOpt = batStaPre + ...
-%                                     batEngPreTn3(engStaPre+1,geaStaPre, batStaPreIdx);
-%                                 % new opt. fuel energy = (fuel force * time diff)
-%                                 %   + previous fuel energy value
-%                                 fulEngOpt = minFul + ...
-%                                     fulEngPreTn3(engStaPre+1,geaStaPre, batStaPreIdx);%%#ok<PFBNS>
-%                                 
-%                                 % 18.07.2016 - might as well save trqs
-%                                 emoTrqOpt = emoTrq;
-%                                 iceTrqOpt = iceTrq;
-%                                 brkTrqOpt = brkTrq;
-%                             end
+                        % Kosten für Zustandswechsel setzen
+                        %   set costs for state changes
+                        if geaStaAct == geaStaPre
+                            % Entspricht der Vorgï¿½ngerzustand dem aktuellen 
+                            % Zustand werden keine Kosten gesetzt
+                            %   staying in current state? set penalty cost to 0
+                            geaStaChgPenCos = 0;                       
+                        else
+                            % Ansonsten einfache Zustandswechselkosten
+                            % berechnen
+                            %   otherwise apply a penalty cost to changing gear
+                            geaStaChgPenCos = staChgPenCosVal; %<-penCos is input
                         end
-    %                     fprintf('minFulMin_new: %4.3f\n\n', minFulMin);
+                            
+                        %% check if engStaPre == 0.
+                        % if == 0 - ignore bat state loop bc emoTrq==crsTrq
+                        %   b/c anything else is not optimal (w/ brakes)
+                        % if == 1 - then run through bat state loop
+                        
+                        % pull out appropriate crankshaft speed and torque
+                        crsSpd = crsSpdMat(:, geaStaPre);
+                        crsTrq = crsTrqMat(:, geaStaPre);
+                        % all EM torque boundaries for given gear
+                        emoTrqMinPos = emoTrqMinPosMat(:, geaStaPre);
+                        emoTrqMaxPos = emoTrqMaxPosMat(:, geaStaPre);                                                                                                                                                                    emoTrqMaxPosMat(:, geaStaPre);
+                              
+                        if engStaPre
+                            % all ICE torque boundaries for given gear
+                            iceTrqMinPos = iceTrqMinPosMat(:, geaStaPre);
+                            iceTrqMaxPos = iceTrqMaxPosMat(:, geaStaPre);
+                            
+                            for batStaPreIdx = 1 : length(batStaPreIdxVec)                            
+                                % value of previous idx engine control state
+                                %   -unnecessary to assign - indexes represent bool values
+                                   % loop through all possible previous battery levels
+                                % calculate index for bat state - can move
+                                % outside for loop for improving computation time later
+                                batStaPre = batStaPreIdxVec(batStaPreIdx) * batStaStp;
+                                % calculate E'
+                                batStaDlt = batStaAct - batStaPre;
+
+                                %% Berechnung der optimalen Kosten zum aktuellen Punkt
+                                %   calculating optimal cost to the current point
+
+                                % do it time interval at a time? will remove vector
+                                % aspects
+    %                             [minFul, emoTrq, iceTrq, brkTrq] =...
+                                [minFul, ~, ~, ~] =...
+                                    optTrqSplit_focus   ...
+                                    (                   ...
+                                    engStaPre,          ...  
+                                    batStaDlt,          ...
+                                    batStaPre,          ...
+                                    batStaMax,          ...
+                                    batPwrAux,          ...
+                                    timeStp,            ...
+                                    vehVelVec,          ...
+                                    fzg_scalar_struct,  ...
+                                    fzg_array_struct    ...
+                                    );
+
+                                % combine the min hamil. cost w/ previous costs and 
+                                %   gear penalty to get current cost
+                                fulActTn3(batStaPreIdx, geaStaPreIdx,engStaPre+1) ...
+                                    = minFul...
+                                    + cos2goPreTn3(engStaPre+1,geaStaPre, batStaPreIdx)...
+                                    + geaStaChgPenCos/timeStp + engStaChgPenCos/timeStp;
+
+                            end % end of bat energy changing loop
+                                
+                        else
+                            % electric motor MUST satisfy crsTrq
+                            % need to convert batPwr to emoPwr to emoTrq
+                            % also, need to make sure that resultant torque
+                            % will lie within bounds - find bounds outside?
+                            
+                            
+                            minFul = 0;
+                        end % end of engStaPre condition check
+                        
+                        
                     end % end of gear changes loop
                 end % end of running through previous engine state ctrl loop
 

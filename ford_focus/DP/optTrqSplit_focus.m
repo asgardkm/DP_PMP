@@ -1,14 +1,12 @@
 function [fulEng, emoTrq, iceTrq, brkTrq] = ...
     optTrqSplit_focus(          ...
             engStaPre,          ...
-            gea,                ...
             batStaDlt,          ...
             batStaPre,          ...
             batEngMax,          ...
             batPwrAux,          ...
             timeStp,            ...
             vehVelVec,          ...
-            whlTrqPre,          ...
             fzg_scalar_struct,  ...
             fzg_array_struct)
 %#codegen
@@ -130,9 +128,9 @@ batPwr = batStaDlt / timeStp;
 % inputted as a vector
 %
 % but may need to do this time index by time index instead
-crsSpdVec  = fzg_array_struct.geaRat(gea) * vehVelVec / (fzg_scalar_struct.whlDrr);
+% crsSpdVec  = fzg_array_struct.geaRat(gea) * vehVelVec / (fzg_scalar_struct.whlDrr);
 
-
+% IS THERE A WAY TO BRING THE CHECKING OUT OF THIS FUNCTION?
 % boundaries:
 % Abbruch, wenn die Drehzahlen der Kurbelwelle zu hoch im hybridischen
 % Modus
@@ -182,11 +180,14 @@ batOcv = interp1q(fzg_array_struct.SOC_vs_OCV(:,1), fzg_array_struct.SOC_vs_OCV(
 
 % elektrische Leistung des Elektromotors
 %   electric power from electric motor - DERIVATION? dunno
-emoPwrEle = -batPwr * vehVel ... innere Batterieleistung / internal batt power
-    - batPwr^2 * vehVel^2 / batOcv^2 * batRst...dissipat. Leist. / dissipated
-    - batPwrAux; ...          Nebenverbrauchlast / auxiliary power
+% emoPwrEle = -batPwr * vehVel ... innere Batterieleistung / internal batt power
+%     - batPwr^2 * vehVel^2 / batOcv^2 * batRst...dissipat. Leist. / dissipated
+%     - batPwrAux; ...          Nebenverbrauchlast / auxiliary power
 % if just assuming the same:   
 % emoPwrEle = batPwr
+%
+% NEW POWER CALCULATION
+% emoPwr = batPwr - batPwrLosses
 
 %% 3. find emoTrq from power calculations
 % interpolation
@@ -206,11 +207,11 @@ emoTrq = interp2(fzg_array_struct.emoSpdMgd,fzg_array_struct.emoPwrMgd,...
 %   it's important to determine sign of crankshaft torque (positive or
 %   negative), since only a simple efficiency is used for the transmission
 %   PART OF EQ4  <- perhaps reversed? not too sure
-if whlTrqPre < 0
-    crsTrq = whlTrqPre / fzg_array_struct.geaRat(gea) * fzg_array_struct.geaEfy(gea);
-else
-    crsTrq = whlTrqPre / fzg_array_struct.geaRat(gea) / fzg_array_struct.geaEfy(gea);
-end
+% if whlTrqPre < 0
+%     crsTrq = whlTrqPre / fzg_array_struct.geaRat(gea) * fzg_array_struct.geaEfy(gea);
+% else
+%     crsTrq = whlTrqPre / fzg_array_struct.geaRat(gea) / fzg_array_struct.geaEfy(gea);
+% end
 
 % NEED SOME CHECKS
 % - max/min torque boundaries
@@ -220,10 +221,10 @@ end
 %   IS THIS A CUTOFF THAT THE ICE CANNOT RUN?
 %       - solved: can't run under 89
 if engStaPre
-    % max torque that ice can provide at current crsSpd - from interpolation
-    iceTrqMaxPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMax_emoSpd(:,2),crsSpd);
-    % min torque that ice can provide at current crsSpd - from interpolation
-    iceTrqMinPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMin_emoSpd(:,2),crsSpd);
+%     % max torque that ice can provide at current crsSpd - from interpolation
+%     iceTrqMaxPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMax_emoSpd(:,2),crsSpd);
+%     % min torque that ice can provide at current crsSpd - from interpolation
+%     iceTrqMinPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMin_emoSpd(:,2),crsSpd);
 
     % check that the demanded crsTrq is not above max possible torque that
     % can be generated between the ice and the em

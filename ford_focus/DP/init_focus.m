@@ -40,7 +40,6 @@ else % otherwise, proceed to generate array data and save it
 end
 fprintf('done!\n');    
 
-
 %% rewrite some parameters from focus_data into the other structs
 % drag coefficient
 fzg_scalar_struct.drgCof        = focus_data.Drag_coeff;
@@ -70,31 +69,32 @@ fzg_scalar_struct.fuel_density  = focus_data.fuel_density;
 % Fuel Lower Heating Value
 fzg_scalar_struct.fuel_lower_heating_value = focus_data.fuel_lower_heating_value;
 % Fuel Power wrt ICE speed and torque (rad/s)
-fzg_array_struct.icePwr_emoSpd_emoTrq = focus_data.ICE_fuel_power_data;
+fzg_array_struct.icePwr_emoSpd_emoTrq   = focus_data.ICE_fuel_power_data;
 % ICE speed meshgrid/vector (N*m)
-fzg_array_struct.iceSpdMgd      = focus_data.ICE_fuel_speed_axis;
+fzg_array_struct.iceSpdMgd              = focus_data.ICE_fuel_speed_axis;
 % ICE torque meshgird/vector
-fzg_array_struct.iceTrqMgd      = focus_data.ICE_fuel_torque_axis;
+fzg_array_struct.iceTrqMgd              = focus_data.ICE_fuel_torque_axis;
 % boundaries of ICE torque wrt ICE speed(rad/s)
-fzg_array_struct.iceTrqMax_emoSpd = focus_data.ICE_TQ_max_vs_Speed;
-fzg_array_struct.iceTrqMin_emoSpd = focus_data.ICE_TQ_min_vs_Speed;
+fzg_array_struct.iceTrqMax_emoSpd       = focus_data.ICE_TQ_max_vs_Speed;
+fzg_array_struct.iceTrqMin_emoSpd       = focus_data.ICE_TQ_min_vs_Speed;
 
-% Electric power EM speed and torque
-fzg_array_struct.emoPwr_emoSpd_emoTrq = focus_data.MOT_elec_power_data;
 % EM speed meshgrid/vector
-fzg_array_struct.emoSpdMgd      = focus_data.MOT_elec_speed_axis;
+fzg_array_struct.emoSpdMgd              = focus_data.MOT_elec_speed_axis;
 % EM torque meshgrid/vector
-fzg_array_struct.emoTrqMgd  	= focus_data.MOT_elec_torque_axis;
+fzg_array_struct.emoTrqMgd              = focus_data.MOT_elec_torque_axis;
 % boundaries of EM torque wrt EM speed (rad/s)
-fzg_array_struct.emoTrqMax_emoSpd = focus_data.MOT_TQ_max_vs_Speed;
-fzg_array_struct.emoTrqMin_emoSpd = focus_data.MOT_TQ_min_vs_Speed;
+fzg_array_struct.emoTrqMax_emoSpd       = focus_data.MOT_TQ_max_vs_Speed;
+fzg_array_struct.emoTrqMin_emoSpd       = focus_data.MOT_TQ_min_vs_Speed;
 % EM torque wrt EM speed and power
-fzg_array_struct.emoTrq_emoSpd_emoPwr = focus_data.MOT_elec_torque_data;
+fzg_array_struct.emoTrq_emoSpd_emoPwr   = focus_data.MOT_elec_torque_data;
 % EM power meshgrid/vector
-fzg_array_struct.emoPwrMgd      = focus_data.MOT_elec_power_axis;
+fzg_array_struct.emoPwrMgd              = focus_data.MOT_elec_power_axis;
+% Electric power EM speed and torque
+fzg_array_struct.emoPwr_emoSpd_emoTrq   = focus_data.MOT_elec_power_data;
 % EM power boundaries
-fzg_array_struct.emoPwrMax_emoSpd = focus_data.MOT_Power_limits_vs_Speed(:,2);
-fzg_array_struct.emoPwrMin_emoSpd = focus_data.MOT_Power_limits_vs_Speed(:,1);
+fzg_array_struct.emoPwrMax_emoSpd       = focus_data.MOT_Power_limits_vs_Speed;
+fzg_array_struct.emoPwrMin_emoSpd       = focus_data.MOT_Power_limits_vs_Speed;
+fzg_array_struct.emoPwrMin_emoSpd(:,2)  = -fzg_array_struct.emoPwrMin_emoSpd(:,2);
 %% notes:
 %   c code will read in array data
 %   needed bc MATLAB_CODER cannot process load() function

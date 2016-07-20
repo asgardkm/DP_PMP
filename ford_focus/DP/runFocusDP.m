@@ -146,30 +146,125 @@ whlFrc(velVec < 0.05) = 0;
 %   resistance force (torque = force * distance (in this case, radius)
 whlTrq = whlFrc*fzg_scalar_struct.whlDrr;
 
+
+%% create equidistant speed-torque boundary ranges
+% define a bool for always finding and using equidistant bounds
+%   incorporate into mainConfig.txt later
+useEqiDis = 1;
+
+if useEqiDis
+% for ICE
+iceSpdDif = diff(fzg_array_struct.iceSpdMgd);
+
+if any(abs(diff(iceSpdDif)) > 0.005)
+    
+% equidistant interpolation
+iceSpdInterp    = fzg_array_struct.iceSpdMgd(1) : iceSpdDif(1) : fzg_array_struct.iceSpdMgd(end);
+iceTrqMaxInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMax_emoSpd(:,2), iceSpdInterp);
+iceTrqMinInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMin_emoSpd(:,2), iceSpdInterp);
+
+% save equidistant interpolation values into the parameter structure
+
+fzg_array_struct.iceSpdMgd          = iceSpdInterp;
+fzg_array_struct.iceTrqMax_emoSpd   = [iceSpdInterp' iceTrqMaxInterp'];
+fzg_array_struct.iceTrqMin_emoSpd   = [iceSpdInterp' iceTrqMinInterp'];
+fprintf('NOTE: Interpolated ICE boundaries to be equidistant\n');
+end
+
+% for EM
+emoSpdDif = diff(fzg_array_struct.emoSpdMgd);
+
+if any(abs(diff(emoSpdDif)) > 0.005)
+
+% equidistant interpolation+ extrapolation
+% will be artifically capping min/max bounds @emoTrqMax/Min_emoSpd(1,2) to
+% all crankshaft indexes between 0 and emoTrqMax/Min_emoSpd(1,1)
+emoSpdInterp    = fzg_array_struct.emoSpdMgd(1) : emoSpdDif(2) : fzg_array_struct.emoSpdMgd(end);
+emoTrqMaxInterp = interp1(fzg_array_struct.emoTrqMax_emoSpd(:,1), fzg_array_struct.emoTrqMax_emoSpd(:,2), emoSpdInterp, 'linear', 'extrap');
+emoTrqMinInterp = interp1(fzg_array_struct.emoTrqMin_emoSpd(:,1), fzg_array_struct.emoTrqMin_emoSpd(:,2), emoSpdInterp, 'linear', 'extrap');
+emoPwrMaxInterp = interp1(fzg_array_struct.emoPwrMax_emoSpd(:,1), fzg_array_struct.emoPwrMax_emoSpd(:,2), emoSpdInterp, 'linear', 'extrap');
+emoPwrMinInterp = interp1(fzg_array_struct.emoPwrMin_emoSpd(:,1), fzg_array_struct.emoPwrMin_emoSpd(:,2), emoSpdInterp, 'linear', 'extrap');
+
+% artifical min/max cap from speed values from 0:emoTrq_emoSpd(1,1)
+emoSpdCapIdx = (fzg_array_struct.emoSpdMgd(1)/emoSpdDif(2) : fzg_array_struct.emoTrqMax_emoSpd(:,1)/emoSpdDif(2))+1;
+emoTrqMaxInterp(emoSpdCapIdx) = fzg_array_struct.emoTrqMax_emoSpd(1,2);
+emoTrqMinInterp(emoSpdCapIdx) = fzg_array_struct.emoTrqMin_emoSpd(1,2);
+emoPwrMaxInterp(emoSpdCapIdx) = fzg_array_struct.emoPwrMax_emoSpd(1,2);
+emoPwrMinInterp(emoSpdCapIdx) = fzg_array_struct.emoPwrMin_emoSpd(1,2);
+
+% save equidistant interpolation values into the parameter structure
+fzg_array_struct.emoSpdMgd          = emoSpdInterp;
+fzg_array_struct.emoTrqMax_emoSpd   = [emoSpdInterp', emoTrqMaxInterp'];
+fzg_array_struct.emoTrqMin_emoSpd   = [emoSpdInterp', emoTrqMinInterp'];
+fzg_array_struct.emoPwrMax_emoSpd   = [emoSpdInterp', emoPwrMaxInterp'];
+fzg_array_struct.emoPwrMin_emoSpd   = [emoSpdInterp', emoPwrMinInterp'];
+fprintf('NOTE: Interpolated EM boundaries to be equidistant\n');
+end 
+
+end
+%% create matrices for crsTrq and crsSpd values along all possible gears
+% also calculate iceTrq boundaries based on the crsTrq mat
+
+% preallocation
+crsSpdMat       = zeros(length(velVec), staNum);
+crsTrqMat       = repmat(whlTrq, 1, staNum);
+iceTrqMaxPosMat = zeros(length(velVec), staNum);
+iceTrqMinPosMat = zeros(length(velVec), staNum);
+emoTrqMaxPosMat = zeros(length(velVec), staNum);
+emoTrqMinPosMat = zeros(length(velVec), staNum);
+emoPwrMinPosMat = zeros(length(velVec), staNum);
+emoPwrMaxPosMat = zeros(length(velVec), staNum);
+for gea = 1 : staNum
+    % calc crs speed matrix - a speed column for each gear
+    crsSpdMat(:, gea)       = fzg_array_struct.geaRat(gea) * velVec / (fzg_scalar_struct.whlDrr);
+    % max torque that ice can provide at current crsSpd - from interpolation
+    iceTrqMaxPosMat(:, gea) = interp1q(fzg_array_struct.iceSpdMgd(1,:)',        ...
+                                        fzg_array_struct.iceTrqMax_emoSpd(:,2), ...
+                                        crsSpdMat(:, gea));
+    % min torque that ice can provide at current crsSpd - from interpolation
+    iceTrqMinPosMat(:, gea) = interp1q(fzg_array_struct.iceSpdMgd(1,:)',        ...
+                                        fzg_array_struct.iceTrqMin_emoSpd(:,2), ...
+                                        crsSpdMat(:, gea));
+    % max torque that the electric motor can provide - from interpolation
+    emoTrqMaxPosMat(:, gea) = interp1q(fzg_array_struct.emoSpdMgd(1,:)',        ...
+                                        fzg_array_struct.emoTrqMax_emoSpd(:,2), ...
+                                        crsSpdMat(:, gea));
+    emoTrqMinPosMat(:, gea) = interp1q(fzg_array_struct.emoSpdMgd(1,:)',        ...
+                                        fzg_array_struct.emoTrqMin_emoSpd(:,2), ...
+                                        crsSpdMat(:, gea));
+    emoPwrMinPosMat(:, gea) = interp1q(fzg_array_struct.emoSpdMgd(1,:)',        ...
+                                        fzg_array_struct.emoPwrMin_emoSpd(:,2), ...
+                                        crsSpdMat(:, gea));
+    emoPwrMaxPosMat(:, gea) = interp1q(fzg_array_struct.emoSpdMgd(1,:)',        ...
+                                        fzg_array_struct.emoPwrMax_emoSpd(:,2), ...
+                                        crsSpdMat(:, gea));
+    % calc torque matrix - a torque column for each gear
+    % take into account if torque is + or - : they have diff eqs
+    crsTrqTmp = crsTrqMat(:, gea);
+    crsTrqTmp(crsTrqTmp<0)  = whlTrq(crsTrqTmp<0) / fzg_array_struct.geaRat(gea) * fzg_array_struct.geaEfy(gea);
+    crsTrqTmp(crsTrqTmp>=0) = whlTrq(crsTrqTmp>=0) / fzg_array_struct.geaRat(gea) / fzg_array_struct.geaEfy(gea);
+    crsTrqMat(:, gea) = crsTrqTmp;
+end
+
 %% define vector for possibilities of engine state on-off values
 %   2 = can toggle (two states, on-of)
 %   1 = cannot toggle, must stay in current state for idx (most likely off)
 engStaVec_wayInx = ones(wayInxEnd, 1)*2;
-engStaVec_wayInx(wayInxBeg) = engBeg;
-engStaVec_wayInx(wayInxEnd) = engEnd;
-
+engStaVec_wayInx(wayInxBeg) = engBeg+1;
+engStaVec_wayInx(wayInxEnd) = engEnd+1;
 
 %% define battery looping vector
-batValVec = tst_scalar_struct.batEngMin : ...
-            tst_scalar_struct.batEngStp : ...
-            tst_scalar_struct.batEngMax ;
-        
 % make sure that the max/min electric power values are discretized right
 if mod(fzg_scalar_struct.batPwrMax, tst_scalar_struct.batEngStp)
     fprintf('Note: E'' limits weren''t discretized to E'' step size.\n');
-    fprintf('   Old max E'': %i\n', fzg_scalar_struct.batPwrMax);
-    fprintf('   Old min E'': %i\n', fzg_scalar_struct.batPwrMin);
+    fprintf('   Old max E'': %i\n',   fzg_scalar_struct.batPwrMax);
+    fprintf('   Old min E'': %i\n',   fzg_scalar_struct.batPwrMin);
     fzg_scalar_struct.batPwrMax=floor(fzg_scalar_struct.batPwrMax / tst_scalar_struct.batEngStp)...
-                                * tst_scalar_struct.batEngStp;
-    fzg_scalar_struct.batPwrMin=ceil(fzg_scalar_struct.batPwrMin / tst_scalar_struct.batEngStp) ...
-                                * tst_scalar_struct.batEngStp;
-    fprintf('   New max E'': %i\n', fzg_scalar_struct.batPwrMax);
-    fprintf('   New min E'': %i\n', fzg_scalar_struct.batPwrMin);
+                                    * tst_scalar_struct.batEngStp;
+    fzg_scalar_struct.batPwrMin=ceil( fzg_scalar_struct.batPwrMin / tst_scalar_struct.batEngStp) ...
+                                    * tst_scalar_struct.batEngStp;
+    fprintf('   New max E'': %i\n',   fzg_scalar_struct.batPwrMax);
+    fprintf('   New min E'': %i\n',   fzg_scalar_struct.batPwrMin);
     fprintf('   E'' step size used: %i\n', tst_scalar_struct.batEngStp);
 end
 
@@ -199,7 +294,14 @@ if tst_scalar_struct.useGeaSta
         engStaVec_wayInx,...
         staBeg,         ... Skalar f�r den Startzustand des Antriebsstrangs
         velVec,         ... velocity vector contiaing input speed profile
-        whlTrq,         ... wheel torque demand vector for the speed profile
+        crsSpdMat,      ... crankshaft speed demand for each gear
+        crsTrqMat,      ... crankshaft torque demand for each gear
+        emoTrqMinPosMat,... min emoTrq along speed profile for each gear
+        emoTrqMaxPosMat,... max emoTrq along speed profile for each gear
+        emoPwrMinPosMat,... min emoPwr along speed profile for each gear
+        emoPwrMaxPosMat,... max emoPwr along speed profile for each gear
+        iceTrqMinPosMat,... min iceTrq along speed profile for each gear
+        iceTrqMaxPosMat,... max iceTrq along speed profile for each gear
         tst_scalar_struct,     ... struct w/ tst data state var params
         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
         fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
