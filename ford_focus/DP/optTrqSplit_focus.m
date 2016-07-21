@@ -164,19 +164,19 @@ vehVel = vehVelVec(1);
 %       - OCV lookup based on current SOC
 %       - bat_Pwr -> emo_Pwr conversion
 
-% resistance calulation
-% BUT - is batPwr == emoPwr?? Or do we need a conversion??
-% if so, include conversion below
-if batPwr < 0
-    batRst = fzg_scalar_struct.batRstDch;
-else
-    batRst = fzg_scalar_struct.batRstChr;
-end
-
-% ocv lookup
-% calculate SOC value
-batSoc = batStaPre / batEngMax;
-batOcv = interp1q(fzg_array_struct.SOC_vs_OCV(:,1), fzg_array_struct.SOC_vs_OCV(:,2), batSoc);
+% % resistance calulation
+% % BUT - is batPwr == emoPwr?? Or do we need a conversion??
+% % if so, include conversion below
+% if batPwr < 0
+%     batRst = fzg_scalar_struct.batRstDch;
+% else
+%     batRst = fzg_scalar_struct.batRstChr;
+% end
+% 
+% % ocv lookup
+% % calculate SOC value
+% batSoc = batStaPre / batEngMax;
+% batOcv = interp1q(fzg_array_struct.SOC_vs_OCV(:,1), fzg_array_struct.SOC_vs_OCV(:,2), batSoc);
 
 % elektrische Leistung des Elektromotors
 %   electric power from electric motor - DERIVATION? dunno

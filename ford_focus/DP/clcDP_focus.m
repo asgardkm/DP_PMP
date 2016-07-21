@@ -23,6 +23,8 @@ function [          ...  --- Ausgangsgrößen:
     crsTrqMat,      ... crankshaft torque demand for each gear
     emoTrqMinPosMat,... min emoTrq along speed profile for each gear
     emoTrqMaxPosMat,... max emoTrq along speed profile for each gear
+    emoPwrMinPosMat,... min emoPwr along speed profile for each gear
+    emoPwrMaxPosMat,... max emoPwr along speed profile for each gear
     iceTrqMinPosMat,... min iceTrq along speed profile for each gear
     iceTrqMaxPosMat,... max iceTrq along speed profile for each gear
     tst_scalar_struct,     ... struct w/ tst data state var params
@@ -377,16 +379,21 @@ for wayInx = wayInxBeg+1 : timeStp : wayInxEnd      % TIME IDX LOOP
                         % if == 1 - then run through bat state loop
                         
                         % pull out appropriate crankshaft speed and torque
-                        crsSpd = crsSpdMat(:, geaStaPre);
-                        crsTrq = crsTrqMat(:, geaStaPre);
+                        crsSpd = crsSpdMat(wayInx-1, geaStaPre);
+                        crsTrq = crsTrqMat(wayInx-1, geaStaPre);
                         % all EM torque boundaries for given gear
-                        emoTrqMinPos = emoTrqMinPosMat(:, geaStaPre);
-                        emoTrqMaxPos = emoTrqMaxPosMat(:, geaStaPre);                                                                                                                                                                    emoTrqMaxPosMat(:, geaStaPre);
-                              
+                        emoTrqMinPos = emoTrqMinPosMat(wayInx-1, geaStaPre);
+                        emoTrqMaxPos = emoTrqMaxPosMat(wayInx-1, geaStaPre);
+                        
+                        emoTrqMaxPosMat(:, geaStaPre);
+                        
+                        emoPwrMinPos = emoPwrMinPosMat(wayInx-1, geaStaPre);
+                        emoPwrMaxPos = emoPwrMaxPosMat(wayInx-1, geaStaPre);
+                        
                         if engStaPre
                             % all ICE torque boundaries for given gear
-                            iceTrqMinPos = iceTrqMinPosMat(:, geaStaPre);
-                            iceTrqMaxPos = iceTrqMaxPosMat(:, geaStaPre);
+                            iceTrqMinPos = iceTrqMinPosMat(wayInx-1, geaStaPre);
+                            iceTrqMaxPos = iceTrqMaxPosMat(wayInx-1, geaStaPre);
                             
                             for batStaPreIdx = 1 : length(batStaPreIdxVec)                            
                                 % value of previous idx engine control state
