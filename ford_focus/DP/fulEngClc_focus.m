@@ -1,14 +1,14 @@
 function [...
-    fulEng          ... Skalar Kraftstoffkraft
-    ] =             ...
+    fulEng              ... Skalar Kraftstoffkraft
+    ] =                 ...
     fulEngClc_focus     ...
-    (timeStp,       ... Skalar für die Wegschrittweite in m
-    vel,            ... vehicular velocity
-    crsSpd,         ... Skalar - crankshaft speed at given path_idx
-    iceTrq,         ... Skalar - ice torque at given path_idx
-    iceTrqMax,      ... Skalar - max ICE torque
-    fzg_scalar_struct,     ... struct - Fahrzeugparameter - nur skalar
-    fzg_array_struct       ... struct - Fahrzeugparameter - nur array        
+    (timeStp,           ... Skalar für die Wegschrittweite in m
+    vel,                ... vehicular velocity
+    crsSpd,             ... Skalar - crankshaft speed at given path_idx
+    iceTrq,             ... Skalar - ice torque at given path_idx
+    iceTrqMax,          ... Skalar - max ICE torque
+    fzg_scalar_struct,  ... struct - Fahrzeugparameter - nur skalar
+    fzg_array_struct    ... struct - Fahrzeugparameter - nur array        
     ) %#codegen
 %
 %FULENGCLC Calculating fuel consumption
@@ -57,8 +57,11 @@ elseif iceTrq > iceTrqMax
     fulEng = inf;
 else
     % calculate fuel power
-    fulPwr = codegen_interp2(fzg_array_struct.iceSpdMgd,fzg_array_struct.iceTrqMgd,...
-        fzg_array_struct.iceFulPwr_iceSpd_iceTrq,crsSpd,iceTrq);
+    fulPwr = codegen_interp2(fzg_array_struct.iceSpdMgd, ...
+                             fzg_array_struct.iceTrqMgd, ...
+                             fzg_array_struct.iceFulPwr_iceSpd_iceTrq, ...
+                             crsSpd, ...
+                             iceTrq);
     % since P = E/t, then E=P*t
     fulEng = fulPwr * timeStp;
 end

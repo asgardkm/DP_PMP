@@ -29,8 +29,8 @@ PARAMS_START
 0.90,			batEngEndMaxRat,	ending maximum SOC percentage value
 0,				batPwrAux,			aux power demanded from powertrain
 0,				staChgPenCosVal,	penalty for changing gear (need to add one for engine)
-1,				wayInxBeg,			starting time index
-1181,			wayInxEnd,			final time index
+1,				timeInxBeg,			starting time index
+1181,			timeInxEnd,			final time index
 0,				engBeg,				initial state of engine (0-off, 1-on)
 0,				engEnd,				final state of engine 	(0-off, 1-on)
 1,				staBeg,				starting gear state

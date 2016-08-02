@@ -66,10 +66,8 @@ fulEng = inf;
 
 % initializing state permutation's braking torque
 % brkTrq = 0;
-% -------------------------------------------------------------------------
 
-
-% ----- Initialisieren der persistent Größen ------------------------------
+% ----- Initialisieren der persistent Größen
 %   initialize the persistance variables
 
 % Diese werden die nur einmal fÜr die Funktion berechnet
@@ -95,7 +93,6 @@ if isempty(crsSpdHybMax)
     crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
     
 end
-% -------------------------------------------------------------------------
 
 % ----- CRANKSHAFT SPEED BOUNDARY CHECKS ---------------------------------
 % IS THERE A WAY TO BRING THE CHECKING OUT OF THIS FUNCTION?
@@ -146,7 +143,6 @@ emoPwr = batPwr - batPwrLoss;
 emoTrq = emoPwr * crsSpd;
 % -------------------------------------------------------------------------
 
-
 % ----- CALCUALTE  crsTrq ------------------------------------------------
 % check that the demanded crsTrq is not above max possible torque that
 % can be generated between the ice and the em
@@ -175,8 +171,7 @@ if iceTrq < 0
 end
 % -------------------------------------------------------------------------
 
-
-% ----- CALCULATE fulEng USE ----------------------------------------------
+% 5. find resultant fuel consumed for this iceTrq
 fulEng =        ... Skalar Krafstoffkraft in N
 fulEngClc_focus ... FUNCTION CALL
 (               ...
@@ -188,16 +183,15 @@ iceTrqMaxPos,   ... Skalar - max ICE torque
 fzg_scalar_struct,  ... struct - Fahrzeugparameter - nur skalar
 fzg_array_struct    ... struct - Fahrzeugparameter - nur array        
 );
-% -------------------------------------------------------------------------
-
-
 % else 
 %     % if engine is considered off - no torque is coming from the ice
 %     iceTrq = 0;
 %     fulEng = 0;
 % end   
 
+
 % END OF optTrqSplit_focus()
+
 
 %% OLD CODE
 % %% STEPS
