@@ -22,15 +22,15 @@ Value,			Variable Name,  	Description (examples in brackets)
 PARAMS_START
 1,				disFlg,				bool - for displaying data on command window (also ensures target trajectory?? check later in clcOptTrj)
 0,				iceFlgBool,			bool - flag for having engine always on?
-1,				timeStp,			time step discretization [sec]
+1,				timStp,			time step discretization [sec]
 0.60,			batEngBegMinRat,	beginning minimum SOC percentage value
 0.60,			batEngBegMaxRat,	beginning maximum SOC percentage value
 0.30,			batEngEndMinRat,	ending minimum SOC percentage value
 0.90,			batEngEndMaxRat,	ending maximum SOC percentage value
 0,				batPwrAux,			aux power demanded from powertrain
 0,				staChgPenCosVal,	penalty for changing gear (need to add one for engine)
-1,				timeInxBeg,			starting time index
-1181,			timeInxEnd,			final time index
+1,				timInxBeg,			starting time index
+1181,			timInxEnd,			final time index
 0,				engBeg,				initial state of engine (0-off, 1-on)
 0,				engEnd,				final state of engine 	(0-off, 1-on)
 1,				staBeg,				starting gear state

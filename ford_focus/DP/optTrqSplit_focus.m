@@ -1,10 +1,9 @@
 function [fulEng] = ...
     optTrqSplit_focus(          ...
-            engStaPre,          ...
             batPwr,             ...
             batOcvPre,          ...
             batRst,             ...
-            crsSpd,             ...
+            crsSpdPre,          ...
             crsTrq,             ...
             iceTrqMaxPos,       ...
             iceTrqMinPos,       ...
@@ -63,11 +62,7 @@ function [fulEng] = ...
 % new initialization
 % intializing fuel energy output
 fulEng = inf;
-
-% initializing state permutation's braking torque
-% brkTrq = 0;
 % -------------------------------------------------------------------------
-
 
 % ----- Initialisieren der persistent Größen ------------------------------
 %   initialize the persistance variables
@@ -75,7 +70,7 @@ fulEng = inf;
 % Diese werden die nur einmal fÜr die Funktion berechnet
 %   only calculated once for the function
 
-persistent crsSpdHybMax crsSpdHybMin crsSpdEmoMax
+persistent crsSpdHybMax crsSpdHybMin
 
 if isempty(crsSpdHybMax)
     
@@ -88,7 +83,7 @@ if isempty(crsSpdHybMax)
     % 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
     % ARE WE SECTNIG THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
     % EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
-    crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end),crsSpdEmoMax);
+    crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end), crsSpdEmoMax);
     
     % minimale Drehzahl der Kurbelwelle
     %   minimum crankshaft rotational speed
@@ -103,26 +98,20 @@ end
 % Abbruch, wenn die Drehzahlen der Kurbelwelle zu hoch im hybridischen
 % Modus
 %   stop if the crankshaft rotational speed is too high in hybrid mode
-if engStaPre && any(crsSpdVec > crsSpdHybMax)
+if crsSpdPre > crsSpdHybMax
     return;
 end
 
 % Falls die Drehzahl des Verbrennungsmotors niedriger als die
 % Leerlaufdrehzahl ist,
 %   stop if crankhaft rotional speed is lower than the idling speed
-if engStaPre && any(crsSpdVec < crsSpdHybMin)
-    return;
-end
-
-% Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
-%   check if electric motor speed limit is maintained
-if ~engStaPre && any(crsSpdVec > crsSpdEmoMax)
+if crsSpdPre < crsSpdHybMin
     return;
 end
 % -------------------------------------------------------------------------
 
 
-% ----- DERIVE emoPwr FROM batPwr STATE ----------------------------------
+% ----- DERIVE emoPwr FROM batPwr STATE -----------------------------------
 % from the given batPwr, derive emoPwr from equation:
 %   emoPwr = batPwr - batPwrLoss,
 % where
@@ -147,10 +136,10 @@ emoTrq = emoPwr * crsSpd;
 % -------------------------------------------------------------------------
 
 
-% ----- CALCUALTE  crsTrq ------------------------------------------------
+% ----- CALCUALTE  crsTrq -------------------------------------------------
 % check that the demanded crsTrq is not above max possible torque that
 % can be generated between the ice and the em
-if crsTrq > iceTrqMaxPos + emoTrq; 
+if crsTrq > iceTrqMaxPos + emoTrq;
     return;
 end
 
@@ -158,10 +147,10 @@ end
 iceTrq = crsTrq - emoTrq;
 
 % check if you can remove this boundary check later
-    % check if iceTrq is too high or low based on iceTrqMax/MinPos
-    if iceTrq > iceTrqMaxPos 
-        return
-    end
+% check if iceTrq is too high or low based on iceTrqMax/MinPos
+if iceTrq > iceTrqMaxPos 
+    return
+end
 
 % if iceTrq is negative (which it can't be in this case), don't
 % brake with with engine! Rather, brake with the brakes.
