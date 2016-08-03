@@ -36,7 +36,7 @@ batEngStp       = tst_scalar_struct.batEngStp;
 batEngMax       = tst_scalar_struct.batEngMax;
 
 % tst_scalar_struct - originally tstDat800 structure
-staNum          = tst_scalar_struct.staNum;
+geaNum          = tst_scalar_struct.staNum;
 engStaNum       = tst_scalar_struct.engStaNum;
 % wayNum          = tst_scalar_struct.wayNum;
 % engKinNum       = tst_scalar_struct.engKinNum;
@@ -254,19 +254,19 @@ end
 % The above process is also done for EM power boundaries.
 
 % preallocation
-crsSpdMat       = zeros(length(velVec), staNum);
-crsTrqMat       = repmat(whlTrq, 1, staNum);
-iceTrqMaxPosMat = zeros(length(velVec), staNum);
-iceTrqMinPosMat = zeros(length(velVec), staNum);
-emoTrqMaxPosMat = zeros(length(velVec), staNum);
-emoTrqMinPosMat = zeros(length(velVec), staNum);
-emoPwrMinPosMat = zeros(length(velVec), staNum);
-emoPwrMaxPosMat = zeros(length(velVec), staNum);
-% emoPwrMinMat    = zeros(length(velVec), staNum);
-% emoPwrMaxMat    = zeros(length(velVec), staNum);
+crsSpdMat       = zeros(length(velVec), geaNum);
+crsTrqMat       = repmat(whlTrq, 1, geaNum);
+iceTrqMaxPosMat = zeros(length(velVec), geaNum);
+iceTrqMinPosMat = zeros(length(velVec), geaNum);
+emoTrqMaxPosMat = zeros(length(velVec), geaNum);
+emoTrqMinPosMat = zeros(length(velVec), geaNum);
+emoPwrMinPosMat = zeros(length(velVec), geaNum);
+emoPwrMaxPosMat = zeros(length(velVec), geaNum);
+% emoPwrMinMat    = zeros(length(velVec), geaNum);
+% emoPwrMaxMat    = zeros(length(velVec), geaNum);
 
 % ---- LOOP THROUGH GEAR STATES -----------------
-for gea = 1 : staNum
+for gea = 1 : geaNum
     % CALCULATE CRANKSHAFT SPEEDS
     % In order to calculate crsSpd-based boundaries, crsSpd must be found first
     % calc crsSpd matrix along speed profile - a speed column for each gear
@@ -310,6 +310,10 @@ for gea = 1 : staNum
 end
 % -----------------------------------------------
 
+%% GENERATE POWER DEMAND PROFILE THAT MUST BE SATISFIED
+% crsTrq * crsSpd = crsPwr <- demand must be satisfied to complete profile
+crsPwrMat = crsTrqMat .* crsSpdMat;
+
 % % %% set emo power bounds
 % % % These power lookups are based on both speed AND torque - given vector
 % % % boundary input for the model.
@@ -344,7 +348,12 @@ end
 % from which then batPwr can then be easily found (rearranging EQUATION):
 %       batPwr = emoPwr + batPwrLoss
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%
+% also calculating the battery power needed at each possible crankshaft 
+% power occurance (ie the electric battery energy difference that must 
+% occur if the battery supplies all the power to satisfy each crankshaft 
+% power demand)
+%
 % ----- CALCULATE BATTERY VOLTAGE ----------------
 % define all possible batEng values - convert them into SOCs
 batSoc = (tst_scalar_struct.batEngMin : tst_scalar_struct.batEngStp : ...
@@ -362,8 +371,8 @@ batOcv = interp1(fzg_array_struct.SOC_vs_OCV(:,1), ...
 %   b/c batPwr-batPwrLoss=emoPwr, both batPwr and emoPwr will generally
 %   have the same sign, unless batPwr<batPwrLoss (which seems unlikely?)
 %       may need to check this assumption later
-batRstMax = zeros(length(emoPwrMaxPosMat), staNum);
-batRstMin = zeros(length(emoPwrMinPosMat), staNum);
+batRstMax = zeros(length(emoPwrMaxPosMat), geaNum);
+batRstMin = zeros(length(emoPwrMinPosMat), geaNum);
 
 % the code below is performing this code snippet across the vector
 % if batPwr < 0
@@ -384,7 +393,7 @@ batRstMin(emoPwrMinPosMat>=0)   = fzg_scalar_struct.batRstChr;
 % batPwrMaxLossTn3 = zeros(length(batRstMax), length(batOcv), geaNum);
 batPwrMinTn3     = zeros(length(batRstMin), length(batOcv), geaNum); 
 batPwrMaxTn3     = zeros(length(batRstMax), length(batOcv), geaNum);
-
+batPwrDemTn3     = zeros(timNum,            length(batOcv), geaNum);
 % NOTE: this preprocessing is a bit slow because of lack of vectorization.
 % may be able to speed up later, but since it is in preprocessing, it is
 % low priority at the moment
@@ -394,7 +403,7 @@ for tim = 1 : timNum
     % bat index is for varying battery voltage levels
     for bat = 1 : length(batOcv)
         % gear is for looping through diff resistance and emoPwr bound values
-        for gea = 1 : staNum 
+        for gea = 1 : geaNum 
             % internal battery power losses: quadratic equation derived from
             %   batPwrLoss = I^2*batRst,
             %   batPwr     = V*I, and
@@ -411,6 +420,10 @@ for tim = 1 : timNum
             batPwrMaxLoss = ((batOcv(bat)-sqrt(batOcv(bat).^2 - 4*batRstMax(tim, gea) * ...
                                         emoPwrMaxPosMat(tim,gea))).^2) / ...
                                         (4*batRstMax(tim, gea));
+                                    
+            batPwrDemLoss = ((batOcv(bat)-sqrt(batOcv(bat).^2 - 4*batRstMax(tim, gea) * ...
+                                        crsPwrMat(tim,gea))).^2) / ...
+                                        (4*batRstMax(tim, gea));
 
             % calculate boundaries that battery can (dis)charge at
             %   in other words, calculate all possible batPwr values across emoSpd
@@ -418,6 +431,7 @@ for tim = 1 : timNum
             %       batPwr = emoPwr + batPwrLoss
             batPwrMinTn3(tim, bat, gea)   = batPwrMinLoss + emoPwrMinPosMat(tim, gea);
             batPwrMaxTn3(tim, bat, gea)   = batPwrMaxLoss + emoPwrMaxPosMat(tim, gea);  
+            batPwrDemTn3(tim, bat, gea)   = batPwrDemLoss + crsPwrMat(tim, gea);
         end
     end
 end
@@ -428,6 +442,7 @@ end
 batPwrStp = tst_scalar_struct.batEngStp / timStp;
 batPwrMaxIdxTn3 = floor(batPwrMaxTn3 ./ batPwrStp);
 batPwrMinIdxTn3 = ceil(batPwrMinTn3 ./ batPwrStp);
+batPwrDemIdxTn3 = ceil(batPwrDemTn3 ./ batPwrStp);
 % -----------------------------------------------
 
 %% define vector for possibilities of engine state on-off values
@@ -488,6 +503,7 @@ if tst_scalar_struct.useGeaSta
         iceTrqMaxPosMat,... max iceTrq along speed profile for each gear
         batPwrMinIdxTn3,... min indexes/steps that bat can change
         batPwrMaxIdxTn3,... max indexes/steps that bat can change
+        batPwrDemIdxTn3,... power demand by bat if only EM is running
         tst_scalar_struct,     ... struct w/ tst data state var params
         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
         fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
@@ -568,7 +584,7 @@ engEnd;
     staEnd,         ... Skalar f�r den finalen Zustand
     engEnd,         ... scalar - final engine state
     engStaEndInxVal,... Skalar f�r Zielindex der kinetischen Energie
-    staNum,         ... Skalar f�r die max. Anzahl an Zustandsst�tzstellen
+    geaNum,         ... Skalar f�r die max. Anzahl an Zustandsst�tzstellen
     engStaNum,      ... scalar - for number of states engine can take
     optPreInxTn3,   ... Tensor 3. Stufe f�r opt. Vorg�ngerkoordinaten
     batFrcOptTn3,   ... Tensor 3. Stufe der Batteriekraft

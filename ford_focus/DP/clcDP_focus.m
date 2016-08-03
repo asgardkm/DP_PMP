@@ -30,6 +30,7 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
     iceTrqMaxPosMat,... max iceTrq along speed profile for each gear
     batPwrMinIdxTn3,... min indexes/steps that bat can change
     batPwrMaxIdxTn3,... max indexes/steps that bat can change
+    batPwrDemIdxTn3,... bat power demand if only EM is running
     tst_scalar_struct,     ... struct w/ tst data state var params
     fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
@@ -101,8 +102,8 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
 %   beginning of the interval for the next interval. Those vectors/tensors
 %   are therefore shorter by a valid entry (index?).
 %
-%% Initialisieren der persistent GrÃ¶ÃŸen
-% Diese werden die nur einmal fÃ¼r die Funktion berechnet
+%% Initialisieren der persistent Größen
+% Diese werden die nur einmal für die Funktion berechnet
 %   assigning input structure values to function persistant variables
 %   - just once
 % persistent geaNum vehMas vehAccMin vehAccMax iceFlg
@@ -129,8 +130,10 @@ if isempty(geaNum)
     batStaMin   = tst_scalar_struct.batEngMin;
     batStaStp   = tst_scalar_struct.batEngStp;
     batStaMax   = tst_scalar_struct.batEngMax;
-    batNum      = (batStaMax - batStaStp)/batStaStp;
-    % Fahrzeugmasse;
+    % need to add one so that the value 0 is included as well!
+    batNum      = (batStaMax - batStaMin)/batStaStp + 1;
+
+    % Fahrzeugmasse
 %     vehMas = fzg_scalar_struct.vehMas;
  
     % minmiale und maximale Beschleunigung
@@ -154,21 +157,23 @@ end
 optPreInxTn4 = zeros(engNum, geaNum, batNum, timNum);
 
 % Tensor 3. Stufe fï¿½r die Kraftstoffenergie
-%   tensor3 for fuel energy
-% NOW A MATRIX
+%   tensor3 for fuel energy - now Tn4
 fulEngOptTn4 = inf(engNum, geaNum, batNum, timNum);
+
 %   set initial fuel energy level to 0
+%   Note: batEngIdxBeg is a scaled down energy value index, NOT a vector
+%   index. Keep this in mind later when manipulating batEng index bounds.
 batEngIdxBeg = batEngBeg/batStaStp;
 fulEngOptTn4(engBeg+1, staBeg, batEngIdxBeg, timInxBeg) = 0; 
 
 % Tensor 3. Stufe fï¿½r die Batterienergie
-%   tensor3 for battery energy
+%   tensor3 for battery energy - now Tn4
 batPwrOptTn4 = inf(engNum, geaNum, batNum, timNum);
 
-%% Berechnung der optimalen Vorgï¿½nger
+%% Berechnung der optimalen Vorgäger
 %   calculating the optimal predecessors
 
-% Initialisieren der Matrix fï¿½r die Kosten bis zu den Punkten im letzten
+% Initialisieren der Matrix für die Kosten bis zu den Punkten im letzten
 % Wegschritt
 %   initialize the matrix for the cost to the points in the last wayidx
 % NOW A VECTOR - REMOVED KE DIMENSION
@@ -176,7 +181,7 @@ batPwrOptTn4 = inf(engNum, geaNum, batNum, timNum);
 cos2goPreTn3 = inf(engNum, geaNum, batNum);
 cos2goActTn3 = inf(engNum, geaNum, batNum);
 
-% Erste Initilisierung beim Startindex mit 0 fï¿½r alle Zustï¿½nde (concluded)
+% Erste Initilisierung beim Startindex mit 0 für alle Zustände (concluded)
 %   first, initialize the startidx to 0 for all states
 cos2goPreTn3(engBeg+1, staBeg, batEngIdxBeg) = 0;
 
@@ -184,7 +189,7 @@ cos2goPreTn3(engBeg+1, staBeg, batEngIdxBeg) = 0;
 %   initialize the battery energy matrix
 batEngPreTn3 = inf(engNum, geaNum, batNum);
 
-% Erste Initilisierung beim Startindex mit Startladung fï¿½r den Startzustand
+% Erste Initilisierung beim Startindex mit Startladung für den Startzustand
 %   first, intialize start index of the starting charge for intial state
 batEngPreTn3(engBeg+1, staBeg, batEngIdxBeg) = batEngBeg;
 
@@ -200,11 +205,12 @@ fulEngPreTn3(engBeg+1, staBeg, batEngIdxBeg) = 0;
 
 % define battery vector to be used for looping
 batStaActInxVec = batStaMin/batStaStp : batStaMax/batStaStp;
-% Schleife ï¿½ber alle Wegpunkte
+% Schleife über alle Wegpunkte
 %   looping thorugh length of # of discretized tim vector
 
-% starting battery energy state
-batStaPreOptInx = batEngIdxBeg;
+% starting battery energy state - SWITCHING TO AN VECTOR INDEX BY ADDNIG 1
+% THIS MEANS WORK WITH VECTOR INDEXES LATER when defining batEng bounds
+batStaPreOptInx = batEngIdxBeg + 1;
 
 % ----- Initialisieren der persistent Größen ------------------------------
 %   initialize the persistance variables
@@ -216,20 +222,20 @@ batStaPreOptInx = batEngIdxBeg;
 % 
 % if isempty(crsSpdHybMax)
 %     
-    % maximale Drehzahl Elektrommotor
-    %   maximum electric motor rotational speed
-    crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
-    
-    % maximale Drehzahl der Kurbelwelle
-    %   maximum crankshaft rotational speed
-    % 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
-    % ARE WE SECTNIG THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
-    % EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
-    crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end),crsSpdEmoMax);
-    
-    % minimale Drehzahl der Kurbelwelle
-    %   minimum crankshaft rotational speed
-    crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
+% maximale Drehzahl Elektrommotor
+%   maximum electric motor rotational speed
+crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
+
+% maximale Drehzahl der Kurbelwelle
+%   maximum crankshaft rotational speed
+% 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
+% ARE WE SECTNIG THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
+% EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
+crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end),crsSpdEmoMax);
+
+% minimale Drehzahl der Kurbelwelle
+%   minimum crankshaft rotational speed
+crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
     
 % end
 % -------------------------------------------------------------------------
@@ -305,57 +311,57 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                 % Abbruch, wenn die Drehzahlen der Kurbelwelle zu hoch im hybridischen
                 % Modus
                 %   stop if the crankshaft rotational speed is too high in hybrid mode
-                if (crsSpdActVec(geaStaAct) > crsSpdHybMax); return;
+                if (crsSpdActVec(geaStaAct) > crsSpdHybMax); continue;
                 end
 
                 % Falls die Drehzahl des Verbrennungsmotors niedriger als die
                 % Leerlaufdrehzahl ist,
                 %   stop if crankhaft rotional speed is lower than the idling speed
-                if (crsSpdActVec(geaStaAct) < crsSpdHybMin); return;
+                if (crsSpdActVec(geaStaAct) < crsSpdHybMin); continue;
                 end
+                
             % IF ENGINE IS OFF
             else
                 % Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
                 %   check if electric motor speed limit is maintained
-                if (crsSpdActVec(geaStaAct) > crsSpdEmoMax); return;
+                if (crsSpdActVec(geaStaAct) > crsSpdEmoMax); continue;
                 end
+                
             end
             % -------------------------------------------------------------------------
  
             % loop over all possible current battery values
             for batStaActInx = 1 : length(batStaActInxVec)
                 %% Initialisieren
-                %   note-you are preallocating over each  state permutation
+                %   note-you are preallocating over each state permutation
 
                 % convert batStaActInx back into actual batEng
                 batStaAct = batStaActInxVec(batStaActInx) * batStaStp;
-                
-                % memoization variable for storing möglich fuel values
-                fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum);
-                
-                % Initialisieren der Ausgabegrï¿½ï¿½e der Schleife
-                %   preallocate the loop's output size
-                minFulMin = inf;
 
-                % Initialisieren der Variable fï¿½r den optimalen Zustandsindex
-                %   initializing variable for optimal state index
-                geaStaPreOptInx = 0;
-
-                % initialize variable for optimal previous idx engine control
-                engStaPreOptInx = 0;
-                
-                % initialize variable for optimal previous bat level
-                batStaPreInx = 0;
-                % Initialisieren der optimalen Kraftstoffenergieï¿½nderung zum
-                % betrachteten Punkt
-                %   preallocate the optimum fuel energy change to the point
-                %   considered
-                fulEngOpt = inf;
-                
-                % Initialisieren der optimalen Batterieenergie zum
-                % betrachteten Punkt
-                %   initialize the optimal battery energy (up to boundry limits)
-                batEngOpt = inf;
+                % Initialisieren der Ausgabegröße der Schleife
+%                 %   preallocate the loop's output size
+%                 minFulMin = inf;
+% 
+%                 % Initialisieren der Variable für den optimalen Zustandsindex
+%                 %   initializing variable for optimal state index
+%                 geaStaPreOptInx = 0;
+% 
+%                 % initialize variable for optimal previous idx engine control
+%                 engStaPreOptInx = 0;
+%                 
+%                 % initialize variable for optimal previous bat level
+%                 batStaPreInx = 0;
+%                 % Initialisieren der optimalen Kraftstoffenergieänderung zum
+%                 % betrachteten Punkt
+%                 %   preallocate the optimum fuel energy change to the point
+%                 %   considered
+%                 fulEngOpt = inf;
+%                 
+%                 % Initialisieren der optimalen Batterieenergie zum
+%                 % betrachteten Punkt
+%                 %   initialize the optimal battery energy (up to boundry limits)
+%                 batEngOpt = inf;
+%                 
                 
                 % initialize optimal torques
 %                 emoTrqOpt = inf;
@@ -398,17 +404,35 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                 geaStaPreIdxVec = geaStaPreMin : geaStaPreMax;
                 
                 %% restricting predecessor bat level possibilities
-                
+                % NOTE: WORKING WITH INDEXES HERE, NOT ENERGY VALUES
+                %
+                % BUT:
+                % do we want to work with the direct scaled down energy
+                % value indexes, or with the actual vector position
+                % indexes?
+                % If working with the direct scaled indexes, we will be
+                % getting zeros which makes referencing values later from 
+                % vectors impossible.
+                %   -b/c an energy value of 0 will yield a scaled down
+                %   value of 0 (-> 0/batEngStp = 0). 
+                % This does not allow for referencing values later from
+                % other vectors (like battery OCV).
+                %
+                % Solution: just add one to the scaled down battery value
+                % index? Using batStaActInx may also work, but not sure if
+                % there would be unintended consequences.
+                %
                 % INPUT BATTERY BOUNDARIES FROM PREPROCESSING HERE!!
                 % battery power max/min boundaries wrt max/min emo power
                 % boundaries as a function of crankshaft speed
-                batPwrMinIdx_crsSpd = batPwrMinIdxTn3(timInx-1, batStaActInx, geaStaAct);
-                batPwrMaxIdx_crsSpd = batPwrMaxIdxTn3(timInx-1, batStaActInx, geaStaAct);
+                
+                batPwrMinIdx_crsSpd = batStaActInx - batPwrMinIdxTn3(timInx-1, batStaActInx, geaStaAct);
+                batPwrMaxIdx_crsSpd = batStaActInx + batPwrMaxIdxTn3(timInx-1, batStaActInx, geaStaAct);
                 % battery power limits given by max/min battery power
                 % discharge (a given model input value)
                 %   ie change in E cannot exceed bat power levels (P=E'/t')
-                batPwrMinIdx_batPwrLim = batStaAct + fzg_scalar_struct.batPwrMin*timStp;
-                batPwrMaxIdx_batPwrLim = batStaAct + fzg_scalar_struct.batPwrMax*timStp;
+                batPwrMinIdx_batPwrLim = batStaActInx + fzg_scalar_struct.batPwrMin*timStp/batStaStp;
+                batPwrMaxIdx_batPwrLim = batStaActInx + fzg_scalar_struct.batPwrMax*timStp/batStaStp;
                 
                 % find the most constraining change in batEng based on
                 % previous limitations
@@ -418,8 +442,20 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                 % MAKE IT SO THAT ZOU ARE WORKING FROM CURRENT BATTERY
                 % STATE, NOT FROM SCRATCH!!!
                 % make vector of these batEng state steps for a loop
-                batStaPreIdxVec = max(batStaMin/batStaStp, batStaPreOptInx - batStaStpPreMin) :  ...
-                                  min(batStaMax/batStaStp, batStaPreOptInx + batStaStpPreMax);
+                batStaLimMin = max(batStaMin/batStaStp + 1, batStaStpPreMin);
+                batStaLimMax = min(batStaMax/batStaStp + 1, batStaStpPreMax);
+                
+                % if the min limit exceeds the max limit, then set them
+                % equal.
+                if batStaLimMin > batStaLimMax
+                    batStaLimMin = batStaLimMax;
+                end
+                
+                batStaPreIdxVec = batStaLimMin : batStaLimMax;
+                
+                % memoization variable for storing möglich fuel values
+%                 fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum);
+                fulActTn3 = inf(engNum, geaNum, batNum);
 % -------------------------------------------------------------------------
                 
 %% ----- PREDECESSOR STATE VARIBALE LOOP ----------------------------------
@@ -458,8 +494,8 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                         % if == 1 - then run through bat state loop
                         
                         % pull out appropriate crankshaft speed and torque
-                        crsSpd = crsSpdMat(timInx-1, geaStaPre);
-                        crsTrq = crsTrqMat(timInx-1, geaStaPre);
+                        crsSpdPre = crsSpdMat(timInx-1, geaStaPre);
+                        crsTrqPre = crsTrqMat(timInx-1, geaStaPre);
                         % all EM torque boundaries for given gear
                         emoTrqMinPos = emoTrqMinPosMat(timInx-1, geaStaPre);
                         emoTrqMaxPos = emoTrqMaxPosMat(timInx-1, geaStaPre);
@@ -475,13 +511,25 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                             iceTrqMinPos = iceTrqMinPosMat(timInx-1, geaStaPre);
                             iceTrqMaxPos = iceTrqMaxPosMat(timInx-1, geaStaPre);
                             
-                            for batStaPreIdx = 1 : length(batStaPreIdxVec)                            
+                            for batStaPreIdx_counter = 1 : length(batStaPreIdxVec)                            
                                 % value of previous idx engine control state
                                 %  - unnecessary to assign - indexes represent bool values
                                    % loop through all possible previous battery levels
                                 % calculate index for bat state - can move
                                 % outside for loop for improving computation tim later
-                                batStaPre = batStaPreIdxVec(batStaPreIdx) * batStaStp;
+                                
+                                % because batSTaPreIdx is coming from an index vector from
+                                % the loop batStaPreIdx_counter, and because
+                                % we need batStaPreIdx to be used for
+                                % referencing vector indexes later on, the
+                                % variable batStaPreIdx will be used as an
+                                % index vector, and not as a scaled energy
+                                % level value index vector.
+                                % therefore, we subtract 1 from the index
+                                % when transforming batStaPreIdx into its
+                                % rescaled form batStaPre.
+                                batStaPreIdx = batStaPreIdxVec(batStaPreIdx_counter);
+                                batStaPre = (batStaPreIdx-1) * batStaStp;
                                 
                                 % calculate E'
                                 batPwr = batStaAct - batStaPre;
@@ -508,16 +556,14 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                                 minFul =...
                                     optTrqSplit_focus   ...
                                     (                   ...
-                                    engStaPre,          ...
                                     batPwr,             ...
                                     batOcvPre,          ...
                                     batRst,             ...
-                                    crsSpd,             ...
-                                    crsTrq,             ...
-                                    emoTrq,             ...
+                                    crsSpdPre,          ...
+                                    crsTrqPre,          ...
                                     iceTrqMaxPos,       ...
                                     iceTrqMinPos,       ...
-                                    timeStp,            ...
+                                    timStp,             ...
                                     vehVelVec,          ...
                                     fzg_scalar_struct,  ...
                                     fzg_array_struct    ...
@@ -525,7 +571,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
 
                                 % combine the min hamil. cost w/ previous costs and 
                                 %   gear penalty to get current cost
-                                fulActTn3(batStaPreIdx, geaStaPreIdx,engStaPre+1) ...
+                                fulActTn3(engStaPre+1, geaStaPreIdx,batStaPreIdx) ...
                                     = minFul...
                                     + cos2goPreTn3(engStaPre+1,geaStaPre, batStaPreIdx)...
                                     + geaStaChgPenCos/timStp  ...
@@ -559,45 +605,53 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                             % batPwrLoss = ((V-sqrt(V^2 - 4*R*emoPwr))^2) / (4*R)
                             % batPwr = emoPwr + batPwrLoss
 
-                            if crsSpdPreVec(geaStaPreIdx) > crsSpdEmoMax
-                                return;
-                            end
+%                             if (crsSpdPreVec(geaStaPreIdx) > crsSpdEmoMax); continue;
+%                             end
+% 
+%                             % --- crsTrq -> emoTrq BOUNDARY CHECK ---------
+%                             if emoTrqMinPos > crsTrqPre || emoTrqMaxPos < crsTrqPre
+%                                 continue;
+%                             else
+%                                 emoTrq = crsTrqPre;
+%                             end
+%                             % ---------------------------------------------
 
-                            % --- crsTrq -> emoTrq BOUNDARY CHECK ---------
-                            if emoTrqMinPos > crsTrq || emoTrqMaxPos < crsTrq
-                                return;
-                            else
-                                emoTrq = crsTrq;
+                            batStaPreIdx_noEmo = batStaAct - 1 - ...
+                                                 batPwrDemIdxTn3(timInx-1, batStaActInx, geaStaAct);
+                                             
+                            % check your bounds 
+                            if (batStaPreIdx_noEmo < batStaMin/batStaStp + 1) || ...
+                                (batStaPreIdx_noEmo > batStaMax/batStaStp + 1)
+                                continue;
                             end
-                            % ---------------------------------------------
-
                             
                             % --- emoPwr BOUNDARY CHECK -------------------
-                            emoPwr = crsSpd * emoTrq;
-                            if emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr
-                               return; 
-                            end
-                            % ---------------------------------------------
-                   
-                            
-                            % --- CALCULATE batPwrLoss AND batPwr ---------
-                            % bat voltage - from previous optimal bat state
-                            batOcvPre = batOcv(batStaPreOptInx);
-                            
-                            % usually, resistance is based on batPwr. Since batPwr is unkown, will be
-                            % using emoPwr as a benchmark instead
-                            %   b/c batPwr-batPwrLoss=emoPwr, both batPwr and emoPwr will generally
-                            %   have the same sign, unless batPwr<batPwrLoss (which seems unlikely?)
-                            %       may need to check this assumption later
-                            if emoPwr < 0
-                                batRst = fzg_scalar_struct.batRstDch;
-                            else
-                                batRst = fzg_scalar_struct.batRstChr;
-                            end
-
-                            % battery power losses
-                            batPwrLoss = ((batOcvPre-sqrt(batOcvPre.^2 - ...
-                                        4*batRst * emoPwr)).^2) / (4*batRst);
+%                             emoPwr = crsSpdPre * emoTrq;
+%                             if (emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr); continue; 
+%                             end
+%                             % ---------------------------------------------
+%                    
+%                             
+%                             % --- CALCULATE batPwrLoss AND batPwr ---------
+%                             % bat voltage - from previous bat state - need
+%                             % to determine how to move up the amount that
+%                             % is being dropped (beforehand??)
+%                             batOcvPre = batOcv(batStaPreOptInx);
+%                             
+%                             % usually, resistance is based on batPwr. Since batPwr is unkown, will be
+%                             % using emoPwr as a benchmark instead
+%                             %   b/c batPwr-batPwrLoss=emoPwr, both batPwr and emoPwr will generally
+%                             %   have the same sign, unless batPwr<batPwrLoss (which seems unlikely?)
+%                             %       may need to check this assumption later
+%                             if emoPwr < 0
+%                                 batRst = fzg_scalar_struct.batRstDch;
+%                             else
+%                                 batRst = fzg_scalar_struct.batRstChr;
+%                             end
+% 
+%                             % battery power losses
+%                             batPwrLoss = ((batOcvPre-sqrt(batOcvPre.^2 - ...
+%                                         4*batRst * emoPwr)).^2) / (4*batRst);
                                     
                             % resultant battery power for satisfying crsTrq
                             % negative because of batPwr sign assignment
@@ -608,24 +662,23 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                             % state
                             % WILL CHECK IF CORRECT LATER
                             % but need to make sure it is disrectized
-                            batPwr = (ceil((emoPwr + batPwrLoss)/batStaStp))*batStaStp;
+%                             batPwr = (ceil((emoPwr + batPwrLoss)/batStaStp))*batStaStp;
                             
 %                             batStaPr = batStaPreOptInx - batPwr;
 
-                            % ---------------------------------------------
-                            
-                            % bc of indexing, send actual battery index to
-                            % a local one for indexing out of fulActTn3
-                            [~, batStaPreInx_Inx] = ...
-                                    find(batStaPreIdxVec == batStaPreOptInx);
+                            % ---------------------------------------------                         
+%                             % bc of indexing, send actual battery index to
+%                             % a local one for indexing out of fulActTn3
+%                             [~, batStaPreInx_Inx] = ...
+%                                     find(batStaPreIdxVec == batStaPreOptInx);
                                 
                             % since engine is off, no fuel is consumed
                             minFul = 0;
 
                             % penalty to get current cost
-                            fulActTn3(batStaPreInx_Inx, geaStaPreIdx,engStaPre+1) ...
+                            fulActTn3(engStaPre+1, geaStaPreIdx,batStaPreIdx_noEmo) ...
                                 = minFul ...
-                                + cos2goPreTn3(engStaPre+1,geaStaPre, batStaPreOptInx) ...
+                                + cos2goPreTn3(engStaPre+1,geaStaPre, batStaPreIdx_noEmo) ...
                                 + geaStaChgPenCos/timStp ...
                                 + engStaChgPenCos/timStp;
                         end % end of engStaPre condition check
@@ -636,10 +689,14 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                 % pull out the minimum value from fulActMat
                 [colmin, colminidx] = min(fulActTn3);
                 [matmin, matminidx] = min(colmin);
-                [minFulMin, engStaPreOptInx] = min(matmin);
-                geaStaPreOptInx = matminidx(engStaPreOptInx);
-                batStaPreInx    = colminidx(:,geaStaPreOptInx,engStaPreOptInx);
-                batStaPreOptInx = batStaPreIdxVec(batStaPreInx);
+%                 [minFulMin, engStaPreOptInx] = min(matmin);
+%                 geaStaPreOptInx = matminidx(engStaPreOptInx);
+%                 batStaPreInx    = colminidx(:,geaStaPreOptInx,engStaPreOptInx);
+%                 batStaPreOptInx = batStaPreIdxVec(batStaPreInx);
+                [minFulMin, batStaPreOptInx] = min(matmin);
+                geaStaPreOptInx = matminidx(batStaPreOptInx);
+                engStaPreInx    = colminidx(:,geaStaPreOptInx,batStaPreOptInx);
+                engStaPreOptInx = batStaPreIdxVec(engStaPreInx);
                 
                 if ~isinf(minFulMin)
                     % new opt. battery energy = (batt. force *
@@ -671,7 +728,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                     % Flussgrï¿½ï¿½e gilt im Intervall
                     %   populate optimal battery energy flux quantity at point 
                     %   that's applicable to current interval
-                    batPwrOptTn3(engStaAct+1,geaStaAct,batStaActInx)=batStaPreInx;
+                    batPwrOptTn3(engStaAct+1,geaStaAct,batStaActInx)=batStaPreOptInx;
                     
                     % optimalen Vorgï¿½nger codieren ï¿½ber Funktion sub2ind
                     % und speichern im Tensor

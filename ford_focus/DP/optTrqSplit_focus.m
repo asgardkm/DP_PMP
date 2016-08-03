@@ -4,7 +4,7 @@ function [fulEng] = ...
             batOcvPre,          ...
             batRst,             ...
             crsSpdPre,          ...
-            crsTrq,             ...
+            crsTrqPre,          ...
             iceTrqMaxPos,       ...
             iceTrqMinPos,       ...
             timeStp,            ...
@@ -132,19 +132,19 @@ emoPwr = batPwr - batPwrLoss;
 
 % ----- DERIVE emoTrq FROM emoPwr ----------------------------------------
 % Power = Torque * rotational vel.
-emoTrq = emoPwr * crsSpd;
+emoTrq = emoPwr * crsSpdPre;
 % -------------------------------------------------------------------------
 
 
 % ----- CALCUALTE  crsTrq -------------------------------------------------
 % check that the demanded crsTrq is not above max possible torque that
 % can be generated between the ice and the em
-if crsTrq > iceTrqMaxPos + emoTrq;
+if crsTrqPre > iceTrqMaxPos + emoTrq;
     return;
 end
 
 % torque split
-iceTrq = crsTrq - emoTrq;
+iceTrq = crsTrqPre - emoTrq;
 
 % check if you can remove this boundary check later
 % check if iceTrq is too high or low based on iceTrqMax/MinPos
@@ -171,7 +171,7 @@ fulEngClc_focus ... FUNCTION CALL
 (               ...
 timeStp,        ... Skalar für die Wegschrittweite in m,
 vehVelVec(1),   ... Skalar - vehicular velocity
-crsSpd,         ... Skalar - crankshaft speed at given path_idx
+crsSpdPre,         ... Skalar - crankshaft speed at given path_idx
 iceTrq,         ... Skalar - ice torque at given path_idx
 iceTrqMaxPos,   ... Skalar - max ICE torque
 fzg_scalar_struct,  ... struct - Fahrzeugparameter - nur skalar
@@ -203,7 +203,7 @@ fzg_array_struct    ... struct - Fahrzeugparameter - nur array
 % % batPwr = batStaDlt / timeStp;
 % 
 % %% 2. interpolate batttery/EM torque
-% %   2a. find crsSpd
+% %   2a. find crsSpdPre
 % 
 % % vorzeitiger Funktionsabbruch?
 % %   premature function termination?
@@ -248,14 +248,14 @@ fzg_array_struct    ... struct - Fahrzeugparameter - nur array
 % end
 % 
 % % NEED THE FOLLOWING INPUTS
-% % crsSpd
+% % crsSpdPre
 % % crsTrq
 % % vehicle velocity (?)
 % % emoTrq
 % % iceTrqBounds
 % 
 % % use previous time idx's crankshaft rotational speed for calculations
-% % crsSpd = crsSpdVec(1);
+% % crsSpdPre = crsSpdVec(1);
 % % use previous vehicle velocity time index for calculations
 % % vehVel = vehVelVec(1);
 % 
@@ -293,7 +293,7 @@ fzg_array_struct    ... struct - Fahrzeugparameter - nur array
 % % %% 3. find emoTrq from power calculations
 % % % interpolation
 % % emoTrq = interp2(fzg_array_struct.emoSpdMgd,fzg_array_struct.emoPwrMgd,...
-% %                 fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpd, emoPwrEle);
+% %                 fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, emoPwrEle);
 % 
 % %% 4. find complementary ICE torque
 %     %4a. find total demanded crankshaft torque  
@@ -322,10 +322,10 @@ fzg_array_struct    ... struct - Fahrzeugparameter - nur array
 % %   IS THIS A CUTOFF THAT THE ICE CANNOT RUN?
 % %       - solved: can't run under 89
 % % if engStaPre
-% %     % max torque that ice can provide at current crsSpd - from interpolation
-% %     iceTrqMaxPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMax_emoSpd(:,2),crsSpd);
-% %     % min torque that ice can provide at current crsSpd - from interpolation
-% %     iceTrqMinPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMin_emoSpd(:,2),crsSpd);
+% %     % max torque that ice can provide at current crsSpdPre - from interpolation
+% %     iceTrqMaxPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMax_emoSpd(:,2),crsSpdPre);
+% %     % min torque that ice can provide at current crsSpdPre - from interpolation
+% %     iceTrqMinPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMin_emoSpd(:,2),crsSpdPre);
 
 %% OLD OLD CODE
 % NOTE: if the engine is off, the EM cannot fluctuate how much torque to 
