@@ -18,7 +18,8 @@ function ...            --- Ausgangsgr��en:
 % inputparams - originally simulink inputs
 disFlg          = inputparams.disFlg;
 iceFlgBool      = inputparams.iceFlgBool;
-timStp         = inputparams.timStp;
+brkBool         = inputparams.brkBool;
+timStp          = inputparams.timStp;
 batEngBegMinRat = inputparams.batEngBegMinRat;
 batEngBegMaxRat = inputparams.batEngBegMaxRat;
 batEngEndMinRat = inputparams.batEngEndMinRat;
@@ -481,13 +482,14 @@ if tst_scalar_struct.useGeaSta
         (               ... --- Eingangsgr��en:
         disFlg,         ... Skalar - Flag f�r Ausgabe in das Commandwindow
         iceFlgBool,     ... skalar - is engine toggle on/off allowed?
-        timStp,        ... Skalar f�r die Wegschrittweite in m
+        brkBool,        ... skalar - allow states requireing braking?
+        timStp,         ... Skalar f�r die Wegschrittweite in m
         batEngBeg,      ... Skalar f�r die Batterieenergie am Beginn in Ws
         batPwrAux,      ... Skalar f�r die Nebenverbrauchlast in W
         staChgPenCosVal,... Skalar f�r die Strafkosten beim Zustandswechsel
         timInxBeg,      ... Skalar f�r Anfangsindex in den Eingangsdaten
         timInxEnd,      ... Skalar f�r Endindex in den Eingangsdaten
-        timNum,        ... Skalar f�r die max. Anzahl an Wegst�tzstellen
+        timNum,         ... Skalar f�r die max. Anzahl an Wegst�tzstellen
         engBeg,         ... scalar - beginnnig engine state
         engStaVec_timInx,...
         staBeg,         ... Skalar f�r den Startzustand des Antriebsstrangs

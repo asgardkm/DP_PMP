@@ -22,7 +22,8 @@ Value,			Variable Name,  	Description (examples in brackets)
 PARAMS_START
 1,				disFlg,				bool - for displaying data on command window (also ensures target trajectory?? check later in clcOptTrj)
 0,				iceFlgBool,			bool - flag for having engine always on?
-1,				timStp,			time step discretization [sec]
+0, 				brkBool, 			bool - allow for states requiring braking to satisfy crankshaft power demand
+1,				timStp,				time step discretization [sec]
 0.60,			batEngBegMinRat,	beginning minimum SOC percentage value
 0.60,			batEngBegMaxRat,	beginning maximum SOC percentage value
 0.30,			batEngEndMinRat,	ending minimum SOC percentage value
