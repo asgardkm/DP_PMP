@@ -163,15 +163,15 @@ end
 % torque split
 iceTrq = crsTrqPre - emoTrq;
 
+% iceTrq boundary check
+% check if iceTrq is too high or low based on iceTrqMax/MinPos
+if iceTrq > iceTrqMaxPos || iceTrq < iceTrqMinPos
+    return
+end
+    
 % HOW TO DEAL WITH BREAK BOOL?
 % if brkBool is true - allow for braking to reduce 
 if brkBool
-    % check if you can remove this boundary check later
-    % check if iceTrq is too high or low based on iceTrqMax/MinPos
-    if iceTrq > iceTrqMaxPos 
-        return
-    end
-
     % if iceTrq is negative (which it can't be in this case), don't
     % brake with with engine! Rather, brake with the brakes.
     % BUT! this shouldn't trigger, as this is not optimal!
@@ -183,12 +183,7 @@ if brkBool
         fprintf('   adjusted iceTrq: %4.3f\n', iceTrq);
     end
 else
-    
-    % check if you can remove this boundary check later
-    % check if iceTrq is too high or low based on iceTrqMax/MinPos
-    if iceTrq > iceTrqMaxPos || iceTrq < iceTrqMinPos
-        return
-    end
+    return;
 end
 % -------------------------------------------------------------------------
 

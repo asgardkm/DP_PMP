@@ -62,7 +62,7 @@ TSTDAT_START
 0,				engStaMin,			low engine state boundary (0-off, 1-on)
 1,				engStaMax,			high ^^; can set both equal for always off/on ice
 0,				batEngMin,			minimum battery energy level possible
-5000,			batEngStp,			discretized battery energy step size
+1000,			batEngStp,			discretized battery energy step size
 2704300,		batEngMax,			maximum battery energy level possible
 TSTDAT_END
 ====================================================================================
