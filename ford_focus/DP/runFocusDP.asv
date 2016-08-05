@@ -18,7 +18,8 @@ function ...            --- Ausgangsgr��en:
 % inputparams - originally simulink inputs
 disFlg          = inputparams.disFlg;
 iceFlgBool      = inputparams.iceFlgBool;
-timStp         = inputparams.timStp;
+brkBool         = inputparams.brkBool;
+timStp          = inputparams.timStp;
 batEngBegMinRat = inputparams.batEngBegMinRat;
 batEngBegMaxRat = inputparams.batEngBegMaxRat;
 batEngEndMinRat = inputparams.batEngEndMinRat;
@@ -83,7 +84,7 @@ batEngBegMax    = ceil(batEngMax*batEngBegMaxRat/batEngStp) * batEngStp;
 % select a possible for stating battery energy (random discretized value
 % between beg_min and beg_max battery energy values
 batEngBegIdx_MaxPossible = (batEngBegMax - batEngBegMin);
-batEngBegIdx_Possible = 0 : batEngStp : batEngBegIdx_MaxPossible;
+batEngBegIdx_Possible    = 0 : batEngStp : batEngBegIdx_MaxPossible;
 batEngBeg = batEngBegMin + batEngBegIdx_Possible(randi(numel(batEngBegIdx_Possible)));
 
 % boundary conditions the end battery energy must be within bounds of
@@ -157,12 +158,17 @@ if useEqiDis
     if any(abs(diff(iceSpdDif)) > 0.005)
 
         % equidistant interpolation
-        iceSpdInterp    = fzg_array_struct.iceSpdMgd(1) : iceSpdDif(1) : fzg_array_struct.iceSpdMgd(end);
-        iceTrqMaxInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMax_emoSpd(:,2), iceSpdInterp);
-        iceTrqMinInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMin_emoSpd(:,2), iceSpdInterp);
-
+        iceExtBool = 1;
+        if iceExtBool
+            iceSpdInterp    = 0 : iceSpdDif(2) : 
+        
+        else
+            iceSpdInterp    = fzg_array_struct.iceSpdMgd(1) : iceSpdDif(1) : fzg_array_struct.iceSpdMgd(end);
+            iceTrqMaxInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMax_emoSpd(:,2), iceSpdInterp);
+            iceTrqMinInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMin_emoSpd(:,2), iceSpdInterp);
+        end
+        
         % save equidistant interpolation values into the parameter structure
-
         fzg_array_struct.iceSpdMgd          = iceSpdInterp;
         fzg_array_struct.iceTrqMax_emoSpd   = [iceSpdInterp' iceTrqMaxInterp'];
         fzg_array_struct.iceTrqMin_emoSpd   = [iceSpdInterp' iceTrqMinInterp'];
@@ -348,7 +354,12 @@ crsPwrMat = crsTrqMat .* crsSpdMat;
 % from which then batPwr can then be easily found (rearranging EQUATION):
 %       batPwr = emoPwr + batPwrLoss
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%
+% also calculating the battery power needed at each possible crankshaft 
+% power occurance (ie the electric battery energy difference that must 
+% occur if the battery supplies all the power to satisfy each crankshaft 
+% power demand)
+%
 % ----- CALCULATE BATTERY VOLTAGE ----------------
 % define all possible batEng values - convert them into SOCs
 batSoc = (tst_scalar_struct.batEngMin : tst_scalar_struct.batEngStp : ...
@@ -388,7 +399,7 @@ batRstMin(emoPwrMinPosMat>=0)   = fzg_scalar_struct.batRstChr;
 % batPwrMaxLossTn3 = zeros(length(batRstMax), length(batOcv), geaNum);
 batPwrMinTn3     = zeros(length(batRstMin), length(batOcv), geaNum); 
 batPwrMaxTn3     = zeros(length(batRstMax), length(batOcv), geaNum);
-batPwrDemTn3     = zeros(length(bat)
+batPwrDemTn3     = zeros(timNum,            length(batOcv), geaNum);
 % NOTE: this preprocessing is a bit slow because of lack of vectorization.
 % may be able to speed up later, but since it is in preprocessing, it is
 % low priority at the moment
@@ -417,7 +428,7 @@ for tim = 1 : timNum
                                         (4*batRstMax(tim, gea));
                                     
             batPwrDemLoss = ((batOcv(bat)-sqrt(batOcv(bat).^2 - 4*batRstMax(tim, gea) * ...
-                                        emoPwrMaxPosMat(tim,gea))).^2) / ...
+                                        crsPwrMat(tim,gea))).^2) / ...
                                         (4*batRstMax(tim, gea));
 
             % calculate boundaries that battery can (dis)charge at
@@ -426,7 +437,7 @@ for tim = 1 : timNum
             %       batPwr = emoPwr + batPwrLoss
             batPwrMinTn3(tim, bat, gea)   = batPwrMinLoss + emoPwrMinPosMat(tim, gea);
             batPwrMaxTn3(tim, bat, gea)   = batPwrMaxLoss + emoPwrMaxPosMat(tim, gea);  
-            batPwrDemTn3(tim, bat, gea)   = batPwrMaxLoss + crsPwrMat(tim, gea);
+            batPwrDemTn3(tim, bat, gea)   = batPwrDemLoss + crsPwrMat(tim, gea);
         end
     end
 end
@@ -437,6 +448,7 @@ end
 batPwrStp = tst_scalar_struct.batEngStp / timStp;
 batPwrMaxIdxTn3 = floor(batPwrMaxTn3 ./ batPwrStp);
 batPwrMinIdxTn3 = ceil(batPwrMinTn3 ./ batPwrStp);
+batPwrDemIdxTn3 = ceil(batPwrDemTn3 ./ batPwrStp);
 % -----------------------------------------------
 
 %% define vector for possibilities of engine state on-off values
@@ -475,13 +487,14 @@ if tst_scalar_struct.useGeaSta
         (               ... --- Eingangsgr��en:
         disFlg,         ... Skalar - Flag f�r Ausgabe in das Commandwindow
         iceFlgBool,     ... skalar - is engine toggle on/off allowed?
-        timStp,        ... Skalar f�r die Wegschrittweite in m
+        brkBool,        ... skalar - allow states requireing braking?
+        timStp,         ... Skalar f�r die Wegschrittweite in m
         batEngBeg,      ... Skalar f�r die Batterieenergie am Beginn in Ws
         batPwrAux,      ... Skalar f�r die Nebenverbrauchlast in W
         staChgPenCosVal,... Skalar f�r die Strafkosten beim Zustandswechsel
         timInxBeg,      ... Skalar f�r Anfangsindex in den Eingangsdaten
         timInxEnd,      ... Skalar f�r Endindex in den Eingangsdaten
-        timNum,        ... Skalar f�r die max. Anzahl an Wegst�tzstellen
+        timNum,         ... Skalar f�r die max. Anzahl an Wegst�tzstellen
         engBeg,         ... scalar - beginnnig engine state
         engStaVec_timInx,...
         staBeg,         ... Skalar f�r den Startzustand des Antriebsstrangs
@@ -497,6 +510,7 @@ if tst_scalar_struct.useGeaSta
         iceTrqMaxPosMat,... max iceTrq along speed profile for each gear
         batPwrMinIdxTn3,... min indexes/steps that bat can change
         batPwrMaxIdxTn3,... max indexes/steps that bat can change
+        batPwrDemIdxTn3,... power demand by bat if only EM is running
         tst_scalar_struct,     ... struct w/ tst data state var params
         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
         fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
