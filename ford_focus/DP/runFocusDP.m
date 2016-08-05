@@ -1,12 +1,12 @@
 function ...            --- Ausgangsgrï¿½ï¿½en:
-[engKinOptVec,      ... Vektor - Trajektorie der optimalen kin. Energien
-    batEngDltOptVec,... Vektor - optimale Batterieenergieï¿½nderung
-    fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieï¿½nderung
-    geaStaVec,         ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-    fulEngOpt,      ... Skalar - optimale Kraftstoffenergie
-    resVld          ...
-    ] =             ...
-    runFocusDP(       ...
+[engKinOptVec,              ... Vektor - Trajektorie der optimalen kin. Energien
+    batEngDltOptVec,        ... Vektor - optimale Batterieenergieï¿½nderung
+    fulEngDltOptVec,        ... Vektor - optimale Kraftstoffenergieï¿½nderung
+    geaStaVec,              ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
+    fulEngOpt,              ... Skalar - optimale Kraftstoffenergie
+    resVld                  ...
+    ] =                     ...
+    runFocusDP(             ...
     inputparams,            ...
     tst_scalar_struct,      ...
     fzg_scalar_struct,      ...
@@ -35,10 +35,12 @@ staBeg          = inputparams.staBeg;
 % get the max 100% battery energy value possible
 batEngStp       = tst_scalar_struct.batEngStp;
 batEngMax       = tst_scalar_struct.batEngMax;
+batEngMin       = tst_scalar_struct.batEngMin;
 
 % tst_scalar_struct - originally tstDat800 structure
 geaNum          = tst_scalar_struct.staNum;
 engStaNum       = tst_scalar_struct.engStaNum;
+batStaNum       = (batEngMax - batEngMin) / batEngStp + 1;
 % wayNum          = tst_scalar_struct.wayNum;
 % engKinNum       = tst_scalar_struct.engKinNum;
 % slpVec_timInx               = tst_array_struct.slpVec_timInx;
@@ -523,10 +525,10 @@ fprintf('-Initializing model...\n');
     
     
         [               ... --- Ausgangsgrößen:
-        optPreInxTn3,   ...  Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
-        batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
-        fulEngOptTn3,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
-        cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
+        optPreInxTn4,   ...  Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
+        batPwrOptTn4,   ...  Tensor 3. Stufe der Batteriekraft
+        fulEngOptTn4,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
+        cos2goActTn3    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
         ] =             ... 
         clcDP_focus_mex     ... FUNKTION
         (               ... --- Eingangsgrößen:
@@ -608,49 +610,52 @@ fprintf('-Initializing model...\n');
 % 
 % end
 %% end conditions 
-% % % % % why the rounding though?
-% % % % engStaEndInxVal = ceil(engStaVec_timInx(timInxEnd)/2);
-% % % % % end gear condition
-% % % % staEnd = staBeg;
-% % % % % end engine condition
-% % % % engEnd;
-% % % % 
-% % % % % % end battery charge condition - HOW TO IMPLEMENT??
-% % % % % batEngEndMin;
-% % % % % batEngEndMax;
-% % % % 
-% % % % %% Calculating optimal trajectories for result of DP + PMP
-% % % % [...
-% % % %     batEngDltOptVec,... Vektor - optimale Batterieenergieï¿½nderung
-% % % %     fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieï¿½nderung
-% % % %     geaStaVec,      ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-% % % %     engStaVec,      ... vector showing optimal engine contorl w/ profile
-% % % %     fulEngOpt       ... Skalar - optimale Kraftstoffenergie
-% % % %     ] =             ...
-% % % %     clcOptTrj_a     ... FUNKTION
-% % % %     (disFlg,        ... Flag, ob Zielzustand genutzt werden muss - CHANGE VAR NAME ITS THE SAME VAR FOR 2 DIFFERENT USES IN 2 FUNCTIONS
-% % % %     timStp,        ... Skalar fï¿½r die Wegschrittweite in m
-% % % %     timNum,        ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
-% % % %     timInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
-% % % %     timInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
-% % % %     staEnd,         ... Skalar fï¿½r den finalen Zustand
-% % % %     engEnd,         ... scalar - final engine state
-% % % %     engStaEndInxVal,... Skalar fï¿½r Zielindex der kinetischen Energie
-% % % %     geaNum,         ... Skalar fï¿½r die max. Anzahl an Zustandsstï¿½tzstellen
-% % % %     engStaNum,      ... scalar - for number of states engine can take
-% % % %     optPreInxTn3,   ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
-% % % %     batFrcOptTn3,   ... Tensor 3. Stufe der Batteriekraft
-% % % %     fulEngOptTn3,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie
-% % % %     cos2goActMat    ... Matrix der optimalen Kosten der Hamiltonfunktion 
-% % % %     );
-% % % % 
-% % % % % engKinOptVec=0;
-% % % % % batEngDltOptVec=0;
-% % % % % fulEngDltOptVec=0;
-% % % % % staVec=0;
-% % % % % psiEngKinOptVec=0;
-% % % % % fulEngOpt=0;
-% % % % resVld = true;
+% why the rounding though?
+% engStaEndInxVal = ceil(engStaVec_timInx(timInxEnd)/2);
+% end gear condition
+staEnd = staBeg;
+% end engine condition
+engEnd = 0;
+
+batEndInx = batEngEndMin / batEngStp + 1;
+% % end battery charge condition - HOW TO IMPLEMENT??
+% batEngEndMin;
+% batEngEndMax;
+
+%% Calculating optimal trajectories for result of DP + PMP
+[...
+    batEngDltOptVec,... Vektor - optimale Batterieenergieï¿½nderung
+    fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieï¿½nderung
+    geaStaVec,      ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
+    engStaVec,      ... vector showing optimal engine contorl w/ profile
+    fulEngOpt       ... Skalar - optimale Kraftstoffenergie
+    ] =             ...
+    clcOptTrj_focus     ... FUNKTION
+    (disFlg,        ... Flag, ob Zielzustand genutzt werden muss - CHANGE VAR NAME ITS THE SAME VAR FOR 2 DIFFERENT USES IN 2 FUNCTIONS
+    timStp,         ... Skalar fï¿½r die Wegschrittweite in m
+    timNum,         ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
+    timInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
+    timInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
+    staEnd,         ... Skalar fï¿½r den finalen Zustand
+    engEnd,         ... scalar - final engine state
+    batEndInx,         ... scalar - final battery state
+    engStaEndInxVal,... Skalar fï¿½r Zielindex der kinetischen Energie
+    geaNum,         ... Skalar fï¿½r die max. Anzahl an Zustandsstï¿½tzstellen
+    engStaNum,      ... scalar - for number of states engine can take
+    batStaNum,      ... scalar - for number of battery energy levels
+    optPreInxTn4,   ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
+    batPwrOptTn4,   ... Tensor 3. Stufe der Batteriekraft
+    fulEngOptTn4,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie
+    cos2goActTn3    ... Matrix der optimalen Kosten der Hamiltonfunktion 
+    );
+
+% engKinOptVec=0;
+% batEngDltOptVec=0;
+% fulEngDltOptVec=0;
+% staVec=0;
+% psiEngKinOptVec=0;
+% fulEngOpt=0;
+resVld = true;
 
 fprintf('\n\ndone!\n');
    

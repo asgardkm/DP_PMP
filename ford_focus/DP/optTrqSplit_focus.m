@@ -12,7 +12,7 @@ function [fulEng] = ...
             emoPwrMaxPos,       ...
             iceTrqMaxPos,       ...
             iceTrqMinPos,       ...
-            timeStp,            ...
+            timStp,            ...
             vehVelVec,          ...
             fzg_scalar_struct,  ...
             fzg_array_struct)
@@ -45,7 +45,7 @@ function [fulEng] = ...
 %                                ^^ electric auxiliary power consumed (W)
 % batEngStp     - Double(1,1)  - Drehmomentschritt
 %                                ^^ torque step <- no, it's a battery step
-% timeStp        - Double(1,1)  - Intervallschrittweite in m
+% timStp        - Double(1,1)  - Intervallschrittweite in m
 %                                ^^ interval step distance - now [sec]
 % fzg_scalar_struct    - Struct(1,1)  - Modelldaten - nur skalar
 % fzg_array_struct     - Struct(1,1)  - Modelldaten - nur arrays                             
@@ -181,9 +181,10 @@ if brkBool
         fprintf('NOTE: engine braking is occuring - this is not optimal!\n');
         fprintf('   brkTrq: %4.3f\n', brkTrq);
         fprintf('   adjusted iceTrq: %4.3f\n', iceTrq);
+        
+    else
+        return;
     end
-else
-    return;
 end
 % -------------------------------------------------------------------------
 
@@ -192,7 +193,7 @@ end
 fulEng =        ... Skalar Krafstoffkraft in N
 fulEngClc_focus ... FUNCTION CALL
 (               ...
-timeStp,        ... Skalar für die Wegschrittweite in m,
+timStp,        ... Skalar für die Wegschrittweite in m,
 vehVelVec(1),   ... Skalar - vehicular velocity
 crsSpdPre,         ... Skalar - crankshaft speed at given path_idx
 iceTrq,         ... Skalar - ice torque at given path_idx
@@ -223,7 +224,7 @@ fzg_array_struct    ... struct - Fahrzeugparameter - nur array
 % %% 1. calculate battery power demand
 % % calculate power required by battery for E'
 % % P = E/t = E'/t'
-% % batPwr = batStaDlt / timeStp;
+% % batPwr = batStaDlt / timStp;
 % 
 % %% 2. interpolate batttery/EM torque
 % %   2a. find crsSpdPre

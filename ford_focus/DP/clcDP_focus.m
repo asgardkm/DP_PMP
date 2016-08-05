@@ -241,8 +241,8 @@ crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
 % end
 % -------------------------------------------------------------------------
 
-% for timInx = timInxBeg+1 : timStp : 60      % TIME IDX LOOP
-for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
+for timInx = timInxBeg+1 : timStp : 15      % TIME IDX LOOP
+% for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
 %     
 % for timInx = timInxBeg+1 : timStp : 5
 % for timInx = timInxBeg+1 : timStp : 1159
@@ -429,8 +429,8 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                 % battery power max/min boundaries wrt max/min emo power
                 % boundaries as a function of crankshaft speed
                 
-                batPwrMinIdx_crsSpd    = batStaActInx + batPwrMinIdxTn3(timInx-1, batStaActInx, geaStaAct);
-                batPwrMaxIdx_crsSpd    = batStaActInx + batPwrMaxIdxTn3(timInx-1, batStaActInx, geaStaAct);
+                batPwrMinIdx_crsSpd    = batStaActInx + batPwrMinIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp;
+                batPwrMaxIdx_crsSpd    = batStaActInx + batPwrMaxIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp;
                 % battery power limits given by max/min battery power
                 % discharge (a given model input value)
                 %   ie change in E cannot exceed bat power levels (P=E'/t')
@@ -471,8 +471,8 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                         
                     % Schleife über allen Zustände (relativer Index)
                     %   Loop through all the gear states (relative index)
-                    for geaStaPreIdx = 1 : length(geaStaPreIdxVec) % PREVIOUS GEAR CHANGE LOOP
-                        geaStaPre = geaStaPreIdxVec(geaStaPreIdx);
+                    for geaStaPre_counter = 1 : length(geaStaPreIdxVec) % PREVIOUS GEAR CHANGE LOOP
+                        geaStaPre = geaStaPreIdxVec(geaStaPre_counter);
                         % Kosten für Zustandswechsel setzen
                         %   set costs for gear state changes
                         if geaStaAct == geaStaPre
@@ -545,7 +545,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                                 % when transforming batStaPreIdx into its
                                 % rescaled form batStaPre.
                                 batStaPreIdx = batStaPreIdxVec(batStaPreIdx_counter);
-                                batStaPre = (batStaPreIdx-1) * batStaStp;
+                                batStaPre    = (batStaPreIdx-1) * batStaStp;
                                 
                                 % calculate E'
                                 batPwr = batStaAct - batStaPre;
@@ -592,7 +592,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
 
                                 % combine the min hamil. cost w/ previous costs and 
                                 %   gear penalty to get current cost
-                                fulActTn3(engStaPre+1, geaStaPreIdx,batStaPreIdx) ...
+                                fulActTn3(engStaPre+1, geaStaPre,batStaPreIdx) ...
                                     = minFul...
                                     + cos2goPreTn3(engStaPre+1,geaStaPre, batStaPreIdx)...
                                     + geaStaChgPenCos/timStp  ...
@@ -602,41 +602,6 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                                 
                         else
                             % ---- electric motor MUST satisfy crsTrq -----
-                            % need to convert batPwr to emoPwr to emoTrq
-                            % also, need to make sure that resultant torque
-                            % will lie within bounds - find bounds outside?
-                            % eq: batPwr - batPwrLoss = emoPwr
-                            % eq: emoPwr = crsSpd * emoTrq
-                            % eq: emoTrq = crsTrq
-                            % -- GIVEN :
-                            % crsSpd, 
-                            % crsTrq (therefore emoTrq->therefore emoPwr),
-                            % -- NEEDED :
-                            % batPwrLoss
-                            % batPwr
-                            %
-                            % before calculating batPwr stuff, make sure
-                            % that emoTrq remains within bounds when
-                            % setting it equal to crsTrq
-                            %
-                            % also make sure that emoPwr also remains
-                            % within bounds
-                            %
-                            % calculating batPwr stuff:
-                            % batPwrLoss = ((V-sqrt(V^2 - 4*R*emoPwr))^2) / (4*R)
-                            % batPwr = emoPwr + batPwrLoss
-
-%                             if (crsSpdPreVec(geaStaPreIdx) > crsSpdEmoMax); continue;
-%                             end
-% 
-%                             % --- crsTrq -> emoTrq BOUNDARY CHECK ---------
-%                             if emoTrqMinPos > crsTrqPre || emoTrqMaxPos < crsTrqPre
-%                                 continue;
-%                             else
-%                                 emoTrq = crsTrqPre;
-%                             end
-%                             % ---------------------------------------------
-
                             % IF ENGINE IS OFF
                             % Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
                             %   check if electric motor speed limit is maintained
@@ -649,7 +614,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                             % a crankshaft power demand for all state
                             % permutations)
                             batStaPreIdx_noEmo = batStaActInx + ... - 1
-                                                 batPwrDemIdxTn3(timInx-1, batStaActInx, geaStaAct);
+                                                 batPwrDemIdxTn3(timInx, batStaActInx, geaStaAct);
                                              
                             % check your bounds 
                             if (batStaPreIdx_noEmo < batStaMin/batStaStp + 1) || ...
@@ -657,59 +622,9 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                                 continue;
                             end
                             
-                            % --- emoPwr BOUNDARY CHECK -------------------
-%                             emoPwr = crsSpdPre * emoTrq;
-%                             if (emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr); continue; 
-%                             end
-%                             % ---------------------------------------------
-%                    
-%                             
-%                             % --- CALCULATE batPwrLoss AND batPwr ---------
-%                             % bat voltage - from previous bat state - need
-%                             % to determine how to move up the amount that
-%                             % is being dropped (beforehand??)
-%                             batOcvPre = batOcv(batStaPreOptInx);
-%                             
-%                             % usually, resistance is based on batPwr. Since batPwr is unkown, will be
-%                             % using emoPwr as a benchmark instead
-%                             %   b/c batPwr-batPwrLoss=emoPwr, both batPwr and emoPwr will generally
-%                             %   have the same sign, unless batPwr<batPwrLoss (which seems unlikely?)
-%                             %       may need to check this assumption later
-%                             if emoPwr < 0
-%                                 batRst = fzg_scalar_struct.batRstDch;
-%                             else
-%                                 batRst = fzg_scalar_struct.batRstChr;
-%                             end
-% 
-%                             % battery power losses
-%                             batPwrLoss = ((batOcvPre-sqrt(batOcvPre.^2 - ...
-%                                         4*batRst * emoPwr)).^2) / (4*batRst);
-                                    
-                            % resultant battery power for satisfying crsTrq
-                            % negative because of batPwr sign assignment
-                            % earlier, where 
-                            %   - : discharge
-                            %   + : charge
-                            % because it is wrt to the current battery
-                            % state
-                            % WILL CHECK IF CORRECT LATER
-                            % but need to make sure it is disrectized
-%                             batPwr = (ceil((emoPwr + batPwrLoss)/batStaStp))*batStaStp;
-
-%                             batStaPr = batStaPreOptInx - batPwr;
-
-                            % ---------------------------------------------                         
-%                             % bc of indexing, send actual battery index to
-%                             % a local one for indexing out of fulActTn3
-%                             [~, batStaPreInx_Inx] = ...
-%                                     find(batStaPreIdxVec == batStaPreOptInx);
-
-                            % since engine is off, no fuel is consumed
-                            minFul = 0;
-
                             % penalty to get current cost
-                            fulActTn3(engStaPre+1, geaStaPreIdx, batStaPreIdx_noEmo) ...
-                                = minFul ...
+                            fulActTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo) ...
+                                = ... minFul ...
                                 + cos2goPreTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo) ...
                                 + geaStaChgPenCos / timStp ...
                                 + engStaChgPenCos / timStp;
