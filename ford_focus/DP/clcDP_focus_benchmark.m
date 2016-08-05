@@ -1,21 +1,24 @@
-function ...            --- Ausgangsgrï¿½ï¿½en:
-[engKinOptVec,      ... Vektor - Trajektorie der optimalen kin. Energien
-    batEngDltOptVec,... Vektor - optimale Batterieenergieï¿½nderung
-    fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieï¿½nderung
-    geaStaVec,         ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-    fulEngOpt,      ... Skalar - optimale Kraftstoffenergie
-    resVld          ...
-    ] =             ...
-    runFocusDP(       ...
-    inputparams,            ...
-    tst_scalar_struct,      ...
-    fzg_scalar_struct,      ...
-    tst_array_struct,       ...
-    nedc_array_struct,      ...
-    fzg_array_struct        ...
-    )%#codegen
-%% assign structure fields to variables
-% inputparams - originally simulink inputs
+% benchmark for running clcDP_focus.m
+
+cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\');
+% cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/ford_focus/DP')
+
+addpath('../model_data', '../functions')
+
+%% define clcDP structure inputs
+% define init_a() inputs
+
+% define mainConfig.txt string location
+config_filename = 'mainConfig_a.txt';
+% define raw data directory
+datafile_dir    = 'raw_data';
+% bool for if user wishes to rewrite raw data
+write_bool      = 1;
+
+% call init_port() - outputs are input structures to clcDP_port()
+[inputparams, tst_scalar_struct, fzg_scalar_struct, tst_array_struct, nedc_array_struct, fzg_array_struct]...
+         = init_focus(config_filename, datafile_dir, write_bool);
+
 disFlg          = inputparams.disFlg;
 iceFlgBool      = inputparams.iceFlgBool;
 brkBool         = inputparams.brkBool;
@@ -520,138 +523,3 @@ fprintf('-Initializing model...\n');
         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
         fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
         );
-    
-    
-        [               ... --- Ausgangsgrößen:
-        optPreInxTn3,   ...  Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
-        batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
-        fulEngOptTn3,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
-        cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
-        ] =             ... 
-        clcDP_focus_mex     ... FUNKTION
-        (               ... --- Eingangsgrößen:
-        disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
-        iceFlgBool,     ... skalar - is engine toggle on/off allowed?
-        brkBool,        ... skalar - allow states requireing braking?
-        timStp,         ... Skalar fï¿½r die Wegschrittweite in m
-        batEngBeg,      ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
-        batPwrAux,      ... Skalar fï¿½r die Nebenverbrauchlast in W
-        staChgPenCosVal,... Skalar fï¿½r die Strafkosten beim Zustandswechsel
-        timInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
-        timInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
-        timNum,         ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
-        engBeg,         ... scalar - beginnnig engine state
-        engStaVec_timInx,...
-        staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
-        batOcv,         ... battery voltage vector w/ value for each SOC
-        velVec,         ... velocity vector contiaing input speed profile
-        crsSpdMat,      ... crankshaft speed demand for each gear
-        crsTrqMat,      ... crankshaft torque demand for each gear
-        emoTrqMinPosMat,... min emoTrq along speed profile for each gear
-        emoTrqMaxPosMat,... max emoTrq along speed profile for each gear
-        emoPwrMinPosMat,... min emoPwr along speed profile for each gear
-        emoPwrMaxPosMat,... max emoPwr along speed profile for each gear
-        iceTrqMinPosMat,... min iceTrq along speed profile for each gear
-        iceTrqMaxPosMat,... max iceTrq along speed profile for each gear
-        batPwrMinIdxTn3,... min indexes/steps that bat can change
-        batPwrMaxIdxTn3,... max indexes/steps that bat can change
-        batPwrDemIdxTn3,... power demand by bat if only EM is running
-        tst_scalar_struct,     ... struct w/ tst data state var params
-        fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
-        fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
-        );
-% 
-% else
-%         % writiing up a gear changing model
-%         % develop random vector for switching gear
-%         randStp = round(rand(1181, 1));
-%         randNeg = round(rand(1181, 1));
-%         randStp = randStp - randNeg;
-%         % preallocate and populate input geaVec
-%         staVec = zeros(length(randStp), 1);
-%         staVec(1) = staBeg;
-% 
-%         for i = 2 : length(randStp)
-%                 staVec(i) = staVec(i-1) + randStp(i);
-%                 % set boundaries
-%                 staVec(i) = max(tst_scalar_struct.geaStaMin, staVec(i));
-%                 staVec(i) = min(tst_scalar_struct.geaStaMax, staVec(i));
-%         end    
-%         % run input_gear_vector version of DP
-%         [               ... --- Ausgangsgrï¿½ï¿½en:
-%         optPreInxTn3,   ...  Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
-%         batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
-%         fulEngOptTn3,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
-%         cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
-%         ] =             ... 
-%         clcDP_focus_useGeaVec     ... FUNKTION
-%         (               ... --- Eingangsgrï¿½ï¿½en:
-%         disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
-%         iceFlgBool,     ... skalar - is engine toggle on/off allowed?
-%         timStp,        ... Skalar fï¿½r die Wegschrittweite in m
-%         batEngBeg,      ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
-%         batPwrAux,      ... Skalar fï¿½r die Nebenverbrauchlast in W
-%         staChgPenCosVal,... Skalar fï¿½r die Strafkosten beim Zustandswechsel
-%         timInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
-%         timInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
-%         timNum,        ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
-%         engBeg,         ... scalar - beginnnig engine state
-%         engStaVec_timInx,...
-%         ...staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
-%         staVec,         ... input gear vector
-%         velVec,         ... velocity vector contiaing input speed profile
-%         whlTrq,         ... wheel torque demand vector for the speed profile
-%         tst_scalar_struct,     ... struct w/ tst data state var params
-%         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
-%         fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
-%         );
-% 
-% end
-%% end conditions 
-% % % % % why the rounding though?
-% % % % engStaEndInxVal = ceil(engStaVec_timInx(timInxEnd)/2);
-% % % % % end gear condition
-% % % % staEnd = staBeg;
-% % % % % end engine condition
-% % % % engEnd;
-% % % % 
-% % % % % % end battery charge condition - HOW TO IMPLEMENT??
-% % % % % batEngEndMin;
-% % % % % batEngEndMax;
-% % % % 
-% % % % %% Calculating optimal trajectories for result of DP + PMP
-% % % % [...
-% % % %     batEngDltOptVec,... Vektor - optimale Batterieenergieï¿½nderung
-% % % %     fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieï¿½nderung
-% % % %     geaStaVec,      ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-% % % %     engStaVec,      ... vector showing optimal engine contorl w/ profile
-% % % %     fulEngOpt       ... Skalar - optimale Kraftstoffenergie
-% % % %     ] =             ...
-% % % %     clcOptTrj_a     ... FUNKTION
-% % % %     (disFlg,        ... Flag, ob Zielzustand genutzt werden muss - CHANGE VAR NAME ITS THE SAME VAR FOR 2 DIFFERENT USES IN 2 FUNCTIONS
-% % % %     timStp,        ... Skalar fï¿½r die Wegschrittweite in m
-% % % %     timNum,        ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
-% % % %     timInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
-% % % %     timInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
-% % % %     staEnd,         ... Skalar fï¿½r den finalen Zustand
-% % % %     engEnd,         ... scalar - final engine state
-% % % %     engStaEndInxVal,... Skalar fï¿½r Zielindex der kinetischen Energie
-% % % %     geaNum,         ... Skalar fï¿½r die max. Anzahl an Zustandsstï¿½tzstellen
-% % % %     engStaNum,      ... scalar - for number of states engine can take
-% % % %     optPreInxTn3,   ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
-% % % %     batFrcOptTn3,   ... Tensor 3. Stufe der Batteriekraft
-% % % %     fulEngOptTn3,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie
-% % % %     cos2goActMat    ... Matrix der optimalen Kosten der Hamiltonfunktion 
-% % % %     );
-% % % % 
-% % % % % engKinOptVec=0;
-% % % % % batEngDltOptVec=0;
-% % % % % fulEngDltOptVec=0;
-% % % % % staVec=0;
-% % % % % psiEngKinOptVec=0;
-% % % % % fulEngOpt=0;
-% % % % resVld = true;
-
-fprintf('\n\ndone!\n');
-   
-end

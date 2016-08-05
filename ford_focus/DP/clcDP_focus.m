@@ -459,8 +459,8 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                 
 %% ----- PREDECESSOR STATE VARIBALE LOOP ----------------------------------
                 % PREVIOUS gear state loop
-                for engStaPre = engStaPreIdx 
-                    
+                for engStaPre_counter = 1:length(engStaPreIdx) 
+                    engStaPre = engStaPreIdx(engStaPre_counter);
                     % engine state penalty
                     if engStaAct == engStaPre
                         engStaChgPenCos = 0;
