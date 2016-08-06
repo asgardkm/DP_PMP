@@ -1,5 +1,3 @@
-% benchmark for running clcDP_focus.m
-
 cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\');
 % cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/ford_focus/DP')
 
@@ -486,12 +484,12 @@ end
 fprintf('-Initializing model...\n');
 % if tst_scalar_struct.useGeaSta
         [               ... --- Ausgangsgrößen:
-        optPreInxTn3,   ...  Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
-        batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
-        fulEngOptTn3,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
-        cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
+        optPreInxTn4,   ...  Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
+        batPwrOptTn4,   ...  Tensor 3. Stufe der Batteriekraft
+        fulEngOptTn4,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
+        cos2goActTn3    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
         ] =             ... 
-        clcDP_focus     ... FUNKTION
+        clcDP_focus_mex     ... FUNKTION
         (               ... --- Eingangsgrößen:
         disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
         iceFlgBool,     ... skalar - is engine toggle on/off allowed?
@@ -521,5 +519,4 @@ fprintf('-Initializing model...\n');
         batPwrDemIdxTn3,... power demand by bat if only EM is running
         tst_scalar_struct,     ... struct w/ tst data state var params
         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
-        fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
-        );
+        fzg_array_struct);

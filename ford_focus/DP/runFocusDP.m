@@ -38,7 +38,7 @@ batEngMax       = tst_scalar_struct.batEngMax;
 batEngMin       = tst_scalar_struct.batEngMin;
 
 % tst_scalar_struct - originally tstDat800 structure
-geaNum          = tst_scalar_struct.staNum;
+geaStaNum          = tst_scalar_struct.staNum;
 engStaNum       = tst_scalar_struct.engStaNum;
 batStaNum       = (batEngMax - batEngMin) / batEngStp + 1;
 % wayNum          = tst_scalar_struct.wayNum;
@@ -267,19 +267,19 @@ end
 % The above process is also done for EM power boundaries.
 
 % preallocation
-crsSpdMat       = zeros(length(velVec), geaNum);
-crsTrqMat       = repmat(whlTrq, 1, geaNum);
-iceTrqMaxPosMat = zeros(length(velVec), geaNum);
-iceTrqMinPosMat = zeros(length(velVec), geaNum);
-emoTrqMaxPosMat = zeros(length(velVec), geaNum);
-emoTrqMinPosMat = zeros(length(velVec), geaNum);
-emoPwrMinPosMat = zeros(length(velVec), geaNum);
-emoPwrMaxPosMat = zeros(length(velVec), geaNum);
-% emoPwrMinMat    = zeros(length(velVec), geaNum);
-% emoPwrMaxMat    = zeros(length(velVec), geaNum);
+crsSpdMat       = zeros(length(velVec), geaStaNum);
+crsTrqMat       = repmat(whlTrq, 1, geaStaNum);
+iceTrqMaxPosMat = zeros(length(velVec), geaStaNum);
+iceTrqMinPosMat = zeros(length(velVec), geaStaNum);
+emoTrqMaxPosMat = zeros(length(velVec), geaStaNum);
+emoTrqMinPosMat = zeros(length(velVec), geaStaNum);
+emoPwrMinPosMat = zeros(length(velVec), geaStaNum);
+emoPwrMaxPosMat = zeros(length(velVec), geaStaNum);
+% emoPwrMinMat    = zeros(length(velVec), geaStaNum);
+% emoPwrMaxMat    = zeros(length(velVec), geaStaNum);
 
 % ---- LOOP THROUGH GEAR STATES -----------------
-for gea = 1 : geaNum
+for gea = 1 : geaStaNum
     % CALCULATE CRANKSHAFT SPEEDS
     % In order to calculate crsSpd-based boundaries, crsSpd must be found first
     % calc crsSpd matrix along speed profile - a speed column for each gear
@@ -384,8 +384,8 @@ batOcv = interp1(fzg_array_struct.SOC_vs_OCV(:,1), ...
 %   b/c batPwr-batPwrLoss=emoPwr, both batPwr and emoPwr will generally
 %   have the same sign, unless batPwr<batPwrLoss (which seems unlikely?)
 %       may need to check this assumption later
-batRstMax = zeros(length(emoPwrMaxPosMat), geaNum);
-batRstMin = zeros(length(emoPwrMinPosMat), geaNum);
+batRstMax = zeros(length(emoPwrMaxPosMat), geaStaNum);
+batRstMin = zeros(length(emoPwrMinPosMat), geaStaNum);
 
 % the code below is performing this code snippet across the vector
 % if batPwr < 0
@@ -401,12 +401,12 @@ batRstMin(emoPwrMinPosMat>=0)   = fzg_scalar_struct.batRstChr;
 
 
 % ----- CALCULATE batPwrLoss AND batPwr ---------
-% % preallocate matrix with dims (timNim x (# of bat steps) x geaNum)
-% batPwrMinLossTn3 = zeros(length(batRstMin), length(batOcv), geaNum);
-% batPwrMaxLossTn3 = zeros(length(batRstMax), length(batOcv), geaNum);
-batPwrMinTn3     = zeros(length(batRstMin), length(batOcv), geaNum); 
-batPwrMaxTn3     = zeros(length(batRstMax), length(batOcv), geaNum);
-batPwrDemTn3     = zeros(timNum,            length(batOcv), geaNum);
+% % preallocate matrix with dims (timNim x (# of bat steps) x geaStaNum)
+% batPwrMinLossTn3 = zeros(length(batRstMin), length(batOcv), geaStaNum);
+% batPwrMaxLossTn3 = zeros(length(batRstMax), length(batOcv), geaStaNum);
+batPwrMinTn3     = zeros(length(batRstMin), length(batOcv), geaStaNum); 
+batPwrMaxTn3     = zeros(length(batRstMax), length(batOcv), geaStaNum);
+batPwrDemTn3     = zeros(timNum,            length(batOcv), geaStaNum);
 % NOTE: this preprocessing is a bit slow because of lack of vectorization.
 % may be able to speed up later, but since it is in preprocessing, it is
 % low priority at the moment
@@ -416,7 +416,7 @@ for tim = 1 : timNum
     % bat index is for varying battery voltage levels
     for bat = 1 : length(batOcv)
         % gear is for looping through diff resistance and emoPwr bound values
-        for gea = 1 : geaNum 
+        for gea = 1 : geaStaNum 
             % internal battery power losses: quadratic equation derived from
             %   batPwrLoss = I^2*batRst,
             %   batPwr     = V*I, and
@@ -485,10 +485,10 @@ end
 fprintf('-Initializing model...\n');
 % if tst_scalar_struct.useGeaSta
         [               ... --- Ausgangsgrößen:
-        optPreInxTn3,   ...  Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
-        batFrcOptTn3,   ...  Tensor 3. Stufe der Batteriekraft
-        fulEngOptTn3,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
-        cos2goActMat    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
+        optPreInxTn4,   ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
+        batPwrOptTn4,   ...  Tensor 4. Stufe der Batteriekraft
+        fulEngOptTn4,   ...  Tensor 4. Stufe für die Kraftstoffenergie 
+        cos2goActTn3    ...  Tensor 4. der optimalen Kosten der Hamiltonfunktion 
         ] =             ... 
         clcDP_focus     ... FUNKTION
         (               ... --- Eingangsgrößen:
@@ -525,12 +525,12 @@ fprintf('-Initializing model...\n');
     
     
         [               ... --- Ausgangsgrößen:
-        optPreInxTn4,   ...  Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
-        batPwrOptTn4,   ...  Tensor 3. Stufe der Batteriekraft
-        fulEngOptTn4,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
-        cos2goActTn3    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
+        optPreInxTn4,   ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
+        batPwrOptTn4,   ...  Tensor 4. Stufe der Batteriekraft
+        fulEngOptTn4,   ...  Tensor 4. Stufe für die Kraftstoffenergie 
+        cos2goActTn3    ...  Tensor 4. der optimalen Kosten der Hamiltonfunktion 
         ] =             ... 
-        clcDP_focus_mex     ... FUNKTION
+        clcDP_focus_mex ... FUNKTION
         (               ... --- Eingangsgrößen:
         disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
         iceFlgBool,     ... skalar - is engine toggle on/off allowed?
@@ -610,37 +610,53 @@ fprintf('-Initializing model...\n');
 % 
 % end
 %% end conditions 
-% why the rounding though?
-% engStaEndInxVal = ceil(engStaVec_timInx(timInxEnd)/2);
+% end end engine state
+engEndEnd = engStaVec_timInx(timInxEnd) - 1;
 % end gear condition
 staEnd = staBeg;
 % end engine condition
 engEnd = 0;
 
-batEndInx = batEngEndMin / batEngStp + 1;
-% % end battery charge condition - HOW TO IMPLEMENT??
-% batEngEndMin;
-% batEngEndMax;
+% % selecting all end battery charge conditions
+batEngEndMinIdx  = batEngEndMin / batEngStp + 1;
+batEngEndMaxIdx  = batEngEndMax / batEngStp + 1;
+
+batEndInxVec = batEngEndMinIdx : batEngEndMaxIdx;
+
 
 %% Calculating optimal trajectories for result of DP + PMP
+% preallocate matrices for holding all optimal combinations
+batEngDltOptMat = inf(timNum, length(batEndInxVec));
+fulEngDltOptMat = inf(timNum, length(batEndInxVec));
+geaStaMat       = inf(timNum, length(batEndInxVec));
+engStaMat       = inf(timNum, length(batEndInxVec));
+batPwrMat       = inf(timNum, length(batEndInxVec));
+batEngMat       = inf(timNum, length(batEndInxVec));
+fulEngOptVec    = inf(length(batEndInxVec), 1);
+fprintf('Generating all optimal paths from ending SOC levels %2.0f%% to %2.0f%%\n', batEngEndMinRat*100, batEngEndMaxRat*100);
+for batEndInx_counter = 1 : length(batEndInxVec)
+    batEndInx = batEndInxVec(batEndInx_counter);
 [...
-    batEngDltOptVec,... Vektor - optimale Batterieenergieï¿½nderung
-    fulEngDltOptVec,... Vektor - optimale Kraftstoffenergieï¿½nderung
-    geaStaVec,      ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-    engStaVec,      ... vector showing optimal engine contorl w/ profile
-    fulEngOpt       ... Skalar - optimale Kraftstoffenergie
+    batEngDltOptMat(:, batEndInx_counter),  ... Vektor - optimale Batterieenergieï¿½nderung
+    fulEngDltOptMat(:, batEndInx_counter),  ... Vektor - optimale Kraftstoffenergieï¿½nderung
+    geaStaMat(:, batEndInx_counter),        ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
+    engStaMat(:, batEndInx_counter),        ... vector showing optimal engine contorl w/ profile
+    batPwrMat(:, batEndInx_counter),        ... vector showing optimal battery level control
+    batEngMat(:, batEndInx_counter),        ... vector showing optimal battery levels
+    fulEngOptVec(batEndInx_counter)         ... Skalar - optimale Kraftstoffenergie
     ] =             ...
-    clcOptTrj_focus     ... FUNKTION
+    clcOptTrj_focus ... FUNKTION
     (disFlg,        ... Flag, ob Zielzustand genutzt werden muss - CHANGE VAR NAME ITS THE SAME VAR FOR 2 DIFFERENT USES IN 2 FUNCTIONS
     timStp,         ... Skalar fï¿½r die Wegschrittweite in m
+    batEngStp,      ... scalar - bat energy discretization step
     timNum,         ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
     timInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
     timInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
     staEnd,         ... Skalar fï¿½r den finalen Zustand
     engEnd,         ... scalar - final engine state
-    batEndInx,         ... scalar - final battery state
-    engStaEndInxVal,... Skalar fï¿½r Zielindex der kinetischen Energie
-    geaNum,         ... Skalar fï¿½r die max. Anzahl an Zustandsstï¿½tzstellen
+    engEndEnd,      ... Skalar fï¿½r Zielindex der kinetischen Energie
+    batEndInx,      ... scalar - final battery state
+    geaStaNum,      ... Skalar fï¿½r die max. Anzahl an Zustandsstï¿½tzstellen
     engStaNum,      ... scalar - for number of states engine can take
     batStaNum,      ... scalar - for number of battery energy levels
     optPreInxTn4,   ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
@@ -648,15 +664,52 @@ batEndInx = batEngEndMin / batEngStp + 1;
     fulEngOptTn4,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie
     cos2goActTn3    ... Matrix der optimalen Kosten der Hamiltonfunktion 
     );
-
-% engKinOptVec=0;
+    if disFlg
+        fprintf('Schleife %1.0f berechnet. %1.0f %% geschafft. \r', ...
+            double(batEndInx_counter-1), double(((batEndInx_counter-1))) /...
+            double(length(batEndInxVec)-1)*100);
+    end
+end
 % batEngDltOptVec=0;
 % fulEngDltOptVec=0;
-% staVec=0;
-% psiEngKinOptVec=0;
 % fulEngOpt=0;
 resVld = true;
 
 fprintf('\n\ndone!\n');
    
+
+%% some plotting
+% batEng trajectories for all ending SOC possibilities (currently 30%-90%)
+figure(1)
+bluVal = 1;
+redVal = 0;
+batEngMatSOC = batEngMat / batEngMax;
+plot(timVec, batEngMatSOC(:, 1), 'Color', [redVal 0 bluVal]); 
+hold on;
+titleString = sprintf('batEng trajectories for all optimal paths from ending SOC levels %2.0f%% : %2.0f%%\n', batEngEndMinRat*100, batEngEndMaxRat*100);
+title(titleString);
+xlabel('Time [sec]');
+ylabel('SOC [%]');
+for batEndInx_counter = 2 : length(batEndInxVec)
+    scaVal = double(((batEndInx_counter-1))) / double(length(batEndInxVec)-1);
+%     redVal = redVal + scaVal;
+%     bluVal = bluVal - scaVal;
+    plot(timVec, batEngMatSOC(:, batEndInx_counter), 'Color', [redVal+scaVal 0 bluVal-scaVal]); 
+end
+
+% fuel trajectories for all ending SOC possibilities (currently 30%-90%)
+
+figure(2)
+plot(timVec(1:end-1), fulEngDltOptMat(1:end-1, 1), 'Color', [redVal 0 bluVal]); 
+hold on;
+titleString = sprintf('fuel trajectories for all optimal paths from ending SOC levels %2.0f%% : %2.0f%%\n', batEngEndMinRat*100, batEngEndMaxRat*100);
+title(titleString);
+xlabel('Time [sec]');
+ylabel('Fuel Use [J]');
+for fulEngInx_counter = 2 : length(batEndInxVec)
+    scaVal = double(((fulEngInx_counter-1))) / double(length(batEndInxVec)-1);
+%     redVal = redVal + scaVal;
+%     bluVal = bluVal - scaVal;
+    plot(timVec(1:end-1), fulEngDltOptMat(1:end-1, fulEngInx_counter), 'Color', [redVal+scaVal 0 bluVal-scaVal]); 
+end
 end

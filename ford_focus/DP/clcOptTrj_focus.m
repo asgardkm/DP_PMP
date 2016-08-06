@@ -1,24 +1,26 @@
 function [          ...
-    batPwrOptVec,... Vektor - optimale BatterieenergieÃ¤nderung
+    batPwrOptVec,   ... Vektor - optimale BatterieenergieÃ¤nderung
     fulEngDltOptVec,... Vektor - optimale KraftstoffenergieÃ¤nderung
     geaStaOptVec,   ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     engStaOptVec,   ... vector showing optimal engine contorl w/ profile
     batStaOptVec,   ... vector showing optimal battery level control
+    batEngOptVec,   ... vector showing optimal battery levels
     fulEngOpt       ... Skalar - optimale Kraftstoffenergie
     ] =             ...
-    clcOptTrj_focus     ...
+    clcOptTrj_focus ...
     (disFlg,        ... Flag, ob Zielzustand genutzt werden muss
-    timeStp,        ... Skalar für die Wegschrittweite in m
-    timNum,        ... Skalar für die max. Anzahl an WegstÃ¼tzstellen
-    wayInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
+    timStp,         ... Skalar für die Wegschrittweite in m
+    batStp,         ... scalar - bat energy discretization step
+    timNum,         ... Skalar für die max. Anzahl an WegstÃ¼tzstellen
+    timInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
     timInxEnd,      ... Skalar für Endindex in den Eingangsdaten
     staEnd,         ... Skalar für den finalen Zustand
-    engEnd,         ... scalar - final engine state
-    batEndInx,         ... scalar - final battery state
-    engStaEndInxVal,...
-    staNum,         ... Skalar für die max. Anzahl an Zustandsstützstellen
+    engEnd,         ... scalar - prefinal engine state
+    engEndEnd,      ... Skalar fï¿½r Zielindex der kinetischen Energie
+    batEndInx,      ... scalar - final battery state
+    geaStaNum,      ... Skalar für die max. Anzahl an Zustandsstützstellen
     engStaNum,      ... scalar - for number of states engine can take
-    batStaNum,       ... scalar - for number of battery states exist
+    batStaNum,      ... scalar - for number of battery states exist
     optPreInxTn4,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
     batPwrOptTn4,   ... Tensor 3. Stufe der Batteriekraft
     fulEngOptTn4,   ... Tensor 3. Stufe für die Kraftstoffenergie
@@ -87,58 +89,70 @@ if disFlg
     
     % Die finale kinetische Energie steht an Stelle 1 im Vektor
     %   the final kinetic energy is at the first index in the vector
-    engStaEndInx = engStaEndInxVal;
+    engStaEndInx = engEndEnd;
     
 else
     % what is this again? because disFlg is used to display to screen. IS
     % it being used to ensure target trajectory as well? How so?
-    [val,inx] = min(cos2goActMat);
-    [~,geaStaOptVec(timInxEnd-1)] = min(val);
-    engStaEndInx = inx(geaStaOptVec(timInxEnd-1));
+%     [val,inx] = min(cos2goActTn3);
+%     [~,geaStaEndInx] = min(val);
+%     engStaEndInx = inx(geaStaEndInx);
+%     geaStaOptVec(timInxEnd-1) = geaStaEndInx;
+
+    % switching fuel values to positive so that min eq here works. Albeit that
+    % this is not the best place to do so - would be optimal to do when
+    % cos2goActTn3 is being populated in clcDP. 
+    cos2goActTn3(~isinf(cos2goActTn3)) = -cos2goActTn3(~isinf(cos2goActTn3));
+    
+    [colmin, colminidx] = min(cos2goActTn3);
+    [matmin, matminidx] = min(colmin);
+    [~, batStaEndInx] = min(matmin);
+    geaStaEndInx = matminidx(batStaEndInx);
+    engStaEndInx    = colminidx(:,geaStaEndInx,batStaEndInx);
+    
+    geaStaOptVec(timInxEnd-1) = geaStaEndInx;
+    engStaOptVec(timInxEnd-1) = engStaEndInx;
+    batStaOptVec(timInxEnd-1) = batStaEndInx;
+
 end
 
 % assign the last value in the optimatal KE INDEX vector as the last KE idx
 % how to set a boundary between batEngEndMin and Max??
 % engStaOptVec(timInxEnd) = engStaEndInx;
-engStaOptVec(timInxEnd) = engEnd;
+engStaOptVec(timInxEnd) = engStaEndInx;
 
 % Zielzustand des Ausgabevektors für optimale kinetische Energie
 % beschreiben
 %   describe the target state of the output vector for the optimal KE
 
-% engKinOptVec(timInxEnd,1) = ...
-%     engKinMat_engKinInx_wayInx(engKinOptInxVec(timInxEnd,1),timInxEnd);
- 
 % Batterieenergieänderung im letzten Intervall initialisieren
 %   initialize battery energy change's last interval
 batPwrOptVec(timInxEnd-1,1) = ...
-    batPwrOptTn4(engStaOptVec(timInxEnd)+1,geaStaOptVec(timInxEnd-1), batStaOptVec(timInxEnd-1), timInxEnd-1)...
-    * timeStp;
+    batPwrOptTn4(engStaOptVec(timInxEnd)+1, geaStaOptVec(timInxEnd-1), ...
+                 batStaOptVec(timInxEnd-1), timInxEnd-1)...
+                 * timStp;
 
 % Beschreiben der Ausgabegröße der optimalen Kraftstoffenergie
 %   writing the output for the optimal fuel energy
 fulEngOpt = ...
-    fulEngOptTn4(engStaOptVec(timInxEnd)+1,geaStaOptVec(timInxEnd-1),timInxEnd);
+    fulEngOptTn4(engStaOptVec(timInxEnd)+1, geaStaOptVec(timInxEnd-1), ...
+                 batStaOptVec(timInxEnd-1), timInxEnd);
 
 % Initialisieren des Vektors der optimalen Kraftstoffenergieänderung
 %   intializing the optimum fuel energy change vector
 fulEngDltOptVec = zeros(timNum,1);
-
-% Costate für die kinetische Energie initialisieren
-%   intializing the kinetic energy's costate
-% psiEngKinOptVec = zeros(wayNum,1);
 
 %% Rückwärtsrechnung über alle Wegpunkte 
 %   reverse calculation of all the path indexes
 
 % Rekonstruieren des optimalen Pfades aus
 %   rebuilding the optimale path
-for wayInx = timInxEnd:-1:wayInxBeg+1
+for timInx = timInxEnd:-1:timInxBeg+1
     
     % optimalen Vorgängerindex aus Tensor auslesen
     %   reading the tensor's optimum previous index 
-    optInx = optPreInxTn3(engStaOptVec(wayInx,1)+1,...
-        geaStaOptVec(wayInx-1,1),wayInx);
+    optInx = optPreInxTn4(engStaOptVec(timInx,1)+1,...
+        geaStaOptVec(timInx-1,1), batStaOptVec(timInx-1,1), timInx);
     
     % <- Vorgänger = predecessor
     if optInx == 0
@@ -147,69 +161,51 @@ for wayInx = timInxEnd:-1:wayInxBeg+1
     
     % optimalen Index dekodieren
     %   decoding the optimal index
-    if wayInx > wayInxBeg+1
+    if timInx > timInxBeg+1
         % what does this do? - assigns index values, that's for sure
         % - its repopulating the vectors (previously assigned to 0) by
         %   looping through all the path states and selecting all the 
         %   optimum state variables in each of the mats based on the
         %   generated optimum indexes
 
-        [engStaOptVec(wayInx-1,1),geaStaOptVec(wayInx-2,1)] = ...
-            ind2sub([engStaNum,staNum],optInx);
+        [engStaOptVec(timInx-1,1),geaStaOptVec(timInx-2,1), batStaOptVec(timInx-2,1)] = ...
+            ind2sub([engStaNum,geaStaNum, batStaNum],optInx);
         % revert engStaOptVec from index value to boolean
-        engStaOptVec(wayInx-1,1) = engStaOptVec(wayInx-1,1)-1;
+        engStaOptVec(timInx-1,1) = engStaOptVec(timInx-1,1)-1;
         % 2 - because of number of engine states - send to mainConfig!!
         
         % Batterieenergieänderung für Vorgängerintervall speichern
         % Flussgröße (gilt im Intervall)
         %   storing the previous interval's battery energy change's flow
         %   amount
-        batPwrOptVec(wayInx-2,1) = ...
-            batFrcOptTn3(engStaOptVec(wayInx-1)+1,...
-            geaStaOptVec(wayInx-2),wayInx-2) * timeStp;
+        batPwrOptVec(timInx-2,1) = ...
+            batPwrOptTn4(engStaOptVec(timInx-1)+1,geaStaOptVec(timInx-2),...
+                         batStaOptVec(timInxEnd-2), timInx-2) * timStp;
         
         % KrafstoffenergieÃ¤nderung fÃ¼r Intervall speichern
         % FlussgrÃ¶ÃŸe (gilt im Intervall)
         % Beschreiben der AusgabegrÃ¶ÃŸe der optimalen Kraftstoffenergie
         %   storing the interval's fuel energy change flow amount
         %   describing the output size of the optimal fuel energy
-        fulEngDltOptVec(wayInx-1,1) = ...
-            fulEngOptTn3(engStaOptVec(wayInx)+1,geaStaOptVec(wayInx-1),wayInx) - ...
-            fulEngOptTn3(engStaOptVec(wayInx-1)+1,geaStaOptVec(wayInx-2),wayInx-1);
+        fulEngDltOptVec(timInx-1,1) = ...
+            fulEngOptTn4(engStaOptVec(timInx)+1, geaStaOptVec(timInx-1), batStaOptVec(timInx-1), timInx) - ...
+            fulEngOptTn4(engStaOptVec(timInx-1)+1,geaStaOptVec(timInx-2),batStaOptVec(timInx-2), timInx-1);
         
-        %% Bestimmung des costate fÃ¼r die kinetische Energie
-        %   determining the kinetic energy costate
-        %
-        % Am jeweiligen Wegpunkt wird der Kraftstoffaufwand gegenÃ¼ber eine
-        % Ã¤nderung der kinetischen Engergie an der Stelle der
-        % optimalen Trajektorie berechnet.
-        %   at each path_idx the fuel is calculated towards a change in the
-        %   KE at the location of optimal trajectory. (doesn't make much
-        %   sense)
-        
-        %   calculating the KE costate vec by diving the delta optimum fuel 
-        %   energy tensor by the delta kinetic energy mat for each wayInx.
-%         psiEngKinVec= diff(fulEngOptTn3(1:engKinNumVec_wayInx(wayInx-1),staVec(wayInx-2),wayInx-1)) ...
-%             ./ diff(engKinMat_engKinInx_wayInx(1:engKinNumVec_wayInx(wayInx-1),wayInx-1));% <-fast immer 5000;
-%         psiEngKinVec = [0;psiEngKinVec];    % what is the point of adding 0
-%         psiEngKinOptVec(wayInx-1) = psiEngKinVec(engKinOptInxVec(wayInx-1,1));
-        
-        % PotentialgrÃ¶ÃŸen im ersten Punkt speichern
+   
         %   save potetial variables in the first point/index
-    else % if wayInx == wayInxBeg ( == 1 if wayOInxBeg = 1)
-        [engStaOptVec(wayInx-1,1),~] = ...
-            ind2sub([engStaNum,staNum],optInx);
-        fulEngDltOptVec(wayInx-1,1) = ...
-            fulEngOptTn3(engStaOptVec(wayInx)+1,geaStaOptVec(wayInx-1),wayInx);
-        engStaOptVec(wayInx-1,1) = engStaOptVec(wayInx-1,1)-1;
+    else % if timInx == timInxBeg ( == 1 if wayOInxBeg = 1)
+        [engStaOptVec(timInx-1,1), geaStaOptVec(timInx-1,1), batStaOptVec(timInx-1,1)] = ...
+            ind2sub([engStaNum, geaStaNum, batStaNum], optInx);
+        
+        fulEngDltOptVec(timInx-1,1) = ...
+            fulEngOptTn4(engStaOptVec(timInx)+1, geaStaOptVec(timInx-1), batStaOptVec(timInx-1), timInx);
+        
+%         engStaOptVec(timInx-1,1) = engStaOptVec(timInx,1);
     end
         
-    % optimale kinetische Energie im VorgÃ¤ngerpunkt
-    %   optimal KE from previous point / path_idx
-%     engKinOptVec(wayInx-1,1) = ...
-%         engKinMat_engKinInx_wayInx(engKinOptInxVec(wayInx-1,1),wayInx-1);
-
-    
 end % end of path_idx loop
+
+% derive battery energy based on the battery power
+batEngOptVec = [(batStaOptVec(1:end-1)-1) * batStp; (batEndInx-1)*batStp];
 
 end % end of function

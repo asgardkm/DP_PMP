@@ -9,8 +9,8 @@
 #include "rt_nonfinite.h"
 #include "clcDP_focus.h"
 #include "clcDP_focus_emxutil.h"
-#include "optTrqSplit_focus.h"
 #include "eml_int_forloop_overflow_check.h"
+#include "optTrqSplit_focus.h"
 #include "fprintf.h"
 #include "clcDP_focus_mexutil.h"
 #include "clcDP_focus_data.h"
@@ -33,107 +33,127 @@ static emlrtRSInfo emlrtRSI = { 208, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo b_emlrtRSI = { 407, "clcDP_focus",
+static emlrtRSInfo b_emlrtRSI = { 305, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo c_emlrtRSI = { 457, "clcDP_focus",
+static emlrtRSInfo c_emlrtRSI = { 306, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo d_emlrtRSI = { 573, "clcDP_focus",
+static emlrtRSInfo d_emlrtRSI = { 442, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo e_emlrtRSI = { 722, "clcDP_focus",
+static emlrtRSInfo e_emlrtRSI = { 502, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo f_emlrtRSI = { 723, "clcDP_focus",
+static emlrtRSInfo f_emlrtRSI = { 618, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo g_emlrtRSI = { 728, "clcDP_focus",
+static emlrtRSInfo g_emlrtRSI = { 683, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo h_emlrtRSI = { 769, "clcDP_focus",
+static emlrtRSInfo h_emlrtRSI = { 684, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo i_emlrtRSI = { 774, "clcDP_focus",
+static emlrtRSInfo i_emlrtRSI = { 689, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo j_emlrtRSI = { 777, "clcDP_focus",
+static emlrtRSInfo j_emlrtRSI = { 730, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo k_emlrtRSI = { 804, "clcDP_focus",
+static emlrtRSInfo k_emlrtRSI = { 735, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRSInfo l_emlrtRSI = { 21, "colon",
+static emlrtRSInfo l_emlrtRSI = { 738, "clcDP_focus",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
+};
+
+static emlrtRSInfo m_emlrtRSI = { 779, "clcDP_focus",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
+};
+
+static emlrtRSInfo n_emlrtRSI = { 21, "colon",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" };
 
-static emlrtRSInfo m_emlrtRSI = { 79, "colon",
+static emlrtRSInfo o_emlrtRSI = { 79, "colon",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" };
 
-static emlrtRSInfo n_emlrtRSI = { 283, "colon",
+static emlrtRSInfo p_emlrtRSI = { 283, "colon",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" };
 
-static emlrtRSInfo o_emlrtRSI = { 291, "colon",
+static emlrtRSInfo q_emlrtRSI = { 291, "colon",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" };
 
-static emlrtRSInfo p_emlrtRSI = { 20, "eml_int_forloop_overflow_check",
+static emlrtRSInfo r_emlrtRSI = { 20, "eml_int_forloop_overflow_check",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_int_forloop_overflow_check.m"
 };
 
-static emlrtRSInfo x_emlrtRSI = { 18, "min",
+static emlrtRSInfo s_emlrtRSI = { 16, "min",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\datafun\\min.m"
 };
 
-static emlrtRSInfo y_emlrtRSI = { 15, "eml_min_or_max",
+static emlrtRSInfo t_emlrtRSI = { 18, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo ab_emlrtRSI = { 105, "eml_min_or_max",
+static emlrtRSInfo u_emlrtRSI = { 108, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo bb_emlrtRSI = { 106, "eml_min_or_max",
+static emlrtRSInfo v_emlrtRSI = { 229, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo cb_emlrtRSI = { 108, "eml_min_or_max",
+static emlrtRSInfo w_emlrtRSI = { 202, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo db_emlrtRSI = { 229, "eml_min_or_max",
+static emlrtRSInfo x_emlrtRSI = { 16, "max",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\datafun\\max.m"
+};
+
+static emlrtRSInfo gb_emlrtRSI = { 18, "min",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\datafun\\min.m"
+};
+
+static emlrtRSInfo hb_emlrtRSI = { 15, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo eb_emlrtRSI = { 202, "eml_min_or_max",
+static emlrtRSInfo ib_emlrtRSI = { 105, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo fb_emlrtRSI = { 96, "eml_min_or_max",
+static emlrtRSInfo jb_emlrtRSI = { 106, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo gb_emlrtRSI = { 16, "sub2ind",
+static emlrtRSInfo kb_emlrtRSI = { 96, "eml_min_or_max",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
+};
+
+static emlrtRSInfo lb_emlrtRSI = { 16, "sub2ind",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\elmat\\sub2ind.m"
 };
 
-static emlrtRSInfo hb_emlrtRSI = { 41, "sub2ind",
+static emlrtRSInfo mb_emlrtRSI = { 41, "sub2ind",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\elmat\\sub2ind.m"
 };
 
-static emlrtRSInfo ib_emlrtRSI = { 39, "sub2ind",
+static emlrtRSInfo nb_emlrtRSI = { 39, "sub2ind",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\elmat\\sub2ind.m"
 };
 
-static emlrtRSInfo jb_emlrtRSI = { 71, "sub2ind",
+static emlrtRSInfo ob_emlrtRSI = { 71, "sub2ind",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\elmat\\sub2ind.m"
 };
 
@@ -186,31 +206,31 @@ static emlrtRTEInfo f_emlrtRTEI = { 208, 1, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRTEInfo g_emlrtRTEI = { 266, 5, "clcDP_focus",
+static emlrtRTEInfo g_emlrtRTEI = { 268, 5, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRTEInfo h_emlrtRTEI = { 276, 5, "clcDP_focus",
+static emlrtRTEInfo h_emlrtRTEI = { 278, 5, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRTEInfo i_emlrtRTEI = { 281, 5, "clcDP_focus",
+static emlrtRTEInfo i_emlrtRTEI = { 283, 5, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRTEInfo j_emlrtRTEI = { 342, 17, "clcDP_focus",
+static emlrtRTEInfo j_emlrtRTEI = { 377, 17, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRTEInfo k_emlrtRTEI = { 457, 17, "clcDP_focus",
+static emlrtRTEInfo k_emlrtRTEI = { 502, 17, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtECInfo emlrtECI = { -1, 794, 5, "clcDP_focus",
+static emlrtECInfo emlrtECI = { -1, 769, 5, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtBCInfo emlrtBCI = { -1, -1, 794, 24, "fulEngOptTn4", "clcDP_focus",
+static emlrtBCInfo emlrtBCI = { -1, -1, 769, 24, "fulEngOptTn4", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
@@ -246,23 +266,23 @@ static emlrtDCInfo d_emlrtDCI = { 168, 14, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtECInfo b_emlrtECI = { -1, 799, 5, "clcDP_focus",
+static emlrtECInfo b_emlrtECI = { -1, 774, 5, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtBCInfo f_emlrtBCI = { -1, -1, 799, 24, "batPwrOptTn4", "clcDP_focus",
+static emlrtBCInfo f_emlrtBCI = { -1, -1, 774, 24, "batPwrOptTn4", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo g_emlrtBCI = { -1, -1, 745, 66, "fulEngPreTn3", "clcDP_focus",
+static emlrtBCInfo g_emlrtBCI = { -1, -1, 706, 66, "fulEngPreTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo h_emlrtBCI = { -1, -1, 745, 50, "fulEngPreTn3", "clcDP_focus",
+static emlrtBCInfo h_emlrtBCI = { -1, -1, 706, 50, "fulEngPreTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo i_emlrtBCI = { -1, -1, 745, 34, "fulEngPreTn3", "clcDP_focus",
+static emlrtBCInfo i_emlrtBCI = { -1, -1, 706, 34, "fulEngPreTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
@@ -286,31 +306,31 @@ static emlrtDCInfo f_emlrtDCI = { 202, 14, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo m_emlrtBCI = { -1, -1, 730, 66, "colminidx", "clcDP_focus",
+static emlrtBCInfo m_emlrtBCI = { -1, -1, 691, 66, "colminidx", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo n_emlrtBCI = { -1, -1, 730, 50, "colminidx", "clcDP_focus",
+static emlrtBCInfo n_emlrtBCI = { -1, -1, 691, 50, "colminidx", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo o_emlrtBCI = { -1, -1, 729, 35, "matminidx", "clcDP_focus",
+static emlrtBCInfo o_emlrtBCI = { -1, -1, 690, 35, "matminidx", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo p_emlrtBCI = { -1, -1, 711, 39, "fulActTn3", "clcDP_focus",
+static emlrtBCInfo p_emlrtBCI = { -1, -1, 671, 39, "fulActTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo g_emlrtDCI = { 711, 39, "clcDP_focus",
+static emlrtDCInfo g_emlrtDCI = { 671, 39, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo q_emlrtBCI = { -1, -1, 713, 48, "cos2goPreTn3", "clcDP_focus",
+static emlrtBCInfo q_emlrtBCI = { -1, -1, 673, 48, "cos2goPreTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo h_emlrtDCI = { 713, 48, "clcDP_focus",
+static emlrtDCInfo h_emlrtDCI = { 673, 48, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
@@ -334,118 +354,128 @@ static emlrtDCInfo j_emlrtDCI = { 187, 14, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo u_emlrtBCI = { 1, 693, 564, 45, "batOcv", "clcDP_focus",
+static emlrtBCInfo u_emlrtBCI = { 1, 693, 609, 45, "batOcv", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo k_emlrtDCI = { 564, 45, "clcDP_focus",
+static emlrtDCInfo k_emlrtDCI = { 609, 45, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo v_emlrtBCI = { -1, -1, 547, 48, "batStaPreIdxVec",
+static emlrtBCInfo v_emlrtBCI = { -1, -1, 592, 48, "batStaPreIdxVec",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo w_emlrtBCI = { 1, 1181, 510, 60, "iceTrqMaxPosMat",
+static emlrtBCInfo w_emlrtBCI = { 1, 1181, 555, 60, "iceTrqMaxPosMat",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo x_emlrtBCI = { 1, 1181, 509, 60, "iceTrqMinPosMat",
+static emlrtBCInfo x_emlrtBCI = { 1, 1181, 554, 60, "iceTrqMinPosMat",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo y_emlrtBCI = { 1, 1181, 504, 56, "emoPwrMaxPosMat",
+static emlrtBCInfo y_emlrtBCI = { 1, 1181, 549, 56, "emoPwrMaxPosMat",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo ab_emlrtBCI = { 1, 1181, 503, 56, "emoPwrMinPosMat",
+static emlrtBCInfo ab_emlrtBCI = { 1, 1181, 548, 56, "emoPwrMinPosMat",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo bb_emlrtBCI = { 1, 1181, 500, 56, "emoTrqMaxPosMat",
+static emlrtBCInfo bb_emlrtBCI = { 1, 1181, 545, 56, "emoTrqMaxPosMat",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo cb_emlrtBCI = { 1, 1181, 499, 56, "emoTrqMinPosMat",
+static emlrtBCInfo cb_emlrtBCI = { 1, 1181, 544, 56, "emoTrqMinPosMat",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo db_emlrtBCI = { 1, 1181, 497, 47, "crsTrqMat", "clcDP_focus",
+static emlrtBCInfo db_emlrtBCI = { 1, 1181, 542, 47, "crsTrqMat", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo eb_emlrtBCI = { 1, 6, 496, 57, "crsSpdMat", "clcDP_focus",
+static emlrtBCInfo eb_emlrtBCI = { 1, 6, 541, 57, "crsSpdMat", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo l_emlrtDCI = { 496, 57, "clcDP_focus",
+static emlrtDCInfo l_emlrtDCI = { 541, 57, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo fb_emlrtBCI = { 1, 1181, 496, 47, "crsSpdMat", "clcDP_focus",
+static emlrtBCInfo fb_emlrtBCI = { 1, 1181, 541, 47, "crsSpdMat", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo gb_emlrtBCI = { 1, 1181, 433, 73, "batPwrMaxIdxTn3",
+static emlrtBCInfo gb_emlrtBCI = { 1, 1181, 468, 73, "batPwrMaxIdxTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo hb_emlrtBCI = { 1, 693, 432, 83, "batPwrMinIdxTn3",
+static emlrtBCInfo hb_emlrtBCI = { 1, 693, 467, 83, "batPwrMinIdxTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo ib_emlrtBCI = { 1, 1181, 432, 73, "batPwrMinIdxTn3",
+static emlrtBCInfo ib_emlrtBCI = { 1, 1181, 467, 73, "batPwrMinIdxTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo jb_emlrtBCI = { 1, 6, 326, 21, "crsSpdActVec", "clcDP_focus",
+static emlrtBCInfo jb_emlrtBCI = { 1, 6, 355, 21, "crsSpdActVec", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo m_emlrtDCI = { 326, 21, "clcDP_focus",
+static emlrtDCInfo m_emlrtDCI = { 355, 21, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo kb_emlrtBCI = { 1, 6, 313, 21, "crsSpdActVec", "clcDP_focus",
+static emlrtBCInfo kb_emlrtBCI = { 1, 6, 342, 21, "crsSpdActVec", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo n_emlrtDCI = { 313, 21, "clcDP_focus",
+static emlrtDCInfo n_emlrtDCI = { 342, 21, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtRTEInfo m_emlrtRTEI = { 303, 9, "clcDP_focus",
+static emlrtRTEInfo m_emlrtRTEI = { 332, 9, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtRTEInfo n_emlrtRTEI = { 299, 5, "clcDP_focus",
+static emlrtRTEInfo n_emlrtRTEI = { 328, 5, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
-static emlrtBCInfo lb_emlrtBCI = { 1, 1181, 294, 30, "crsSpdMat", "clcDP_focus",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
-  0 };
-
-static emlrtBCInfo mb_emlrtBCI = { 1, 1181, 284, 20, "engStaVec_timInx",
+static emlrtBCInfo lb_emlrtBCI = { 1, 1181, 306, 75, "batPwrMaxIdxTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo o_emlrtDCI = { 284, 20, "clcDP_focus",
+static emlrtBCInfo mb_emlrtBCI = { 1, 1181, 305, 75, "batPwrMinIdxTn3",
+  "clcDP_focus",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
+  0 };
+
+static emlrtBCInfo nb_emlrtBCI = { 1, 1181, 296, 30, "crsSpdMat", "clcDP_focus",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
+  0 };
+
+static emlrtBCInfo ob_emlrtBCI = { 1, 1181, 286, 20, "engStaVec_timInx",
+  "clcDP_focus",
+  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
+  0 };
+
+static emlrtDCInfo o_emlrtDCI = { 286, 20, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtRTEInfo o_emlrtRTEI = { 245, 1, "clcDP_focus",
+static emlrtRTEInfo o_emlrtRTEI = { 247, 1, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m"
 };
 
@@ -481,234 +511,267 @@ static emlrtDCInfo w_emlrtDCI = { 158, 46, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   4 };
 
-static emlrtBCInfo nb_emlrtBCI = { 1, 1181, 289, 18, "velVec", "clcDP_focus",
+static emlrtBCInfo pb_emlrtBCI = { 1, 1181, 291, 18, "velVec", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo x_emlrtDCI = { 289, 18, "clcDP_focus",
+static emlrtDCInfo x_emlrtDCI = { 291, 18, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo ob_emlrtBCI = { 1, 1181, 289, 35, "velVec", "clcDP_focus",
+static emlrtBCInfo qb_emlrtBCI = { 1, 1181, 291, 35, "velVec", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo y_emlrtDCI = { 289, 35, "clcDP_focus",
+static emlrtDCInfo y_emlrtDCI = { 291, 35, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo pb_emlrtBCI = { -1, -1, 338, 29, "batStaActInxVec",
+static emlrtBCInfo rb_emlrtBCI = { -1, -1, 371, 29, "batStaActInxVec",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo qb_emlrtBCI = { -1, -1, 749, 34, "cos2goActTn3",
+static emlrtBCInfo sb_emlrtBCI = { -1, -1, 710, 34, "cos2goActTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo ab_emlrtDCI = { 749, 34, "clcDP_focus",
+static emlrtDCInfo ab_emlrtDCI = { 710, 34, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo rb_emlrtBCI = { -1, -1, 749, 46, "cos2goActTn3",
+static emlrtBCInfo tb_emlrtBCI = { -1, -1, 710, 46, "cos2goActTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo sb_emlrtBCI = { -1, -1, 749, 56, "cos2goActTn3",
+static emlrtBCInfo ub_emlrtBCI = { -1, -1, 710, 56, "cos2goActTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo tb_emlrtBCI = { -1, -1, 753, 34, "batEngActTn3",
+static emlrtBCInfo vb_emlrtBCI = { -1, -1, 714, 34, "batEngActTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo bb_emlrtDCI = { 753, 34, "clcDP_focus",
+static emlrtDCInfo bb_emlrtDCI = { 714, 34, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo ub_emlrtBCI = { -1, -1, 753, 46, "batEngActTn3",
+static emlrtBCInfo wb_emlrtBCI = { -1, -1, 714, 46, "batEngActTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo vb_emlrtBCI = { -1, -1, 753, 56, "batEngActTn3",
+static emlrtBCInfo xb_emlrtBCI = { -1, -1, 714, 56, "batEngActTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo wb_emlrtBCI = { -1, -1, 757, 34, "fulEngActTn3",
+static emlrtBCInfo yb_emlrtBCI = { -1, -1, 718, 34, "fulEngActTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo cb_emlrtDCI = { 757, 34, "clcDP_focus",
+static emlrtDCInfo cb_emlrtDCI = { 718, 34, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo xb_emlrtBCI = { -1, -1, 757, 46, "fulEngActTn3",
+static emlrtBCInfo ac_emlrtBCI = { -1, -1, 718, 46, "fulEngActTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo yb_emlrtBCI = { -1, -1, 757, 56, "fulEngActTn3",
+static emlrtBCInfo bc_emlrtBCI = { -1, -1, 718, 56, "fulEngActTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo ac_emlrtBCI = { -1, -1, 763, 34, "batPwrOptTn3",
+static emlrtBCInfo cc_emlrtBCI = { -1, -1, 724, 34, "batPwrOptTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo db_emlrtDCI = { 763, 34, "clcDP_focus",
+static emlrtDCInfo db_emlrtDCI = { 724, 34, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo bc_emlrtBCI = { -1, -1, 763, 46, "batPwrOptTn3",
+static emlrtBCInfo dc_emlrtBCI = { -1, -1, 724, 46, "batPwrOptTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo cc_emlrtBCI = { -1, -1, 763, 56, "batPwrOptTn3",
+static emlrtBCInfo ec_emlrtBCI = { -1, -1, 724, 56, "batPwrOptTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo dc_emlrtBCI = { -1, -1, 768, 34, "optPreInxTn4",
+static emlrtBCInfo fc_emlrtBCI = { -1, -1, 729, 34, "optPreInxTn4",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo eb_emlrtDCI = { 768, 34, "clcDP_focus",
+static emlrtDCInfo eb_emlrtDCI = { 729, 34, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo ec_emlrtBCI = { -1, -1, 768, 46, "optPreInxTn4",
+static emlrtBCInfo gc_emlrtBCI = { -1, -1, 729, 46, "optPreInxTn4",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo fc_emlrtBCI = { -1, -1, 768, 56, "optPreInxTn4",
+static emlrtBCInfo hc_emlrtBCI = { -1, -1, 729, 56, "optPreInxTn4",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo gc_emlrtBCI = { -1, -1, 768, 69, "optPreInxTn4",
+static emlrtBCInfo ic_emlrtBCI = { -1, -1, 729, 69, "optPreInxTn4",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo hc_emlrtBCI = { -1, -1, 463, 33, "engStaPreIdx",
+static emlrtBCInfo jc_emlrtBCI = { -1, -1, 508, 33, "engStaPreIdx",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo ic_emlrtBCI = { -1, -1, 475, 37, "geaStaPreIdxVec",
+static emlrtBCInfo kc_emlrtBCI = { -1, -1, 520, 37, "geaStaPreIdxVec",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo jc_emlrtBCI = { 1, 1181, 652, 66, "batPwrDemIdxTn3",
-  "clcDP_focus",
+static emlrtBCInfo lc_emlrtBCI = { -1, -1, 671, 52, "fulActTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo kc_emlrtBCI = { -1, -1, 711, 52, "fulActTn3", "clcDP_focus",
+static emlrtBCInfo mc_emlrtBCI = { -1, -1, 671, 63, "fulActTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo lc_emlrtBCI = { -1, -1, 711, 66, "fulActTn3", "clcDP_focus",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
-  0 };
-
-static emlrtDCInfo fb_emlrtDCI = { 711, 66, "clcDP_focus",
+static emlrtDCInfo fb_emlrtDCI = { 671, 63, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo mc_emlrtBCI = { -1, -1, 713, 61, "cos2goPreTn3",
+static emlrtBCInfo nc_emlrtBCI = { -1, -1, 673, 61, "cos2goPreTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo nc_emlrtBCI = { -1, -1, 713, 72, "cos2goPreTn3",
+static emlrtBCInfo oc_emlrtBCI = { -1, -1, 673, 72, "cos2goPreTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo gb_emlrtDCI = { 713, 72, "clcDP_focus",
+static emlrtDCInfo gb_emlrtDCI = { 673, 72, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo oc_emlrtBCI = { -1, -1, 595, 43, "fulActTn3", "clcDP_focus",
+static emlrtBCInfo pc_emlrtBCI = { -1, -1, 640, 43, "fulActTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo hb_emlrtDCI = { 595, 43, "clcDP_focus",
+static emlrtDCInfo hb_emlrtDCI = { 640, 43, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo pc_emlrtBCI = { -1, -1, 595, 56, "fulActTn3", "clcDP_focus",
+static emlrtBCInfo qc_emlrtBCI = { -1, -1, 640, 56, "fulActTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo qc_emlrtBCI = { -1, -1, 595, 69, "fulActTn3", "clcDP_focus",
+static emlrtBCInfo rc_emlrtBCI = { -1, -1, 640, 66, "fulActTn3", "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo rc_emlrtBCI = { -1, -1, 597, 52, "cos2goPreTn3",
+static emlrtBCInfo sc_emlrtBCI = { -1, -1, 642, 52, "cos2goPreTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtDCInfo ib_emlrtDCI = { 597, 52, "clcDP_focus",
+static emlrtDCInfo ib_emlrtDCI = { 642, 52, "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   1 };
 
-static emlrtBCInfo sc_emlrtBCI = { -1, -1, 597, 64, "cos2goPreTn3",
+static emlrtBCInfo tc_emlrtBCI = { -1, -1, 642, 64, "cos2goPreTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtBCInfo tc_emlrtBCI = { -1, -1, 597, 75, "cos2goPreTn3",
+static emlrtBCInfo uc_emlrtBCI = { -1, -1, 642, 75, "cos2goPreTn3",
   "clcDP_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\clcDP_focus.m",
   0 };
 
-static emlrtRSInfo mb_emlrtRSI = { 28, "assert",
+static emlrtRSInfo qb_emlrtRSI = { 28, "assert",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\shared\\coder\\coder\\+coder\\+internal\\assert.m"
 };
 
-static emlrtRSInfo nb_emlrtRSI = { 81, "eml_min_or_max",
+static emlrtRSInfo rb_emlrtRSI = { 81, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo ob_emlrtRSI = { 38, "eml_min_or_max",
+static emlrtRSInfo sb_emlrtRSI = { 38, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo pb_emlrtRSI = { 404, "colon",
+static emlrtRSInfo tb_emlrtRSI = { 404, "colon",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" };
 
-static emlrtRSInfo rb_emlrtRSI = { 82, "eml_min_or_max",
+static emlrtRSInfo wb_emlrtRSI = { 82, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo sb_emlrtRSI = { 41, "eml_min_or_max",
+static emlrtRSInfo xb_emlrtRSI = { 41, "eml_min_or_max",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_min_or_max.m"
 };
 
-static emlrtRSInfo tb_emlrtRSI = { 405, "colon",
+static emlrtRSInfo yb_emlrtRSI = { 405, "colon",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" };
 
 /* Function Declarations */
+static int32_T div_nzp_s32_floor(int32_T numerator, int32_T denominator);
 static const mxArray *message(const emlrtStack *sp, const mxArray *b,
   emlrtMCInfo *location);
 
 /* Function Definitions */
+static int32_T div_nzp_s32_floor(int32_T numerator, int32_T denominator)
+{
+  int32_T quotient;
+  uint32_T absNumerator;
+  uint32_T absDenominator;
+  boolean_T quotientNeedsNegation;
+  uint32_T tempAbsQuotient;
+  if (numerator >= 0) {
+    absNumerator = (uint32_T)numerator;
+  } else {
+    absNumerator = (uint32_T)-numerator;
+  }
+
+  if (denominator >= 0) {
+    absDenominator = (uint32_T)denominator;
+  } else {
+    absDenominator = (uint32_T)-denominator;
+  }
+
+  quotientNeedsNegation = ((numerator < 0) != (denominator < 0));
+  tempAbsQuotient = absNumerator / absDenominator;
+  if (quotientNeedsNegation) {
+    absNumerator %= absDenominator;
+    if (absNumerator > 0U) {
+      tempAbsQuotient++;
+    }
+  }
+
+  if (quotientNeedsNegation) {
+    quotient = -(int32_T)tempAbsQuotient;
+  } else {
+    quotient = (int32_T)tempAbsQuotient;
+  }
+
+  return quotient;
+}
+
 static const mxArray *message(const emlrtStack *sp, const mxArray *b,
   emlrtMCInfo *location)
 {
@@ -754,7 +817,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 {
   int32_T i0;
   real_T ndbl;
-  real_T batEngIdxBeg;
+  real_T batEngInxBeg;
   real_T batStaLimMax;
   real_T absa;
   int32_T iy;
@@ -804,6 +867,14 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   emxArray_int32_T *b_iindx;
   real_T b_timInx;
   real_T vehVelVec[2];
+  int32_T ix;
+  boolean_T b_ix;
+  int32_T c_ix;
+  boolean_T exitg5;
+  boolean_T b_nm1d2;
+  boolean_T d_ix;
+  boolean_T exitg4;
+  boolean_T c_nm1d2;
   real_T b_engStaMin;
   int32_T engStaAct;
   real_T b_engStaAct;
@@ -816,7 +887,6 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   int32_T engStaPreIdx_size_idx_1;
   real_T engStaPreIdx_data[2];
   real_T dv0[2];
-  int32_T geaStaPreMin;
   const mxArray *c_y;
   static const int32_T iv1[2] = { 1, 21 };
 
@@ -828,7 +898,6 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   int32_T i8;
   int32_T ixstop;
   int32_T cindx;
-  int32_T ix;
   const mxArray *e_y;
   static const int32_T iv3[2] = { 1, 36 };
 
@@ -849,9 +918,9 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   uint32_T b_outsz;
   uint32_T c_outsz;
   boolean_T b0;
-  boolean_T b_geaStaPreMin;
+  boolean_T e_ix;
   boolean_T exitg3;
-  boolean_T b_nm1d2;
+  boolean_T d_nm1d2;
   const mxArray *g_y;
   static const int32_T iv5[2] = { 1, 36 };
 
@@ -859,9 +928,9 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   static const int32_T iv6[2] = { 1, 39 };
 
   boolean_T b1;
-  boolean_T c_geaStaPreMin;
+  boolean_T f_ix;
   boolean_T exitg2;
-  boolean_T c_nm1d2;
+  boolean_T e_nm1d2;
   const mxArray *i_y;
   static const int32_T iv7[2] = { 1, 36 };
 
@@ -1084,11 +1153,11 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   emxEnsureCapacity(sp, (emxArray__common *)optPreInxTn4, i0, (int32_T)sizeof
                     (real_T), &emlrtRTEI);
   ndbl = emlrtNonNegativeCheckFastR2012b(engNum, &q_emlrtDCI, sp);
-  batEngIdxBeg = emlrtNonNegativeCheckFastR2012b(geaNum, &s_emlrtDCI, sp);
+  batEngInxBeg = emlrtNonNegativeCheckFastR2012b(geaNum, &s_emlrtDCI, sp);
   batStaLimMax = emlrtNonNegativeCheckFastR2012b(batNum, &u_emlrtDCI, sp);
   absa = emlrtNonNegativeCheckFastR2012b(timNum, &w_emlrtDCI, sp);
   iy = (int32_T)emlrtIntegerCheckFastR2012b(ndbl, &p_emlrtDCI, sp) * (int32_T)
-    emlrtIntegerCheckFastR2012b(batEngIdxBeg, &r_emlrtDCI, sp) * (int32_T)
+    emlrtIntegerCheckFastR2012b(batEngInxBeg, &r_emlrtDCI, sp) * (int32_T)
     emlrtIntegerCheckFastR2012b(batStaLimMax, &t_emlrtDCI, sp) * (int32_T)
     emlrtIntegerCheckFastR2012b(absa, &v_emlrtDCI, sp);
   for (i0 = 0; i0 < iy; i0++) {
@@ -1113,11 +1182,11 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   /*    set initial fuel energy level to 0 */
   /*    Note: batEngIdxBeg is a scaled down energy value index, NOT a vector */
   /*    index. Keep this in mind later when manipulating batEng index bounds. */
-  batEngIdxBeg = batEngBeg / batStaStp;
+  batEngInxBeg = batEngBeg / batStaStp;
   i0 = (int32_T)timNum;
   i1 = (int32_T)emlrtIntegerCheckFastR2012b(timInxBeg, &emlrtDCI, sp);
   i2 = (int32_T)batNum;
-  i3 = (int32_T)emlrtIntegerCheckFastR2012b(batEngIdxBeg + 1.0, &b_emlrtDCI, sp);
+  i3 = (int32_T)emlrtIntegerCheckFastR2012b(batEngInxBeg + 1.0, &b_emlrtDCI, sp);
   npages = (int32_T)geaNum;
   n = (int32_T)emlrtIntegerCheckFastR2012b(staBeg, &c_emlrtDCI, sp);
   i4 = (int32_T)engNum;
@@ -1181,7 +1250,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   /*  Erste Initilisierung beim Startindex mit 0 für alle Zustände (concluded) */
   /*    first, initialize the startidx to 0 for all states */
   i0 = (int32_T)batNum;
-  i1 = (int32_T)emlrtIntegerCheckFastR2012b(batEngIdxBeg + 1.0, &i_emlrtDCI, sp);
+  i1 = (int32_T)emlrtIntegerCheckFastR2012b(batEngInxBeg + 1.0, &i_emlrtDCI, sp);
   i2 = (int32_T)geaNum;
   i3 = (int32_T)staBeg;
   npages = (int32_T)engNum;
@@ -1215,7 +1284,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   /*  Erste Initilisierung beim Startindex mit 0 fï¿½r den Startzustand */
   /*    first, intialize the start idx for the intitial states to 0 */
   i0 = (int32_T)batNum;
-  i1 = (int32_T)emlrtIntegerCheckFastR2012b(batEngIdxBeg + 1.0, &e_emlrtDCI, sp);
+  i1 = (int32_T)emlrtIntegerCheckFastR2012b(batEngInxBeg + 1.0, &e_emlrtDCI, sp);
   i2 = (int32_T)geaNum;
   i3 = (int32_T)staBeg;
   npages = (int32_T)engNum;
@@ -1230,40 +1299,40 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
   /*  define a vector for containing the values of engine control off-on */
   /*  engStaMat_geaNum_timInx = zeros(1, timInxEnd); */
   /*  define battery vector to be used for looping */
-  batEngIdxBeg = batStaMin / batStaStp;
+  batEngInxBeg = batStaMin / batStaStp;
   batStaLimMax = batStaMax / batStaStp;
   st.site = &emlrtRSI;
-  b_st.site = &l_emlrtRSI;
-  c_st.site = &m_emlrtRSI;
-  if (muDoubleScalarIsNaN(batEngIdxBeg) || muDoubleScalarIsNaN(batStaLimMax)) {
+  b_st.site = &n_emlrtRSI;
+  c_st.site = &o_emlrtRSI;
+  if (muDoubleScalarIsNaN(batEngInxBeg) || muDoubleScalarIsNaN(batStaLimMax)) {
     n = 0;
     geaStaChgPenCos = rtNaN;
     apnd = batStaLimMax;
     overflow = false;
-  } else if (batStaLimMax < batEngIdxBeg) {
+  } else if (batStaLimMax < batEngInxBeg) {
     n = -1;
-    geaStaChgPenCos = batEngIdxBeg;
+    geaStaChgPenCos = batEngInxBeg;
     apnd = batStaLimMax;
     overflow = false;
-  } else if (muDoubleScalarIsInf(batEngIdxBeg) || muDoubleScalarIsInf
+  } else if (muDoubleScalarIsInf(batEngInxBeg) || muDoubleScalarIsInf
              (batStaLimMax)) {
     n = 0;
     geaStaChgPenCos = rtNaN;
     apnd = batStaLimMax;
-    overflow = !(batEngIdxBeg == batStaLimMax);
+    overflow = !(batEngInxBeg == batStaLimMax);
   } else {
-    geaStaChgPenCos = batEngIdxBeg;
-    ndbl = muDoubleScalarFloor((batStaLimMax - batEngIdxBeg) + 0.5);
-    apnd = batEngIdxBeg + ndbl;
+    geaStaChgPenCos = batEngInxBeg;
+    ndbl = muDoubleScalarFloor((batStaLimMax - batEngInxBeg) + 0.5);
+    apnd = batEngInxBeg + ndbl;
     cdiff = apnd - batStaLimMax;
-    absa = muDoubleScalarAbs(batEngIdxBeg);
+    absa = muDoubleScalarAbs(batEngInxBeg);
     absb = muDoubleScalarAbs(batStaLimMax);
     if (muDoubleScalarAbs(cdiff) < 4.4408920985006262E-16 * muDoubleScalarMax
         (absa, absb)) {
       ndbl++;
       apnd = batStaLimMax;
     } else if (cdiff > 0.0) {
-      apnd = batEngIdxBeg + (ndbl - 1.0);
+      apnd = batEngInxBeg + (ndbl - 1.0);
     } else {
       ndbl++;
     }
@@ -1276,7 +1345,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
     }
   }
 
-  d_st.site = &n_emlrtRSI;
+  d_st.site = &p_emlrtRSI;
   if (!overflow) {
   } else {
     y = NULL;
@@ -1287,8 +1356,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
     emlrtInitCharArrayR2013a(&d_st, 21, m0, cv0);
     emlrtAssign(&y, m0);
-    e_st.site = &pb_emlrtRSI;
-    f_st.site = &tb_emlrtRSI;
+    e_st.site = &tb_emlrtRSI;
+    f_st.site = &yb_emlrtRSI;
     error(&e_st, message(&f_st, y, &emlrtMCI), &b_emlrtMCI);
   }
 
@@ -1309,7 +1378,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
         nm1d2 = (int32_T)~(~(uint32_T)i0 >> 1);
       }
 
-      d_st.site = &o_emlrtRSI;
+      d_st.site = &q_emlrtRSI;
       for (iy = 1; iy < nm1d2; iy++) {
         batStaActInxVec->data[iy] = geaStaChgPenCos + (real_T)iy;
         batStaActInxVec->data[n - iy] = apnd - (real_T)iy;
@@ -1355,7 +1424,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
   /*  end */
   /*  ------------------------------------------------------------------------- */
-  /*  for timInx = timInxBeg+1 : timStp : 60      % TIME IDX LOOP */
+  /*  assign the starting batEng for controlling future batEngActs */
+  /*  for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP */
   i0 = (int32_T)((timInxEnd + (timStp - (timInxBeg + 1.0))) / timStp);
   emlrtForLoopVectorCheckR2012b(timInxBeg + 1.0, timStp, timInxEnd,
     mxDOUBLE_CLASS, i0, &o_emlrtRTEI, sp);
@@ -1452,7 +1522,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
     /*  possible engine state changes for current and past path_idxs */
     ndbl = b_timInx - 1.0;
     i1 = (int32_T)emlrtIntegerCheckFastR2012b(ndbl, &o_emlrtDCI, sp);
-    emlrtDynamicBoundsCheckFastR2012b(i1, 1, 1181, &mb_emlrtBCI, sp);
+    emlrtDynamicBoundsCheckFastR2012b(i1, 1, 1181, &ob_emlrtBCI, sp);
 
     /*  and the previous idx KE */
     /*      engStaNumAct = engStaVec_timInx(timInx);   % look at this loop's KE */
@@ -1461,16 +1531,141 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
     ndbl = b_timInx - 1.0;
     i1 = (int32_T)emlrtIntegerCheckFastR2012b(ndbl, &x_emlrtDCI, sp);
     vehVelVec[0] = velVec[emlrtDynamicBoundsCheckFastR2012b(i1, 1, 1181,
-      &nb_emlrtBCI, sp) - 1];
+      &pb_emlrtBCI, sp) - 1];
     i1 = (int32_T)emlrtIntegerCheckFastR2012b(b_timInx, &y_emlrtDCI, sp);
     vehVelVec[1] = velVec[emlrtDynamicBoundsCheckFastR2012b(i1, 1, 1181,
-      &ob_emlrtBCI, sp) - 1];
+      &qb_emlrtBCI, sp) - 1];
 
     /*  save current and previous crankshaft speed vectors for boundary */
     /*  checks when looping through gear states */
     i1 = (int32_T)(b_timInx - 1.0);
-    emlrtDynamicBoundsCheckFastR2012b(i1, 1, 1181, &lb_emlrtBCI, sp);
+    emlrtDynamicBoundsCheckFastR2012b(i1, 1, 1181, &nb_emlrtBCI, sp);
 
+    /*     %% PRE->ACT engBAT CONTROL */
+    /*  INPUT BATTERY BOUNDARIES FROM PREPROCESSING HERE!! */
+    /*  battery power max/min boundaries wrt max/min emo power */
+    /*  boundaries as a function of crankshaft speed */
+    /*      batPwrMinIdx_crsSpd    = batStaActInx + batPwrMinIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp; */
+    /*      batPwrMaxIdx_crsSpd    = batStaActInx + batPwrMaxIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp; */
+    st.site = &b_emlrtRSI;
+    i1 = (int32_T)(b_timInx - 1.0);
+    emlrtDynamicBoundsCheckFastR2012b(i1, 1, 1181, &mb_emlrtBCI, &st);
+    b_st.site = &s_emlrtRSI;
+    c_st.site = &t_emlrtRSI;
+    ix = 693;
+    for (i = 0; i < 6; i++) {
+      d_st.site = &u_emlrtRSI;
+      nm1d2 = ix - 692;
+      if (muDoubleScalarIsNaN(batPwrMinIdxTn3[(((int32_T)b_timInx + 1181 * ((ix
+               - 693) % 693)) + 818433 * div_nzp_s32_floor(ix - 693, 693)) - 2]))
+      {
+        e_st.site = &w_emlrtRSI;
+        if (ix - 691 > ix) {
+          b_ix = false;
+        } else {
+          b_ix = (ix > 2147483646);
+        }
+
+        if (b_ix) {
+          h_st.site = &r_emlrtRSI;
+          check_forloop_overflow_error(&h_st);
+        }
+
+        c_ix = ix - 691;
+        exitg5 = false;
+        while ((!exitg5) && (c_ix <= ix)) {
+          nm1d2 = c_ix;
+          if (!muDoubleScalarIsNaN(batPwrMinIdxTn3[(((int32_T)b_timInx + 1181 *
+                 ((c_ix - 1) % 693)) + 818433 * div_nzp_s32_floor(c_ix - 1, 693))
+               - 2])) {
+            exitg5 = true;
+          } else {
+            c_ix++;
+          }
+        }
+      }
+
+      if (nm1d2 < ix) {
+        e_st.site = &v_emlrtRSI;
+        if (nm1d2 + 1 > ix) {
+          b_nm1d2 = false;
+        } else {
+          b_nm1d2 = (ix > 2147483646);
+        }
+
+        if (b_nm1d2) {
+          h_st.site = &r_emlrtRSI;
+          check_forloop_overflow_error(&h_st);
+        }
+      }
+
+      ix += 693;
+    }
+
+    st.site = &c_emlrtRSI;
+    i1 = (int32_T)(b_timInx - 1.0);
+    emlrtDynamicBoundsCheckFastR2012b(i1, 1, 1181, &lb_emlrtBCI, &st);
+    b_st.site = &x_emlrtRSI;
+    c_st.site = &t_emlrtRSI;
+    ix = 693;
+    for (i = 0; i < 6; i++) {
+      d_st.site = &u_emlrtRSI;
+      nm1d2 = ix - 692;
+      if (muDoubleScalarIsNaN(batPwrMaxIdxTn3[(((int32_T)b_timInx + 1181 * ((ix
+               - 693) % 693)) + 818433 * div_nzp_s32_floor(ix - 693, 693)) - 2]))
+      {
+        e_st.site = &w_emlrtRSI;
+        if (ix - 691 > ix) {
+          d_ix = false;
+        } else {
+          d_ix = (ix > 2147483646);
+        }
+
+        if (d_ix) {
+          h_st.site = &r_emlrtRSI;
+          check_forloop_overflow_error(&h_st);
+        }
+
+        c_ix = ix - 691;
+        exitg4 = false;
+        while ((!exitg4) && (c_ix <= ix)) {
+          nm1d2 = c_ix;
+          if (!muDoubleScalarIsNaN(batPwrMaxIdxTn3[(((int32_T)b_timInx + 1181 *
+                 ((c_ix - 1) % 693)) + 818433 * div_nzp_s32_floor(c_ix - 1, 693))
+               - 2])) {
+            exitg4 = true;
+          } else {
+            c_ix++;
+          }
+        }
+      }
+
+      if (nm1d2 < ix) {
+        e_st.site = &v_emlrtRSI;
+        if (nm1d2 + 1 > ix) {
+          c_nm1d2 = false;
+        } else {
+          c_nm1d2 = (ix > 2147483646);
+        }
+
+        if (c_nm1d2) {
+          h_st.site = &r_emlrtRSI;
+          check_forloop_overflow_error(&h_st);
+        }
+      }
+
+      ix += 693;
+    }
+
+    /*  battery power limits given by max/min battery power */
+    /*  discharge (a given model input value) */
+    /*      %   ie change in E cannot exceed bat power levels (P=E'/t') */
+    /*      % find the most constraining change in batEng based on */
+    /*      % previous limitations */
+    /*  MAKE IT SO THAT ZOU ARE WORKING FROM CURRENT BATTERY */
+    /*  STATE, NOT FROM SCRATCH!!! */
+    /*  make vector of these batEng state steps for a loop */
+    /*      batStaLimVec = batStaLimBot : batStaLimTop; */
     /* % ----- CURRENT STATE VARIBALE LOOP -------------------------------------- */
     /*   go through the possible engine state on-off possibilities */
     /*    checking if the engine can be off or on for this index */
@@ -1530,6 +1725,10 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
         if (guard1) {
           /*  ------------------------------------------------------------------------- */
           /*  loop over all possible current battery values */
+          /*  05.05.2016 - instead of brute forcing all the current battery */
+          /*  states, will try to limit boundaries based on possible */
+          /*  predecessor battery levels instead */
+          /*              for batStaActInx_counter = 1 : length(batStaLimVec) */
           batStaActInx = 0;
           while (batStaActInx <= batStaActInxVec->size[1] - 1) {
             /*                 %% Initialisieren */
@@ -1538,8 +1737,10 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
             i3 = batStaActInxVec->size[1];
             npages = 1 + batStaActInx;
             batStaAct = batStaActInxVec->data[emlrtDynamicBoundsCheckFastR2012b
-              (npages, 1, i3, &pb_emlrtBCI, sp) - 1] * batStaStp;
+              (npages, 1, i3, &rb_emlrtBCI, sp) - 1] * batStaStp;
 
+            /*                  batStaActInx = batStaLimVec(batStaActInx_counter); */
+            /*                  batStaAct   = batStaActInx * batStaStp; */
             /*  memoization variable for storing möglich fuel values */
             /*                  fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum); */
             i3 = fulActTn3->size[0] * fulActTn3->size[1] * fulActTn3->size[2];
@@ -1617,38 +1818,37 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
             /*    electric travel and the sails will be changed (???) */
             /*  Vorgï¿½ngerzustï¿½nde des Antriebsstrangs beschrÃ¤nken */
             /*    determine gear possibilities - ie u(g)  */
-            geaStaPreMin = (int32_T)muDoubleScalarMax(1.0, b_geaStaAct - 1.0);
-            batEngIdxBeg = muDoubleScalarMin(geaNum, b_geaStaAct + 1.0);
-            st.site = &b_emlrtRSI;
-            b_st.site = &l_emlrtRSI;
-            c_st.site = &m_emlrtRSI;
-            if (muDoubleScalarIsNaN(batEngIdxBeg)) {
+            ix = (int32_T)muDoubleScalarMax(1.0, b_geaStaAct - 1.0);
+            batEngInxBeg = muDoubleScalarMin(geaNum, b_geaStaAct + 1.0);
+            st.site = &d_emlrtRSI;
+            b_st.site = &n_emlrtRSI;
+            c_st.site = &o_emlrtRSI;
+            if (muDoubleScalarIsNaN(batEngInxBeg)) {
               n = 0;
               geaStaChgPenCos = rtNaN;
-              apnd = batEngIdxBeg;
+              apnd = batEngInxBeg;
               overflow = false;
-            } else if (batEngIdxBeg < geaStaPreMin) {
+            } else if (batEngInxBeg < ix) {
               n = -1;
-              geaStaChgPenCos = geaStaPreMin;
-              apnd = batEngIdxBeg;
+              geaStaChgPenCos = ix;
+              apnd = batEngInxBeg;
               overflow = false;
-            } else if (muDoubleScalarIsInf(batEngIdxBeg)) {
+            } else if (muDoubleScalarIsInf(batEngInxBeg)) {
               n = 0;
               geaStaChgPenCos = rtNaN;
-              apnd = batEngIdxBeg;
-              overflow = !(geaStaPreMin == batEngIdxBeg);
+              apnd = batEngInxBeg;
+              overflow = !(ix == batEngInxBeg);
             } else {
-              geaStaChgPenCos = geaStaPreMin;
-              ndbl = muDoubleScalarFloor((batEngIdxBeg - (real_T)geaStaPreMin) +
-                0.5);
-              apnd = (real_T)geaStaPreMin + ndbl;
-              cdiff = apnd - batEngIdxBeg;
+              geaStaChgPenCos = ix;
+              ndbl = muDoubleScalarFloor((batEngInxBeg - (real_T)ix) + 0.5);
+              apnd = (real_T)ix + ndbl;
+              cdiff = apnd - batEngInxBeg;
               if (muDoubleScalarAbs(cdiff) < 4.4408920985006262E-16 *
-                  muDoubleScalarMax(geaStaPreMin, batEngIdxBeg)) {
+                  muDoubleScalarMax(ix, batEngInxBeg)) {
                 ndbl++;
-                apnd = batEngIdxBeg;
+                apnd = batEngInxBeg;
               } else if (cdiff > 0.0) {
-                apnd = (real_T)geaStaPreMin + (ndbl - 1.0);
+                apnd = (real_T)ix + (ndbl - 1.0);
               } else {
                 ndbl++;
               }
@@ -1661,7 +1861,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               }
             }
 
-            d_st.site = &n_emlrtRSI;
+            d_st.site = &p_emlrtRSI;
             if (!overflow) {
             } else {
               c_y = NULL;
@@ -1672,8 +1872,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
               emlrtInitCharArrayR2013a(&d_st, 21, m0, cv0);
               emlrtAssign(&c_y, m0);
-              e_st.site = &pb_emlrtRSI;
-              f_st.site = &tb_emlrtRSI;
+              e_st.site = &tb_emlrtRSI;
+              f_st.site = &yb_emlrtRSI;
               error(&e_st, message(&f_st, c_y, &emlrtMCI), &b_emlrtMCI);
             }
 
@@ -1693,7 +1893,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                   nm1d2 = (int32_T)~(~(uint32_T)i3 >> 1);
                 }
 
-                d_st.site = &o_emlrtRSI;
+                d_st.site = &q_emlrtRSI;
                 for (iy = 1; iy < nm1d2; iy++) {
                   b_y->data[iy] = geaStaChgPenCos + (real_T)iy;
                   b_y->data[n - iy] = apnd - (real_T)iy;
@@ -1745,58 +1945,62 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
             /*  MAKE IT SO THAT ZOU ARE WORKING FROM CURRENT BATTERY */
             /*  STATE, NOT FROM SCRATCH!!! */
             /*  make vector of these batEng state steps for a loop */
-            batEngIdxBeg = muDoubleScalarMax(batStaMin / batStaStp + 1.0,
+            batEngInxBeg = muDoubleScalarMax(batStaMin / batStaStp + 1.0,
               muDoubleScalarMax((1.0 + (real_T)batStaActInx) +
                                 fzg_scalar_struct->batPwrMin * timStp /
                                 batStaStp, (1.0 + (real_T)batStaActInx) +
                                 batPwrMinIdxTn3[(((int32_T)b_timInx + 1181 *
-              batStaActInx) + 818433 * ((int32_T)b_geaStaAct - 1)) - 2]));
+              batStaActInx) + 818433 * ((int32_T)b_geaStaAct - 1)) - 2] * timStp));
             batStaLimMax = muDoubleScalarMin(batStaMax / batStaStp + 1.0,
               muDoubleScalarMin((1.0 + (real_T)batStaActInx) +
                                 fzg_scalar_struct->batPwrMax * timStp /
                                 batStaStp, (1.0 + (real_T)batStaActInx) +
                                 batPwrMaxIdxTn3[(((int32_T)b_timInx + 1181 *
-              batStaActInx) + 818433 * ((int32_T)b_geaStaAct - 1)) - 2]));
+              batStaActInx) + 818433 * ((int32_T)b_geaStaAct - 1)) - 2] * timStp));
 
             /*  if the min limit exceeds the max limit, then set them */
             /*  equal. */
-            if (batEngIdxBeg > batStaLimMax) {
-              batEngIdxBeg = batStaLimMax;
+            if (batEngInxBeg > batStaLimMax) {
+              batEngInxBeg = batStaLimMax;
             }
 
-            st.site = &c_emlrtRSI;
-            b_st.site = &l_emlrtRSI;
-            c_st.site = &m_emlrtRSI;
-            if (muDoubleScalarIsNaN(batEngIdxBeg) || muDoubleScalarIsNaN
+            /*  make alocal min and max for saving for a future total */
+            /*  min-max vector */
+            /*  Min-max - bounds for the current batEngPre */
+            /*  Bot-top - local bounds for current batEngAct */
+            st.site = &e_emlrtRSI;
+            b_st.site = &n_emlrtRSI;
+            c_st.site = &o_emlrtRSI;
+            if (muDoubleScalarIsNaN(batEngInxBeg) || muDoubleScalarIsNaN
                 (batStaLimMax)) {
               n = 0;
               geaStaChgPenCos = rtNaN;
               apnd = batStaLimMax;
               overflow = false;
-            } else if (batStaLimMax < batEngIdxBeg) {
+            } else if (batStaLimMax < batEngInxBeg) {
               n = -1;
-              geaStaChgPenCos = batEngIdxBeg;
+              geaStaChgPenCos = batEngInxBeg;
               apnd = batStaLimMax;
               overflow = false;
-            } else if (muDoubleScalarIsInf(batEngIdxBeg) || muDoubleScalarIsInf
+            } else if (muDoubleScalarIsInf(batEngInxBeg) || muDoubleScalarIsInf
                        (batStaLimMax)) {
               n = 0;
               geaStaChgPenCos = rtNaN;
               apnd = batStaLimMax;
-              overflow = !(batEngIdxBeg == batStaLimMax);
+              overflow = !(batEngInxBeg == batStaLimMax);
             } else {
-              geaStaChgPenCos = batEngIdxBeg;
-              ndbl = muDoubleScalarFloor((batStaLimMax - batEngIdxBeg) + 0.5);
-              apnd = batEngIdxBeg + ndbl;
+              geaStaChgPenCos = batEngInxBeg;
+              ndbl = muDoubleScalarFloor((batStaLimMax - batEngInxBeg) + 0.5);
+              apnd = batEngInxBeg + ndbl;
               cdiff = apnd - batStaLimMax;
-              absa = muDoubleScalarAbs(batEngIdxBeg);
+              absa = muDoubleScalarAbs(batEngInxBeg);
               absb = muDoubleScalarAbs(batStaLimMax);
               if (muDoubleScalarAbs(cdiff) < 4.4408920985006262E-16 *
                   muDoubleScalarMax(absa, absb)) {
                 ndbl++;
                 apnd = batStaLimMax;
               } else if (cdiff > 0.0) {
-                apnd = batEngIdxBeg + (ndbl - 1.0);
+                apnd = batEngInxBeg + (ndbl - 1.0);
               } else {
                 ndbl++;
               }
@@ -1809,7 +2013,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               }
             }
 
-            d_st.site = &n_emlrtRSI;
+            d_st.site = &p_emlrtRSI;
             if (!overflow) {
             } else {
               d_y = NULL;
@@ -1820,8 +2024,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
               emlrtInitCharArrayR2013a(&d_st, 21, m0, cv0);
               emlrtAssign(&d_y, m0);
-              e_st.site = &pb_emlrtRSI;
-              f_st.site = &tb_emlrtRSI;
+              e_st.site = &tb_emlrtRSI;
+              f_st.site = &yb_emlrtRSI;
               error(&e_st, message(&f_st, d_y, &emlrtMCI), &b_emlrtMCI);
             }
 
@@ -1841,7 +2045,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                   nm1d2 = (int32_T)~(~(uint32_T)i3 >> 1);
                 }
 
-                d_st.site = &o_emlrtRSI;
+                d_st.site = &q_emlrtRSI;
                 for (iy = 1; iy < nm1d2; iy++) {
                   batStaPreIdxVec->data[iy] = geaStaChgPenCos + (real_T)iy;
                   batStaPreIdxVec->data[n - iy] = apnd - (real_T)iy;
@@ -1859,14 +2063,14 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
             /*  ------------------------------------------------------------------------- */
             /* % ----- PREDECESSOR STATE VARIBALE LOOP ---------------------------------- */
             /*  PREVIOUS gear state loop */
-            geaStaPreMin = 0;
-            while (geaStaPreMin <= engStaPreIdx_size_idx_1 - 1) {
-              i3 = 1 + geaStaPreMin;
+            nm1d2 = 0;
+            while (nm1d2 <= engStaPreIdx_size_idx_1 - 1) {
+              i3 = 1 + nm1d2;
               batStaLimMax = engStaPreIdx_data[emlrtDynamicBoundsCheckFastR2012b
-                (i3, 1, engStaPreIdx_size_idx_1, &hc_emlrtBCI, sp) - 1];
+                (i3, 1, engStaPreIdx_size_idx_1, &jc_emlrtBCI, sp) - 1];
 
               /*  engine state penalty */
-              if (b_engStaAct == engStaPreIdx_data[geaStaPreMin]) {
+              if (b_engStaAct == engStaPreIdx_data[nm1d2]) {
                 absb = 0.0;
               } else {
                 absb = staChgPenCosVal;
@@ -1875,17 +2079,17 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               /*  penalty for changning battery level or no? */
               /*  Schleife über allen Zustände (relativer Index) */
               /*    Loop through all the gear states (relative index) */
-              nm1d2 = 0;
-              while (nm1d2 <= b_y->size[1] - 1) {
+              ix = 0;
+              while (ix <= b_y->size[1] - 1) {
                 /*  PREVIOUS GEAR CHANGE LOOP */
                 i3 = b_y->size[1];
-                npages = 1 + nm1d2;
+                npages = 1 + ix;
                 absa = b_y->data[emlrtDynamicBoundsCheckFastR2012b(npages, 1, i3,
-                  &ic_emlrtBCI, sp) - 1];
+                  &kc_emlrtBCI, sp) - 1];
 
                 /*  Kosten für Zustandswechsel setzen */
                 /*    set costs for gear state changes */
-                if (b_geaStaAct == b_y->data[nm1d2]) {
+                if (b_geaStaAct == b_y->data[ix]) {
                   /*  Entspricht der Vorgï¿½ngerzustand dem aktuellen  */
                   /*  Zustand werden keine Kosten gesetzt */
                   /*    staying in current state? set penalty cost to 0 */
@@ -1906,7 +2110,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                 /*  pull out appropriate crankshaft speed and torque */
                 i3 = (int32_T)(b_timInx - 1.0);
                 emlrtDynamicBoundsCheckFastR2012b(i3, 1, 1181, &fb_emlrtBCI, sp);
-                ndbl = b_y->data[nm1d2];
+                ndbl = b_y->data[ix];
                 i3 = (int32_T)emlrtIntegerCheckFastR2012b(ndbl, &l_emlrtDCI, sp);
                 emlrtDynamicBoundsCheckFastR2012b(i3, 1, 6, &eb_emlrtBCI, sp);
                 i3 = (int32_T)(b_timInx - 1.0);
@@ -1941,14 +2145,14 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                   /*  Modus */
                   /*    stop if the crankshaft rotational speed is  */
                   /*    too high in hybrid mode */
-                  i3 = (int32_T)b_y->data[nm1d2] - 1;
+                  i3 = (int32_T)b_y->data[ix] - 1;
                   if (crsSpdMat[((int32_T)b_timInx + 1181 * i3) - 2] >
                       b_crsSpdHybMax) {
                   } else {
                     /*  Falls die Drehzahl des Verbrennungsmotors niedriger als die */
                     /*  Leerlaufdrehzahl ist, */
                     /*    stop if crankhaft rotional speed is lower than the idling speed */
-                    i3 = (int32_T)b_y->data[nm1d2] - 1;
+                    i3 = (int32_T)b_y->data[ix] - 1;
                     if (crsSpdMat[((int32_T)b_timInx + 1181 * i3) - 2] <
                         b_crsSpdHybMin) {
                     } else {
@@ -1975,7 +2179,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                           &v_emlrtBCI, sp);
 
                         /*  calculate E' */
-                        batEngIdxBeg = batStaAct - (batStaPreIdxVec->data[iy] -
+                        batEngInxBeg = batStaAct - (batStaPreIdxVec->data[iy] -
                           1.0) * batStaStp;
 
                         /*  calculate battery resistance */
@@ -1997,11 +2201,11 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                         /*  do it tim interval at a tim? will remove vector */
                         /*  aspects */
                         /*                              [minFul, emoTrq, iceTrq, brkTrq] =... */
-                        st.site = &d_emlrtRSI;
-                        batEngIdxBeg = optTrqSplit_focus(&st, brkBool,
-                          batEngIdxBeg, batOcv[(int32_T)batStaPreIdxVec->data[iy]
-                          - 1], (real_T)(batEngIdxBeg < 0.0) *
-                          fzg_scalar_struct->batRstDch + (real_T)(batEngIdxBeg >=
+                        st.site = &f_emlrtRSI;
+                        batEngInxBeg = optTrqSplit_focus(&st, brkBool,
+                          batEngInxBeg, batOcv[(int32_T)batStaPreIdxVec->data[iy]
+                          - 1], (real_T)(batEngInxBeg < 0.0) *
+                          fzg_scalar_struct->batRstDch + (real_T)(batEngInxBeg >=
                           0.0) * fzg_scalar_struct->batRstChr, crsSpdMat
                           [((int32_T)b_timInx + 1181 * ((int32_T)absa - 1)) - 2],
                           crsTrqMat[((int32_T)b_timInx + 1181 * ((int32_T)absa -
@@ -2022,7 +2226,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                         npages = (int32_T)emlrtIntegerCheckFastR2012b
                           (batStaLimMax + 1.0, &hb_emlrtDCI, sp);
                         n = fulActTn3->size[1];
-                        i4 = 1 + nm1d2;
+                        i4 = (int32_T)absa;
                         i5 = fulActTn3->size[2];
                         i6 = (int32_T)batStaPreIdxVec->data[iy];
                         i7 = cos2goPreTn3->size[0];
@@ -2030,23 +2234,23 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                           1.0, &ib_emlrtDCI, sp);
                         ixstop = cos2goPreTn3->size[1];
                         cindx = (int32_T)absa;
-                        ix = cos2goPreTn3->size[2];
+                        c_ix = cos2goPreTn3->size[2];
                         i = (int32_T)batStaPreIdxVec->data[iy];
                         fulActTn3->data[((emlrtDynamicBoundsCheckFastR2012b
-                                          (npages, 1, i3, &oc_emlrtBCI, sp) +
+                                          (npages, 1, i3, &pc_emlrtBCI, sp) +
                                           fulActTn3->size[0] *
                                           (emlrtDynamicBoundsCheckFastR2012b(i4,
-                          1, n, &pc_emlrtBCI, sp) - 1)) + fulActTn3->size[0] *
+                          1, n, &qc_emlrtBCI, sp) - 1)) + fulActTn3->size[0] *
                                          fulActTn3->size[1] *
                                          (emlrtDynamicBoundsCheckFastR2012b(i6,
-                          1, i5, &qc_emlrtBCI, sp) - 1)) - 1] = ((batEngIdxBeg +
+                          1, i5, &rc_emlrtBCI, sp) - 1)) - 1] = ((batEngInxBeg +
                           cos2goPreTn3->data[((emlrtDynamicBoundsCheckFastR2012b
-                          (i8, 1, i7, &rc_emlrtBCI, sp) + cos2goPreTn3->size[0] *
+                          (i8, 1, i7, &sc_emlrtBCI, sp) + cos2goPreTn3->size[0] *
                           (emlrtDynamicBoundsCheckFastR2012b(cindx, 1, ixstop,
-                          &sc_emlrtBCI, sp) - 1)) + cos2goPreTn3->size[0] *
+                          &tc_emlrtBCI, sp) - 1)) + cos2goPreTn3->size[0] *
                                               cos2goPreTn3->size[1] *
                                               (emlrtDynamicBoundsCheckFastR2012b
-                          (i, 1, ix, &tc_emlrtBCI, sp) - 1)) - 1]) +
+                          (i, 1, c_ix, &uc_emlrtBCI, sp) - 1)) - 1]) +
                           geaStaChgPenCos / timStp) + absb / timStp;
                         iy++;
                         emlrtBreakCheckFastR2012b(emlrtBreakCheckR2012bFlagVar,
@@ -2059,43 +2263,10 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                   }
                 } else {
                   /*  ---- electric motor MUST satisfy crsTrq ----- */
-                  /*  need to convert batPwr to emoPwr to emoTrq */
-                  /*  also, need to make sure that resultant torque */
-                  /*  will lie within bounds - find bounds outside? */
-                  /*  eq: batPwr - batPwrLoss = emoPwr */
-                  /*  eq: emoPwr = crsSpd * emoTrq */
-                  /*  eq: emoTrq = crsTrq */
-                  /*  -- GIVEN : */
-                  /*  crsSpd,  */
-                  /*  crsTrq (therefore emoTrq->therefore emoPwr), */
-                  /*  -- NEEDED : */
-                  /*  batPwrLoss */
-                  /*  batPwr */
-                  /*  */
-                  /*  before calculating batPwr stuff, make sure */
-                  /*  that emoTrq remains within bounds when */
-                  /*  setting it equal to crsTrq */
-                  /*  */
-                  /*  also make sure that emoPwr also remains */
-                  /*  within bounds */
-                  /*  */
-                  /*  calculating batPwr stuff: */
-                  /*  batPwrLoss = ((V-sqrt(V^2 - 4*R*emoPwr))^2) / (4*R) */
-                  /*  batPwr = emoPwr + batPwrLoss */
-                  /*                              if (crsSpdPreVec(geaStaPreIdx) > crsSpdEmoMax); continue; */
-                  /*                              end */
-                  /*   */
-                  /*                              % --- crsTrq -> emoTrq BOUNDARY CHECK --------- */
-                  /*                              if emoTrqMinPos > crsTrqPre || emoTrqMaxPos < crsTrqPre */
-                  /*                                  continue; */
-                  /*                              else */
-                  /*                                  emoTrq = crsTrqPre; */
-                  /*                              end */
-                  /*                              % --------------------------------------------- */
                   /*  IF ENGINE IS OFF */
                   /*  Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird */
                   /*    check if electric motor speed limit is maintained */
-                  i3 = (int32_T)b_y->data[nm1d2] - 1;
+                  i3 = (int32_T)b_y->data[ix] - 1;
                   if (crsSpdMat[((int32_T)b_timInx + 1181 * i3) - 2] >
                       crsSpdEmoMax) {
                   } else {
@@ -2105,61 +2276,17 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                     /*  a crankshaft power demand for all state */
                     /*  permutations) */
                     /*  - 1 */
-                    i3 = (int32_T)b_timInx - 1;
-                    batEngIdxBeg = (1.0 + (real_T)batStaActInx) +
-                      batPwrDemIdxTn3[((emlrtDynamicBoundsCheckFastR2012b(i3, 1,
-                      1181, &jc_emlrtBCI, sp) + 1181 * batStaActInx) + 818433 *
-                                       ((int32_T)b_geaStaAct - 1)) - 1];
+                    batEngInxBeg = (1.0 + (real_T)batStaActInx) +
+                      batPwrDemIdxTn3[(((int32_T)b_timInx + 1181 * batStaActInx)
+                                       + 818433 * ((int32_T)b_geaStaAct - 1)) -
+                      1];
 
                     /*  check your bounds  */
-                    if ((batEngIdxBeg < batStaMin / batStaStp + 1.0) ||
-                        (batEngIdxBeg > batStaMax / batStaStp + 1.0)) {
+                    if ((batEngInxBeg < batStaMin / batStaStp + 1.0) ||
+                        (batEngInxBeg > batStaMax / batStaStp + 1.0)) {
                     } else {
-                      /*  --- emoPwr BOUNDARY CHECK ------------------- */
-                      /*                              emoPwr = crsSpdPre * emoTrq; */
-                      /*                              if (emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr); continue;  */
-                      /*                              end */
-                      /*                              % --------------------------------------------- */
-                      /*                      */
-                      /*                               */
-                      /*                              % --- CALCULATE batPwrLoss AND batPwr --------- */
-                      /*                              % bat voltage - from previous bat state - need */
-                      /*                              % to determine how to move up the amount that */
-                      /*                              % is being dropped (beforehand??) */
-                      /*                              batOcvPre = batOcv(batStaPreOptInx); */
-                      /*                               */
-                      /*                              % usually, resistance is based on batPwr. Since batPwr is unkown, will be */
-                      /*                              % using emoPwr as a benchmark instead */
-                      /*                              %   b/c batPwr-batPwrLoss=emoPwr, both batPwr and emoPwr will generally */
-                      /*                              %   have the same sign, unless batPwr<batPwrLoss (which seems unlikely?) */
-                      /*                              %       may need to check this assumption later */
-                      /*                              if emoPwr < 0 */
-                      /*                                  batRst = fzg_scalar_struct.batRstDch; */
-                      /*                              else */
-                      /*                                  batRst = fzg_scalar_struct.batRstChr; */
-                      /*                              end */
-                      /*   */
-                      /*                              % battery power losses */
-                      /*                              batPwrLoss = ((batOcvPre-sqrt(batOcvPre.^2 - ... */
-                      /*                                          4*batRst * emoPwr)).^2) / (4*batRst); */
-                      /*  resultant battery power for satisfying crsTrq */
-                      /*  negative because of batPwr sign assignment */
-                      /*  earlier, where  */
-                      /*    - : discharge */
-                      /*    + : charge */
-                      /*  because it is wrt to the current battery */
-                      /*  state */
-                      /*  WILL CHECK IF CORRECT LATER */
-                      /*  but need to make sure it is disrectized */
-                      /*                              batPwr = (ceil((emoPwr + batPwrLoss)/batStaStp))*batStaStp; */
-                      /*                              batStaPr = batStaPreOptInx - batPwr; */
-                      /*  ---------------------------------------------                          */
-                      /*                              % bc of indexing, send actual battery index to */
-                      /*                              % a local one for indexing out of fulActTn3 */
-                      /*                              [~, batStaPreInx_Inx] = ... */
-                      /*                                      find(batStaPreIdxVec == batStaPreOptInx); */
-                      /*  since engine is off, no fuel is consumed */
                       /*  penalty to get current cost */
+                      /*  minFul ... */
                       emlrtIntegerCheckFastR2012b(1.0, &g_emlrtDCI, sp);
                       i3 = fulActTn3->size[0];
                       emlrtDynamicBoundsCheckFastR2012b(1, 1, i3, &p_emlrtBCI,
@@ -2169,26 +2296,26 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                       emlrtDynamicBoundsCheckFastR2012b(1, 1, i3, &q_emlrtBCI,
                         sp);
                       i3 = fulActTn3->size[1];
-                      npages = 1 + nm1d2;
+                      npages = (int32_T)b_y->data[ix];
                       n = fulActTn3->size[2];
-                      i4 = (int32_T)emlrtIntegerCheckFastR2012b(batEngIdxBeg,
+                      i4 = (int32_T)emlrtIntegerCheckFastR2012b(batEngInxBeg,
                         &fb_emlrtDCI, sp);
                       i5 = cos2goPreTn3->size[1];
-                      i6 = (int32_T)b_y->data[nm1d2];
+                      i6 = (int32_T)b_y->data[ix];
                       i7 = cos2goPreTn3->size[2];
-                      i8 = (int32_T)emlrtIntegerCheckFastR2012b(batEngIdxBeg,
+                      i8 = (int32_T)emlrtIntegerCheckFastR2012b(batEngInxBeg,
                         &gb_emlrtDCI, sp);
                       fulActTn3->data[fulActTn3->size[0] *
                         (emlrtDynamicBoundsCheckFastR2012b(npages, 1, i3,
-                          &kc_emlrtBCI, sp) - 1) + fulActTn3->size[0] *
+                          &lc_emlrtBCI, sp) - 1) + fulActTn3->size[0] *
                         fulActTn3->size[1] * (emlrtDynamicBoundsCheckFastR2012b
-                        (i4, 1, n, &lc_emlrtBCI, sp) - 1)] = (cos2goPreTn3->
+                        (i4, 1, n, &mc_emlrtBCI, sp) - 1)] = (cos2goPreTn3->
                         data[cos2goPreTn3->size[0] *
                         (emlrtDynamicBoundsCheckFastR2012b(i6, 1, i5,
-                        &mc_emlrtBCI, sp) - 1) + cos2goPreTn3->size[0] *
+                        &nc_emlrtBCI, sp) - 1) + cos2goPreTn3->size[0] *
                         cos2goPreTn3->size[1] *
                         (emlrtDynamicBoundsCheckFastR2012b(i8, 1, i7,
-                        &nc_emlrtBCI, sp) - 1)] + geaStaChgPenCos / timStp) +
+                        &oc_emlrtBCI, sp) - 1)] + geaStaChgPenCos / timStp) +
                         absb / timStp;
 
                       /*  end of engStaPre condition check */
@@ -2196,20 +2323,20 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                   }
                 }
 
-                nm1d2++;
+                ix++;
                 emlrtBreakCheckFastR2012b(emlrtBreakCheckR2012bFlagVar, sp);
               }
 
               /*  end of gear changes loop */
-              geaStaPreMin++;
+              nm1d2++;
               emlrtBreakCheckFastR2012b(emlrtBreakCheckR2012bFlagVar, sp);
             }
 
             /*  end of running through previous engine state ctrl loop */
             /*  pull out the minimum value from fulActMat */
-            st.site = &e_emlrtRSI;
-            b_st.site = &x_emlrtRSI;
-            c_st.site = &y_emlrtRSI;
+            st.site = &g_emlrtRSI;
+            b_st.site = &gb_emlrtRSI;
+            c_st.site = &hb_emlrtRSI;
             if (((fulActTn3->size[0] == 1) && (fulActTn3->size[1] == 1) &&
                  (fulActTn3->size[2] == 1)) || (fulActTn3->size[0] != 1)) {
               overflow = true;
@@ -2227,8 +2354,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
               emlrtInitCharArrayR2013a(&c_st, 36, m0, cv2);
               emlrtAssign(&e_y, m0);
-              d_st.site = &ob_emlrtRSI;
-              g_st.site = &sb_emlrtRSI;
+              d_st.site = &sb_emlrtRSI;
+              g_st.site = &xb_emlrtRSI;
               error(&d_st, message(&g_st, e_y, &f_emlrtMCI), &g_emlrtMCI);
             }
 
@@ -2242,8 +2369,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
               emlrtInitCharArrayR2013a(&c_st, 39, m0, cv4);
               emlrtAssign(&f_y, m0);
-              d_st.site = &nb_emlrtRSI;
-              g_st.site = &rb_emlrtRSI;
+              d_st.site = &rb_emlrtRSI;
+              g_st.site = &wb_emlrtRSI;
               error(&d_st, message(&g_st, f_y, &h_emlrtMCI), &i_emlrtMCI);
             }
 
@@ -2283,13 +2410,13 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               iy = 2;
             }
 
-            for (geaStaPreMin = 2; geaStaPreMin <= iy; geaStaPreMin++) {
-              npages *= fulActTn3->size[geaStaPreMin - 1];
+            for (ix = 2; ix <= iy; ix++) {
+              npages *= fulActTn3->size[ix - 1];
             }
 
-            geaStaPreMin = 0;
+            ix = 0;
             iy = -1;
-            d_st.site = &ab_emlrtRSI;
+            d_st.site = &ib_emlrtRSI;
             if (1 > npages) {
               b0 = false;
             } else {
@@ -2297,64 +2424,64 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
             }
 
             if (b0) {
-              e_st.site = &p_emlrtRSI;
+              e_st.site = &r_emlrtRSI;
               check_forloop_overflow_error(&e_st);
             }
 
             for (i = 1; i <= npages; i++) {
-              d_st.site = &bb_emlrtRSI;
-              d_st.site = &cb_emlrtRSI;
-              nm1d2 = geaStaPreMin;
-              ixstop = geaStaPreMin + n;
-              batEngIdxBeg = fulActTn3->data[geaStaPreMin];
+              d_st.site = &jb_emlrtRSI;
+              d_st.site = &u_emlrtRSI;
+              nm1d2 = ix;
+              ixstop = ix + n;
+              batEngInxBeg = fulActTn3->data[ix];
               engStaPreIdx_size_idx_1 = 1;
               if (n > 1) {
                 cindx = 1;
-                if (muDoubleScalarIsNaN(fulActTn3->data[geaStaPreMin])) {
-                  e_st.site = &eb_emlrtRSI;
-                  if (geaStaPreMin + 2 > ixstop) {
-                    b_geaStaPreMin = false;
+                if (muDoubleScalarIsNaN(fulActTn3->data[ix])) {
+                  e_st.site = &w_emlrtRSI;
+                  if (ix + 2 > ixstop) {
+                    e_ix = false;
                   } else {
-                    b_geaStaPreMin = (ixstop > 2147483646);
+                    e_ix = (ixstop > 2147483646);
                   }
 
-                  if (b_geaStaPreMin) {
-                    h_st.site = &p_emlrtRSI;
+                  if (e_ix) {
+                    h_st.site = &r_emlrtRSI;
                     check_forloop_overflow_error(&h_st);
                   }
 
-                  ix = geaStaPreMin + 1;
+                  c_ix = ix + 1;
                   exitg3 = false;
-                  while ((!exitg3) && (ix + 1 <= ixstop)) {
+                  while ((!exitg3) && (c_ix + 1 <= ixstop)) {
                     cindx++;
-                    nm1d2 = ix;
-                    if (!muDoubleScalarIsNaN(fulActTn3->data[ix])) {
-                      batEngIdxBeg = fulActTn3->data[ix];
+                    nm1d2 = c_ix;
+                    if (!muDoubleScalarIsNaN(fulActTn3->data[c_ix])) {
+                      batEngInxBeg = fulActTn3->data[c_ix];
                       engStaPreIdx_size_idx_1 = cindx;
                       exitg3 = true;
                     } else {
-                      ix++;
+                      c_ix++;
                     }
                   }
                 }
 
                 if (nm1d2 + 1 < ixstop) {
-                  e_st.site = &db_emlrtRSI;
+                  e_st.site = &v_emlrtRSI;
                   if (nm1d2 + 2 > ixstop) {
-                    b_nm1d2 = false;
+                    d_nm1d2 = false;
                   } else {
-                    b_nm1d2 = (ixstop > 2147483646);
+                    d_nm1d2 = (ixstop > 2147483646);
                   }
 
-                  if (b_nm1d2) {
-                    h_st.site = &p_emlrtRSI;
+                  if (d_nm1d2) {
+                    h_st.site = &r_emlrtRSI;
                     check_forloop_overflow_error(&h_st);
                   }
 
-                  for (ix = nm1d2 + 1; ix + 1 <= ixstop; ix++) {
+                  for (c_ix = nm1d2 + 1; c_ix + 1 <= ixstop; c_ix++) {
                     cindx++;
-                    if (fulActTn3->data[ix] < batEngIdxBeg) {
-                      batEngIdxBeg = fulActTn3->data[ix];
+                    if (fulActTn3->data[c_ix] < batEngInxBeg) {
+                      batEngInxBeg = fulActTn3->data[c_ix];
                       engStaPreIdx_size_idx_1 = cindx;
                     }
                   }
@@ -2362,9 +2489,9 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               }
 
               iy++;
-              extremum->data[iy] = batEngIdxBeg;
+              extremum->data[iy] = batEngInxBeg;
               iindx->data[iy] = engStaPreIdx_size_idx_1;
-              geaStaPreMin += n;
+              ix += n;
             }
 
             i3 = indx->size[0] * indx->size[1] * indx->size[2];
@@ -2378,9 +2505,9 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               indx->data[i3] = iindx->data[i3];
             }
 
-            st.site = &f_emlrtRSI;
-            b_st.site = &x_emlrtRSI;
-            c_st.site = &y_emlrtRSI;
+            st.site = &h_emlrtRSI;
+            b_st.site = &gb_emlrtRSI;
+            c_st.site = &hb_emlrtRSI;
             if (((extremum->size[1] == 1) && (extremum->size[2] == 1)) ||
                 (extremum->size[1] != 1)) {
               overflow = true;
@@ -2398,8 +2525,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
               emlrtInitCharArrayR2013a(&c_st, 36, m0, cv2);
               emlrtAssign(&g_y, m0);
-              d_st.site = &ob_emlrtRSI;
-              g_st.site = &sb_emlrtRSI;
+              d_st.site = &sb_emlrtRSI;
+              g_st.site = &xb_emlrtRSI;
               error(&d_st, message(&g_st, g_y, &f_emlrtMCI), &g_emlrtMCI);
             }
 
@@ -2413,8 +2540,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
               emlrtInitCharArrayR2013a(&c_st, 39, m0, cv4);
               emlrtAssign(&h_y, m0);
-              d_st.site = &nb_emlrtRSI;
-              g_st.site = &rb_emlrtRSI;
+              d_st.site = &rb_emlrtRSI;
+              g_st.site = &wb_emlrtRSI;
               error(&d_st, message(&g_st, h_y, &h_emlrtMCI), &i_emlrtMCI);
             }
 
@@ -2449,15 +2576,15 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               iy = 2;
             }
 
-            geaStaPreMin = 3;
-            while (geaStaPreMin <= iy) {
+            ix = 3;
+            while (ix <= iy) {
               npages *= extremum->size[2];
-              geaStaPreMin = 4;
+              ix = 4;
             }
 
-            geaStaPreMin = 0;
+            ix = 0;
             iy = -1;
-            d_st.site = &ab_emlrtRSI;
+            d_st.site = &ib_emlrtRSI;
             if (1 > npages) {
               b1 = false;
             } else {
@@ -2465,64 +2592,64 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
             }
 
             if (b1) {
-              e_st.site = &p_emlrtRSI;
+              e_st.site = &r_emlrtRSI;
               check_forloop_overflow_error(&e_st);
             }
 
             for (i = 1; i <= npages; i++) {
-              d_st.site = &bb_emlrtRSI;
-              d_st.site = &cb_emlrtRSI;
-              nm1d2 = geaStaPreMin;
-              ixstop = geaStaPreMin + n;
-              batEngIdxBeg = extremum->data[geaStaPreMin];
+              d_st.site = &jb_emlrtRSI;
+              d_st.site = &u_emlrtRSI;
+              nm1d2 = ix;
+              ixstop = ix + n;
+              batEngInxBeg = extremum->data[ix];
               engStaPreIdx_size_idx_1 = 1;
               if (n > 1) {
                 cindx = 1;
-                if (muDoubleScalarIsNaN(extremum->data[geaStaPreMin])) {
-                  e_st.site = &eb_emlrtRSI;
-                  if (geaStaPreMin + 2 > ixstop) {
-                    c_geaStaPreMin = false;
+                if (muDoubleScalarIsNaN(extremum->data[ix])) {
+                  e_st.site = &w_emlrtRSI;
+                  if (ix + 2 > ixstop) {
+                    f_ix = false;
                   } else {
-                    c_geaStaPreMin = (ixstop > 2147483646);
+                    f_ix = (ixstop > 2147483646);
                   }
 
-                  if (c_geaStaPreMin) {
-                    h_st.site = &p_emlrtRSI;
+                  if (f_ix) {
+                    h_st.site = &r_emlrtRSI;
                     check_forloop_overflow_error(&h_st);
                   }
 
-                  ix = geaStaPreMin + 1;
+                  c_ix = ix + 1;
                   exitg2 = false;
-                  while ((!exitg2) && (ix + 1 <= ixstop)) {
+                  while ((!exitg2) && (c_ix + 1 <= ixstop)) {
                     cindx++;
-                    nm1d2 = ix;
-                    if (!muDoubleScalarIsNaN(extremum->data[ix])) {
-                      batEngIdxBeg = extremum->data[ix];
+                    nm1d2 = c_ix;
+                    if (!muDoubleScalarIsNaN(extremum->data[c_ix])) {
+                      batEngInxBeg = extremum->data[c_ix];
                       engStaPreIdx_size_idx_1 = cindx;
                       exitg2 = true;
                     } else {
-                      ix++;
+                      c_ix++;
                     }
                   }
                 }
 
                 if (nm1d2 + 1 < ixstop) {
-                  e_st.site = &db_emlrtRSI;
+                  e_st.site = &v_emlrtRSI;
                   if (nm1d2 + 2 > ixstop) {
-                    c_nm1d2 = false;
+                    e_nm1d2 = false;
                   } else {
-                    c_nm1d2 = (ixstop > 2147483646);
+                    e_nm1d2 = (ixstop > 2147483646);
                   }
 
-                  if (c_nm1d2) {
-                    h_st.site = &p_emlrtRSI;
+                  if (e_nm1d2) {
+                    h_st.site = &r_emlrtRSI;
                     check_forloop_overflow_error(&h_st);
                   }
 
-                  for (ix = nm1d2 + 1; ix + 1 <= ixstop; ix++) {
+                  for (c_ix = nm1d2 + 1; c_ix + 1 <= ixstop; c_ix++) {
                     cindx++;
-                    if (extremum->data[ix] < batEngIdxBeg) {
-                      batEngIdxBeg = extremum->data[ix];
+                    if (extremum->data[c_ix] < batEngInxBeg) {
+                      batEngInxBeg = extremum->data[c_ix];
                       engStaPreIdx_size_idx_1 = cindx;
                     }
                   }
@@ -2530,9 +2657,9 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               }
 
               iy++;
-              b_extremum->data[iy] = batEngIdxBeg;
+              b_extremum->data[iy] = batEngInxBeg;
               b_iindx->data[iy] = engStaPreIdx_size_idx_1;
-              geaStaPreMin += n;
+              ix += n;
             }
 
             i3 = b_indx->size[0] * b_indx->size[1] * b_indx->size[2];
@@ -2550,9 +2677,9 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
             /*                  geaStaPreOptInx = matminidx(engStaPreOptInx); */
             /*                  batStaPreInx    = colminidx(:,geaStaPreOptInx,engStaPreOptInx); */
             /*                  batStaPreOptInx = batStaPreIdxVec(batStaPreInx); */
-            st.site = &g_emlrtRSI;
-            b_st.site = &x_emlrtRSI;
-            c_st.site = &y_emlrtRSI;
+            st.site = &i_emlrtRSI;
+            b_st.site = &gb_emlrtRSI;
+            c_st.site = &hb_emlrtRSI;
             if ((b_extremum->size[2] == 1) || (b_extremum->size[2] != 1)) {
               overflow = true;
             } else {
@@ -2569,8 +2696,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
               emlrtInitCharArrayR2013a(&c_st, 36, m0, cv2);
               emlrtAssign(&i_y, m0);
-              d_st.site = &ob_emlrtRSI;
-              g_st.site = &sb_emlrtRSI;
+              d_st.site = &sb_emlrtRSI;
+              g_st.site = &xb_emlrtRSI;
               error(&d_st, message(&g_st, i_y, &f_emlrtMCI), &g_emlrtMCI);
             }
 
@@ -2584,41 +2711,41 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
               emlrtInitCharArrayR2013a(&c_st, 39, m0, cv4);
               emlrtAssign(&j_y, m0);
-              d_st.site = &nb_emlrtRSI;
-              g_st.site = &rb_emlrtRSI;
+              d_st.site = &rb_emlrtRSI;
+              g_st.site = &wb_emlrtRSI;
               error(&d_st, message(&g_st, j_y, &h_emlrtMCI), &i_emlrtMCI);
             }
 
-            d_st.site = &fb_emlrtRSI;
+            d_st.site = &kb_emlrtRSI;
             nm1d2 = 1;
             n = b_extremum->size[2];
-            batEngIdxBeg = b_extremum->data[0];
+            batEngInxBeg = b_extremum->data[0];
             engStaPreIdx_size_idx_1 = 0;
             if (b_extremum->size[2] > 1) {
               if (muDoubleScalarIsNaN(b_extremum->data[0])) {
-                e_st.site = &eb_emlrtRSI;
+                e_st.site = &w_emlrtRSI;
                 overflow = (b_extremum->size[2] > 2147483646);
                 if (overflow) {
-                  h_st.site = &p_emlrtRSI;
+                  h_st.site = &r_emlrtRSI;
                   check_forloop_overflow_error(&h_st);
                 }
 
-                geaStaPreMin = 1;
+                ix = 1;
                 exitg1 = false;
-                while ((!exitg1) && (geaStaPreMin + 1 <= n)) {
-                  nm1d2 = geaStaPreMin + 1;
-                  if (!muDoubleScalarIsNaN(b_extremum->data[geaStaPreMin])) {
-                    batEngIdxBeg = b_extremum->data[geaStaPreMin];
-                    engStaPreIdx_size_idx_1 = geaStaPreMin;
+                while ((!exitg1) && (ix + 1 <= n)) {
+                  nm1d2 = ix + 1;
+                  if (!muDoubleScalarIsNaN(b_extremum->data[ix])) {
+                    batEngInxBeg = b_extremum->data[ix];
+                    engStaPreIdx_size_idx_1 = ix;
                     exitg1 = true;
                   } else {
-                    geaStaPreMin++;
+                    ix++;
                   }
                 }
               }
 
               if (nm1d2 < b_extremum->size[2]) {
-                e_st.site = &db_emlrtRSI;
+                e_st.site = &v_emlrtRSI;
                 if (nm1d2 + 1 > b_extremum->size[2]) {
                   overflow = false;
                 } else {
@@ -2626,13 +2753,13 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                 }
 
                 if (overflow) {
-                  h_st.site = &p_emlrtRSI;
+                  h_st.site = &r_emlrtRSI;
                   check_forloop_overflow_error(&h_st);
                 }
 
                 while (nm1d2 + 1 <= n) {
-                  if (b_extremum->data[nm1d2] < batEngIdxBeg) {
-                    batEngIdxBeg = b_extremum->data[nm1d2];
+                  if (b_extremum->data[nm1d2] < batEngInxBeg) {
+                    batEngInxBeg = b_extremum->data[nm1d2];
                     engStaPreIdx_size_idx_1 = nm1d2;
                   }
 
@@ -2652,7 +2779,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
             emlrtDynamicBoundsCheckFastR2012b(npages, 1, i3, &m_emlrtBCI, sp);
 
             /*                  engStaPreOptInx = batStaPreIdxVec(engStaPreInx); */
-            if (!muDoubleScalarIsInf(batEngIdxBeg)) {
+            if (!muDoubleScalarIsInf(batEngInxBeg)) {
               /*  new opt. battery energy = (batt. force * */
               /*    tim diff) + previous battery energy valu */
               /*    - NOTE: batFrc*timStp calc is the same as the */
@@ -2685,12 +2812,12 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               i5 = cos2goActTn3->size[2];
               i6 = 1 + batStaActInx;
               cos2goActTn3->data[((emlrtDynamicBoundsCheckFastR2012b(npages, 1,
-                i3, &qb_emlrtBCI, sp) + cos2goActTn3->size[0] *
+                i3, &sb_emlrtBCI, sp) + cos2goActTn3->size[0] *
                                    (emlrtDynamicBoundsCheckFastR2012b(i4, 1, n,
-                &rb_emlrtBCI, sp) - 1)) + cos2goActTn3->size[0] *
+                &tb_emlrtBCI, sp) - 1)) + cos2goActTn3->size[0] *
                                   cos2goActTn3->size[1] *
                                   (emlrtDynamicBoundsCheckFastR2012b(i6, 1, i5,
-                &sb_emlrtBCI, sp) - 1)) - 1] = batEngIdxBeg;
+                &ub_emlrtBCI, sp) - 1)) - 1] = batEngInxBeg;
 
               /*  optimale Batterieenergie zum aktuellen Punkt speichern */
               /*    save optimal battery energy for current point */
@@ -2702,12 +2829,12 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               i5 = batEngActTn3->size[2];
               i6 = 1 + batStaActInx;
               batEngActTn3->data[((emlrtDynamicBoundsCheckFastR2012b(npages, 1,
-                i3, &tb_emlrtBCI, sp) + batEngActTn3->size[0] *
+                i3, &vb_emlrtBCI, sp) + batEngActTn3->size[0] *
                                    (emlrtDynamicBoundsCheckFastR2012b(i4, 1, n,
-                &ub_emlrtBCI, sp) - 1)) + batEngActTn3->size[0] *
+                &wb_emlrtBCI, sp) - 1)) + batEngActTn3->size[0] *
                                   batEngActTn3->size[1] *
                                   (emlrtDynamicBoundsCheckFastR2012b(i6, 1, i5,
-                &vb_emlrtBCI, sp) - 1)) - 1] = ((real_T)(engStaPreIdx_size_idx_1
+                &xb_emlrtBCI, sp) - 1)) - 1] = ((real_T)(engStaPreIdx_size_idx_1
                 + 1) - 1.0) * batStaStp;
 
               /*  optimale Krafstoffenergie zum aktuellen Punkt speichern */
@@ -2720,12 +2847,12 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               i5 = fulEngActTn3->size[2];
               i6 = 1 + batStaActInx;
               fulEngActTn3->data[((emlrtDynamicBoundsCheckFastR2012b(npages, 1,
-                i3, &wb_emlrtBCI, sp) + fulEngActTn3->size[0] *
+                i3, &yb_emlrtBCI, sp) + fulEngActTn3->size[0] *
                                    (emlrtDynamicBoundsCheckFastR2012b(i4, 1, n,
-                &xb_emlrtBCI, sp) - 1)) + fulEngActTn3->size[0] *
+                &ac_emlrtBCI, sp) - 1)) + fulEngActTn3->size[0] *
                                   fulEngActTn3->size[1] *
                                   (emlrtDynamicBoundsCheckFastR2012b(i6, 1, i5,
-                &yb_emlrtBCI, sp) - 1)) - 1] = batEngIdxBeg + fulEngPreTn3->
+                &bc_emlrtBCI, sp) - 1)) - 1] = batEngInxBeg + fulEngPreTn3->
                 data[(((int32_T)indx->data[indx->size[0] * ((int32_T)
                         b_indx->data[engStaPreIdx_size_idx_1] - 1) + indx->size
                        [0] * indx->size[1] * engStaPreIdx_size_idx_1] +
@@ -2746,19 +2873,19 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               i5 = batPwrOptTn3->size[2];
               i6 = 1 + batStaActInx;
               batPwrOptTn3->data[((emlrtDynamicBoundsCheckFastR2012b(npages, 1,
-                i3, &ac_emlrtBCI, sp) + batPwrOptTn3->size[0] *
+                i3, &cc_emlrtBCI, sp) + batPwrOptTn3->size[0] *
                                    (emlrtDynamicBoundsCheckFastR2012b(i4, 1, n,
-                &bc_emlrtBCI, sp) - 1)) + batPwrOptTn3->size[0] *
+                &dc_emlrtBCI, sp) - 1)) + batPwrOptTn3->size[0] *
                                   batPwrOptTn3->size[1] *
                                   (emlrtDynamicBoundsCheckFastR2012b(i6, 1, i5,
-                &cc_emlrtBCI, sp) - 1)) - 1] = (1.0 + (real_T)batStaActInx) -
+                &ec_emlrtBCI, sp) - 1)) - 1] = (1.0 + (real_T)batStaActInx) -
                 (real_T)(engStaPreIdx_size_idx_1 + 1);
 
               /*  optimalen Vorgï¿½nger codieren ï¿½ber Funktion sub2ind */
               /*  und speichern im Tensor */
               /*    opt. predecessor idx encoding w/ sub2ind, store in Tn3 */
-              st.site = &h_emlrtRSI;
-              b_st.site = &gb_emlrtRSI;
+              st.site = &j_emlrtRSI;
+              b_st.site = &lb_emlrtRSI;
               if ((indx->data[indx->size[0] * ((int32_T)b_indx->
                     data[engStaPreIdx_size_idx_1] - 1) + indx->size[0] *
                    indx->size[1] * engStaPreIdx_size_idx_1] >= 1.0) && ((int32_T)
@@ -2770,7 +2897,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                 overflow = false;
               }
 
-              c_st.site = &hb_emlrtRSI;
+              c_st.site = &mb_emlrtRSI;
               if (!overflow) {
                 b_overflow = false;
               } else {
@@ -2787,7 +2914,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
                 emlrtInitCharArrayR2013a(&c_st, 30, m0, cv6);
                 emlrtAssign(&k_y, m0);
-                d_st.site = &mb_emlrtRSI;
+                d_st.site = &qb_emlrtRSI;
                 error(&d_st, message(&d_st, k_y, &j_emlrtMCI), &j_emlrtMCI);
               }
 
@@ -2798,7 +2925,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                 overflow = false;
               }
 
-              c_st.site = &hb_emlrtRSI;
+              c_st.site = &mb_emlrtRSI;
               if (!overflow) {
                 c_overflow = false;
               } else {
@@ -2815,12 +2942,12 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
                 emlrtInitCharArrayR2013a(&c_st, 30, m0, cv6);
                 emlrtAssign(&l_y, m0);
-                d_st.site = &mb_emlrtRSI;
+                d_st.site = &qb_emlrtRSI;
                 error(&d_st, message(&d_st, l_y, &j_emlrtMCI), &j_emlrtMCI);
               }
 
-              c_st.site = &ib_emlrtRSI;
-              d_st.site = &jb_emlrtRSI;
+              c_st.site = &nb_emlrtRSI;
+              d_st.site = &ob_emlrtRSI;
               if ((engStaPreIdx_size_idx_1 + 1 >= 1) && ((int32_T)batNum >=
                    engStaPreIdx_size_idx_1 + 1)) {
                 overflow = true;
@@ -2828,7 +2955,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
                 overflow = false;
               }
 
-              c_st.site = &hb_emlrtRSI;
+              c_st.site = &mb_emlrtRSI;
               if (!overflow) {
                 d_overflow = false;
               } else {
@@ -2845,7 +2972,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
 
                 emlrtInitCharArrayR2013a(&c_st, 30, m0, cv6);
                 emlrtAssign(&m_y, m0);
-                d_st.site = &mb_emlrtRSI;
+                d_st.site = &qb_emlrtRSI;
                 error(&d_st, message(&d_st, m_y, &j_emlrtMCI), &j_emlrtMCI);
               }
 
@@ -2859,15 +2986,15 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
               i7 = optPreInxTn4->size[3];
               i8 = (int32_T)b_timInx;
               optPreInxTn4->data[(((emlrtDynamicBoundsCheckFastR2012b(npages, 1,
-                i3, &dc_emlrtBCI, sp) + optPreInxTn4->size[0] *
+                i3, &fc_emlrtBCI, sp) + optPreInxTn4->size[0] *
                                     (emlrtDynamicBoundsCheckFastR2012b(i4, 1, n,
-                &ec_emlrtBCI, sp) - 1)) + optPreInxTn4->size[0] *
+                &gc_emlrtBCI, sp) - 1)) + optPreInxTn4->size[0] *
                                    optPreInxTn4->size[1] *
                                    (emlrtDynamicBoundsCheckFastR2012b(i6, 1, i5,
-                &fc_emlrtBCI, sp) - 1)) + optPreInxTn4->size[0] *
+                &hc_emlrtBCI, sp) - 1)) + optPreInxTn4->size[0] *
                                   optPreInxTn4->size[1] * optPreInxTn4->size[2] *
                                   (emlrtDynamicBoundsCheckFastR2012b(i8, 1, i7,
-                &gc_emlrtBCI, sp) - 1)) - 1] = ((int32_T)indx->data[indx->size[0]
+                &ic_emlrtBCI, sp) - 1)) - 1] = ((int32_T)indx->data[indx->size[0]
                 * ((int32_T)b_indx->data[engStaPreIdx_size_idx_1] - 1) +
                 indx->size[0] * indx->size[1] * engStaPreIdx_size_idx_1] +
                 (int32_T)engNum * ((int32_T)b_indx->data[engStaPreIdx_size_idx_1]
@@ -2881,7 +3008,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
           }
 
           /* end of looping through all battery states */
-          st.site = &i_emlrtRSI;
+          st.site = &k_emlrtRSI;
           h_fprintf(&st);
         }
 
@@ -2895,10 +3022,21 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
     }
 
     /*  end of looping through all the current engine control states */
-    st.site = &j_emlrtRSI;
+    st.site = &l_emlrtRSI;
     j_fprintf(&st);
 
+    /*  define new batengPreInxVec for next time's batEngAct preliminary */
+    /*  approximation */
+    /*      batEngPreInxVec = batStaLimBot : batStaLimTop; */
     /*      fprintf('##################################\n\n'); */
+    /*      % find bounds for approximating next time index's batEng bounds */
+    /*      batStaIdxBounds = find(~isinf(min(min(cos2goActTn3)))); */
+    /*      if length(batStaIdxBounds) < 1 */
+    /*         fprintf('WARNING: batSTaIdxBounds gone at time %i\n', timInx);  */
+    /*      end */
+    /*      batStaLimBot = min(batStaIdxBounds); */
+    /*      batStaLimTop = max(batStaIdxBounds); */
+    /*                   */
     /*  Speichern der Kosten fï¿½r den nï¿½chsten Schleifendurchlauf */
     /*    save cost as previous path_idx value for the next loop */
     i1 = cos2goPreTn3->size[0] * cos2goPreTn3->size[1] * cos2goPreTn3->size[2];
@@ -2967,8 +3105,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
       3, &emlrtECI, sp);
     iy = fulEngActTn3->size[2];
     for (i1 = 0; i1 < iy; i1++) {
-      geaStaPreMin = fulEngActTn3->size[1];
-      for (i2 = 0; i2 < geaStaPreMin; i2++) {
+      ix = fulEngActTn3->size[1];
+      for (i2 = 0; i2 < ix; i2++) {
         nm1d2 = fulEngActTn3->size[0];
         for (i3 = 0; i3 < nm1d2; i3++) {
           fulEngOptTn4->data[((r0->data[i3] + fulEngOptTn4->size[0] * r1->
@@ -3023,8 +3161,8 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
       3, &b_emlrtECI, sp);
     iy = batPwrOptTn3->size[2];
     for (i1 = 0; i1 < iy; i1++) {
-      geaStaPreMin = batPwrOptTn3->size[1];
-      for (i2 = 0; i2 < geaStaPreMin; i2++) {
+      ix = batPwrOptTn3->size[1];
+      for (i2 = 0; i2 < ix; i2++) {
         nm1d2 = batPwrOptTn3->size[0];
         for (i3 = 0; i3 < nm1d2; i3++) {
           batPwrOptTn4->data[((r0->data[i3] + batPwrOptTn4->size[0] * r1->
@@ -3041,7 +3179,7 @@ void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool, real_T
     /*  Ausgabe des aktuellen Schleifendurchlaufs */
     /*    output for current loop - print to terminal */
     if (disFlg != 0.0) {
-      st.site = &k_emlrtRSI;
+      st.site = &m_emlrtRSI;
       l_fprintf(&st, b_timInx - timInxBeg, (b_timInx - timInxBeg) / (timInxEnd -
                  timInxBeg) * 100.0);
     }

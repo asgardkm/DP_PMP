@@ -26,7 +26,7 @@ extern void crsSpdHybMin_not_empty_init(void);
 extern real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T
   batPwr, real_T batOcvPre, real_T batRst, real_T crsSpdPre, real_T crsTrqPre,
   real_T emoTrqMinPos, real_T emoTrqMaxPos, real_T emoPwrMinPos, real_T
-  emoPwrMaxPos, real_T iceTrqMaxPos, real_T iceTrqMinPos, real_T timeStp, const
+  emoPwrMaxPos, real_T iceTrqMaxPos, real_T iceTrqMinPos, real_T timStp, const
   real_T vehVelVec[2], real_T fzg_scalar_struct_vehVelThresh, const struct2_T
   *fzg_array_struct);
 

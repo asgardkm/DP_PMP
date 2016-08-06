@@ -164,8 +164,8 @@ fulEngOptTn4 = inf(engNum, geaNum, batNum, timNum);
 %   set initial fuel energy level to 0
 %   Note: batEngIdxBeg is a scaled down energy value index, NOT a vector
 %   index. Keep this in mind later when manipulating batEng index bounds.
-batEngIdxBeg = batEngBeg/batStaStp;
-fulEngOptTn4(engBeg+1, staBeg, batEngIdxBeg + 1, timInxBeg) = 0; 
+batEngInxBeg = batEngBeg/batStaStp;
+fulEngOptTn4(engBeg+1, staBeg, batEngInxBeg + 1, timInxBeg) = 0; 
 
 % Tensor 3. Stufe fï¿½r die Batterienergie
 %   tensor3 for battery energy - now Tn4
@@ -184,7 +184,7 @@ cos2goActTn3 = inf(engNum, geaNum, batNum);
 
 % Erste Initilisierung beim Startindex mit 0 für alle Zustände (concluded)
 %   first, initialize the startidx to 0 for all states
-cos2goPreTn3(engBeg+1, staBeg, batEngIdxBeg + 1) = 0;
+cos2goPreTn3(engBeg+1, staBeg, batEngInxBeg + 1) = 0;
 
 % Initialisierung der Matrix der Batterieenergien
 %   initialize the battery energy matrix
@@ -199,7 +199,7 @@ cos2goPreTn3(engBeg+1, staBeg, batEngIdxBeg + 1) = 0;
 fulEngPreTn3 = inf(engNum, geaNum, batNum);
 % Erste Initilisierung beim Startindex mit 0 fï¿½r den Startzustand
 %   first, intialize the start idx for the intitial states to 0
-fulEngPreTn3(engBeg+1, staBeg, batEngIdxBeg + 1) = 0;
+fulEngPreTn3(engBeg+1, staBeg, batEngInxBeg + 1) = 0;
 
 % define a vector for containing the values of engine control off-on
 % engStaMat_geaNum_timInx = zeros(1, timInxEnd);
@@ -240,9 +240,11 @@ crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
     
 % end
 % -------------------------------------------------------------------------
-
-for timInx = timInxBeg+1 : timStp : 15      % TIME IDX LOOP
-% for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
+% assign the starting batEng for controlling future batEngActs
+batStaLimBot = batEngInxBeg + 1;
+batStaLimTop = batStaLimBot;
+% for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
+for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
 %     
 % for timInx = timInxBeg+1 : timStp : 5
 % for timInx = timInxBeg+1 : timStp : 1159
@@ -293,6 +295,33 @@ for timInx = timInxBeg+1 : timStp : 15      % TIME IDX LOOP
     crsSpdActVec = crsSpdMat(timInx, :);
     crsSpdPreVec = crsSpdMat(timInx-1, :);
 
+    %% PRE->ACT engBAT CONTROL
+    % INPUT BATTERY BOUNDARIES FROM PREPROCESSING HERE!!
+    % battery power max/min boundaries wrt max/min emo power
+    % boundaries as a function of crankshaft speed
+ 
+%     batPwrMinIdx_crsSpd    = batStaActInx + batPwrMinIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp;
+%     batPwrMaxIdx_crsSpd    = batStaActInx + batPwrMaxIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp;
+    batPwrTopIdx_crsSpdApprox    = batStaLimTop - min(min(batPwrMinIdxTn3(timInx-1, :, :)))*timStp;
+    batPwrBotIdx_crsSpdApprox    = batStaLimBot - max(max(batPwrMaxIdxTn3(timInx-1, :, :)))*timStp;
+    % battery power limits given by max/min battery power
+    % discharge (a given model input value)
+%     %   ie change in E cannot exceed bat power levels (P=E'/t')
+    batPwrTopIdx_batPwrApprox = batStaLimTop - fzg_scalar_struct.batPwrMin*timStp/batStaStp;
+    batPwrBotIdx_batPwrApprox = batStaLimBot - fzg_scalar_struct.batPwrMax*timStp/batStaStp;
+
+%     % find the most constraining change in batEng based on
+%     % previous limitations
+    batStaStpTop_approx = min(batPwrTopIdx_crsSpdApprox, batPwrTopIdx_batPwrApprox);
+    batStaStpBot_approx = max(batPwrBotIdx_crsSpdApprox, batPwrBotIdx_batPwrApprox);
+
+    % MAKE IT SO THAT ZOU ARE WORKING FROM CURRENT BATTERY
+    % STATE, NOT FROM SCRATCH!!!
+    % make vector of these batEng state steps for a loop
+    batStaLimBot = max(batStaMin/batStaStp + 1, batStaStpBot_approx);
+    batStaLimTop = min(batStaMax/batStaStp + 1, batStaStpTop_approx);
+    
+%     batStaLimVec = batStaLimBot : batStaLimTop;
 %% ----- CURRENT STATE VARIBALE LOOP --------------------------------------
 %  go through the possible engine state on-off possibilities
 %   checking if the engine can be off or on for this index
@@ -330,13 +359,19 @@ for timInx = timInxBeg+1 : timStp : 15      % TIME IDX LOOP
             % -------------------------------------------------------------------------
  
             % loop over all possible current battery values
+            % 05.05.2016 - instead of brute forcing all the current battery
+            % states, will try to limit boundaries based on possible
+            % predecessor battery levels instead
+%             for batStaActInx_counter = 1 : length(batStaLimVec)
             for batStaActInx = 1 : length(batStaActInxVec)
                 %% Initialisieren
                 %   note-you are preallocating over each state permutation
 
                 % convert batStaActInx back into actual batEng
                 batStaAct = batStaActInxVec(batStaActInx) * batStaStp;
-
+%                 batStaActInx = batStaLimVec(batStaActInx_counter);
+%                 batStaAct   = batStaActInx * batStaStp;
+                
                 % memoization variable for storing möglich fuel values
 %                 fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum);
                 fulActTn3 = inf(engNum, geaNum, batNum);
@@ -454,6 +489,16 @@ for timInx = timInxBeg+1 : timStp : 15      % TIME IDX LOOP
                     batStaLimMin = batStaLimMax;
                 end
                 
+                % make alocal min and max for saving for a future total
+                % min-max vector
+                % Min-max - bounds for the current batEngPre
+                % Bot-top - local bounds for current batEngAct
+                if batStaLimMin < batStaLimBot
+                    batStaLimBot = batStaLimMin;
+                end
+                if batStaLimMax > batStaLimTop;
+                    batStaLimTop = batStaLimMax;
+                end               
                 batStaPreIdxVec = batStaLimMin : batStaLimMax;
 % -------------------------------------------------------------------------
                 
@@ -633,6 +678,7 @@ for timInx = timInxBeg+1 : timStp : 15      % TIME IDX LOOP
                     end % end of gear changes loop
                 end % end of running through previous engine state ctrl loop
 
+                
                 % pull out the minimum value from fulActMat
                 [colmin, colminidx] = min(fulActTn3);
                 [matmin, matminidx] = min(colmin);
@@ -662,7 +708,7 @@ for timInx = timInxBeg+1 : timStp : 15      % TIME IDX LOOP
                     % optimale Kosten zum aktuellen Punkt speichern
                     %   save min hamilton value for current point
                     cos2goActTn3(engStaAct+1,geaStaAct,batStaActInx) = minFulMin;
-
+            
                     % optimale Batterieenergie zum aktuellen Punkt speichern
                     %   save optimal battery energy for current point
                     batEngActTn3(engStaAct+1,geaStaAct,batStaActInx) = batEngOpt;
@@ -690,12 +736,26 @@ for timInx = timInxBeg+1 : timStp : 15      % TIME IDX LOOP
         end % end of looping through all gears
     end % end of looping through all the current engine control states
     fprintf('\n');
+    
+    % define new batengPreInxVec for next time's batEngAct preliminary
+    % approximation
+%     batEngPreInxVec = batStaLimBot : batStaLimTop;
+    
 %     fprintf('##################################\n\n');
     
+%     % find bounds for approximating next time index's batEng bounds
+%     batStaIdxBounds = find(~isinf(min(min(cos2goActTn3))));
+%     if length(batStaIdxBounds) < 1
+%        fprintf('WARNING: batSTaIdxBounds gone at time %i\n', timInx); 
+%     end
+%     batStaLimBot = min(batStaIdxBounds);
+%     batStaLimTop = max(batStaIdxBounds);
+%                 
     % Speichern der Kosten fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save cost as previous path_idx value for the next loop
     cos2goPreTn3 = cos2goActTn3; 
     
+
     % Speichern der Batterieenergie fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save battery energy value as previous path_idx val for next loop 
 %     batEngPreTn3 = batEngActTn3;
