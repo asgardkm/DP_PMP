@@ -482,7 +482,8 @@ end
 
 %% Calculating optimal predecessors with DP
 % two functions: one finding optimal gear state and one with input gea vals
-fprintf('-Initializing model...\n');
+fprintf('-Initializing model...\n'); 
+% tic
 % if tst_scalar_struct.useGeaSta
         [               ... --- Ausgangsgrößen:
         optPreInxTn4,   ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
@@ -492,19 +493,19 @@ fprintf('-Initializing model...\n');
         ] =             ... 
         clcDP_focus     ... FUNKTION
         (               ... --- Eingangsgrößen:
-        disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
+        disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
         iceFlgBool,     ... skalar - is engine toggle on/off allowed?
         brkBool,        ... skalar - allow states requireing braking?
-        timStp,         ... Skalar fï¿½r die Wegschrittweite in m
-        batEngBeg,      ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
-        batPwrAux,      ... Skalar fï¿½r die Nebenverbrauchlast in W
-        staChgPenCosVal,... Skalar fï¿½r die Strafkosten beim Zustandswechsel
-        timInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
-        timInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
-        timNum,         ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
+        timStp,         ... Skalar für die Wegschrittweite in m
+        batEngBeg,      ... Skalar für die Batterieenergie am Beginn in Ws
+        batPwrAux,      ... Skalar für die Nebenverbrauchlast in W
+        staChgPenCosVal,... Skalar für die Strafkosten beim Zustandswechsel
+        timInxBeg,      ... Skalar für Anfangsindex in den Eingangsdaten
+        timInxEnd,      ... Skalar für Endindex in den Eingangsdaten
+        timNum,         ... Skalar für die max. Anzahl an Wegstï¿½tzstellen
         engBeg,         ... scalar - beginnnig engine state
         engStaVec_timInx,...
-        staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
+        staBeg,         ... Skalar für den Startzustand des Antriebsstrangs
         batOcv,         ... battery voltage vector w/ value for each SOC
         velVec,         ... velocity vector contiaing input speed profile
         crsSpdMat,      ... crankshaft speed demand for each gear
@@ -522,46 +523,47 @@ fprintf('-Initializing model...\n');
         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
         fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
         );
-    
-    
-        [               ... --- Ausgangsgrößen:
-        optPreInxTn4,   ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
-        batPwrOptTn4,   ...  Tensor 4. Stufe der Batteriekraft
-        fulEngOptTn4,   ...  Tensor 4. Stufe für die Kraftstoffenergie 
-        cos2goActTn3    ...  Tensor 4. der optimalen Kosten der Hamiltonfunktion 
-        ] =             ... 
-        clcDP_focus_mex ... FUNKTION
-        (               ... --- Eingangsgrößen:
-        disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
-        iceFlgBool,     ... skalar - is engine toggle on/off allowed?
-        brkBool,        ... skalar - allow states requireing braking?
-        timStp,         ... Skalar fï¿½r die Wegschrittweite in m
-        batEngBeg,      ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
-        batPwrAux,      ... Skalar fï¿½r die Nebenverbrauchlast in W
-        staChgPenCosVal,... Skalar fï¿½r die Strafkosten beim Zustandswechsel
-        timInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
-        timInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
-        timNum,         ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
-        engBeg,         ... scalar - beginnnig engine state
-        engStaVec_timInx,...
-        staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
-        batOcv,         ... battery voltage vector w/ value for each SOC
-        velVec,         ... velocity vector contiaing input speed profile
-        crsSpdMat,      ... crankshaft speed demand for each gear
-        crsTrqMat,      ... crankshaft torque demand for each gear
-        emoTrqMinPosMat,... min emoTrq along speed profile for each gear
-        emoTrqMaxPosMat,... max emoTrq along speed profile for each gear
-        emoPwrMinPosMat,... min emoPwr along speed profile for each gear
-        emoPwrMaxPosMat,... max emoPwr along speed profile for each gear
-        iceTrqMinPosMat,... min iceTrq along speed profile for each gear
-        iceTrqMaxPosMat,... max iceTrq along speed profile for each gear
-        batPwrMinIdxTn3,... min indexes/steps that bat can change
-        batPwrMaxIdxTn3,... max indexes/steps that bat can change
-        batPwrDemIdxTn3,... power demand by bat if only EM is running
-        tst_scalar_struct,     ... struct w/ tst data state var params
-        fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
-        fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
-        );
+%     
+%     profile on -history
+%         [               ... --- Ausgangsgrößen:
+%         optPreInxTn4,   ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
+%         batPwrOptTn4,   ...  Tensor 4. Stufe der Batteriekraft
+%         fulEngOptTn4,   ...  Tensor 4. Stufe für die Kraftstoffenergie 
+%         cos2goActTn3    ...  Tensor 4. der optimalen Kosten der Hamiltonfunktion 
+%         ] =             ... 
+%         clcDP_focus_mex ... FUNKTION
+%         (               ... --- Eingangsgrößen:
+%         disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
+%         iceFlgBool,     ... skalar - is engine toggle on/off allowed?
+%         brkBool,        ... skalar - allow states requireing braking?
+%         timStp,         ... Skalar fï¿½r die Wegschrittweite in m
+%         batEngBeg,      ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
+%         batPwrAux,      ... Skalar fï¿½r die Nebenverbrauchlast in W
+%         staChgPenCosVal,... Skalar fï¿½r die Strafkosten beim Zustandswechsel
+%         timInxBeg,      ... Skalar fï¿½r Anfangsindex in den Eingangsdaten
+%         timInxEnd,      ... Skalar fï¿½r Endindex in den Eingangsdaten
+%         timNum,         ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
+%         engBeg,         ... scalar - beginnnig engine state
+%         engStaVec_timInx,...
+%         staBeg,         ... Skalar fï¿½r den Startzustand des Antriebsstrangs
+%         batOcv,         ... battery voltage vector w/ value for each SOC
+%         velVec,         ... velocity vector contiaing input speed profile
+%         crsSpdMat,      ... crankshaft speed demand for each gear
+%         crsTrqMat,      ... crankshaft torque demand for each gear
+%         emoTrqMinPosMat,... min emoTrq along speed profile for each gear
+%         emoTrqMaxPosMat,... max emoTrq along speed profile for each gear
+%         emoPwrMinPosMat,... min emoPwr along speed profile for each gear
+%         emoPwrMaxPosMat,... max emoPwr along speed profile for each gear
+%         iceTrqMinPosMat,... min iceTrq along speed profile for each gear
+%         iceTrqMaxPosMat,... max iceTrq along speed profile for each gear
+%         batPwrMinIdxTn3,... min indexes/steps that bat can change
+%         batPwrMaxIdxTn3,... max indexes/steps that bat can change
+%         batPwrDemIdxTn3,... power demand by bat if only EM is running
+%         tst_scalar_struct,     ... struct w/ tst data state var params
+%         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
+%         fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
+%         );
+%     toc
 % 
 % else
 %         % writiing up a gear changing model
@@ -686,7 +688,9 @@ redVal = 0;
 batEngMatSOC = batEngMat / batEngMax;
 plot(timVec, batEngMatSOC(:, 1), 'Color', [redVal 0 bluVal]); 
 hold on;
-titleString = sprintf('batEng trajectories for all optimal paths from ending SOC levels %2.0f%% : %2.0f%%\n', batEngEndMinRat*100, batEngEndMaxRat*100);
+% titleString = sprintf('batEng trajectories for all optimal paths from ending SOC levels %2.0f%% : %2.0f%%\n', batEngEndMinRat*100, batEngEndMaxRat*100);
+titleString = 'batEng trajectories for optimal paths';
+
 title(titleString);
 xlabel('Time [sec]');
 ylabel('SOC [%]');
@@ -702,7 +706,7 @@ end
 figure(2)
 plot(timVec(1:end-1), fulEngDltOptMat(1:end-1, 1), 'Color', [redVal 0 bluVal]); 
 hold on;
-titleString = sprintf('fuel trajectories for all optimal paths from ending SOC levels %2.0f%% : %2.0f%%\n', batEngEndMinRat*100, batEngEndMaxRat*100);
+titleString = 'fuel trajectories for optimal paths';
 title(titleString);
 xlabel('Time [sec]');
 ylabel('Fuel Use [J]');
