@@ -96,7 +96,7 @@ function [          ...  --- Ausgangsgr√∂√üen:
 %   Values that are at the beginning and end of an interval are at their
 %   respective indexes along the vector.
 %
-% Mittelwerte, d.h. Flussgr√∂√üen wie Kr√§fte, Leistungen etc., stehen immmer
+% Mittelwerte, d.h. Flussgrˆﬂen wie Kr√§fte, Leistungen etc., stehen immmer
 % am Anfang des Intervalls f√ºr das folgende Intervall. Diese
 % Vektoren/Tensoren sind daher um einen g√ºltigen Eintrag k√ºrzer.
 %   mean values (eg flow variables like forces, services) are always at the
@@ -108,7 +108,8 @@ function [          ...  --- Ausgangsgr√∂√üen:
 %   assigning input structure values to function persistant variables
 %   - just once
 % persistent geaNum vehMas vehAccMin vehAccMax iceFlg
-persistent engNum engStaMin engStaMax geaNum geaStaMin geaStaMax iceFlg batStaMin batStaStp batStaMax batNum
+persistent engNum engStaMin engStaMax geaNum geaStaMin geaStaMax iceFlg ...
+            batStaMin batStaStp batStaMax batNum crsSpdHybMax crsSpdHybMin
 
 if isempty(geaNum)
     
@@ -134,20 +135,27 @@ if isempty(geaNum)
     % need to add one so that the value 0 is included as well!
     batNum      = (batStaMax - batStaMin)/batStaStp + 1;
 
-    % Fahrzeugmasse
-%     vehMas = fzg_scalar_struct.vehMas;
- 
-    % minmiale und maximale Beschleunigung
-    %   min and max accerlations (bounds)
-%     vehAccMin = fzg_scalar_struct.vehAccMin;
-%     vehAccMax = fzg_scalar_struct.vehAccMax;
-    
     % In dieser Version ist der Motor immer an
     % not anymore - iceFlg is whatever is in mainConfig.txt
 %     iceFlg = true;
     iceFlg = iceFlgBool;
+    
+    % maximale Drehzahl Elektrommotor
+    %   maximum electric motor rotational speed
+    crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
+    
+    % maximale Drehzahl der Kurbelwelle
+    %   maximum crankshaft rotational speed
+    % 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
+    % ARE WE SELECTING THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
+    % EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
+    crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end), crsSpdEmoMax);
+    
+    % minimale Drehzahl der Kurbelwelle
+    %   minimum crankshaft rotational speed
+    crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
+    
 end
-
 %% Initialisieren der Ausgabe der Funktion
 %   initialzing function output
 
@@ -206,53 +214,15 @@ fulEngPreTn3(engBeg+1, staBeg, batEngInxBeg + 1) = 0;
 
 % define battery vector to be used for looping
 batStaActInxVec = batStaMin/batStaStp : batStaMax/batStaStp;
-% Schleife ¸ber alle Wegpunkte
-%   looping thorugh length of # of discretized tim vector
 
-% % starting battery energy state - SWITCHING TO AN VECTOR INDEX BY ADDNIG 1
-% % THIS MEANS WORK WITH VECTOR INDEXES LATER when defining batEng bounds
-% batStaPreOptInx = batEngIdxBeg + 1;
-
-% ----- Initialisieren der persistent Grˆﬂen ------------------------------
-%   initialize the persistance variables
-
-% Diese werden die nur einmal f‹r die Funktion berechnet
-%   only calculated once for the function
-
-% persistent crsSpdHybMax crsSpdHybMin crsSpdEmoMax
-% 
-% if isempty(crsSpdHybMax)
-%     
-% maximale Drehzahl Elektrommotor
-%   maximum electric motor rotational speed
-crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
-
-% maximale Drehzahl der Kurbelwelle
-%   maximum crankshaft rotational speed
-% 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
-% ARE WE SECTNIG THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
-% EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
-crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end),crsSpdEmoMax);
-
-% minimale Drehzahl der Kurbelwelle
-%   minimum crankshaft rotational speed
-crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
-    
-% end
-% -------------------------------------------------------------------------
 % assign the starting batEng for controlling future batEngActs
 batStaLimBot = batEngInxBeg + 1;
 batStaLimTop = batStaLimBot;
-% for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
-for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
-%     
-% for timInx = timInxBeg+1 : timStp : 5
-% for timInx = timInxBeg+1 : timStp : 1159
 
-    % mittlere Steigung im betrachteten Intervall 
-    %   no longer doing mean, using previous gradiant instead
-%     slp = slpVec_timInx(timInx-1);
-    
+% Schleife ¸ber alle Wegpunkte
+%   looping thorugh length of # of discretized tim vector
+
+for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
     %% Berechnung der kinetischen Energien im aktuellen Wegschritt
     % Vorbereitung der FZGallen Schleife (verhindern von zu grossem
     % Datentransfer und unnÔøΩtigen Berechnungen)
@@ -629,6 +599,8 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                                     emoPwrMaxPos,       ...
                                     iceTrqMaxPos,       ...
                                     iceTrqMinPos,       ...
+                                    crsSpdHybMax,       ... % maximum crankshaft rotational speed
+                                    crsSpdHybMin,       ... % minimum crankshaft rotational speed
                                     timStp,             ...
                                     vehVelVec,          ...
                                     fzg_scalar_struct,  ...

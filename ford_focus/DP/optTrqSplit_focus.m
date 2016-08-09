@@ -12,7 +12,9 @@ function [fulEng] = ...
             emoPwrMaxPos,       ...
             iceTrqMaxPos,       ...
             iceTrqMinPos,       ...
-            timStp,            ...
+            crsSpdHybMax,       ... % maximum crankshaft rotational speed
+            crsSpdHybMin,       ... % minimum crankshaft rotational speed
+            timStp,             ...
             vehVelVec,          ...
             fzg_scalar_struct,  ...
             fzg_array_struct)
@@ -67,34 +69,6 @@ function [fulEng] = ...
 % new initialization
 % intializing fuel energy output
 fulEng = inf;
-% -------------------------------------------------------------------------
-
-% ----- Initialisieren der persistent Größen ------------------------------
-%   initialize the persistance variables
-
-% Diese werden die nur einmal fÜr die Funktion berechnet
-%   only calculated once for the function
-
-persistent crsSpdHybMax crsSpdHybMin
-
-if isempty(crsSpdHybMax)
-    
-    % maximale Drehzahl Elektrommotor
-    %   maximum electric motor rotational speed
-    crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
-    
-    % maximale Drehzahl der Kurbelwelle
-    %   maximum crankshaft rotational speed
-    % 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
-    % ARE WE SECTNIG THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
-    % EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
-    crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end), crsSpdEmoMax);
-    
-    % minimale Drehzahl der Kurbelwelle
-    %   minimum crankshaft rotational speed
-    crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
-    
-end
 % -------------------------------------------------------------------------
 
 % ----- CRANKSHAFT SPEED BOUNDARY CHECKS ---------------------------------
@@ -190,16 +164,18 @@ end
 
 
 % ----- CALCULATE fulEng USE ----------------------------------------------
-fulEng =        ... Skalar Krafstoffkraft in N
-fulEngClc_focus ... FUNCTION CALL
-(               ...
-timStp,        ... Skalar für die Wegschrittweite in m,
-vehVelVec(1),   ... Skalar - vehicular velocity
-crsSpdPre,         ... Skalar - crankshaft speed at given path_idx
-iceTrq,         ... Skalar - ice torque at given path_idx
-iceTrqMaxPos,   ... Skalar - max ICE torque
+fulEng =            ... Skalar Krafstoffkraft in N
+fulEngClc_focus     ... FUNCTION CALL
+(                   ...
+timStp,             ... Skalar für die Wegschrittweite in m,
+vehVelVec(1),       ... Skalar - vehicular velocity
+crsSpdPre,          ... Skalar - crankshaft speed at given path_idx
+iceTrq,             ... Skalar - ice torque at given path_idx
+iceTrqMaxPos,       ... Skalar - max ICE torque
 fzg_scalar_struct,  ... struct - Fahrzeugparameter - nur skalar
-fzg_array_struct    ... struct - Fahrzeugparameter - nur array        
+fzg_array_struct.iceSpdMgd,    ... struct - Fahrzeugparameter - nur array      
+fzg_array_struct.iceTrqMgd,    ... struct - Fahrzeugparameter - nur array    
+fzg_array_struct.iceFulPwr_iceSpd_iceTrq...
 );
 % -------------------------------------------------------------------------
 

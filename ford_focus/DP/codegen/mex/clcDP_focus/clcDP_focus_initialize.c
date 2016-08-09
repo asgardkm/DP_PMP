@@ -9,7 +9,6 @@
 #include "rt_nonfinite.h"
 #include "clcDP_focus.h"
 #include "clcDP_focus_initialize.h"
-#include "optTrqSplit_focus.h"
 #include "clcDP_focus_data.h"
 #include <stdio.h>
 

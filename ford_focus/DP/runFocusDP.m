@@ -1,24 +1,26 @@
-function ...            --- Ausgangsgrï¿½ï¿½en:
-[engKinOptVec,              ... Vektor - Trajektorie der optimalen kin. Energien
-    batEngDltOptVec,        ... Vektor - optimale Batterieenergieï¿½nderung
-    fulEngDltOptVec,        ... Vektor - optimale Kraftstoffenergieï¿½nderung
-    geaStaVec,              ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
-    fulEngOpt,              ... Skalar - optimale Kraftstoffenergie
-    resVld                  ...
-    ] =                     ...
-    runFocusDP(             ...
-    inputparams,            ...
-    tst_scalar_struct,      ...
-    fzg_scalar_struct,      ...
-    tst_array_struct,       ...
-    nedc_array_struct,      ...
-    fzg_array_struct        ...
+function ...            --- Ausgangsgrößen:
+[   batEngDltOptMat,  ... Vektor - optimale Batterieenergieänderung
+    fulEngDltOptMat,  ... Vektor - optimale Kraftstoffenergieänderung
+    geaStaMat,        ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
+    engStaMat,        ... vector showing optimal engine contorl w/ profile
+    batPwrMat,        ... vector showing optimal battery level control
+    batEngMat,        ... vector showing optimal battery levels
+    fulEngOptVec,     ... Skalar - optimale Kraftstoffenergie
+    resVld            ...
+    ] =               ...
+    runFocusDP(       ...
+    inputparams,      ...
+    tst_scalar_struct,...
+    fzg_scalar_struct,...
+    nedc_array_struct,...
+    fzg_array_struct  ...
     )%#codegen
 %% assign structure fields to variables
 % inputparams - originally simulink inputs
 disFlg          = inputparams.disFlg;
 iceFlgBool      = inputparams.iceFlgBool;
 brkBool         = inputparams.brkBool;
+iceExtBool      = inputparams.iceExtBool;
 timStp          = inputparams.timStp;
 batEngBegMinRat = inputparams.batEngBegMinRat;
 batEngBegMaxRat = inputparams.batEngBegMaxRat;
@@ -41,11 +43,6 @@ batEngMin       = tst_scalar_struct.batEngMin;
 geaStaNum          = tst_scalar_struct.staNum;
 engStaNum       = tst_scalar_struct.engStaNum;
 batStaNum       = (batEngMax - batEngMin) / batEngStp + 1;
-% wayNum          = tst_scalar_struct.wayNum;
-% engKinNum       = tst_scalar_struct.engKinNum;
-% slpVec_timInx               = tst_array_struct.slpVec_timInx;
-% engKinMat_engKinInx_timInx  = tst_array_struct.engKinMat_engKinInx_timInx;
-% engKinNumVec_timInx         = tst_array_struct.engKinNumVec_timInx;
 
 % nedc_array_struct - save vector values
 timVecRaw  = nedc_array_struct.vehVel(:,1);
@@ -97,24 +94,8 @@ batEngBeg = batEngBegMin + batEngBegIdx_Possible(randi(numel(batEngBegIdx_Possib
 batEngEndMin = floor(batEngMax*batEngEndMinRat/batEngStp) * batEngStp;
 batEngEndMax = ceil(batEngMax*batEngEndMaxRat/batEngStp) * batEngStp;
 
-%% LÃ¤ngsdynamik berechnen
+%% Längsdynamik berechnen
 %   calculate longitundinal dynamics
-% Es wird eine konstante Beschleunigung angenommen, die im Wegschritt
-% wayStp das Fahrzeug von velPre auf velAct beschleunigt.
-%   constant acceleration assumed when transitioning from velPre to velAct
-%   for the selected wayStp path_idx step distance
-
-% Berechnen der konstanten Beschleunigung
-%   calculate the constant acceleration
-% vehAcc = (engKinAct - engKinPre) / (fzg_scalar_struct.vehMas*wayStp);
-
-% Aus der mittleren kinetischen Energie im Intervall, der mittleren
-% Steigung und dem Gang lÃ¤sst sich Ã¼ber die Fahrwiderstandsgleichung
-% die nï¿½tige Fahrwiderstandskraft berechnen, die aufgebracht werden
-% muss, um diese zu realisieren.
-%   from the (avg) kinetic energy in the interval, the (avg) slope and
-%   transition can calculate the necessary traction force on the driving
-%   resistance equation (PART OF EQUATION 5)
 
 % Steigungskraft aus der mittleren Steigung berechnen (Skalar)
 %   gradiant force from the calculated (average) gradient
@@ -130,14 +111,6 @@ vehFrcDrg = fzg_scalar_struct.drgCof * velVec.^2;
 
 %% Berechnen der Kraft am Rad fÃ¼r Antriebsstrangmodus
 %   calculate the force on the wheel for the drivetrain mode
-
-% % dynamische Fahrzeugmasse bei Fahrzeugmotor an berechnen. Das
-% % heiÃŸt es werden TrÃ¤gheitsmoment von Verbrennungsmotor,
-% % Elektromotor und RÃ¤dern mit einbezogen.
-%   calculate dynamic vehicle mass with the vehicle engine (with the moment
-%   of intertia of the ICE, electric motor, and wheels)
-% vehMasDyn = (par.iceMoi_geaRat(gea) +...
-%     par.emoGeaMoi_geaRat(gea) + par.whlMoi)/par.whlDrr^2 + par.vehMas;
 
 % Radkraft berechnen (Beschleunigungskraft + Steigungskraft +
 % Rollwiderstandskraft + Luftwiderstandskraft)
@@ -157,6 +130,7 @@ whlTrq = whlFrc*fzg_scalar_struct.whlDrr;
 % define a bool for always finding and using equidistant bounds
 %   incorporate into mainConfig.txt later
 useEqiDis = 1;
+
 if useEqiDis 
     % for ICE
     iceSpdDif = diff(fzg_array_struct.iceSpdMgd);
@@ -164,7 +138,6 @@ if useEqiDis
     if any(abs(diff(iceSpdDif)) > 0.005)
 
         % equidistant interpolation
-        iceExtBool = 1;
         if iceExtBool
             iceSpdInterp    = iceSpdDif(2) : iceSpdDif(2) : fzg_array_struct.iceSpdMgd(end);
             fprintf('NOTE: ICE boundaries have been extrapolated to crsSpd = 0\n');
@@ -175,10 +148,15 @@ if useEqiDis
         iceTrqMaxInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMax_emoSpd(:,2), iceSpdInterp, 'linear', 'extrap');
         iceTrqMinInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMin_emoSpd(:,2), iceSpdInterp, 'linear', 'extrap');
         
+        icePwrInterp = interp2(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMgd, ...
+                                fzg_array_struct.iceFulPwr_iceSpd_iceTrq, ...
+                                iceSpdInterp, fzg_array_struct.iceTrqMgd);
+                            
         % save equidistant interpolation values into the parameter structure
-        fzg_array_struct.iceSpdMgd          = iceSpdInterp;
-        fzg_array_struct.iceTrqMax_emoSpd   = [iceSpdInterp' iceTrqMaxInterp'];
-        fzg_array_struct.iceTrqMin_emoSpd   = [iceSpdInterp' iceTrqMinInterp'];
+        fzg_array_struct.iceSpdMgd               = iceSpdInterp;
+        fzg_array_struct.iceFulPwr_iceSpd_iceTrq = icePwrInterp;
+        fzg_array_struct.iceTrqMax_emoSpd        = [iceSpdInterp' iceTrqMaxInterp'];
+        fzg_array_struct.iceTrqMin_emoSpd        = [iceSpdInterp' iceTrqMinInterp'];
         fprintf('NOTE: Interpolated ICE boundaries to be equidistant\n');
     end
 
@@ -204,9 +182,9 @@ if useEqiDis
         % % emoPwrNanDerive = inpaint_nans(fzg_array_struct.emoPwr_emoSpd_emoTrq);
         % emoPwrNanDerive = inpaint_nans(fzg_array_struct.emoPwr_emoSpd_emoTrq, 3);
         % 
-        % emoPwrMinDerive = zeros(size(fzg_array_struct.emoPwr_emoSpd_emoTrq));
-        % emoPwrMaxDerive1 = interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoTrqMgd, ...
-        %                 fzg_array_struct.emoPwr_emoSpd_emoTrq, emoSpdInterp, emoTrqMaxInterp, 'linear');
+%         emoPwrMinDerive = zeros(size(fzg_array_struct.emoPwr_emoSpd_emoTrq));
+%         emoPwrMaxDerive1 = interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoTrqMgd, ...
+%                         fzg_array_struct.emoPwr_emoSpd_emoTrq, emoSpdInterp, fzg_array_struct.emoTrqMgd, 'linear');
         % 
         % emoPwrMaxDerive2 = interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoTrqMgd,...
         %                 emoPwrNanDerive, emoSpdInterp, emoTrqMaxInterp, 'linear');
@@ -277,7 +255,6 @@ emoPwrMinPosMat = zeros(length(velVec), geaStaNum);
 emoPwrMaxPosMat = zeros(length(velVec), geaStaNum);
 % emoPwrMinMat    = zeros(length(velVec), geaStaNum);
 % emoPwrMaxMat    = zeros(length(velVec), geaStaNum);
-
 % ---- LOOP THROUGH GEAR STATES -----------------
 for gea = 1 : geaStaNum
     % CALCULATE CRANKSHAFT SPEEDS
@@ -483,7 +460,7 @@ end
 %% Calculating optimal predecessors with DP
 % two functions: one finding optimal gear state and one with input gea vals
 fprintf('-Initializing model...\n'); 
-% tic
+tic
 % if tst_scalar_struct.useGeaSta
         [               ... --- Ausgangsgrößen:
         optPreInxTn4,   ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
@@ -491,7 +468,7 @@ fprintf('-Initializing model...\n');
         fulEngOptTn4,   ...  Tensor 4. Stufe für die Kraftstoffenergie 
         cos2goActTn3    ...  Tensor 4. der optimalen Kosten der Hamiltonfunktion 
         ] =             ... 
-        clcDP_focus     ... FUNKTION
+        clcDP_focus_mex     ... FUNKTION
         (               ... --- Eingangsgrößen:
         disFlg,         ... Skalar - Flag für Ausgabe in das Commandwindow
         iceFlgBool,     ... skalar - is engine toggle on/off allowed?
@@ -563,7 +540,7 @@ fprintf('-Initializing model...\n');
 %         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
 %         fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
 %         );
-%     toc
+    toc
 % 
 % else
 %         % writiing up a gear changing model

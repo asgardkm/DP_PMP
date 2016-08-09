@@ -11,7 +11,42 @@
 #include "clcDP_focus_emxutil.h"
 #include <stdio.h>
 
+/* Function Declarations */
+static void c_emxInit_real_T(const emlrtStack *sp, emxArray_real_T **pEmxArray,
+  int32_T numDimensions, const emlrtRTEInfo *srcLocation, boolean_T doPush);
+
 /* Function Definitions */
+static void c_emxInit_real_T(const emlrtStack *sp, emxArray_real_T **pEmxArray,
+  int32_T numDimensions, const emlrtRTEInfo *srcLocation, boolean_T doPush)
+{
+  emxArray_real_T *emxArray;
+  int32_T i;
+  *pEmxArray = (emxArray_real_T *)emlrtMallocMex(sizeof(emxArray_real_T));
+  if ((void *)*pEmxArray == NULL) {
+    emlrtHeapAllocationErrorR2012b(srcLocation, sp);
+  }
+
+  if (doPush) {
+    emlrtPushHeapReferenceStackR2012b(sp, (void *)pEmxArray, (void (*)(void *))
+      emxFree_real_T);
+  }
+
+  emxArray = *pEmxArray;
+  emxArray->data = (real_T *)NULL;
+  emxArray->numDimensions = numDimensions;
+  emxArray->size = (int32_T *)emlrtMallocMex((uint32_T)(sizeof(int32_T)
+    * numDimensions));
+  if ((void *)emxArray->size == NULL) {
+    emlrtHeapAllocationErrorR2012b(srcLocation, sp);
+  }
+
+  emxArray->allocatedSize = 0;
+  emxArray->canFreeData = true;
+  for (i = 0; i < numDimensions; i++) {
+    emxArray->size[i] = 0;
+  }
+}
+
 void b_emxInit_int32_T(const emlrtStack *sp, emxArray_int32_T **pEmxArray,
   int32_T numDimensions, const emlrtRTEInfo *srcLocation, boolean_T doPush)
 {
@@ -75,7 +110,7 @@ void b_emxInit_real_T(const emlrtStack *sp, emxArray_real_T **pEmxArray, int32_T
   }
 }
 
-void c_emxInit_real_T(const emlrtStack *sp, emxArray_real_T **pEmxArray, int32_T
+void d_emxInit_real_T(const emlrtStack *sp, emxArray_real_T **pEmxArray, int32_T
                       numDimensions, const emlrtRTEInfo *srcLocation, boolean_T
                       doPush)
 {
@@ -147,6 +182,15 @@ void emxEnsureCapacity(const emlrtStack *sp, emxArray__common *emxArray, int32_T
   }
 }
 
+void emxFreeStruct_struct2_T(struct2_T *pStruct)
+{
+  emxFree_real_T(&pStruct->iceSpdMgd);
+  emxFree_real_T(&pStruct->iceTrqMgd);
+  emxFree_real_T(&pStruct->iceFulPwr_iceSpd_iceTrq);
+  emxFree_real_T(&pStruct->iceTrqMax_emoSpd);
+  emxFree_real_T(&pStruct->iceTrqMin_emoSpd);
+}
+
 void emxFree_int32_T(emxArray_int32_T **pEmxArray)
 {
   if (*pEmxArray != (emxArray_int32_T *)NULL) {
@@ -171,6 +215,16 @@ void emxFree_real_T(emxArray_real_T **pEmxArray)
     emlrtFreeMex((void *)*pEmxArray);
     *pEmxArray = (emxArray_real_T *)NULL;
   }
+}
+
+void emxInitStruct_struct2_T(const emlrtStack *sp, struct2_T *pStruct, const
+  emlrtRTEInfo *srcLocation, boolean_T doPush)
+{
+  b_emxInit_real_T(sp, &pStruct->iceSpdMgd, 2, srcLocation, doPush);
+  c_emxInit_real_T(sp, &pStruct->iceTrqMgd, 1, srcLocation, doPush);
+  b_emxInit_real_T(sp, &pStruct->iceFulPwr_iceSpd_iceTrq, 2, srcLocation, doPush);
+  b_emxInit_real_T(sp, &pStruct->iceTrqMax_emoSpd, 2, srcLocation, doPush);
+  b_emxInit_real_T(sp, &pStruct->iceTrqMin_emoSpd, 2, srcLocation, doPush);
 }
 
 void emxInit_int32_T(const emlrtStack *sp, emxArray_int32_T **pEmxArray, int32_T

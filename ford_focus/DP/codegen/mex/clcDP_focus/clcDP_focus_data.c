@@ -13,6 +13,12 @@
 
 /* Variable Definitions */
 const volatile char_T *emlrtBreakCheckR2012bFlagVar;
-clcDP_focusStackData *clcDP_focusStackDataLocal;
+emlrtMCInfo f_emlrtMCI = { 28, 19, "assert",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\shared\\coder\\coder\\+coder\\+internal\\assert.m"
+};
+
+emlrtRSInfo ub_emlrtRSI = { 28, "assert",
+  "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\shared\\coder\\coder\\+coder\\+internal\\assert.m"
+};
 
 /* End of code generation (clcDP_focus_data.c) */

@@ -20,6 +20,7 @@ write_bool      = 1;
 disFlg          = inputparams.disFlg;
 iceFlgBool      = inputparams.iceFlgBool;
 brkBool         = inputparams.brkBool;
+iceExtBool      = inputparams.iceExtBool;
 timStp          = inputparams.timStp;
 batEngBegMinRat = inputparams.batEngBegMinRat;
 batEngBegMaxRat = inputparams.batEngBegMaxRat;
@@ -36,10 +37,12 @@ staBeg          = inputparams.staBeg;
 % get the max 100% battery energy value possible
 batEngStp       = tst_scalar_struct.batEngStp;
 batEngMax       = tst_scalar_struct.batEngMax;
+batEngMin       = tst_scalar_struct.batEngMin;
 
 % tst_scalar_struct - originally tstDat800 structure
-geaNum          = tst_scalar_struct.staNum;
+geaStaNum          = tst_scalar_struct.staNum;
 engStaNum       = tst_scalar_struct.engStaNum;
+batStaNum       = (batEngMax - batEngMin) / batEngStp + 1;
 % wayNum          = tst_scalar_struct.wayNum;
 % engKinNum       = tst_scalar_struct.engKinNum;
 % slpVec_timInx               = tst_array_struct.slpVec_timInx;
@@ -156,6 +159,9 @@ whlTrq = whlFrc*fzg_scalar_struct.whlDrr;
 % define a bool for always finding and using equidistant bounds
 %   incorporate into mainConfig.txt later
 useEqiDis = 1;
+
+fzg_array_struct.iceFulPwr_iceSpd_iceTrq
+
 if useEqiDis 
     % for ICE
     iceSpdDif = diff(fzg_array_struct.iceSpdMgd);
@@ -163,7 +169,6 @@ if useEqiDis
     if any(abs(diff(iceSpdDif)) > 0.005)
 
         % equidistant interpolation
-        iceExtBool = 1;
         if iceExtBool
             iceSpdInterp    = iceSpdDif(2) : iceSpdDif(2) : fzg_array_struct.iceSpdMgd(end);
             fprintf('NOTE: ICE boundaries have been extrapolated to crsSpd = 0\n');
@@ -174,10 +179,15 @@ if useEqiDis
         iceTrqMaxInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMax_emoSpd(:,2), iceSpdInterp, 'linear', 'extrap');
         iceTrqMinInterp = interp1(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMin_emoSpd(:,2), iceSpdInterp, 'linear', 'extrap');
         
+        icePwrInterp = interp2(fzg_array_struct.iceSpdMgd, fzg_array_struct.iceTrqMgd, ...
+                                fzg_array_struct.iceFulPwr_iceSpd_iceTrq, ...
+                                iceSpdInterp, fzg_array_struct.iceTrqMgd);
+                            
         % save equidistant interpolation values into the parameter structure
-        fzg_array_struct.iceSpdMgd          = iceSpdInterp;
-        fzg_array_struct.iceTrqMax_emoSpd   = [iceSpdInterp' iceTrqMaxInterp'];
-        fzg_array_struct.iceTrqMin_emoSpd   = [iceSpdInterp' iceTrqMinInterp'];
+        fzg_array_struct.iceSpdMgd               = iceSpdInterp;
+        fzg_array_struct.iceFulPwr_iceSpd_iceTrq = icePwrInterp;
+        fzg_array_struct.iceTrqMax_emoSpd        = [iceSpdInterp' iceTrqMaxInterp'];
+        fzg_array_struct.iceTrqMin_emoSpd        = [iceSpdInterp' iceTrqMinInterp'];
         fprintf('NOTE: Interpolated ICE boundaries to be equidistant\n');
     end
 
@@ -266,19 +276,19 @@ end
 % The above process is also done for EM power boundaries.
 
 % preallocation
-crsSpdMat       = zeros(length(velVec), geaNum);
-crsTrqMat       = repmat(whlTrq, 1, geaNum);
-iceTrqMaxPosMat = zeros(length(velVec), geaNum);
-iceTrqMinPosMat = zeros(length(velVec), geaNum);
-emoTrqMaxPosMat = zeros(length(velVec), geaNum);
-emoTrqMinPosMat = zeros(length(velVec), geaNum);
-emoPwrMinPosMat = zeros(length(velVec), geaNum);
-emoPwrMaxPosMat = zeros(length(velVec), geaNum);
-% emoPwrMinMat    = zeros(length(velVec), geaNum);
-% emoPwrMaxMat    = zeros(length(velVec), geaNum);
+crsSpdMat       = zeros(length(velVec), geaStaNum);
+crsTrqMat       = repmat(whlTrq, 1, geaStaNum);
+iceTrqMaxPosMat = zeros(length(velVec), geaStaNum);
+iceTrqMinPosMat = zeros(length(velVec), geaStaNum);
+emoTrqMaxPosMat = zeros(length(velVec), geaStaNum);
+emoTrqMinPosMat = zeros(length(velVec), geaStaNum);
+emoPwrMinPosMat = zeros(length(velVec), geaStaNum);
+emoPwrMaxPosMat = zeros(length(velVec), geaStaNum);
+% emoPwrMinMat    = zeros(length(velVec), geaStaNum);
+% emoPwrMaxMat    = zeros(length(velVec), geaStaNum);
 
 % ---- LOOP THROUGH GEAR STATES -----------------
-for gea = 1 : geaNum
+for gea = 1 : geaStaNum
     % CALCULATE CRANKSHAFT SPEEDS
     % In order to calculate crsSpd-based boundaries, crsSpd must be found first
     % calc crsSpd matrix along speed profile - a speed column for each gear
@@ -383,8 +393,8 @@ batOcv = interp1(fzg_array_struct.SOC_vs_OCV(:,1), ...
 %   b/c batPwr-batPwrLoss=emoPwr, both batPwr and emoPwr will generally
 %   have the same sign, unless batPwr<batPwrLoss (which seems unlikely?)
 %       may need to check this assumption later
-batRstMax = zeros(length(emoPwrMaxPosMat), geaNum);
-batRstMin = zeros(length(emoPwrMinPosMat), geaNum);
+batRstMax = zeros(length(emoPwrMaxPosMat), geaStaNum);
+batRstMin = zeros(length(emoPwrMinPosMat), geaStaNum);
 
 % the code below is performing this code snippet across the vector
 % if batPwr < 0
@@ -400,12 +410,12 @@ batRstMin(emoPwrMinPosMat>=0)   = fzg_scalar_struct.batRstChr;
 
 
 % ----- CALCULATE batPwrLoss AND batPwr ---------
-% % preallocate matrix with dims (timNim x (# of bat steps) x geaNum)
-% batPwrMinLossTn3 = zeros(length(batRstMin), length(batOcv), geaNum);
-% batPwrMaxLossTn3 = zeros(length(batRstMax), length(batOcv), geaNum);
-batPwrMinTn3     = zeros(length(batRstMin), length(batOcv), geaNum); 
-batPwrMaxTn3     = zeros(length(batRstMax), length(batOcv), geaNum);
-batPwrDemTn3     = zeros(timNum,            length(batOcv), geaNum);
+% % preallocate matrix with dims (timNim x (# of bat steps) x geaStaNum)
+% batPwrMinLossTn3 = zeros(length(batRstMin), length(batOcv), geaStaNum);
+% batPwrMaxLossTn3 = zeros(length(batRstMax), length(batOcv), geaStaNum);
+batPwrMinTn3     = zeros(length(batRstMin), length(batOcv), geaStaNum); 
+batPwrMaxTn3     = zeros(length(batRstMax), length(batOcv), geaStaNum);
+batPwrDemTn3     = zeros(timNum,            length(batOcv), geaStaNum);
 % NOTE: this preprocessing is a bit slow because of lack of vectorization.
 % may be able to speed up later, but since it is in preprocessing, it is
 % low priority at the moment
@@ -415,7 +425,7 @@ for tim = 1 : timNum
     % bat index is for varying battery voltage levels
     for bat = 1 : length(batOcv)
         % gear is for looping through diff resistance and emoPwr bound values
-        for gea = 1 : geaNum 
+        for gea = 1 : geaStaNum 
             % internal battery power losses: quadratic equation derived from
             %   batPwrLoss = I^2*batRst,
             %   batPwr     = V*I, and
@@ -478,7 +488,6 @@ if mod(fzg_scalar_struct.batPwrMax, tst_scalar_struct.batEngStp)
     fprintf('   New min E'': %i\n',   fzg_scalar_struct.batPwrMin);
     fprintf('   E'' step size used: %i\n', tst_scalar_struct.batEngStp);
 end
-
 %% Calculating optimal predecessors with DP
 % two functions: one finding optimal gear state and one with input gea vals
 fprintf('-Initializing model...\n');
@@ -489,7 +498,7 @@ fprintf('-Initializing model...\n');
         fulEngOptTn4,   ...  Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
         cos2goActTn3    ...  Matrix der optimalen Kosten der Hamiltonfunktion 
         ] =             ... 
-        clcDP_focus_mex     ... FUNKTION
+        clcDP_focus     ... FUNKTION
         (               ... --- Eingangsgrößen:
         disFlg,         ... Skalar - Flag fï¿½r Ausgabe in das Commandwindow
         iceFlgBool,     ... skalar - is engine toggle on/off allowed?

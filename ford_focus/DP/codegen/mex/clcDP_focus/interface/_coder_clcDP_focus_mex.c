@@ -27,7 +27,6 @@ static void clcDP_focus_mexFunction(int nlhs, mxArray *plhs[], int nrhs, const m
   int nOutputs = (nlhs < 1 ? 1 : nlhs);
   int nInputs = nrhs;
   emlrtStack st = { NULL, NULL, NULL };
-  clcDP_focusStackData* clcDP_focusStackDataLocal = (clcDP_focusStackData*)mxCalloc(1,sizeof(clcDP_focusStackData));
   /* Module initialization. */
   clcDP_focus_initialize(&emlrtContextGlobal);
   st.tls = emlrtRootTLSGlobal;
@@ -42,14 +41,13 @@ static void clcDP_focus_mexFunction(int nlhs, mxArray *plhs[], int nrhs, const m
     inputs[n] = prhs[n];
   }
   /* Call the function. */
-  clcDP_focus_api(clcDP_focusStackDataLocal, inputs, outputs);
+  clcDP_focus_api(inputs, outputs);
   /* Copy over outputs to the caller. */
   for (n = 0; n < nOutputs; ++n) {
     plhs[n] = emlrtReturnArrayR2009a(outputs[n]);
   }
   /* Module finalization. */
   clcDP_focus_terminate();
-  mxFree(clcDP_focusStackDataLocal);
 }
 
 void clcDP_focus_atexit_wrapper(void)

@@ -42,34 +42,34 @@ fprintf('done!\n');
 
 %% rewrite some parameters from focus_data into the other structs
 % drag coefficient
-fzg_scalar_struct.drgCof        = focus_data.Drag_coeff;
+fzg_scalar_struct.drgCof                = focus_data.Drag_coeff;
 % vehicle mass
-fzg_scalar_struct.vehMas        = focus_data.Vehicle_mass;
+fzg_scalar_struct.vehMas                = focus_data.Vehicle_mass;
 %rolling resistance
-fzg_scalar_struct.whlRosResCof  = focus_data.Rolling_resistance_coeff;
+fzg_scalar_struct.whlRosResCof          = focus_data.Rolling_resistance_coeff;
 % Dynmaic Rolling Radius (Wheel)
-fzg_scalar_struct.whlDrr        = focus_data.Dynamic_rolling_radius_of_wheels;
+fzg_scalar_struct.whlDrr                = focus_data.Dynamic_rolling_radius_of_wheels;
 % Battery Resistance
-fzg_scalar_struct.batRstChr     = focus_data.Battery_resistance;
-fzg_scalar_struct.batRstDch     = focus_data.Battery_resistance;
+fzg_scalar_struct.batRstChr             = focus_data.Battery_resistance;
+fzg_scalar_struct.batRstDch             = focus_data.Battery_resistance;
 
 % OCV wrt SOC
-fzg_array_struct.SOC_vs_OCV    = focus_data.OCV_vs_SOC;
+fzg_array_struct.SOC_vs_OCV             = focus_data.OCV_vs_SOC;
 % Battery Power Limits
-fzg_scalar_struct.batPwrMax     = focus_data.Battery_Power_limit;
-fzg_scalar_struct.batPwrMin     = -focus_data.Battery_Power_limit;
+fzg_scalar_struct.batPwrMax             = focus_data.Battery_Power_limit;
+fzg_scalar_struct.batPwrMin             = -focus_data.Battery_Power_limit;
 % Max Battery Energy
-tst_scalar_struct.batEngMax     = focus_data.Battery_Maximal_energy;
+tst_scalar_struct.batEngMax             = focus_data.Battery_Maximal_energy;
 % Gear Ratios (ignore the '0' gear)
-fzg_array_struct.geaRat         = focus_data.Gear_box_value_eff(2:end,2);
+fzg_array_struct.geaRat                 = focus_data.Gear_box_value_eff(2:end,2);
 % Gear Efficiency - now a vector, not a scalar anymore
-fzg_array_struct.geaEfy         = focus_data.Gear_box_value_eff(2:end,3);
+fzg_array_struct.geaEfy                 = focus_data.Gear_box_value_eff(2:end,3);
 % Fuel Density
-fzg_scalar_struct.fuel_density  = focus_data.fuel_density;
+fzg_scalar_struct.fuel_density          = focus_data.fuel_density;
 % Fuel Lower Heating Value
 fzg_scalar_struct.fuel_lower_heating_value = focus_data.fuel_lower_heating_value;
 % Fuel Power wrt ICE speed and torque (rad/s)
-fzg_array_struct.icePwr_emoSpd_emoTrq   = focus_data.ICE_fuel_power_data;
+fzg_array_struct.iceFulPwr_iceSpd_iceTrq   = focus_data.ICE_fuel_power_data;
 % ICE speed meshgrid/vector (N*m)
 fzg_array_struct.iceSpdMgd              = focus_data.ICE_fuel_speed_axis;
 % ICE torque meshgird/vector

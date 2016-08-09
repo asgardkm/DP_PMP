@@ -15,6 +15,7 @@ SRC_FILES =  \
 	eml_int_forloop_overflow_check.c \
 	optTrqSplit_focus.c \
 	fprintf.c \
+	fulEngClc_focus.c \
 	_coder_clcDP_focus_api.c \
 	clcDP_focus_emxutil.c \
 	_coder_clcDP_focus_mex.c \

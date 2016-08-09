@@ -21,14 +21,12 @@
 #include "clcDP_focus_types.h"
 
 /* Function Declarations */
-extern void crsSpdHybMax_not_empty_init(void);
-extern void crsSpdHybMin_not_empty_init(void);
 extern real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T
   batPwr, real_T batOcvPre, real_T batRst, real_T crsSpdPre, real_T crsTrqPre,
   real_T emoTrqMinPos, real_T emoTrqMaxPos, real_T emoPwrMinPos, real_T
-  emoPwrMaxPos, real_T iceTrqMaxPos, real_T iceTrqMinPos, real_T timStp, const
-  real_T vehVelVec[2], real_T fzg_scalar_struct_vehVelThresh, const struct2_T
-  *fzg_array_struct);
+  emoPwrMaxPos, real_T iceTrqMaxPos, real_T iceTrqMinPos, real_T crsSpdHybMax,
+  real_T crsSpdHybMin, real_T timStp, const real_T vehVelVec[2], const struct1_T
+  *fzg_scalar_struct, const struct2_T *fzg_array_struct);
 
 #ifdef __WATCOMC__
 

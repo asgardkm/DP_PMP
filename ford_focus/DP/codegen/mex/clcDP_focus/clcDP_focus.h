@@ -38,6 +38,8 @@ extern void clcDP_focus(const emlrtStack *sp, real_T disFlg, real_T iceFlgBool,
   struct0_T *tst_scalar_struct, const struct1_T *fzg_scalar_struct, const
   struct2_T *fzg_array_struct, emxArray_real_T *optPreInxTn4, emxArray_real_T
   *batPwrOptTn4, emxArray_real_T *fulEngOptTn4, emxArray_real_T *cos2goActTn3);
+extern void crsSpdHybMax_not_empty_init(void);
+extern void crsSpdHybMin_not_empty_init(void);
 extern void engNum_not_empty_init(void);
 extern void engStaMax_not_empty_init(void);
 extern void engStaMin_not_empty_init(void);

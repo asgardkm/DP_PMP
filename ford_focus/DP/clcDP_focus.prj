@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.matlabcoder" plugin-version="R2014a_nu">
-  <configuration build-checksum="1982415302" file="C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\clcDP_focus.prj" location="C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP" name="clcDP_focus" target="target.matlab.coder" target-name="MEX, C, and C++ Code Generation">
+  <configuration build-checksum="3408382538" file="C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\clcDP_focus.prj" location="C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP" name="clcDP_focus" target="target.matlab.coder" target-name="MEX, C, and C++ Code Generation">
     <profile key="profile.mex">
       <param.MergeInstrumentationResults>false</param.MergeInstrumentationResults>
       <param.BuiltInstrumentedMex>false</param.BuiltInstrumentedMex>
@@ -352,7 +352,7 @@
     <param.AutoInferUseUnboundedSize>false</param.AutoInferUseUnboundedSize>
     <param.AutoInferVariableSizeThreshold>1024</param.AutoInferVariableSizeThreshold>
     <param.AutoInferUnboundedSizeThreshold>2048</param.AutoInferUnboundedSizeThreshold>
-    <param.AnnotationChecksum>2047359958</param.AnnotationChecksum>
+    <param.AnnotationChecksum>1493134959</param.AnnotationChecksum>
     <param.mex.outputfile>clcDP_focus_mex</param.mex.outputfile>
     <param.grt.outputfile>clcDP_focus</param.grt.outputfile>
     <param.artifact>option.target.artifact.mex</param.artifact>
@@ -455,478 +455,626 @@
         <Inputs fileName="clcDP_focus.m" functionName="clcDP_focus">
           <Input Name="disFlg">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="iceFlgBool">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="brkBool">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="timStp">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="batEngBeg">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="batPwrAux">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="staChgPenCosVal">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="timInxBeg">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="timInxEnd">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="timNum">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="engBeg">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="engStaVec_timInx">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="staBeg">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="batOcv">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 693</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="velVec">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="crsSpdMat">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="crsTrqMat">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="emoTrqMinPosMat">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="emoTrqMaxPosMat">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="emoPwrMinPosMat">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="emoPwrMaxPosMat">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="iceTrqMinPosMat">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="iceTrqMaxPosMat">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="batPwrMinIdxTn3">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 693 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="batPwrMaxIdxTn3">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 693 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="batPwrDemIdxTn3">
             <Class>double</Class>
-            <UserDefined>false</UserDefined>
             <Size>1181 x 693 x 6</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <Complex>false</Complex>
           </Input>
           <Input Name="tst_scalar_struct">
             <Class>struct</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <TypeName />
             <Extern>false</Extern>
             <HeaderFile />
             <Alignment>0</Alignment>
             <Field Name="useGeaSta">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="staNum">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="geaStaMin">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="geaStaMax">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="engStaNum">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="engStaMin">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="engStaMax">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="batEngMin">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="batEngStp">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="batEngMax">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
           </Input>
           <Input Name="fzg_scalar_struct">
             <Class>struct</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>false</UserDefined>
             <TypeName />
             <Extern>false</Extern>
             <HeaderFile />
             <Alignment>0</Alignment>
             <Field Name="vehVelMin">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="vehVelMax">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="vehVelThresh">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="vehAccMax">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="vehAccMin">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="drgCof">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="vehMas">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="whlRosResCof">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="whlDrr">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="batRstChr">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="batRstDch">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="batPwrMax">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="batPwrMin">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="geaEfy">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="fulDen">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="fulLhv">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="fuel_density">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="fuel_lower_heating_value">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
           </Input>
           <Input Name="fzg_array_struct">
             <Class>struct</Class>
-            <UserDefined>false</UserDefined>
             <Size>1 x 1</Size>
+            <Value />
+            <InitialValue />
+            <UserDefined>true</UserDefined>
             <TypeName />
             <Extern>false</Extern>
             <HeaderFile />
             <Alignment>0</Alignment>
             <Field Name="batOcvCof_batEng">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="geaRat">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>6 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="iceSpdMgd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
-              <Size>1 x 24</Size>
+              <Size>1 x :inf</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="iceTrqMgd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
-              <Size>38 x 1</Size>
+              <Size>:inf x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="iceFulPwr_iceSpd_iceTrq">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
-              <Size>150 x 100</Size>
+              <Size>:inf x :inf</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="iceTrqMaxCof">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 3</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="iceTrqMinCof">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 3</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="emoSpdMgd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 73</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="emoTrqMgd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>95 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="emoPwr_emoSpd_emoTrq">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>95 x 70</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="emoTrqMin_emoSpd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>73 x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="emoTrqMax_emoSpd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>73 x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="emoPwrMgd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>1 x 66</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="emoTrq_emoSpd_emoPwr">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>66 x 70</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="emoPwrMax_emoSpd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>73 x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="emoPwrMin_emoSpd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>73 x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="SOC_vs_OCV">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>11 x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="geaEfy">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
               <Size>6 x 1</Size>
-              <Complex>false</Complex>
-            </Field>
-            <Field Name="icePwr_emoSpd_emoTrq">
-              <Class>double</Class>
+              <Value />
+              <InitialValue />
               <UserDefined>false</UserDefined>
-              <Size>38 x 15</Size>
               <Complex>false</Complex>
             </Field>
             <Field Name="iceTrqMax_emoSpd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
-              <Size>24 x 2</Size>
+              <Size>:inf x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
               <Complex>false</Complex>
             </Field>
             <Field Name="iceTrqMin_emoSpd">
               <Class>double</Class>
-              <UserDefined>false</UserDefined>
-              <Size>24 x 2</Size>
+              <Size>:inf x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
               <Complex>false</Complex>
             </Field>
           </Input>
