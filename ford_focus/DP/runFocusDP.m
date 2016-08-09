@@ -460,7 +460,7 @@ end
 %% Calculating optimal predecessors with DP
 % two functions: one finding optimal gear state and one with input gea vals
 fprintf('-Initializing model...\n'); 
-tic
+% tic
 % if tst_scalar_struct.useGeaSta
         [               ... --- Ausgangsgrößen:
         optPreInxTn4,   ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
@@ -540,7 +540,7 @@ tic
 %         fzg_scalar_struct,     ... struct der Fahrzeugparameter - NUR SKALARS
 %         fzg_array_struct       ... struct der Fahrzeugparameter - NUR ARRAYS
 %         );
-    toc
+%     toc
 % 
 % else
 %         % writiing up a gear changing model
@@ -601,7 +601,6 @@ batEngEndMinIdx  = batEngEndMin / batEngStp + 1;
 batEngEndMaxIdx  = batEngEndMax / batEngStp + 1;
 
 batEndInxVec = batEngEndMinIdx : batEngEndMaxIdx;
-
 
 %% Calculating optimal trajectories for result of DP + PMP
 % preallocate matrices for holding all optimal combinations
@@ -673,8 +672,6 @@ xlabel('Time [sec]');
 ylabel('SOC [%]');
 for batEndInx_counter = 2 : length(batEndInxVec)
     scaVal = double(((batEndInx_counter-1))) / double(length(batEndInxVec)-1);
-%     redVal = redVal + scaVal;
-%     bluVal = bluVal - scaVal;
     plot(timVec, batEngMatSOC(:, batEndInx_counter), 'Color', [redVal+scaVal 0 bluVal-scaVal]); 
 end
 
@@ -689,8 +686,6 @@ xlabel('Time [sec]');
 ylabel('Fuel Use [J]');
 for fulEngInx_counter = 2 : length(batEndInxVec)
     scaVal = double(((fulEngInx_counter-1))) / double(length(batEndInxVec)-1);
-%     redVal = redVal + scaVal;
-%     bluVal = bluVal - scaVal;
     plot(timVec(1:end-1), fulEngDltOptMat(1:end-1, fulEngInx_counter), 'Color', [redVal+scaVal 0 bluVal-scaVal]); 
 end
 end

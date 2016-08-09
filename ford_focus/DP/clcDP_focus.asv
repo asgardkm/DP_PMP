@@ -96,7 +96,7 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
 %   Values that are at the beginning and end of an interval are at their
 %   respective indexes along the vector.
 %
-% Mittelwerte, d.h. FlussgrÃ¶ÃŸen wie KrÃ¤fte, Leistungen etc., stehen immmer
+% Mittelwerte, d.h. Flussgrößen wie KrÃ¤fte, Leistungen etc., stehen immmer
 % am Anfang des Intervalls fÃ¼r das folgende Intervall. Diese
 % Vektoren/Tensoren sind daher um einen gÃ¼ltigen Eintrag kÃ¼rzer.
 %   mean values (eg flow variables like forces, services) are always at the
@@ -108,7 +108,8 @@ function [          ...  --- AusgangsgrÃ¶ÃŸen:
 %   assigning input structure values to function persistant variables
 %   - just once
 % persistent geaNum vehMas vehAccMin vehAccMax iceFlg
-persistent engNum engStaMin engStaMax geaNum geaStaMin geaStaMax iceFlg batStaMin batStaStp batStaMax batNum
+persistent engNum engStaMin engStaMax geaNum geaStaMin geaStaMax iceFlg ...
+            batStaMin batStaStp batStaMax batNum crsSpdHybMax crsSpdHybMin
 
 if isempty(geaNum)
     
@@ -134,20 +135,27 @@ if isempty(geaNum)
     % need to add one so that the value 0 is included as well!
     batNum      = (batStaMax - batStaMin)/batStaStp + 1;
 
-    % Fahrzeugmasse
-%     vehMas = fzg_scalar_struct.vehMas;
- 
-    % minmiale und maximale Beschleunigung
-    %   min and max accerlations (bounds)
-%     vehAccMin = fzg_scalar_struct.vehAccMin;
-%     vehAccMax = fzg_scalar_struct.vehAccMax;
-    
     % In dieser Version ist der Motor immer an
     % not anymore - iceFlg is whatever is in mainConfig.txt
 %     iceFlg = true;
     iceFlg = iceFlgBool;
+    
+    % maximale Drehzahl Elektrommotor
+    %   maximum electric motor rotational speed
+    crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
+    
+    % maximale Drehzahl der Kurbelwelle
+    %   maximum crankshaft rotational speed
+    % 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
+    % ARE WE SELECTING THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
+    % EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
+    crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end), crsSpdEmoMax);
+    
+    % minimale Drehzahl der Kurbelwelle
+    %   minimum crankshaft rotational speed
+    crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
+    
 end
-
 %% Initialisieren der Ausgabe der Funktion
 %   initialzing function output
 
@@ -205,54 +213,16 @@ fulEngPreTn3(engBeg+1, staBeg, batEngInxBeg + 1) = 0;
 % engStaMat_geaNum_timInx = zeros(1, timInxEnd);
 
 % define battery vector to be used for looping
-% batStaActInxVec = batStaMin/batStaStp : batStaMax/batStaStp;
-% Schleife über alle Wegpunkte
-%   looping thorugh length of # of discretized tim vector
+batStaActInxVec = batStaMin/batStaStp : batStaMax/batStaStp;
 
-% % starting battery energy state - SWITCHING TO AN VECTOR INDEX BY ADDNIG 1
-% % THIS MEANS WORK WITH VECTOR INDEXES LATER when defining batEng bounds
-% batStaPreOptInx = batEngIdxBeg + 1;
-
-% ----- Initialisieren der persistent Größen ------------------------------
-%   initialize the persistance variables
-
-% Diese werden die nur einmal fÜr die Funktion berechnet
-%   only calculated once for the function
-
-% persistent crsSpdHybMax crsSpdHybMin crsSpdEmoMax
-% 
-% if isempty(crsSpdHybMax)
-%     
-% maximale Drehzahl Elektrommotor
-%   maximum electric motor rotational speed
-crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
-
-% maximale Drehzahl der Kurbelwelle
-%   maximum crankshaft rotational speed
-% 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
-% ARE WE SECTNIG THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
-% EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
-crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end),crsSpdEmoMax);
-
-% minimale Drehzahl der Kurbelwelle
-%   minimum crankshaft rotational speed
-crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
-    
-% end
-% -------------------------------------------------------------------------
 % assign the starting batEng for controlling future batEngActs
 batStaLimBot = batEngInxBeg + 1;
 batStaLimTop = batStaLimBot;
-for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
-% for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
-%     
-% for timInx = timInxBeg+1 : timStp : 5
-% for timInx = timInxBeg+1 : timStp : 1159
 
-    % mittlere Steigung im betrachteten Intervall 
-    %   no longer doing mean, using previous gradiant instead
-%     slp = slpVec_timInx(timInx-1);
-    
+% Schleife über alle Wegpunkte
+%   looping thorugh length of # of discretized tim vector
+
+for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
     %% Berechnung der kinetischen Energien im aktuellen Wegschritt
     % Vorbereitung der FZGallen Schleife (verhindern von zu grossem
     % Datentransfer und unnï¿½tigen Berechnungen)
@@ -321,7 +291,7 @@ for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
     batStaLimBot = max(batStaMin/batStaStp + 1, batStaStpBot_approx);
     batStaLimTop = min(batStaMax/batStaStp + 1, batStaStpTop_approx);
     
-    batStaLimVec = batStaLimBot : batStaLimTop;
+%     batStaLimVec = batStaLimBot : batStaLimTop;
 %% ----- CURRENT STATE VARIBALE LOOP --------------------------------------
 %  go through the possible engine state on-off possibilities
 %   checking if the engine can be off or on for this index
@@ -362,50 +332,20 @@ for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
             % 05.05.2016 - instead of brute forcing all the current battery
             % states, will try to limit boundaries based on possible
             % predecessor battery levels instead
-            for batStaActInx_counter = 1 : length(batStaLimVec)
-%             for batStaActInx = 1 : length(batStaActInxVec)
+%             for batStaActInx_counter = 1 : length(batStaLimVec)
+            for batStaActInx = 1 : length(batStaActInxVec)
                 %% Initialisieren
                 %   note-you are preallocating over each state permutation
 
                 % convert batStaActInx back into actual batEng
-%                 batStaAct = batStaActInxVec(batStaActInx) * batStaStp;
-                batStaActInx = batStaLimVec(batStaActInx_counter);
-                batStaAct   = batStaActInx * batStaStp;
+                batStaAct = batStaActInxVec(batStaActInx) * batStaStp;
+%                 batStaActInx = batStaLimVec(batStaActInx_counter);
+%                 batStaAct   = batStaActInx * batStaStp;
                 
                 % memoization variable for storing möglich fuel values
 %                 fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum);
                 fulActTn3 = inf(engNum, geaNum, batNum);
-                
-                % Initialisieren der Ausgabegröße der Schleife
-%                 %   preallocate the loop's output size
-%                 minFul = inf;
-% % 
-% %                 % Initialisieren der Variable für den optimalen Zustandsindex
-% %                 %   initializing variable for optimal state index
-%                 geaStaPreOptInx = 0;
-% % 
-% %                 % initialize variable for optimal previous idx engine control
-%                 engStaPreOptInx = 0;
-% %                 
-% %                 % initialize variable for optimal previous bat level
-% %                 batStaPreInx = 0;
-% %                 % Initialisieren der optimalen Kraftstoffenergieänderung zum
-% %                 % betrachteten Punkt
-% %                 %   preallocate the optimum fuel energy change to the point
-% %                 %   considered
-%                 fulEngOpt = inf;
-% %                 
-% %                 % Initialisieren der optimalen Batterieenergie zum
-% %                 % betrachteten Punkt
-% %                 %   initialize the optimal battery energy (up to boundry limits)
-%                 batEngOpt = inf;
-%                 
-                
-                % initialize optimal torques
-%                 emoTrqOpt = inf;
-%                 iceTrqOpt = inf;
-%                 brkTrqOpt = inf;
-%
+          
 % ----- DEFINING PREDECESSOR STATE VARIABLE LIMITATIONS ------------------
                 %% defining previous engine state control w/ iceFlg
                 % if the engine state can toggle: one of two options
@@ -422,13 +362,13 @@ for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
                     engStaPreIdx = engStaAct;
                 end
 
-                %% Vorgï¿½ngerzustï¿½nde beschrÃ¤nken
+                %% Vorgängerzustände beschränken
                 %   Restrictions on predecessor operation states
 
                 % Festlegen, welche Vorgänger möglich sind:
                 % Es sind im Maximum die Anzahl der Gänge +  1 als VorgÃ¤nger
                 % möglich, denn vom Segeln kann in jeden Gang im elektrischen
-                % Fahren und Segeln gewechselt  werden
+                % Fahren und Segeln gewechselt werden
                 %   Determine which predecessors are possible:
                 %   There are at maximum 'number of gears'+1 possible for the
                 %   predecessors, because from the sail in every Gear in
@@ -463,7 +403,6 @@ for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
                 % INPUT BATTERY BOUNDARIES FROM PREPROCESSING HERE!!
                 % battery power max/min boundaries wrt max/min emo power
                 % boundaries as a function of crankshaft speed
-                
                 batPwrMinIdx_crsSpd    = batStaActInx + batPwrMinIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp;
                 batPwrMaxIdx_crsSpd    = batStaActInx + batPwrMaxIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp;
                 % battery power limits given by max/min battery power
@@ -493,12 +432,12 @@ for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
                 % min-max vector
                 % Min-max - bounds for the current batEngPre
                 % Bot-top - local bounds for current batEngAct
-%                 if batStaLimMin < batStaLimBot
-%                     batStaLimBot = batStaLimMin;
-%                 end
-%                 if batStaLimMax > batStaLimTop;
-%                     batStaLimTop = batStaLimMax;
-%                 end               
+                if batStaLimMin < batStaLimBot
+                    batStaLimBot = batStaLimMin;
+                end
+                if batStaLimMax > batStaLimTop;
+                    batStaLimTop = batStaLimMax;
+                end               
                 batStaPreIdxVec = batStaLimMin : batStaLimMax;
 % -------------------------------------------------------------------------
                 
@@ -629,6 +568,8 @@ for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
                                     emoPwrMaxPos,       ...
                                     iceTrqMaxPos,       ...
                                     iceTrqMinPos,       ...
+                                    crsSpdHybMax,       ... % maximum crankshaft rotational speed
+                                    crsSpdHybMin,       ... % minimum crankshaft rotational speed
                                     timStp,             ...
                                     vehVelVec,          ...
                                     fzg_scalar_struct,  ...
@@ -743,14 +684,14 @@ for timInx = timInxBeg+1 : timStp : 200      % TIME IDX LOOP
     
 %     fprintf('##################################\n\n');
     
-    % find bounds for approximating next time index's batEng bounds
-    batStaIdxBounds = find(~isinf(min(min(cos2goActTn3))));
-    if length(batStaIdxBounds) < 1
-       fprintf('WARNING: batSTaIdxBounds gone at time %i\', timI); 
-    end
-    batStaLimBot = min(batStaIdxBounds);
-    batStaLimTop = max(batStaIdxBounds);
-                
+%     % find bounds for approximating next time index's batEng bounds
+%     batStaIdxBounds = find(~isinf(min(min(cos2goActTn3))));
+%     if length(batStaIdxBounds) < 1
+%        fprintf('WARNING: batSTaIdxBounds gone at time %i\n', timInx); 
+%     end
+%     batStaLimBot = min(batStaIdxBounds);
+%     batStaLimTop = max(batStaIdxBounds);
+%                 
     % Speichern der Kosten fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save cost as previous path_idx value for the next loop
     cos2goPreTn3 = cos2goActTn3; 

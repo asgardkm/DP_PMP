@@ -22,8 +22,6 @@
 
 /* Variable Declarations */
 extern const volatile char_T *emlrtBreakCheckR2012bFlagVar;
-extern emlrtMCInfo f_emlrtMCI;
-extern emlrtRSInfo ub_emlrtRSI;
 
 #endif
 

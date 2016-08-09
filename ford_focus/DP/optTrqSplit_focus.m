@@ -127,7 +127,7 @@ end
 % -------------------------------------------------------------------------
 
 
-% ----- CALCUALTE  crsTrq -------------------------------------------------
+% ----- CALCUALTE crsTrq --------------------------------------------------
 % check that the demanded crsTrq is not above max possible torque that
 % can be generated between the ice and the em
 if crsTrqPre > iceTrqMaxPos + emoTrq;
@@ -145,17 +145,16 @@ end
     
 % HOW TO DEAL WITH BREAK BOOL?
 % if brkBool is true - allow for braking to reduce 
-if brkBool
+if iceTrq < 0
     % if iceTrq is negative (which it can't be in this case), don't
     % brake with with engine! Rather, brake with the brakes.
     % BUT! this shouldn't trigger, as this is not optimal!
-    if iceTrq < 0
+    if brkBool
         brkTrq = iceTrq;
         iceTrq = iceTrqMinPos;
         fprintf('NOTE: engine braking is occuring - this is not optimal!\n');
         fprintf('   brkTrq: %4.3f\n', brkTrq);
-        fprintf('   adjusted iceTrq: %4.3f\n', iceTrq);
-        
+        fprintf('   adjusted iceTrq: %4.3f\n', iceTrq);  
     else
         return;
     end
@@ -164,205 +163,20 @@ end
 
 
 % ----- CALCULATE fulEng USE ----------------------------------------------
-fulEng =            ... Skalar Krafstoffkraft in N
-fulEngClc_focus     ... FUNCTION CALL
-(                   ...
-timStp,             ... Skalar für die Wegschrittweite in m,
-vehVelVec(1),       ... Skalar - vehicular velocity
-crsSpdPre,          ... Skalar - crankshaft speed at given path_idx
-iceTrq,             ... Skalar - ice torque at given path_idx
-iceTrqMaxPos,       ... Skalar - max ICE torque
-fzg_scalar_struct,  ... struct - Fahrzeugparameter - nur skalar
-fzg_array_struct.iceSpdMgd,    ... struct - Fahrzeugparameter - nur array      
-fzg_array_struct.iceTrqMgd,    ... struct - Fahrzeugparameter - nur array    
+fulEng =                        ... Skalar Krafstoffkraft in N
+fulEngClc_focus                 ... FUNCTION CALL
+(                               ...
+timStp,                         ... Skalar für die Wegschrittweite in m,
+vehVelVec(1),                   ... Skalar - vehicular velocity
+crsSpdPre,                      ... Skalar - crankshaft speed at given path_idx
+iceTrq,                         ... Skalar - ice torque at given path_idx
+iceTrqMaxPos,                   ... Skalar - max ICE torque
+fzg_scalar_struct,              ... struct - Fahrzeugparameter - nur skalar
+fzg_array_struct.iceSpdMgd,     ... struct - Fahrzeugparameter - nur array      
+fzg_array_struct.iceTrqMgd,     ... struct - Fahrzeugparameter - nur array    
 fzg_array_struct.iceFulPwr_iceSpd_iceTrq...
 );
 % -------------------------------------------------------------------------
 
-
-% else 
-%     % if engine is considered off - no torque is coming from the ice
-%     iceTrq = 0;
-%     fulEng = 0;
-% end   
-
 % END OF optTrqSplit_focus()
-
-%% OLD CODE
-% %% STEPS
-% % 1. calculate power demanded from this battery energy change
-% % 2. interpolate EM torque from this power demand
-% %   2a. in order to interpolate, need to find crankshaft velocity
-% % 3. use this EM torque to find ICE torque to satisfy rest of demand
-% %   3a. first find total crankshaft torque demand
-% % 4. find resultant fuel consumption to make this ICE torque happen
-% 
-% %% 1. calculate battery power demand
-% % calculate power required by battery for E'
-% % P = E/t = E'/t'
-% % batPwr = batStaDlt / timStp;
-% 
-% %% 2. interpolate batttery/EM torque
-% %   2a. find crsSpdPre
-% 
-% % vorzeitiger Funktionsabbruch?
-% %   premature function termination?
-% % Drehzahl der Kurbelwelle und Grenzen
-% %   crankshaft speed and limits
-% 
-% % Aus den kinetischen Energien des Fahrzeugs wird Ã¼ber die Raddrehzahl
-% % und die Ã¼bersetzung vom Getriebe die Kurbelwellendrehzahl berechnet.
-% % Zeilenrichtung entspricht den GÃ¤ngen. (Zeilenvektor)
-% %   from the vehicle's kinetic energy, the crankshaft speed is calculated
-% %   by the speed and gearbox translation. Line direction corresponding to
-% %   the aisles (row rector). EQUATION 1
-% %
-% % since a speed profile is being provided and velocity does not have to be
-% % calculated for every KE state (they do not exist here), velocity for the
-% % crs can be calculated vector style for each gear, as vehVel can be
-% % inputted as a vector
-% %
-% % but may need to do this time index by time index instead
-% % crsSpdVec  = fzg_array_struct.geaRat(gea) * vehVelVec / (fzg_scalar_struct.whlDrr);
-% 
-% % IS THERE A WAY TO BRING THE CHECKING OUT OF THIS FUNCTION?
-% % boundaries:
-% % Abbruch, wenn die Drehzahlen der Kurbelwelle zu hoch im hybridischen
-% % Modus
-% %   stop if the crankshaft rotational speed is too high in hybrid mode
-% if engStaPre && any(crsSpdVec > crsSpdHybMax)
-%     return;
-% end
-% 
-% % Falls die Drehzahl des Verbrennungsmotors niedriger als die
-% % Leerlaufdrehzahl ist,
-% %   stop if crankhaft rotional speed is lower than the idling speed
-% if engStaPre && any(crsSpdVec < crsSpdHybMin)
-%     return;
-% end
-% 
-% % Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
-% %   check if electric motor speed limit is maintained
-% if ~engStaPre && any(crsSpdVec > crsSpdEmoMax)
-%     return;
-% end
-% 
-% % NEED THE FOLLOWING INPUTS
-% % crsSpdPre
-% % crsTrq
-% % vehicle velocity (?)
-% % emoTrq
-% % iceTrqBounds
-% 
-% % use previous time idx's crankshaft rotational speed for calculations
-% % crsSpdPre = crsSpdVec(1);
-% % use previous vehicle velocity time index for calculations
-% % vehVel = vehVelVec(1);
-% 
-% %   2b. interpolate
-% %       - in order to interpolate, need the following:
-% %       - battery resistance
-% %       - OCV lookup based on current SOC
-% %       - bat_Pwr -> emo_Pwr conversion
-% 
-% % % resistance calulation
-% % % BUT - is batPwr == emoPwr?? Or do we need a conversion??
-% % % if so, include conversion below
-% % if batPwr < 0
-% %     batRst = fzg_scalar_struct.batRstDch;
-% % else
-% %     batRst = fzg_scalar_struct.batRstChr;
-% % end
-% % 
-% % % ocv lookup
-% % % calculate SOC value
-% % batSoc = batStaPre / batEngMax;
-% % batOcv = interp1q(fzg_array_struct.SOC_vs_OCV(:,1), fzg_array_struct.SOC_vs_OCV(:,2), batSoc);
-% 
-% % elektrische Leistung des Elektromotors
-% %   electric power from electric motor - DERIVATION? dunno
-% % emoPwrEle = -batPwr * vehVel ... innere Batterieleistung / internal batt power
-% %     - batPwr^2 * vehVel^2 / batOcv^2 * batRst...dissipat. Leist. / dissipated
-% %     - batPwrAux; ...          Nebenverbrauchlast / auxiliary power
-% % if just assuming the same:   
-% % emoPwrEle = batPwr
-% %
-% % NEW POWER CALCULATION
-% % emoPwr = batPwr - batPwrLosses
-% 
-% % %% 3. find emoTrq from power calculations
-% % % interpolation
-% % emoTrq = interp2(fzg_array_struct.emoSpdMgd,fzg_array_struct.emoPwrMgd,...
-% %                 fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, emoPwrEle);
-% 
-% %% 4. find complementary ICE torque
-%     %4a. find total demanded crankshaft torque  
-% 
-% % Getriebeübersetzung und -verlust
-% %   gear ratio and loss
-% 
-% % Berechnung des Kurbelwellenmoments
-% % Hier muss unterschieden werden, ob das Radmoment positiv oder
-% % negativ ist, da nur ein einfacher Wirkungsgrad für das Getriebe
-% % genutzt wird
-% %   it's important to determine sign of crankshaft torque (positive or
-% %   negative), since only a simple efficiency is used for the transmission
-% %   PART OF EQ4  <- perhaps reversed? not too sure
-% % if whlTrqPre < 0
-% %     crsTrq = whlTrqPre / fzg_array_struct.geaRat(gea) * fzg_array_struct.geaEfy(gea);
-% % else
-% %     crsTrq = whlTrqPre / fzg_array_struct.geaRat(gea) / fzg_array_struct.geaEfy(gea);
-% % end
-% 
-% % NEED SOME CHECKS
-% % - max/min torque boundaries
-% % - condition that iceTrq must be zero if engStaPre=0
-% 
-% %   QUESTION : CAN ICE RUN UNDER THE LOWEST CRSSPD GIVEN (HERE 89.0118) OR
-% %   IS THIS A CUTOFF THAT THE ICE CANNOT RUN?
-% %       - solved: can't run under 89
-% % if engStaPre
-% %     % max torque that ice can provide at current crsSpdPre - from interpolation
-% %     iceTrqMaxPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMax_emoSpd(:,2),crsSpdPre);
-% %     % min torque that ice can provide at current crsSpdPre - from interpolation
-% %     iceTrqMinPos = interp1q(fzg_array_struct.iceSpdMgd(1,:)',fzg_array_struct.iceTrqMin_emoSpd(:,2),crsSpdPre);
-
-%% OLD OLD CODE
-% NOTE: if the engine is off, the EM cannot fluctuate how much torque to 
-% assign to the crankshaft, since it must satisfy ALL the demanded torque
-% - there is no partial split.
-% as a result, the same batEngDlt value will be used for min and max. But,
-% the max value of the two must be used, since undershooting the minimum
-% needed torque will not do.
-% if ~engStaPre
-%     batEngDltTmpVec     = [batEngDltMinInx batEngDltMaxInx];
-%    [~, batEngDltTmpInx] = max(abs(batEngDltTmpVec));
-%    batEngDltMinInx      = batEngDltTmpVec(batEngDltTmpInx);
-%    batEngDltMaxInx      = batEngDltMinInx;
-% end
-
-% % %     % calculate the battery force required for specified fuel energy level
-% % % %     batFrc = batFrcClc_a(...      FUNCTION CALL
-% % % %         batPwr,...          Skalar - Batterieklemmleistung
-% % % %         vehVel,...          Skalar - mittlere Geschwindigkeit im Intervall
-% % % %         fzg_scalar_struct.batRstDch,...   Skalar - Entladewiderstand
-% % % %         fzg_scalar_struct.batRstChr,...   Skalar - Ladewiderstand
-% % % %         fzg_scalar_struct.vehVelThresh,...
-% % % %         batOcv...           Skalar - battery open circuit voltage
-% % % %         );    
-    
-
-% %% Hamiltonfunktion bestimmen
-% %   determine the hamiltonian
-% % Eq (29b)
-% [minFulLvl,optPreInx] = min([fulEng,minFulLvl]);
-% 
-% % Wenn der aktuelle Punkt besser ist, als der in cosHamMin
-% % gespeicherte Wert, werden die Ausgabegrößen neu beschrieben.
-% %   if the current point is better than the stored cosHamMin value,
-% %   then the output values are rewritten (selected prev. value is = 2)
-% if optPreInx == 1
-%     fulFrcOut = fulEng;
-% end
-    
 end % end of function

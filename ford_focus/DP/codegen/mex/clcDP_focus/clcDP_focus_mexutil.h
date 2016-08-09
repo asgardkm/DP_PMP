@@ -48,10 +48,6 @@ extern real_T fb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
 #pragma aux fb_emlrt_marshallIn value [8087];
 
 #endif
-
-extern const mxArray *message(const emlrtStack *sp, const mxArray *b,
-  emlrtMCInfo *location);
-
 #endif
 
 /* End of code generation (clcDP_focus_mexutil.h) */

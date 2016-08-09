@@ -139,23 +139,22 @@ if isempty(geaNum)
     % not anymore - iceFlg is whatever is in mainConfig.txt
 %     iceFlg = true;
     iceFlg = iceFlgBool;
-    
-    % maximale Drehzahl Elektrommotor
-    %   maximum electric motor rotational speed
-    crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
-    
-    % maximale Drehzahl der Kurbelwelle
-    %   maximum crankshaft rotational speed
-    % 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
-    % ARE WE SELECTING THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
-    % EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
-    crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end), crsSpdEmoMax);
-    
-    % minimale Drehzahl der Kurbelwelle
-    %   minimum crankshaft rotational speed
-    crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
-    
+     
 end
+% maximale Drehzahl Elektrommotor
+%   maximum electric motor rotational speed
+crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
+
+% maximale Drehzahl der Kurbelwelle
+%   maximum crankshaft rotational speed
+% 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
+% ARE WE SELECTING THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
+% EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
+crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end), crsSpdEmoMax);
+
+% minimale Drehzahl der Kurbelwelle
+%   minimum crankshaft rotational speed
+crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
 %% Initialisieren der Ausgabe der Funktion
 %   initialzing function output
 
@@ -265,7 +264,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
     crsSpdActVec = crsSpdMat(timInx, :);
     crsSpdPreVec = crsSpdMat(timInx-1, :);
 
-    %% PRE->ACT engBAT CONTROL
+    %% PRE->ACT engBat CONTROL
     % INPUT BATTERY BOUNDARIES FROM PREPROCESSING HERE!!
     % battery power max/min boundaries wrt max/min emo power
     % boundaries as a function of crankshaft speed
@@ -345,37 +344,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                 % memoization variable for storing möglich fuel values
 %                 fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum);
                 fulActTn3 = inf(engNum, geaNum, batNum);
-                
-                % Initialisieren der Ausgabegröße der Schleife
-%                 %   preallocate the loop's output size
-%                 minFul = inf;
-% % 
-% %                 % Initialisieren der Variable für den optimalen Zustandsindex
-% %                 %   initializing variable for optimal state index
-%                 geaStaPreOptInx = 0;
-% % 
-% %                 % initialize variable for optimal previous idx engine control
-%                 engStaPreOptInx = 0;
-% %                 
-% %                 % initialize variable for optimal previous bat level
-% %                 batStaPreInx = 0;
-% %                 % Initialisieren der optimalen Kraftstoffenergieänderung zum
-% %                 % betrachteten Punkt
-% %                 %   preallocate the optimum fuel energy change to the point
-% %                 %   considered
-%                 fulEngOpt = inf;
-% %                 
-% %                 % Initialisieren der optimalen Batterieenergie zum
-% %                 % betrachteten Punkt
-% %                 %   initialize the optimal battery energy (up to boundry limits)
-%                 batEngOpt = inf;
-%                 
-                
-                % initialize optimal torques
-%                 emoTrqOpt = inf;
-%                 iceTrqOpt = inf;
-%                 brkTrqOpt = inf;
-%
+          
 % ----- DEFINING PREDECESSOR STATE VARIABLE LIMITATIONS ------------------
                 %% defining previous engine state control w/ iceFlg
                 % if the engine state can toggle: one of two options
@@ -392,13 +361,13 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                     engStaPreIdx = engStaAct;
                 end
 
-                %% Vorgï¿½ngerzustï¿½nde beschrÃ¤nken
+                %% Vorgängerzustände beschränken
                 %   Restrictions on predecessor operation states
 
                 % Festlegen, welche Vorgänger möglich sind:
                 % Es sind im Maximum die Anzahl der Gänge +  1 als VorgÃ¤nger
                 % möglich, denn vom Segeln kann in jeden Gang im elektrischen
-                % Fahren und Segeln gewechselt  werden
+                % Fahren und Segeln gewechselt werden
                 %   Determine which predecessors are possible:
                 %   There are at maximum 'number of gears'+1 possible for the
                 %   predecessors, because from the sail in every Gear in
@@ -433,7 +402,6 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                 % INPUT BATTERY BOUNDARIES FROM PREPROCESSING HERE!!
                 % battery power max/min boundaries wrt max/min emo power
                 % boundaries as a function of crankshaft speed
-                
                 batPwrMinIdx_crsSpd    = batStaActInx + batPwrMinIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp;
                 batPwrMaxIdx_crsSpd    = batStaActInx + batPwrMaxIdxTn3(timInx-1, batStaActInx, geaStaAct)*timStp;
                 % battery power limits given by max/min battery power
@@ -549,7 +517,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                                 % calculate index for bat state - can move
                                 % outside for loop for improving computation tim later
                                 
-                                % because batSTaPreIdx is coming from an index vector from
+                                % because batStaPreIdx is coming from an index vector from
                                 % the loop batStaPreIdx_counter, and because
                                 % we need batStaPreIdx to be used for
                                 % referencing vector indexes later on, the
@@ -654,13 +622,9 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                 % pull out the minimum value from fulActMat
                 [colmin, colminidx] = min(fulActTn3);
                 [matmin, matminidx] = min(colmin);
-%                 [minFulMin, engStaPreOptInx] = min(matmin);
-%                 geaStaPreOptInx = matminidx(engStaPreOptInx);
-%                 batStaPreInx    = colminidx(:,geaStaPreOptInx,engStaPreOptInx);
-%                 batStaPreOptInx = batStaPreIdxVec(batStaPreInx);
                 [minFulMin, batStaPreOptInx] = min(matmin);
-                geaStaPreOptInx = matminidx(batStaPreOptInx);
-                engStaPreOptInx    = colminidx(:,geaStaPreOptInx,batStaPreOptInx);
+                geaStaPreOptInx     = matminidx(batStaPreOptInx);
+                engStaPreOptInx     = colminidx(:, geaStaPreOptInx, batStaPreOptInx);
 %                 engStaPreOptInx = batStaPreIdxVec(engStaPreInx);
                 
                 if ~isinf(minFulMin)
@@ -680,7 +644,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                     % optimale Kosten zum aktuellen Punkt speichern
                     %   save min hamilton value for current point
                     cos2goActTn3(engStaAct+1,geaStaAct,batStaActInx) = minFulMin;
-            
+
                     % optimale Batterieenergie zum aktuellen Punkt speichern
                     %   save optimal battery energy for current point
                     batEngActTn3(engStaAct+1,geaStaAct,batStaActInx) = batEngOpt;
@@ -695,7 +659,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
                     %   that's applicable to current interval
                     batPwrOptTn3(engStaAct+1,geaStaAct,batStaActInx) = batStaActInx - batStaPreOptInx;
                     
-                    % optimalen Vorgï¿½nger codieren ï¿½ber Funktion sub2ind
+                    % optimalen Vorgänger codieren über Funktion sub2ind
                     % und speichern im Tensor
                     %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
                     optPreInxTn4(engStaAct+1,geaStaAct,batStaActInx,timInx) = ...
@@ -709,28 +673,21 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
     end % end of looping through all the current engine control states
     fprintf('\n');
     
-    % define new batengPreInxVec for next time's batEngAct preliminary
+    % define new batEngPreInxVec for next time's batEngAct preliminary
     % approximation
 %     batEngPreInxVec = batStaLimBot : batStaLimTop;
-    
-%     fprintf('##################################\n\n');
-    
+
 %     % find bounds for approximating next time index's batEng bounds
 %     batStaIdxBounds = find(~isinf(min(min(cos2goActTn3))));
 %     if length(batStaIdxBounds) < 1
-%        fprintf('WARNING: batSTaIdxBounds gone at time %i\n', timInx); 
+%        fprintf('WARNING: batStaIdxBounds gone at time %i\n', timInx); 
 %     end
 %     batStaLimBot = min(batStaIdxBounds);
 %     batStaLimTop = max(batStaIdxBounds);
 %                 
-    % Speichern der Kosten fï¿½r den nï¿½chsten Schleifendurchlauf
+    % Speichern der Kosten für den nächsten Schleifendurchlauf
     %   save cost as previous path_idx value for the next loop
     cos2goPreTn3 = cos2goActTn3; 
-    
-
-    % Speichern der Batterieenergie fï¿½r den nï¿½chsten Schleifendurchlauf
-    %   save battery energy value as previous path_idx val for next loop 
-%     batEngPreTn3 = batEngActTn3;
     
     % Speichern der Krafstoffenergie fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save fuel energy value as previous path_idx value for the next loop
@@ -741,7 +698,7 @@ for timInx = timInxBeg+1 : timStp : timInxEnd      % TIME IDX LOOP
     fulEngOptTn4(:,:,:,timInx) = fulEngActTn3;
     % optimale Batterieenergie zum aktuellen Punkt
     %   optimal battery force at current point - save current mat in tensor
-    % Flussgrï¿½ï¿½e gilt im Intervall
+    % Flussgröße gilt im Intervall
     %   flux quantity applied over the interval
     batPwrOptTn4(:,:,:,timInx-1) = batPwrOptTn3;
     

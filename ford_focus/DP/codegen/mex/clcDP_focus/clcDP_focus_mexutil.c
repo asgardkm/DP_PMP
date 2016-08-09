@@ -51,14 +51,4 @@ real_T fb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   return ret;
 }
 
-const mxArray *message(const emlrtStack *sp, const mxArray *b, emlrtMCInfo
-  *location)
-{
-  const mxArray *pArray;
-  const mxArray *m11;
-  pArray = b;
-  return emlrtCallMATLABR2012b(sp, 1, &m11, 1, &pArray, "message", true,
-    location);
-}
-
 /* End of code generation (clcDP_focus_mexutil.c) */

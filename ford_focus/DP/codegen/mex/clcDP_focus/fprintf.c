@@ -25,7 +25,7 @@ static emlrtMCInfo e_emlrtMCI = { 69, 14, "fprintf",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
-static emlrtRSInfo ec_emlrtRSI = { 69, "fprintf",
+static emlrtRSInfo vb_emlrtRSI = { 69, "fprintf",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
@@ -50,12 +50,12 @@ static const mxArray *b_feval(const emlrtStack *sp, const mxArray *b, const
   mxArray *c, const mxArray *d, const mxArray *e, emlrtMCInfo *location)
 {
   const mxArray *pArrays[4];
-  const mxArray *m14;
+  const mxArray *m13;
   pArrays[0] = b;
   pArrays[1] = c;
   pArrays[2] = d;
   pArrays[3] = e;
-  return emlrtCallMATLABR2012b(sp, 1, &m14, 4, pArrays, "feval", true, location);
+  return emlrtCallMATLABR2012b(sp, 1, &m13, 4, pArrays, "feval", true, location);
 }
 
 static const mxArray *c_feval(const emlrtStack *sp, const mxArray *b, const
@@ -63,13 +63,13 @@ static const mxArray *c_feval(const emlrtStack *sp, const mxArray *b, const
   location)
 {
   const mxArray *pArrays[5];
-  const mxArray *m15;
+  const mxArray *m14;
   pArrays[0] = b;
   pArrays[1] = c;
   pArrays[2] = d;
   pArrays[3] = e;
   pArrays[4] = f;
-  return emlrtCallMATLABR2012b(sp, 1, &m15, 5, pArrays, "feval", true, location);
+  return emlrtCallMATLABR2012b(sp, 1, &m14, 5, pArrays, "feval", true, location);
 }
 
 static real_T c_fprintf(const emlrtStack *sp)
@@ -115,7 +115,7 @@ static real_T c_fprintf(const emlrtStack *sp)
 
   emlrtInitCharArrayR2013a(sp, 57, m2, cv14);
   emlrtAssign(&c_y, m2);
-  st.site = &ec_emlrtRSI;
+  st.site = &vb_emlrtRSI;
   return emlrt_marshallIn(&st, feval(&st, y, b_y, c_y, &e_emlrtMCI), "feval");
 }
 
@@ -163,7 +163,7 @@ static real_T e_fprintf(const emlrtStack *sp, real_T varargin_1)
   d_y = NULL;
   m3 = emlrtCreateDoubleScalar(varargin_1);
   emlrtAssign(&d_y, m3);
-  st.site = &ec_emlrtRSI;
+  st.site = &vb_emlrtRSI;
   return emlrt_marshallIn(&st, b_feval(&st, y, b_y, c_y, d_y, &e_emlrtMCI),
     "feval");
 }
@@ -172,11 +172,11 @@ static const mxArray *feval(const emlrtStack *sp, const mxArray *b, const
   mxArray *c, const mxArray *d, emlrtMCInfo *location)
 {
   const mxArray *pArrays[3];
-  const mxArray *m13;
+  const mxArray *m12;
   pArrays[0] = b;
   pArrays[1] = c;
   pArrays[2] = d;
-  return emlrtCallMATLABR2012b(sp, 1, &m13, 3, pArrays, "feval", true, location);
+  return emlrtCallMATLABR2012b(sp, 1, &m12, 3, pArrays, "feval", true, location);
 }
 
 static real_T g_fprintf(const emlrtStack *sp, real_T varargin_1)
@@ -224,7 +224,7 @@ static real_T g_fprintf(const emlrtStack *sp, real_T varargin_1)
   d_y = NULL;
   m4 = emlrtCreateDoubleScalar(varargin_1);
   emlrtAssign(&d_y, m4);
-  st.site = &ec_emlrtRSI;
+  st.site = &vb_emlrtRSI;
   return emlrt_marshallIn(&st, b_feval(&st, y, b_y, c_y, d_y, &e_emlrtMCI),
     "feval");
 }
@@ -232,12 +232,12 @@ static real_T g_fprintf(const emlrtStack *sp, real_T varargin_1)
 static real_T i_fprintf(const emlrtStack *sp)
 {
   const mxArray *y;
-  static const int32_T iv26[2] = { 1, 7 };
+  static const int32_T iv22[2] = { 1, 7 };
 
-  const mxArray *m6;
-  char_T cv30[7];
+  const mxArray *m5;
+  char_T cv24[7];
   int32_T i;
-  static const char_T cv31[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
+  static const char_T cv25[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
 
   const mxArray *b_y;
   const mxArray *c_y;
@@ -245,63 +245,63 @@ static real_T i_fprintf(const emlrtStack *sp)
   st.prev = sp;
   st.tls = sp->tls;
   y = NULL;
-  m6 = emlrtCreateCharArray(2, iv26);
+  m5 = emlrtCreateCharArray(2, iv22);
   for (i = 0; i < 7; i++) {
-    cv30[i] = cv31[i];
+    cv24[i] = cv25[i];
   }
 
-  emlrtInitCharArrayR2013a(sp, 7, m6, cv30);
-  emlrtAssign(&y, m6);
+  emlrtInitCharArrayR2013a(sp, 7, m5, cv24);
+  emlrtAssign(&y, m5);
   b_y = NULL;
-  m6 = emlrtCreateDoubleScalar(1.0);
-  emlrtAssign(&b_y, m6);
+  m5 = emlrtCreateDoubleScalar(1.0);
+  emlrtAssign(&b_y, m5);
   c_y = NULL;
-  m6 = emlrtCreateString1('.');
-  emlrtAssign(&c_y, m6);
-  st.site = &ec_emlrtRSI;
+  m5 = emlrtCreateString1('.');
+  emlrtAssign(&c_y, m5);
+  st.site = &vb_emlrtRSI;
   return emlrt_marshallIn(&st, feval(&st, y, b_y, c_y, &e_emlrtMCI), "feval");
 }
 
 static real_T k_fprintf(const emlrtStack *sp)
 {
   const mxArray *y;
-  static const int32_T iv27[2] = { 1, 7 };
+  static const int32_T iv23[2] = { 1, 7 };
 
-  const mxArray *m7;
-  char_T cv32[7];
+  const mxArray *m6;
+  char_T cv26[7];
   int32_T i;
-  static const char_T cv33[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
+  static const char_T cv27[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
 
   const mxArray *b_y;
   const mxArray *c_y;
-  static const int32_T iv28[2] = { 1, 2 };
+  static const int32_T iv24[2] = { 1, 2 };
 
-  char_T cv34[2];
-  static const char_T cv35[2] = { '\\', 'n' };
+  char_T cv28[2];
+  static const char_T cv29[2] = { '\\', 'n' };
 
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
   y = NULL;
-  m7 = emlrtCreateCharArray(2, iv27);
+  m6 = emlrtCreateCharArray(2, iv23);
   for (i = 0; i < 7; i++) {
-    cv32[i] = cv33[i];
+    cv26[i] = cv27[i];
   }
 
-  emlrtInitCharArrayR2013a(sp, 7, m7, cv32);
-  emlrtAssign(&y, m7);
+  emlrtInitCharArrayR2013a(sp, 7, m6, cv26);
+  emlrtAssign(&y, m6);
   b_y = NULL;
-  m7 = emlrtCreateDoubleScalar(1.0);
-  emlrtAssign(&b_y, m7);
+  m6 = emlrtCreateDoubleScalar(1.0);
+  emlrtAssign(&b_y, m6);
   c_y = NULL;
-  m7 = emlrtCreateCharArray(2, iv28);
+  m6 = emlrtCreateCharArray(2, iv24);
   for (i = 0; i < 2; i++) {
-    cv34[i] = cv35[i];
+    cv28[i] = cv29[i];
   }
 
-  emlrtInitCharArrayR2013a(sp, 2, m7, cv34);
-  emlrtAssign(&c_y, m7);
-  st.site = &ec_emlrtRSI;
+  emlrtInitCharArrayR2013a(sp, 2, m6, cv28);
+  emlrtAssign(&c_y, m6);
+  st.site = &vb_emlrtRSI;
   return emlrt_marshallIn(&st, feval(&st, y, b_y, c_y, &e_emlrtMCI), "feval");
 }
 
@@ -309,19 +309,19 @@ static real_T m_fprintf(const emlrtStack *sp, real_T varargin_1, real_T
   varargin_2)
 {
   const mxArray *y;
-  static const int32_T iv29[2] = { 1, 7 };
+  static const int32_T iv25[2] = { 1, 7 };
 
-  const mxArray *m8;
-  char_T cv36[7];
+  const mxArray *m7;
+  char_T cv30[7];
   int32_T i;
-  static const char_T cv37[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
+  static const char_T cv31[7] = { 'f', 'p', 'r', 'i', 'n', 't', 'f' };
 
   const mxArray *b_y;
   const mxArray *c_y;
-  static const int32_T iv30[2] = { 1, 48 };
+  static const int32_T iv26[2] = { 1, 48 };
 
-  char_T cv38[48];
-  static const char_T cv39[48] = { 'S', 'c', 'h', 'l', 'e', 'i', 'f', 'e', ' ',
+  char_T cv32[48];
+  static const char_T cv33[48] = { 'S', 'c', 'h', 'l', 'e', 'i', 'f', 'e', ' ',
     '%', '1', '.', '0', 'f', ' ', 'b', 'e', 'r', 'e', 'c', 'h', 'n', 'e', 't',
     '.', ' ', '%', '1', '.', '0', 'f', ' ', '%', '%', ' ', 'g', 'e', 's', 'c',
     'h', 'a', 'f', 'f', 't', '.', ' ', '\\', 'r' };
@@ -332,31 +332,31 @@ static real_T m_fprintf(const emlrtStack *sp, real_T varargin_1, real_T
   st.prev = sp;
   st.tls = sp->tls;
   y = NULL;
-  m8 = emlrtCreateCharArray(2, iv29);
+  m7 = emlrtCreateCharArray(2, iv25);
   for (i = 0; i < 7; i++) {
-    cv36[i] = cv37[i];
+    cv30[i] = cv31[i];
   }
 
-  emlrtInitCharArrayR2013a(sp, 7, m8, cv36);
-  emlrtAssign(&y, m8);
+  emlrtInitCharArrayR2013a(sp, 7, m7, cv30);
+  emlrtAssign(&y, m7);
   b_y = NULL;
-  m8 = emlrtCreateDoubleScalar(1.0);
-  emlrtAssign(&b_y, m8);
+  m7 = emlrtCreateDoubleScalar(1.0);
+  emlrtAssign(&b_y, m7);
   c_y = NULL;
-  m8 = emlrtCreateCharArray(2, iv30);
+  m7 = emlrtCreateCharArray(2, iv26);
   for (i = 0; i < 48; i++) {
-    cv38[i] = cv39[i];
+    cv32[i] = cv33[i];
   }
 
-  emlrtInitCharArrayR2013a(sp, 48, m8, cv38);
-  emlrtAssign(&c_y, m8);
+  emlrtInitCharArrayR2013a(sp, 48, m7, cv32);
+  emlrtAssign(&c_y, m7);
   d_y = NULL;
-  m8 = emlrtCreateDoubleScalar(varargin_1);
-  emlrtAssign(&d_y, m8);
+  m7 = emlrtCreateDoubleScalar(varargin_1);
+  emlrtAssign(&d_y, m7);
   e_y = NULL;
-  m8 = emlrtCreateDoubleScalar(varargin_2);
-  emlrtAssign(&e_y, m8);
-  st.site = &ec_emlrtRSI;
+  m7 = emlrtCreateDoubleScalar(varargin_2);
+  emlrtAssign(&e_y, m7);
+  st.site = &vb_emlrtRSI;
   return emlrt_marshallIn(&st, c_feval(&st, y, b_y, c_y, d_y, e_y, &e_emlrtMCI),
     "feval");
 }
