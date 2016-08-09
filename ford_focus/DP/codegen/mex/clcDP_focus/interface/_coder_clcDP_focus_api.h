@@ -21,7 +21,7 @@
 #include "clcDP_focus_types.h"
 
 /* Function Declarations */
-extern void clcDP_focus_api(const mxArray * const prhs[29], const mxArray *plhs
+extern void clcDP_focus_api(const mxArray * const prhs[20], const mxArray *plhs
   [4]);
 
 #endif

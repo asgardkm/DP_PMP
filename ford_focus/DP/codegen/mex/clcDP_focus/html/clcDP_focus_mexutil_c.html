@@ -29,7 +29,7 @@
 <a name="17"><font color="#888888 "><i>   17   </i></font></a>  emlrtMsgIdentifier *parentId)
 <a name="18"><font color="#888888 "><i>   18   </i></font></a><b>{</b>
 <a name="19"><font color="#888888 "><i>   19   </i></font></a>  real_T y;
-<a name="20"><font color="#888888 "><i>   20   </i></font></a>  y = <a href="#fcn_fb_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_fb_emlrt_marshallIn');" target="_self"><font color="#1122aa">fb_emlrt_marshallIn</font></a>(sp, emlrtAlias(u), parentId);
+<a name="20"><font color="#888888 "><i>   20   </i></font></a>  y = <a href="#fcn_hb_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_hb_emlrt_marshallIn');" target="_self"><font color="#1122aa">hb_emlrt_marshallIn</font></a>(sp, emlrtAlias(u), parentId);
 <a name="21"><font color="#888888 "><i>   21   </i></font></a>  emlrtDestroyArray(&amp;u);
 <a name="22"><font color="#888888 "><i>   22   </i></font></a>  <font color="#112266"><b>return</b></font> y;
 <a name="23"><font color="#888888 "><i>   23   </i></font></a><b>}</b>
@@ -53,7 +53,7 @@
 <a name="41"><font color="#888888 "><i>   41   </i></font></a>  emlrtCallMATLABR2012b(sp, 0, NULL, 1, &amp;pArray, <font color="#1122ff">&quot;error&quot;</font>, true, location);
 <a name="42"><font color="#888888 "><i>   42   </i></font></a><b>}</b>
 <a name="43"><font color="#888888 "><i>   43   </i></font></a>
-<a name="44"><font color="#888888 "><i>   44   </i></font></a>real_T <a name="fcn_fb_emlrt_marshallIn">fb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
+<a name="44"><font color="#888888 "><i>   44   </i></font></a>real_T <a name="fcn_hb_emlrt_marshallIn">hb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="45"><font color="#888888 "><i>   45   </i></font></a>  emlrtMsgIdentifier *msgId)
 <a name="46"><font color="#888888 "><i>   46   </i></font></a><b>{</b>
 <a name="47"><font color="#888888 "><i>   47   </i></font></a>  real_T ret;

@@ -6,7 +6,7 @@ It specifies model input parameters, such as discretization values; initial powe
 energy, and drivetrain inputs; and costate values.
 
 
-______________________________**MODEL PARAMETERS**__________________________________
+______________________________** INPUT MODEL PARAMETERS**___________________________
 
 Model parameters
 !!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 

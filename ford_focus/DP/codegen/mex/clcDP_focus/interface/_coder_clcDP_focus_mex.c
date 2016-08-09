@@ -22,7 +22,7 @@ void *emlrtRootTLSGlobal = NULL;
 static void clcDP_focus_mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
   const mxArray *outputs[4];
-  const mxArray *inputs[29];
+  const mxArray *inputs[20];
   int n = 0;
   int nOutputs = (nlhs < 1 ? 1 : nlhs);
   int nInputs = nrhs;
@@ -31,8 +31,8 @@ static void clcDP_focus_mexFunction(int nlhs, mxArray *plhs[], int nrhs, const m
   clcDP_focus_initialize(&emlrtContextGlobal);
   st.tls = emlrtRootTLSGlobal;
   /* Check for proper number of arguments. */
-  if (nrhs != 29) {
-    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, mxINT32_CLASS, 29, mxCHAR_CLASS, 11, "clcDP_focus");
+  if (nrhs != 20) {
+    emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, mxINT32_CLASS, 20, mxCHAR_CLASS, 11, "clcDP_focus");
   } else if (nlhs > 4) {
     emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:TooManyOutputArguments", 3, mxCHAR_CLASS, 11, "clcDP_focus");
   }

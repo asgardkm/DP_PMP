@@ -33,163 +33,91 @@ static emlrtRSInfo fb_emlrtRSI = { 62, "fulEngClc_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\fulEngClc_focus.m"
 };
 
-static emlrtBCInfo xc_emlrtBCI = { -1, -1, 42, 15, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo jb_emlrtDCI = { 42, 15, "codegen_interp2",
+static emlrtDCInfo lb_emlrtDCI = { 42, 15, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo yc_emlrtBCI = { -1, -1, 42, 10, "Z", "codegen_interp2",
+static emlrtBCInfo vc_emlrtBCI = { 1, 35, 41, 15, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtBCInfo ad_emlrtBCI = { -1, -1, 41, 15, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo kb_emlrtDCI = { 41, 15, "codegen_interp2",
+static emlrtDCInfo mb_emlrtDCI = { 41, 15, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo bd_emlrtBCI = { -1, -1, 41, 10, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo lb_emlrtDCI = { 41, 10, "codegen_interp2",
+static emlrtDCInfo nb_emlrtDCI = { 41, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo cd_emlrtBCI = { -1, -1, 36, 21, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtBCInfo dd_emlrtBCI = { -1, -1, 36, 10, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo mb_emlrtDCI = { 36, 10, "codegen_interp2",
+static emlrtDCInfo ob_emlrtDCI = { 36, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo ed_emlrtBCI = { -1, -1, 35, 23, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo nb_emlrtDCI = { 35, 23, "codegen_interp2",
+static emlrtDCInfo pb_emlrtDCI = { 35, 23, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo fd_emlrtBCI = { -1, -1, 35, 10, "Z", "codegen_interp2",
+static emlrtBCInfo wc_emlrtBCI = { 1, 38, 35, 10, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo ob_emlrtDCI = { 35, 10, "codegen_interp2",
+static emlrtDCInfo qb_emlrtDCI = { 35, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo gd_emlrtBCI = { -1, -1, 27, 21, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo pb_emlrtDCI = { 27, 21, "codegen_interp2",
+static emlrtDCInfo rb_emlrtDCI = { 27, 21, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo hd_emlrtBCI = { -1, -1, 27, 10, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo qb_emlrtDCI = { 27, 10, "codegen_interp2",
+static emlrtDCInfo sb_emlrtDCI = { 27, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo id_emlrtBCI = { -1, -1, 26, 21, "Z", "codegen_interp2",
+static emlrtBCInfo xc_emlrtBCI = { 1, 35, 26, 21, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo rb_emlrtDCI = { 26, 21, "codegen_interp2",
+static emlrtDCInfo tb_emlrtDCI = { 26, 21, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo jd_emlrtBCI = { -1, -1, 26, 10, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo sb_emlrtDCI = { 26, 10, "codegen_interp2",
+static emlrtDCInfo ub_emlrtDCI = { 26, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo kd_emlrtBCI = { -1, -1, 25, 23, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo tb_emlrtDCI = { 25, 23, "codegen_interp2",
+static emlrtDCInfo vb_emlrtDCI = { 25, 23, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo ld_emlrtBCI = { -1, -1, 25, 10, "Z", "codegen_interp2",
+static emlrtBCInfo yc_emlrtBCI = { 1, 38, 25, 10, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo ub_emlrtDCI = { 25, 10, "codegen_interp2",
+static emlrtDCInfo wb_emlrtDCI = { 25, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo md_emlrtBCI = { -1, -1, 24, 23, "Z", "codegen_interp2",
+static emlrtBCInfo ad_emlrtBCI = { 1, 35, 24, 23, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo vb_emlrtDCI = { 24, 23, "codegen_interp2",
+static emlrtDCInfo xb_emlrtDCI = { 24, 23, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo nd_emlrtBCI = { -1, -1, 24, 10, "Z", "codegen_interp2",
+static emlrtBCInfo bd_emlrtBCI = { 1, 38, 24, 10, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo wb_emlrtDCI = { 24, 10, "codegen_interp2",
+static emlrtDCInfo yb_emlrtDCI = { 24, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo od_emlrtBCI = { -1, -1, 15, 46, "Y", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtBCInfo pd_emlrtBCI = { -1, -1, 15, 16, "X", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtBCInfo qd_emlrtBCI = { -1, -1, 13, 51, "Y", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtBCInfo rd_emlrtBCI = { -1, -1, 13, 44, "Y", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtBCInfo sd_emlrtBCI = { -1, -1, 13, 21, "X", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtBCInfo td_emlrtBCI = { -1, -1, 13, 14, "X", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtBCInfo ud_emlrtBCI = { -1, -1, 46, 10, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo xb_emlrtDCI = { 46, 10, "codegen_interp2",
+static emlrtDCInfo ac_emlrtDCI = { 46, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo vd_emlrtBCI = { -1, -1, 46, 15, "Z", "codegen_interp2",
-  "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
-  0 };
-
-static emlrtDCInfo yb_emlrtDCI = { 46, 15, "codegen_interp2",
+static emlrtDCInfo bc_emlrtDCI = { 46, 15, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
@@ -198,20 +126,16 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
   real_T batOcvPre, real_T batRst, real_T crsSpdPre, real_T crsTrqPre, real_T
   emoTrqMinPos, real_T emoTrqMaxPos, real_T emoPwrMinPos, real_T emoPwrMaxPos,
   real_T iceTrqMaxPos, real_T iceTrqMinPos, real_T crsSpdHybMax, real_T
-  crsSpdHybMin, real_T timStp, const real_T vehVelVec[2], const struct1_T
-  *fzg_scalar_struct, const struct2_T *fzg_array_struct)
+  crsSpdHybMin, real_T timStp, const real_T vehVelVec[2], const struct2_T
+  *fzg_scalar_struct, const struct3_T *fzg_array_struct)
 {
   real_T fulEng;
   real_T batCur;
   real_T iceTrq;
   boolean_T guard1 = false;
-  int32_T i9;
   real_T idyi;
   real_T idxi;
-  boolean_T guard2 = false;
-  int32_T i10;
-  int32_T i11;
-  int32_T i12;
+  int32_T i9;
   emlrtStack st;
   emlrtStack b_st;
   st.prev = sp;
@@ -420,195 +344,95 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
               /*  Usage restrictions */
               /*    X and Y must have the same size as Z */
               /*    e.g.,  [X,Y] = meshgrid(x,y); */
-              i9 = fzg_array_struct->iceSpdMgd->size[1];
-              emlrtDynamicBoundsCheckFastR2012b(2, 1, i9, &td_emlrtBCI, &b_st);
-              i9 = fzg_array_struct->iceSpdMgd->size[1];
-              emlrtDynamicBoundsCheckFastR2012b(1, 1, i9, &sd_emlrtBCI, &b_st);
-              i9 = fzg_array_struct->iceTrqMgd->size[0];
-              emlrtDynamicBoundsCheckFastR2012b(2, 1, i9, &rd_emlrtBCI, &b_st);
-              i9 = fzg_array_struct->iceTrqMgd->size[0];
-              emlrtDynamicBoundsCheckFastR2012b(1, 1, i9, &qd_emlrtBCI, &b_st);
-              i9 = fzg_array_struct->iceSpdMgd->size[1];
-              emlrtDynamicBoundsCheckFastR2012b(1, 1, i9, &pd_emlrtBCI, &b_st);
-              idyi = (crsSpdPre - fzg_array_struct->iceSpdMgd->data[0]) * (1.0 /
-                (fzg_array_struct->iceSpdMgd->data[fzg_array_struct->
-                 iceSpdMgd->size[0]] - fzg_array_struct->iceSpdMgd->data[0])) +
-                1.0;
-              i9 = fzg_array_struct->iceTrqMgd->size[0];
-              emlrtDynamicBoundsCheckFastR2012b(1, 1, i9, &od_emlrtBCI, &b_st);
-              idxi = (iceTrq - fzg_array_struct->iceTrqMgd->data[0]) * (1.0 /
-                (fzg_array_struct->iceTrqMgd->data[1] -
-                 fzg_array_struct->iceTrqMgd->data[0])) + 1.0;
-              guard2 = false;
-              if ((idxi <= 1.0) || (idyi <= 1.0)) {
-                guard2 = true;
-              } else {
-                i9 = fzg_array_struct->iceTrqMgd->size[0];
-                if (idxi > i9) {
-                  guard2 = true;
-                } else {
-                  i9 = fzg_array_struct->iceSpdMgd->size[1];
-                  if ((idyi > i9) || muDoubleScalarIsNaN(crsSpdPre) ||
-                      muDoubleScalarIsNaN(iceTrq)) {
-                    guard2 = true;
-                  } else if ((idxi / muDoubleScalarCeil(idxi) != 1.0) && (idyi /
-                              muDoubleScalarCeil(idyi) != 1.0)) {
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0];
-                    batCur = muDoubleScalarCeil(idxi) - 1.0;
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &wb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &nd_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[1];
-                    batCur = muDoubleScalarCeil(idyi) - 1.0;
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &vb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &md_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0];
-                    batCur = muDoubleScalarCeil(idxi) - 1.0;
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &ub_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &ld_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[1];
-                    batCur = muDoubleScalarCeil(idyi);
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &tb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &kd_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0];
-                    batCur = muDoubleScalarCeil(idxi);
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &sb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &jd_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[1];
-                    batCur = muDoubleScalarCeil(idyi) - 1.0;
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &rb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &id_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0];
-                    batCur = muDoubleScalarCeil(idxi);
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &qb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &hd_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[1];
-                    batCur = muDoubleScalarCeil(idyi);
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &pb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &gd_emlrtBCI,
-                      &b_st);
-                    batCur = ((fzg_array_struct->iceFulPwr_iceSpd_iceTrq->data
-                               [((int32_T)(muDoubleScalarCeil(idxi) - 1.0) +
-                                 fzg_array_struct->iceFulPwr_iceSpd_iceTrq->
-                                 size[0] * ((int32_T)(muDoubleScalarCeil(idyi) -
-                      1.0) - 1)) - 1] * (muDoubleScalarCeil(idxi) - idxi) *
-                               (muDoubleScalarCeil(idyi) - idyi) +
-                               fzg_array_struct->iceFulPwr_iceSpd_iceTrq->data
-                               [((int32_T)(muDoubleScalarCeil(idxi) - 1.0) +
-                                 fzg_array_struct->iceFulPwr_iceSpd_iceTrq->
-                                 size[0] * ((int32_T)muDoubleScalarCeil(idyi) -
-                      1)) - 1] * (muDoubleScalarCeil(idxi) - idxi) * (1.0 -
-                                (muDoubleScalarCeil(idyi) - idyi))) +
-                              fzg_array_struct->iceFulPwr_iceSpd_iceTrq->data
-                              [((int32_T)muDoubleScalarCeil(idxi) +
-                                fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size
-                                [0] * ((int32_T)(muDoubleScalarCeil(idyi) - 1.0)
-                                       - 1)) - 1] * (1.0 - (muDoubleScalarCeil
-                                (idxi) - idxi)) * (muDoubleScalarCeil(idyi) -
-                               idyi)) +
-                      fzg_array_struct->iceFulPwr_iceSpd_iceTrq->data[((int32_T)
-                      muDoubleScalarCeil(idxi) +
-                      fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0] *
-                      ((int32_T)muDoubleScalarCeil(idyi) - 1)) - 1] * (1.0 -
-                      (muDoubleScalarCeil(idxi) - idxi)) * (1.0 -
-                      (muDoubleScalarCeil(idyi) - idyi));
-                  } else if ((idxi / muDoubleScalarCeil(idxi) != 1.0) && (idyi /
-                              muDoubleScalarCeil(idyi) == 1.0)) {
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0];
-                    batCur = muDoubleScalarCeil(idxi) - 1.0;
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &ob_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &fd_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[1];
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(idyi,
-                      &nb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &ed_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0];
-                    batCur = muDoubleScalarCeil(idxi);
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &mb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &dd_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[1];
-                    i10 = (int32_T)idyi;
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &cd_emlrtBCI,
-                      &b_st);
-                    batCur = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->data
-                      [((int32_T)(muDoubleScalarCeil(idxi) - 1.0) +
-                        fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0] *
-                        ((int32_T)idyi - 1)) - 1] * (muDoubleScalarCeil(idxi) -
-                      idxi) + fzg_array_struct->iceFulPwr_iceSpd_iceTrq->data
-                      [((int32_T)muDoubleScalarCeil(idxi) +
-                        fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0] *
-                        ((int32_T)idyi - 1)) - 1] * (1.0 - (muDoubleScalarCeil
-                      (idxi) - idxi));
-                  } else if ((idxi / muDoubleScalarCeil(idxi) == 1.0) && (idyi /
-                              muDoubleScalarCeil(idyi) != 1.0)) {
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0];
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(idxi,
-                      &lb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &bd_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[1];
-                    batCur = muDoubleScalarCeil(idyi) - 1.0;
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &kb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &ad_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0];
-                    i10 = (int32_T)idxi;
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &yc_emlrtBCI,
-                      &b_st);
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[1];
-                    batCur = muDoubleScalarCeil(idyi);
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(batCur,
-                      &jb_emlrtDCI, &b_st);
-                    emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9, &xc_emlrtBCI,
-                      &b_st);
-                    batCur = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->data
-                      [((int32_T)idxi +
-                        fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0] *
-                        ((int32_T)(muDoubleScalarCeil(idyi) - 1.0) - 1)) - 1] *
-                      (muDoubleScalarCeil(idyi) - idyi) +
-                      fzg_array_struct->iceFulPwr_iceSpd_iceTrq->data[((int32_T)
-                      idxi + fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0] *
-                      ((int32_T)muDoubleScalarCeil(idyi) - 1)) - 1] * (1.0 -
-                      (muDoubleScalarCeil(idyi) - idyi));
-                  } else {
-                    i9 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0];
-                    i10 = (int32_T)emlrtIntegerCheckFastR2012b(idxi,
-                      &xb_emlrtDCI, &b_st);
-                    i11 = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[1];
-                    i12 = (int32_T)emlrtIntegerCheckFastR2012b(idyi,
-                      &yb_emlrtDCI, &b_st);
-                    batCur = fzg_array_struct->iceFulPwr_iceSpd_iceTrq->data
-                      [(emlrtDynamicBoundsCheckFastR2012b(i10, 1, i9,
-                         &ud_emlrtBCI, &b_st) +
-                        fzg_array_struct->iceFulPwr_iceSpd_iceTrq->size[0] *
-                        (emlrtDynamicBoundsCheckFastR2012b(i12, 1, i11,
-                          &vd_emlrtBCI, &b_st) - 1)) - 1];
-                  }
-                }
-              }
-
-              if (guard2) {
+              idyi = (crsSpdPre - fzg_array_struct->iceSpdMgd[0]) * (1.0 /
+                (fzg_array_struct->iceSpdMgd[1] - fzg_array_struct->iceSpdMgd[0]))
+                + 1.0;
+              idxi = (iceTrq - fzg_array_struct->iceTrqMgd[0]) * (1.0 /
+                (fzg_array_struct->iceTrqMgd[1] - fzg_array_struct->iceTrqMgd[0]))
+                + 1.0;
+              if ((idxi <= 1.0) || (idyi <= 1.0) || (idxi > 38.0) || (idyi >
+                   35.0) || muDoubleScalarIsNaN(crsSpdPre) ||
+                  muDoubleScalarIsNaN(iceTrq)) {
                 batCur = rtInf;
+              } else if ((idxi / muDoubleScalarCeil(idxi) != 1.0) && (idyi /
+                          muDoubleScalarCeil(idyi) != 1.0)) {
+                batCur = muDoubleScalarCeil(idxi) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &yb_emlrtDCI,
+                  &b_st);
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 38, &bd_emlrtBCI, &b_st);
+                batCur = muDoubleScalarCeil(idyi) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &xb_emlrtDCI,
+                  &b_st);
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 35, &ad_emlrtBCI, &b_st);
+                batCur = muDoubleScalarCeil(idxi) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &wb_emlrtDCI,
+                  &b_st);
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 38, &yc_emlrtBCI, &b_st);
+                batCur = muDoubleScalarCeil(idyi);
+                emlrtIntegerCheckFastR2012b(batCur, &vb_emlrtDCI, &b_st);
+                batCur = muDoubleScalarCeil(idxi);
+                emlrtIntegerCheckFastR2012b(batCur, &ub_emlrtDCI, &b_st);
+                batCur = muDoubleScalarCeil(idyi) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &tb_emlrtDCI,
+                  &b_st);
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 35, &xc_emlrtBCI, &b_st);
+                batCur = muDoubleScalarCeil(idxi);
+                emlrtIntegerCheckFastR2012b(batCur, &sb_emlrtDCI, &b_st);
+                batCur = muDoubleScalarCeil(idyi);
+                emlrtIntegerCheckFastR2012b(batCur, &rb_emlrtDCI, &b_st);
+                batCur = ((fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
+                            (muDoubleScalarCeil(idxi) - 1.0) + 38 * ((int32_T)
+                  (muDoubleScalarCeil(idyi) - 1.0) - 1)) - 1] *
+                           (muDoubleScalarCeil(idxi) - idxi) *
+                           (muDoubleScalarCeil(idyi) - idyi) +
+                           fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
+                            (muDoubleScalarCeil(idxi) - 1.0) + 38 * ((int32_T)
+                  muDoubleScalarCeil(idyi) - 1)) - 1] * (muDoubleScalarCeil(idxi)
+                            - idxi) * (1.0 - (muDoubleScalarCeil(idyi) - idyi)))
+                          + fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
+                           muDoubleScalarCeil(idxi) + 38 * ((int32_T)
+                            (muDoubleScalarCeil(idyi) - 1.0) - 1)) - 1] * (1.0 -
+                           (muDoubleScalarCeil(idxi) - idxi)) *
+                          (muDoubleScalarCeil(idyi) - idyi)) +
+                  fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
+                  muDoubleScalarCeil(idxi) + 38 * ((int32_T)muDoubleScalarCeil
+                  (idyi) - 1)) - 1] * (1.0 - (muDoubleScalarCeil(idxi) - idxi)) *
+                  (1.0 - (muDoubleScalarCeil(idyi) - idyi));
+              } else if ((idxi / muDoubleScalarCeil(idxi) != 1.0) && (idyi /
+                          muDoubleScalarCeil(idyi) == 1.0)) {
+                batCur = muDoubleScalarCeil(idxi) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &qb_emlrtDCI,
+                  &b_st);
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 38, &wc_emlrtBCI, &b_st);
+                emlrtIntegerCheckFastR2012b(idyi, &pb_emlrtDCI, &b_st);
+                batCur = muDoubleScalarCeil(idxi);
+                emlrtIntegerCheckFastR2012b(batCur, &ob_emlrtDCI, &b_st);
+                batCur = fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
+                  (muDoubleScalarCeil(idxi) - 1.0) + 38 * ((int32_T)idyi - 1)) -
+                  1] * (muDoubleScalarCeil(idxi) - idxi) +
+                  fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
+                  muDoubleScalarCeil(idxi) + 38 * ((int32_T)idyi - 1)) - 1] *
+                  (1.0 - (muDoubleScalarCeil(idxi) - idxi));
+              } else if ((idxi / muDoubleScalarCeil(idxi) == 1.0) && (idyi /
+                          muDoubleScalarCeil(idyi) != 1.0)) {
+                emlrtIntegerCheckFastR2012b(idxi, &nb_emlrtDCI, &b_st);
+                batCur = muDoubleScalarCeil(idyi) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &mb_emlrtDCI,
+                  &b_st);
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 35, &vc_emlrtBCI, &b_st);
+                batCur = muDoubleScalarCeil(idyi);
+                emlrtIntegerCheckFastR2012b(batCur, &lb_emlrtDCI, &b_st);
+                batCur = fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
+                  idxi + 38 * ((int32_T)(muDoubleScalarCeil(idyi) - 1.0) - 1)) -
+                  1] * (muDoubleScalarCeil(idyi) - idyi) +
+                  fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)idxi + 38 *
+                  ((int32_T)muDoubleScalarCeil(idyi) - 1)) - 1] * (1.0 -
+                  (muDoubleScalarCeil(idyi) - idyi));
+              } else {
+                batCur = fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
+                  emlrtIntegerCheckFastR2012b(idxi, &ac_emlrtDCI, &b_st) + 38 *
+                  ((int32_T)emlrtIntegerCheckFastR2012b(idyi, &bc_emlrtDCI,
+                  &b_st) - 1)) - 1];
               }
 
               /*  since P = E/t, then E=P*t */

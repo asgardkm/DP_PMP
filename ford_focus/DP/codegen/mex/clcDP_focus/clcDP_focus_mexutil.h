@@ -40,12 +40,12 @@ extern real_T emlrt_marshallIn(const emlrtStack *sp, const mxArray *d_feval,
 #endif
 
 extern void error(const emlrtStack *sp, const mxArray *b, emlrtMCInfo *location);
-extern real_T fb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
+extern real_T hb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
   const emlrtMsgIdentifier *msgId);
 
 #ifdef __WATCOMC__
 
-#pragma aux fb_emlrt_marshallIn value [8087];
+#pragma aux hb_emlrt_marshallIn value [8087];
 
 #endif
 #endif

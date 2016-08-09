@@ -3597,9 +3597,9 @@ mxArray *emlrtMexFcnProperties()
   mxArray *xResult = mxCreateStructMatrix(1,1,4,mexProperties);
   mxArray *xEntryPoints = mxCreateStructMatrix(1,1,4,epProperties);
   mxArray *xInputs = NULL;
-  xInputs = mxCreateLogicalMatrix(1, 29);
+  xInputs = mxCreateLogicalMatrix(1, 20);
   mxSetFieldByNumber(xEntryPoints, 0, 0, mxCreateString("clcDP_focus"));
-  mxSetFieldByNumber(xEntryPoints, 0, 1, mxCreateDoubleScalar(29));
+  mxSetFieldByNumber(xEntryPoints, 0, 1, mxCreateDoubleScalar(20));
   mxSetFieldByNumber(xEntryPoints, 0, 2, mxCreateDoubleScalar(4));
   mxSetFieldByNumber(xEntryPoints, 0, 3, xInputs);
   mxSetFieldByNumber(xResult, 0, 0, mxCreateString("8.4.0.150421 (R2014b)"));

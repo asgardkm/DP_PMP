@@ -17,7 +17,7 @@ real_T b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtMsgIdentifier *parentId)
 {
   real_T y;
-  y = fb_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
+  y = hb_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
   emlrtDestroyArray(&u);
   return y;
 }
@@ -41,7 +41,7 @@ void error(const emlrtStack *sp, const mxArray *b, emlrtMCInfo *location)
   emlrtCallMATLABR2012b(sp, 0, NULL, 1, &pArray, "error", true, location);
 }
 
-real_T fb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
+real_T hb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId)
 {
   real_T ret;
