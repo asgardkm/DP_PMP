@@ -2,6 +2,9 @@ function [              ...  --- AusgangsgrÃ¶ÃŸen:
     optPreInxTn3,       ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn3,       ... Tensor 3. Stufe der Batteriekraft
     fulEngOptTn3,       ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
+    emoTrqOptTn3,       ... tensor - saves optimal emoTrq values
+    iceTrqOptTn3,       ... tensor - saves optimal iceTrq values
+    brkTrqOptTn3,       ... tensor - saves optimal brkTrq values
     cos2goActMat        ... Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =                 ...
     clcDP_focus_useGeaVec...
@@ -170,6 +173,11 @@ fulEngOptTn3(inputparams.engBeg+1, batEngInxBeg + 1, inputparams.timInxBeg) = 0;
 %   tensor3 for battery energy - now Tn4
 batPwrOptTn3 = inf(engNum, batNum, timNum);
 
+% tensors for storing optimal torque values for all time indexes
+emoTrqOptTn3 = zeros(engNum, batNum, timNum);
+iceTrqOptTn3 = zeros(engNum, batNum, timNum);
+brkTrqOptTn3 = zeros(engNum, batNum, timNum);
+
 %% Berechnung der optimalen Vorgäger
 %   calculating the optimal predecessors
 
@@ -243,6 +251,11 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     %   initialize matrix for fuel energie along current way idxs
     fulEngActMat = inf(engNum, batNum);
     
+    % intialize matrix for saving a time interval's optimal torque values
+    emoTrqActMat = inf(engNum, batNum);
+    iceTrqActMat = inf(engNum, batNum);
+    brkTrqActMat = inf(engNum, batNum);
+
     % possible engine state changes for current and past path_idxs
     engStaNumPre = engStaVec_timInx(timInx-1); % and the previous idx KE
 %     engStaNumAct = engStaVec_timInx(timInx);   % look at this loop's KE
@@ -335,6 +348,11 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
 
             % memoization variable for storing möglich fuel values
             fulActMat = inf(engNum, batNum);
+
+            % memoiztaion variables for optimal torque predecessor values
+            emoTrqPreMat = zeros(engNum, batNum);
+            iceTrqPreMat = zeros(engNum, batNum);
+            brkTrqPreMat = zeros(engNum, batNum);
 
 % ----- DEFINING PREDECESSOR STATE VARIABLE LIMITATIONS ------------------
             %% defining previous engine state control w/ iceFlg
@@ -522,11 +540,10 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
 
                         % do it tim interval at a tim? will remove vector
                         % aspects
-%                             [minFul, emoTrq, iceTrq, brkTrq] =...
-                        minFul =...
+                            [minFul, emoTrq, iceTrq, brkTrq] =...
                             optTrqSplit_focus   ...
                             (                   ...
-                            inputparams.brkBool,            ...
+                            inputparams.brkBool,...
                             batPwr,             ...
                             batOcvPre,          ...
                             batRst,             ...
@@ -540,7 +557,8 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                             iceTrqMinPos,       ...
                             crsSpdHybMax,       ... % maximum crankshaft rotational speed
                             crsSpdHybMin,       ... % minimum crankshaft rotational speed
-                            inputparams.timStp,             ...
+                            inputparams.timStp, ...
+                            inputparams.batPwrAux,...
                             vehVelVec,          ...
                             fzg_scalar_struct,  ...
                             fzg_array_struct    ...
@@ -553,6 +571,10 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                             + cos2goPreMat(engStaPre+1, batStaPreIdx)...
                             + geaStaChgPenCos/inputparams.timStp  ...
                             + engStaChgPenCos/inputparams.timStp;
+                        
+                        emoTrqPreMat(engStaPre+1, geaStaPre,batStaPreIdx) = emoTrq;
+                        iceTrqPreMat(engStaPre+1, geaStaPre,batStaPreIdx) = iceTrq;
+                        brkTrqPreMat(engStaPre+1, geaStaPre,batStaPreIdx) = brkTrq;
 
                     end % end of bat energy changing loop
 
@@ -584,9 +606,20 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                         + cos2goPreMat(engStaPre+1, batStaPreIdx_noEmo) ...
                         + geaStaChgPenCos / inputparams.timStp ...
                         + engStaChgPenCos / inputparams.timStp;
+                    
+                    emoTrqPreMat(engStaPre+1, batStaPreIdx_noEmo) = crsTrqPre;
+                    % brake torque in case of torque overshoot
+                    if inputparams.brkBool
+                        crsPwrPre = crsTrqPre * crsSpdPre;
+                        batPwrPre = batStaActInxVec(batStaPreIdx_noEmo) * batStaStp / inputparams.timStp;
+                        if batPwrPre > crsPwrPre
+                            brkTrqPreMat(engStaPre+1, batStaPreIdx_noEmo) = ...
+                                (batPwrPre - crsPwrPre)/crsSpdPre;
+                        end
+                    end
+
                 end % end of engStaPre condition check
             end % end of running through previous engine state ctrl loop
-
 
             % pull out the minimum value from fulActMat
             [colmin, colminidx] = min(fulActMat);
@@ -628,6 +661,18 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                 %   that's applicable to current interval
                 batPwrOptMat(engStaAct+1,batStaActInx) = batStaActInx - batStaPreOptInx;
 
+                
+                % save optimal torque values for the given time index
+                % emoTrq
+                emoTrqActMat(engStaAct+1,batStaActInx) = ...
+                    emoTrqPreMat(engStaPreOptInx, batStaPreOptInx);
+                % iceTrq
+                iceTrqActMat(engStaAct+1,batStaActInx) = ...
+                    iceTrqPreMat(engStaPreOptInx, batStaPreOptInx);                
+                % brkTrq
+                brkTrqActMat(engStaAct+1,batStaActInx) = ...
+                    brkTrqPreMat(engStaPreOptInx, batStaPreOptInx);
+                
                 % optimalen Vorgänger codieren über Funktion sub2ind
                 % und speichern im Tensor
                 %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
@@ -668,8 +713,11 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     %   optimal battery force at current point - save current mat in tensor
     % Flussgröße gilt im Intervall
     %   flux quantity applied over the interval
-    batPwrOptTn3(:,:,timInx-1) = batPwrOptMat;
+    batPwrOptTn3(:,:,timInx-1)  = batPwrOptMat;
     
+    emoTrqOptTn3(:,:,timInx)    = emoTrqOptMat;
+    iceTrqOptTn3(:,:,timInx)    = iceTrqOptMat;
+    brkTrqOptTn3(:,:,timInx)    = brkTrqOptMat;
     % Ausgabe des aktuellen Schleifendurchlaufs
     %   output for current loop - print to terminal
     if inputparams.disFlg

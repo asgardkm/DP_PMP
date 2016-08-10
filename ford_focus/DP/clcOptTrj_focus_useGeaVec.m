@@ -4,24 +4,26 @@ function [          ...
     engStaOptVec,   ... vector showing optimal engine contorl w/ profile
     batStaOptVec,   ... vector showing optimal battery level control
     batEngOptVec,   ... vector showing optimal battery levels
+    emoTrqOptVec,   ...
+    iceTrqOptVec,   ...
+    brkTrqOptVec,   ...
     fulEngOpt       ... Skalar - optimale Kraftstoffenergie
     ] =             ...
     clcOptTrj_focus_useGeaVec ...
-    (disFlg,        ... Flag, ob Zielzustand genutzt werden muss
-    timStp,         ... Skalar f¸r die Wegschrittweite in m
-    batStp,         ... skalar - bat energy discretization step
-    timNum,         ... Skalar f¸r die max. Anzahl an Wegst√ºtzstellen
-    timInxBeg,      ... Skalar f¸r Anfangsindex in den Eingangsdaten
-    timInxEnd,      ... Skalar f¸r Endindex in den Eingangsdaten
-    engEnd,         ... scalar - prefinal engine state
-    engEndEnd,      ... Skalar fÔøΩr Zielindex der kinetischen Energie
-    batEndInx,      ... scalar - final battery state
-    engStaNum,      ... scalar - for number of states engine can take
-    batStaNum,      ... scalar - for number of battery states exist
-    optPreInxTn3,   ... Tensor 3. Stufe f¸r opt. Vorg‰ngerkoordinaten
-    batPwrOptTn3,   ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn3,   ... Tensor 3. Stufe f¸r die Kraftstoffenergie
-    cos2goActMat    ... Matrix der optimalen Kosten der Hamiltonfunktion 
+       (timVec,         ... Skalar f¸r die max. Anzahl an Wegst√ºtzstellen
+        engEnd,         ... scalar - prefinal engine state
+        engEndEnd,      ... Skalar fÔøΩr Zielindex der kinetischen Energie
+        batEndInx,      ... scalar - final battery state
+        batStaNum,      ... scalar - for number of battery states exist
+        optPreInxTn3,   ... Tensor 3. Stufe f¸r opt. Vorg‰ngerkoordinaten
+        batPwrOptTn3,   ... Tensor 3. Stufe der Batteriekraft
+        fulEngOptTn3,   ... Tensor 3. Stufe f¸r die Kraftstoffenergie
+        cos2goActMat,   ... Matrix der optimalen Kosten der Hamiltonfunktion 
+        emoTrqOptTn3,   ...
+        iceTrqOptTn3,   ...
+        brkTrqOptTn3,   ...
+        inputparams,    ...
+        tst_scalar_struct...
     ) %#codegen
 %
 %CLCOPTTRJ Calculating optimal trajectories for result of DP + PMP
@@ -52,6 +54,7 @@ function [          ...
 
 %% Initialisieren der Ausgabe der Funktion
 %   initializing function output
+timNum = length(timVec);
 
 % Trajektorie der optimalen kin. Energien
 %   optimal kinetic energy trajectory initializaton
@@ -59,10 +62,12 @@ engStaOptVec    = inf(timNum,1);
 
 % Trajektorie der optimalen Batterieenergie√§nderung im Intervall
 %   optimal battery energy change trajectories for the interval
-batPwrOptVec = inf(timNum,1);
+batPwrOptVec    = inf(timNum,1);
 
 batStaOptVec    = zeros(timNum, 1);
 
+% define timInxEnd because it is invoked so often
+timInxEnd = inputparams.timInxEnd;
 %% Initialisieren des finalen Zustands
 %   intializing the final state
 
@@ -73,7 +78,7 @@ batStaOptVec    = zeros(timNum, 1);
 % Suche des optimalen Gangs und der optimalen Geschwindigkeit, falls 
 % Zielgang nicht festgelegt ist
 %   find the optimal gear and speed if the target gear isn't fixed
-if disFlg    
+if inputparams.disFlg    
     engStaOptVec(timInxEnd-1) = engEnd;
     
     batStaOptVec(timInxEnd-1) = batEndInx;
@@ -117,7 +122,7 @@ engStaOptVec(timInxEnd) = engStaEndInx;
 %   initialize battery energy change's last interval
 batPwrOptVec(timInxEnd-1,1) = ...
     batPwrOptTn3(engStaOptVec(timInxEnd)+1, batStaOptVec(timInxEnd-1), ...
-                timInxEnd-1) * timStp;
+                timInxEnd-1) * inputparams.timStp;
 
 % Beschreiben der Ausgabegrˆﬂe der optimalen Kraftstoffenergie
 %   writing the output for the optimal fuel energy
@@ -128,13 +133,15 @@ fulEngOpt = ...
 % Initialisieren des Vektors der optimalen Kraftstoffenergie‰nderung
 %   intializing the optimum fuel energy change vector
 fulEngDltOptVec = zeros(timNum,1);
-
+emoTrqOptVec    = zeros(timNum, 1);
+iceTrqOptVec    = zeros(timNum, 1);
+brkTrqOptVec    = zeros(timNum, 1);
 %% R¸ckw‰rtsrechnung ¸ber alle Wegpunkte 
 %   reverse calculation of all the path indexes
 
 % Rekonstruieren des optimalen Pfades aus
 %   rebuilding the optimale path
-for timInx = timInxEnd:-1:timInxBeg+1
+for timInx = timInxEnd:-1:inputparams.timInxBeg+1
     
     % optimalen Vorg‰ngerindex aus Tensor auslesen
     %   reading the tensor's optimum previous index 
@@ -147,7 +154,7 @@ for timInx = timInxEnd:-1:timInxBeg+1
     
     % optimalen Index dekodieren
     %   decoding the optimal index
-    if timInx > timInxBeg+1
+    if timInx > inputparams.timInxBeg+1
         % what does this do? - assigns index values, that's for sure
         % - its repopulating the vectors (previously assigned to 0) by
         %   looping through all the path states and selecting all the 
@@ -155,7 +162,7 @@ for timInx = timInxEnd:-1:timInxBeg+1
         %   generated optimum indexes
 
         [engStaOptVec(timInx-1,1), batStaOptVec(timInx-2,1)] = ...
-            ind2sub([engStaNum, batStaNum],optInx);
+            ind2sub([tst_scalar_struct.engStaNum, batStaNum],optInx);
         % revert engStaOptVec from index value to boolean
         engStaOptVec(timInx-1,1) = engStaOptVec(timInx-1,1)-1;
         % 2 - because of number of engine states - send to mainConfig!!
@@ -166,7 +173,7 @@ for timInx = timInxEnd:-1:timInxBeg+1
         %   amount
         batPwrOptVec(timInx-2,1) = ...
             batPwrOptTn3(engStaOptVec(timInx-1)+1,...
-                         batStaOptVec(timInxEnd-2), timInx-2) * timStp;
+                         batStaOptVec(timInxEnd-2), timInx-2) * inputparams.timStp;
         
         % Krafstoffenergie√§nderung f√ºr Intervall speichern
         % Flussgr√∂√üe (gilt im Intervall)
@@ -181,17 +188,34 @@ for timInx = timInxEnd:-1:timInxBeg+1
         %   save potetial variables in the first point/index
     else % if timInx == timInxBeg ( == 1 if wayOInxBeg = 1)
         [engStaOptVec(timInx-1,1), batStaOptVec(timInx-1,1)] = ...
-            ind2sub([engStaNum, batStaNum], optInx);
+            ind2sub([tst_scalar_struct.engStaNum, batStaNum], optInx);
         
         fulEngDltOptVec(timInx-1,1) = ...
             fulEngOptTn3(engStaOptVec(timInx)+1, batStaOptVec(timInx-1), timInx);
         
 %         engStaOptVec(timInx-1,1) = engStaOptVec(timInx,1);
     end
-        
+%     % save optimal torque values 
+% emoTrq
+emoTrqOptVec(timInx) = ...
+    emoTrqOptTn3(engStaOptVec(timInx,1)+1, ...
+                  batStaOptVec(timInx,1), ...
+                  timInx);
+% iceTrq
+iceTrqOptVec(timInx) = ...
+    iceTrqOptTn3(engStaOptVec(timInx,1)+1, ...
+                  batStaOptVec(timInx,1), ...
+                  timInx);
+% brkTrq
+brkTrqOptVec(timInx) = ...
+    brkTrqOptTn3(engStaOptVec(timInx,1)+1, ...
+                  batStaOptVec(timInx,1), ...
+                  timInx);
+                            
+%                   
 end % end of path_idx loop
 
 % derive battery energy based on the battery power
-batEngOptVec = [(batStaOptVec(1:end-1)-1) * batStp; (batEndInx-1)*batStp];
+batEngOptVec = [(batStaOptVec(1:end-1)-1) * tst_scalar_struct.batEngStp; (batEndInx-1)*tst_scalar_struct.batEngStp];
 
 end % end of function

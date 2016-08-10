@@ -1,23 +1,28 @@
-function [fulEng] = ...
-    optTrqSplit_focus(          ...
-            brkBool,            ... skalar - allow states requireing braking?
-            batPwr,             ...
-            batOcvPre,          ...
-            batRst,             ...
-            crsSpdPre,          ...
-            crsTrqPre,          ...
-            emoTrqMinPos,       ...
-            emoTrqMaxPos,       ...
-            emoPwrMinPos,       ...
-            emoPwrMaxPos,       ...
-            iceTrqMaxPos,       ...
-            iceTrqMinPos,       ...
-            crsSpdHybMax,       ... % maximum crankshaft rotational speed
-            crsSpdHybMin,       ... % minimum crankshaft rotational speed
-            timStp,             ...
-            vehVelVec,          ...
-            fzg_scalar_struct,  ...
-            fzg_array_struct)
+function [              ...
+    fulEng,             ...
+    emoTrq,             ...
+    iceTrq,             ...
+    brkTrq              ...
+] = optTrqSplit_focus(  ...
+    brkBool,            ... skalar - allow states requireing braking?
+    batPwr,             ...
+    batOcvPre,          ...
+    batRst,             ...
+    crsSpdPre,          ...
+    crsTrqPre,          ...
+    emoTrqMinPos,       ...
+    emoTrqMaxPos,       ...
+    emoPwrMinPos,       ...
+    emoPwrMaxPos,       ...
+    iceTrqMaxPos,       ...
+    iceTrqMinPos,       ...
+    crsSpdHybMax,       ...  maximum crankshaft rotational speed
+    crsSpdHybMin,       ...  minimum crankshaft rotational speed
+    timStp,             ...
+    batPwrAux,          ...
+    vehVelVec,          ...
+    fzg_scalar_struct,  ...
+    fzg_array_struct)
 %#codegen
 %CLCPMP Minimizing Hamiltonian: Co-States for soc and time
 % Erstellungsdatum der ersten Version 19.08.2015 - Stephan Uebel
@@ -69,6 +74,9 @@ function [fulEng] = ...
 % new initialization
 % intializing fuel energy output
 fulEng = inf;
+emoTrq = 0;
+iceTrq = 0;
+brkTrq = 0;
 % -------------------------------------------------------------------------
 
 % ----- CRANKSHAFT SPEED BOUNDARY CHECKS ---------------------------------
@@ -99,13 +107,13 @@ end
 
 % lookup battery voltage for the given battery state - batOcvPre
 % therefore, current I = batPwr/batOcvPre
-batCur = batPwr / batOcvPre;
+batCur      = batPwr / batOcvPre;
 
 % can now caculate battery losses:
-batPwrLoss = batCur.^2 * batRst;
+batPwrLoss  = batCur.^2 * batRst;
 
 % find emoPwr
-emoPwr = batPwr - batPwrLoss;
+emoPwr      = batPwr - batPwrLoss - batPwrAux;
 
 % emoPwr bound checking
 if emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr
@@ -142,9 +150,20 @@ iceTrq = crsTrqPre - emoTrq;
 if iceTrq > iceTrqMaxPos || iceTrq < iceTrqMinPos
     return
 end
-    
 % HOW TO DEAL WITH BREAK BOOL?
+% BRAKE WHEEL SIDE - WHEELS ARE RECEIVING TOO MUCH TORQUE FROM ICE
+% if the iceTrq being delivered exceeds crsTrq demands plus the limit that
+% the EM can experience while charging, discharge the iceTrq through brkTrq
+if iceTrq > (crsTrqPre - iceTrqMinPos)
+   if brkBool
+       brkTrq = iceTrq - (crsTrqPre - iceTrqMinPos);
+   else
+       return;
+   end
+end
+
 % if brkBool is true - allow for braking to reduce 
+% BRAKE ENGINE SIDE - ENGINE CANNOT RUN IN REVERSE
 if iceTrq < 0
     % if iceTrq is negative (which it can't be in this case), don't
     % brake with with engine! Rather, brake with the brakes.
@@ -154,7 +173,7 @@ if iceTrq < 0
         iceTrq = iceTrqMinPos;
         fprintf('NOTE: engine braking is occuring - this is not optimal!\n');
         fprintf('   brkTrq: %4.3f\n', brkTrq);
-        fprintf('   adjusted iceTrq: %4.3f\n', iceTrq);  
+        fprintf('   adjusted iceTrq: %4.3f\n', iceTrq);
     else
         return;
     end
@@ -163,18 +182,18 @@ end
 
 
 % ----- CALCULATE fulEng USE ----------------------------------------------
-fulEng =                        ... Skalar Krafstoffkraft in N
-fulEngClc_focus                 ... FUNCTION CALL
-(                               ...
-timStp,                         ... Skalar für die Wegschrittweite in m,
-vehVelVec(1),                   ... Skalar - vehicular velocity
-crsSpdPre,                      ... Skalar - crankshaft speed at given path_idx
-iceTrq,                         ... Skalar - ice torque at given path_idx
-iceTrqMaxPos,                   ... Skalar - max ICE torque
-fzg_scalar_struct,              ... struct - Fahrzeugparameter - nur skalar
-fzg_array_struct.iceSpdMgd,     ... struct - Fahrzeugparameter - nur array      
-fzg_array_struct.iceTrqMgd,     ... struct - Fahrzeugparameter - nur array    
-fzg_array_struct.iceFulPwr_iceSpd_iceTrq...
+fulEng =                                ... Skalar Krafstoffkraft in N
+fulEngClc_focus                         ... FUNCTION CALL
+(                                       ...
+timStp,                                 ... Skalar für die Wegschrittweite in m,
+vehVelVec(1),                           ... Skalar - vehicular velocity
+crsSpdPre,                              ... Skalar - crankshaft speed at given path_idx
+iceTrq,                                 ... Skalar - ice torque at given path_idx
+iceTrqMaxPos,                           ... Skalar - max ICE torque
+fzg_scalar_struct,                      ... Fahrzeugparameter - nur skalar
+fzg_array_struct.iceSpdMgd,             ... Fahrzeugparameter - iceSpd      
+fzg_array_struct.iceTrqMgd,             ... Fahrzeugparameter - iceTrq    
+fzg_array_struct.iceFulPwr_iceSpd_iceTrq... Fahrzeugparameter - icePwr
 );
 % -------------------------------------------------------------------------
 

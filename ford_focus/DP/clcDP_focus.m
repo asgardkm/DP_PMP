@@ -1,7 +1,10 @@
 function [              ...  --- AusgangsgrÃ¶ÃŸen:
     optPreInxTn4,       ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn4,       ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn4,       ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
+    fulEngOptTn4,       ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie
+    emoTrqOptTn4,       ... tensor - saves optimal emoTrq values
+    iceTrqOptTn4,       ... tensor - saves optimal iceTrq values
+    brkTrqOptTn4,       ... tensor - saves optimal brkTrq values
     cos2goActTn3        ... Matrix der optimalen Kosten der Hamiltonfunktion 
     ] =                 ...
     clcDP_focus         ...
@@ -159,6 +162,11 @@ optPreInxTn4 = zeros(engNum, geaNum, batNum, timNum);
 %   tensor3 for fuel energy - now Tn4
 fulEngOptTn4 = inf(engNum, geaNum, batNum, timNum);
 
+% tensors for saving optimal torque values
+emoTrqOptTn4  = inf(engNum, geaNum, batNum, timNum);
+iceTrqOptTn4  = inf(engNum, geaNum, batNum, timNum);
+brkTrqOptTn4  = inf(engNum, geaNum, batNum, timNum);
+
 %   set initial fuel energy level to 0
 %   Note: batEngIdxBeg is a scaled down energy value index, NOT a vector
 %   index. Keep this in mind later when manipulating batEng index bounds.
@@ -241,6 +249,12 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     % aktuellen Wegschritt
     %   initialize matrix for fuel energie along current way idxs
     fulEngActTn3 = inf(engNum, geaNum, batNum);
+    
+    % intiialiying matrices for saving torques for each state permutation
+    % for the given time interval
+    emoTrqActTn3 = zeros(engNum, geaNum, batNum);
+    iceTrqActTn3 = zeros(engNum, geaNum, batNum);
+    brkTrqActTn3 = zeros(engNum, geaNum, batNum);
     
     % possible engine state changes for current and past path_idxs
     engStaNumPre = engStaVec_timInx(timInx-1); % and the previous idx KE
@@ -335,7 +349,10 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                 % memoization variable for storing möglich fuel values
 %                 fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum);
                 fulActTn3 = inf(engNum, geaNum, batNum);
-          
+                % memoiztaion variables for output torques
+                emoTrqPreTn3 = zeros(engNum, geaNum, batNum);
+                iceTrqPreTn3 = zeros(engNum, geaNum, batNum);
+                brkTrqPreTn3 = zeros(engNum, geaNum, batNum);
 % ----- DEFINING PREDECESSOR STATE VARIABLE LIMITATIONS ------------------
                 %% defining previous engine state control w/ iceFlg
                 % if the engine state can toggle: one of two options
@@ -542,11 +559,10 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
 
                                 % do it tim interval at a tim? will remove vector
                                 % aspects
-    %                             [minFul, emoTrq, iceTrq, brkTrq] =...
-                                minFul =...
+                                [minFul, emoTrq, iceTrq, brkTrq] =...
                                     optTrqSplit_focus   ...
                                     (                   ...
-                                    inputparams.brkBool,            ...
+                                    inputparams.brkBool,...
                                     batPwr,             ...
                                     batOcvPre,          ...
                                     batRst,             ...
@@ -560,7 +576,8 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                                     iceTrqMinPos,       ...
                                     crsSpdHybMax,       ... % maximum crankshaft rotational speed
                                     crsSpdHybMin,       ... % minimum crankshaft rotational speed
-                                    inputparams.timStp,             ...
+                                    inputparams.timStp, ...
+                                    inputparams.batPwrAux,...
                                     vehVelVec,          ...
                                     fzg_scalar_struct,  ...
                                     fzg_array_struct    ...
@@ -573,6 +590,10 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                                     + cos2goPreTn3(engStaPre+1,geaStaPre, batStaPreIdx)...
                                     + geaStaChgPenCos/inputparams.timStp  ...
                                     + engStaChgPenCos/inputparams.timStp;
+                                
+                                emoTrqPreTn3(engStaPre+1, geaStaPre,batStaPreIdx) = emoTrq;
+                                iceTrqPreTn3(engStaPre+1, geaStaPre,batStaPreIdx) = iceTrq;
+                                brkTrqPreTn3(engStaPre+1, geaStaPre,batStaPreIdx) = brkTrq;
 
                             end % end of bat energy changing loop
                                 
@@ -591,7 +612,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                             % permutations)
                             batStaPreIdx_noEmo = batStaActInx + ... - 1
                                                  batPwrDemIdxTn3(timInx, batStaActInx, geaStaAct);
-                                             
+
                             % check your bounds 
                             if (batStaPreIdx_noEmo < batStaMin/batStaStp + 1) || ...
                                 (batStaPreIdx_noEmo > batStaMax/batStaStp + 1)
@@ -604,6 +625,19 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                                 + cos2goPreTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo) ...
                                 + geaStaChgPenCos / inputparams.timStp ...
                                 + engStaChgPenCos / inputparams.timStp;
+
+                            emoTrqPreTn3(engStaPre+1, geaStaPre,batStaPreIdx_noEmo) = crsTrqPre;
+
+                            % brake torque in case of torque overshoot
+                            if inputparams.brkBool
+                                crsPwrPre = crsTrqPre * crsSpdPre;
+                                batPwrPre = batStaActInxVec(batStaPreIdx_noEmo) * batStaStp / inputparams.timStp;
+                                if batPwrPre > crsPwrPre
+                                    brkTrqPreTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo) = ...
+                                        (batPwrPre - crsPwrPre)/crsSpdPre;
+                                end
+                            end
+                            
                         end % end of engStaPre condition check
                         
                     end % end of gear changes loop
@@ -650,6 +684,17 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                     %   that's applicable to current interval
                     batPwrOptTn3(engStaAct+1,geaStaAct,batStaActInx) = batStaActInx - batStaPreOptInx;
                     
+                    % save optimal torque values for the given state
+                    % emoTrq
+                    emoTrqActTn3(engStaAct+1,geaStaAct,batStaActInx) = ...
+                        emoTrqPreTn3(engStaPreOptInx, geaStaPreOptInx, batStaPreOptInx);
+                    % iceTrq
+                    iceTrqActTn3(engStaAct+1,geaStaAct,batStaActInx) = ...
+                        iceTrqPreTn3(engStaPreOptInx, geaStaPreOptInx, batStaPreOptInx);
+                    % brkTrq
+                    brkTrqActTn3(engStaAct+1,geaStaAct,batStaActInx) = ...
+                        brkTrqPreTn3(engStaPreOptInx, geaStaPreOptInx, batStaPreOptInx);
+                    
                     % optimalen Vorgänger codieren über Funktion sub2ind
                     % und speichern im Tensor
                     %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
@@ -693,6 +738,14 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     %   flux quantity applied over the interval
     batPwrOptTn4(:,:,:,timInx-1) = batPwrOptTn3;
     
+    
+    % save optimal torque tensors for each time interval
+    % emoTrq
+    emoTrqOptTn4(:,:,:,timInx) = emoTrqActTn3;
+    % iceTrq
+    iceTrqOptTn4(:,:,:,timInx) = iceTrqActTn3;
+    % brkTrq
+    brkTrqOptTn4(:,:,:,timInx) = brkTrqActTn3;
     % Ausgabe des aktuellen Schleifendurchlaufs
     %   output for current loop - print to terminal
     if inputparams.disFlg

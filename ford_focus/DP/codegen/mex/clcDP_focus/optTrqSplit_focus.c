@@ -13,19 +13,19 @@
 #include <stdio.h>
 
 /* Variable Definitions */
-static emlrtRSInfo y_emlrtRSI = { 155, "optTrqSplit_focus",
+static emlrtRSInfo y_emlrtRSI = { 174, "optTrqSplit_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\optTrqSplit_focus.m"
 };
 
-static emlrtRSInfo ab_emlrtRSI = { 156, "optTrqSplit_focus",
+static emlrtRSInfo ab_emlrtRSI = { 175, "optTrqSplit_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\optTrqSplit_focus.m"
 };
 
-static emlrtRSInfo bb_emlrtRSI = { 157, "optTrqSplit_focus",
+static emlrtRSInfo bb_emlrtRSI = { 176, "optTrqSplit_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\optTrqSplit_focus.m"
 };
 
-static emlrtRSInfo cb_emlrtRSI = { 167, "optTrqSplit_focus",
+static emlrtRSInfo cb_emlrtRSI = { 186, "optTrqSplit_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\optTrqSplit_focus.m"
 };
 
@@ -33,108 +33,108 @@ static emlrtRSInfo fb_emlrtRSI = { 62, "fulEngClc_focus",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\fulEngClc_focus.m"
 };
 
-static emlrtDCInfo lb_emlrtDCI = { 42, 15, "codegen_interp2",
+static emlrtDCInfo tb_emlrtDCI = { 42, 15, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo vc_emlrtBCI = { 1, 35, 41, 15, "Z", "codegen_interp2",
+static emlrtBCInfo ie_emlrtBCI = { 1, 35, 41, 15, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo mb_emlrtDCI = { 41, 15, "codegen_interp2",
+static emlrtDCInfo ub_emlrtDCI = { 41, 15, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtDCInfo nb_emlrtDCI = { 41, 10, "codegen_interp2",
+static emlrtDCInfo vb_emlrtDCI = { 41, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtDCInfo ob_emlrtDCI = { 36, 10, "codegen_interp2",
+static emlrtDCInfo wb_emlrtDCI = { 36, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtDCInfo pb_emlrtDCI = { 35, 23, "codegen_interp2",
+static emlrtDCInfo xb_emlrtDCI = { 35, 23, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo wc_emlrtBCI = { 1, 38, 35, 10, "Z", "codegen_interp2",
+static emlrtBCInfo je_emlrtBCI = { 1, 38, 35, 10, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo qb_emlrtDCI = { 35, 10, "codegen_interp2",
+static emlrtDCInfo yb_emlrtDCI = { 35, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtDCInfo rb_emlrtDCI = { 27, 21, "codegen_interp2",
+static emlrtDCInfo ac_emlrtDCI = { 27, 21, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtDCInfo sb_emlrtDCI = { 27, 10, "codegen_interp2",
+static emlrtDCInfo bc_emlrtDCI = { 27, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo xc_emlrtBCI = { 1, 35, 26, 21, "Z", "codegen_interp2",
+static emlrtBCInfo ke_emlrtBCI = { 1, 35, 26, 21, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo tb_emlrtDCI = { 26, 21, "codegen_interp2",
+static emlrtDCInfo cc_emlrtDCI = { 26, 21, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtDCInfo ub_emlrtDCI = { 26, 10, "codegen_interp2",
+static emlrtDCInfo dc_emlrtDCI = { 26, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtDCInfo vb_emlrtDCI = { 25, 23, "codegen_interp2",
+static emlrtDCInfo ec_emlrtDCI = { 25, 23, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo yc_emlrtBCI = { 1, 38, 25, 10, "Z", "codegen_interp2",
+static emlrtBCInfo le_emlrtBCI = { 1, 38, 25, 10, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo wb_emlrtDCI = { 25, 10, "codegen_interp2",
+static emlrtDCInfo fc_emlrtDCI = { 25, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo ad_emlrtBCI = { 1, 35, 24, 23, "Z", "codegen_interp2",
+static emlrtBCInfo me_emlrtBCI = { 1, 35, 24, 23, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo xb_emlrtDCI = { 24, 23, "codegen_interp2",
+static emlrtDCInfo gc_emlrtDCI = { 24, 23, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtBCInfo bd_emlrtBCI = { 1, 38, 24, 10, "Z", "codegen_interp2",
+static emlrtBCInfo ne_emlrtBCI = { 1, 38, 24, 10, "Z", "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   0 };
 
-static emlrtDCInfo yb_emlrtDCI = { 24, 10, "codegen_interp2",
+static emlrtDCInfo hc_emlrtDCI = { 24, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtDCInfo ac_emlrtDCI = { 46, 10, "codegen_interp2",
+static emlrtDCInfo ic_emlrtDCI = { 46, 10, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
-static emlrtDCInfo bc_emlrtDCI = { 46, 15, "codegen_interp2",
+static emlrtDCInfo jc_emlrtDCI = { 46, 15, "codegen_interp2",
   "C:\\Users\\s0032360\\Documents\\GitHub\\DP_PMP\\ford_focus\\DP\\codegen_interp2.m",
   1 };
 
 /* Function Definitions */
-real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
+void optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
   real_T batOcvPre, real_T batRst, real_T crsSpdPre, real_T crsTrqPre, real_T
   emoTrqMinPos, real_T emoTrqMaxPos, real_T emoPwrMinPos, real_T emoPwrMaxPos,
   real_T iceTrqMaxPos, real_T iceTrqMinPos, real_T crsSpdHybMax, real_T
-  crsSpdHybMin, real_T timStp, const real_T vehVelVec[2], const struct2_T
-  *fzg_scalar_struct, const struct3_T *fzg_array_struct)
+  crsSpdHybMin, real_T timStp, real_T batPwrAux, const real_T vehVelVec[2],
+  const struct2_T *fzg_scalar_struct, const struct3_T *fzg_array_struct, real_T *
+  fulEng, real_T *emoTrq, real_T *iceTrq, real_T *brkTrq)
 {
-  real_T fulEng;
   real_T batCur;
-  real_T iceTrq;
   boolean_T guard1 = false;
-  real_T idyi;
+  boolean_T guard2 = false;
   real_T idxi;
+  real_T d0;
   int32_T i9;
   emlrtStack st;
   emlrtStack b_st;
@@ -144,8 +144,8 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
   b_st.tls = st.tls;
 
   /*  skalar - allow states requireing braking? */
-  /*  % maximum crankshaft rotational speed */
-  /*  % minimum crankshaft rotational speed */
+  /*   maximum crankshaft rotational speed */
+  /*   minimum crankshaft rotational speed */
   /* CLCPMP Minimizing Hamiltonian: Co-States for soc and time */
   /*  Erstellungsdatum der ersten Version 19.08.2015 - Stephan Uebel */
   /*  */
@@ -192,7 +192,10 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
   /*  fulFrcOut = 0; */
   /*  new initialization */
   /*  intializing fuel energy output */
-  fulEng = rtInf;
+  *fulEng = rtInf;
+  *emoTrq = 0.0;
+  *iceTrq = 0.0;
+  *brkTrq = 0.0;
 
   /*  ------------------------------------------------------------------------- */
   /*  ----- CRANKSHAFT SPEED BOUNDARY CHECKS --------------------------------- */
@@ -219,7 +222,7 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
 
     /*  can now caculate battery losses: */
     /*  find emoPwr */
-    batCur = batPwr - batCur * batCur * batRst;
+    batCur = (batPwr - batCur * batCur * batRst) - batPwrAux;
 
     /*  emoPwr bound checking */
     if ((emoPwrMinPos > batCur) || (emoPwrMaxPos < batCur)) {
@@ -229,43 +232,59 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
       /*  Power = Torque * rotational vel. */
       /*  therefore, */
       /*  Torque = Power / Vel */
-      batCur /= crsSpdPre;
+      *emoTrq = batCur / crsSpdPre;
 
       /*  emoTrq bound checking */
-      if ((emoTrqMinPos > batCur) || (emoTrqMaxPos < batCur) || (crsTrqPre >
-           iceTrqMaxPos + batCur)) {
+      if ((emoTrqMinPos > *emoTrq) || (emoTrqMaxPos < *emoTrq) || (crsTrqPre >
+           iceTrqMaxPos + *emoTrq)) {
       } else {
         /*  ------------------------------------------------------------------------- */
         /*  ----- CALCUALTE crsTrq -------------------------------------------------- */
         /*  check that the demanded crsTrq is not above max possible torque that */
         /*  can be generated between the ice and the em */
         /*  torque split */
-        iceTrq = crsTrqPre - batCur;
+        *iceTrq = crsTrqPre - *emoTrq;
 
         /*  iceTrq boundary check */
         /*  check if iceTrq is too high or low based on iceTrqMax/MinPos */
-        if ((iceTrq > iceTrqMaxPos) || (iceTrq < iceTrqMinPos)) {
+        if ((*iceTrq > iceTrqMaxPos) || (*iceTrq < iceTrqMinPos)) {
         } else {
           /*  HOW TO DEAL WITH BREAK BOOL? */
-          /*  if brkBool is true - allow for braking to reduce  */
+          /*  BRAKE WHEEL SIDE - WHEELS ARE RECEIVING TOO MUCH TORQUE FROM ICE */
+          /*  if the iceTrq being delivered exceeds crsTrq demands plus the limit that */
+          /*  the EM can experience while charging, discharge the iceTrq through brkTrq */
           guard1 = false;
-          if (iceTrq < 0.0) {
-            /*  if iceTrq is negative (which it can't be in this case), don't */
-            /*  brake with with engine! Rather, brake with the brakes. */
-            /*  BUT! this shouldn't trigger, as this is not optimal! */
+          guard2 = false;
+          if (*iceTrq > crsTrqPre - iceTrqMinPos) {
             if (brkBool != 0.0) {
-              batCur = iceTrq;
-              iceTrq = iceTrqMinPos;
-              st.site = &y_emlrtRSI;
-              b_fprintf(&st);
-              st.site = &ab_emlrtRSI;
-              d_fprintf(&st, batCur);
-              st.site = &bb_emlrtRSI;
-              f_fprintf(&st, iceTrqMinPos);
-              guard1 = true;
+              *brkTrq = *iceTrq - (crsTrqPre - iceTrqMinPos);
+              guard2 = true;
             }
           } else {
-            guard1 = true;
+            guard2 = true;
+          }
+
+          if (guard2) {
+            /*  if brkBool is true - allow for braking to reduce  */
+            /*  BRAKE ENGINE SIDE - ENGINE CANNOT RUN IN REVERSE */
+            if (*iceTrq < 0.0) {
+              /*  if iceTrq is negative (which it can't be in this case), don't */
+              /*  brake with with engine! Rather, brake with the brakes. */
+              /*  BUT! this shouldn't trigger, as this is not optimal! */
+              if (brkBool != 0.0) {
+                *brkTrq = *iceTrq;
+                *iceTrq = iceTrqMinPos;
+                st.site = &y_emlrtRSI;
+                b_fprintf(&st);
+                st.site = &ab_emlrtRSI;
+                d_fprintf(&st, *brkTrq);
+                st.site = &bb_emlrtRSI;
+                f_fprintf(&st, iceTrqMinPos);
+                guard1 = true;
+              }
+            } else {
+              guard1 = true;
+            }
           }
 
           if (guard1) {
@@ -278,9 +297,10 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
             /*  Skalar - crankshaft speed at given path_idx */
             /*  Skalar - ice torque at given path_idx */
             /*  Skalar - max ICE torque */
-            /*  struct - Fahrzeugparameter - nur skalar */
-            /*  struct - Fahrzeugparameter - nur array */
-            /*  struct - Fahrzeugparameter - nur array */
+            /*  Fahrzeugparameter - nur skalar */
+            /*  Fahrzeugparameter - iceSpd */
+            /*  Fahrzeugparameter - iceTrq */
+            /*  Fahrzeugparameter - icePwr */
             st.site = &cb_emlrtRSI;
 
             /*  Skalar Kraftstoffkraft */
@@ -331,8 +351,8 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
             /*        to parent function optTrqSplot_focus as part of boundary tests. */
             if (vehVelVec[0] < muDoubleScalarAbs(fzg_scalar_struct->vehVelThresh))
             {
-              fulEng = 0.0;
-            } else if (iceTrq > iceTrqMaxPos) {
+              *fulEng = 0.0;
+            } else if (*iceTrq > iceTrqMaxPos) {
             } else {
               /*  calculate fuel power */
               b_st.site = &fb_emlrtRSI;
@@ -344,99 +364,99 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
               /*  Usage restrictions */
               /*    X and Y must have the same size as Z */
               /*    e.g.,  [X,Y] = meshgrid(x,y); */
-              idyi = (crsSpdPre - fzg_array_struct->iceSpdMgd[0]) * (1.0 /
+              batCur = (crsSpdPre - fzg_array_struct->iceSpdMgd[0]) * (1.0 /
                 (fzg_array_struct->iceSpdMgd[1] - fzg_array_struct->iceSpdMgd[0]))
                 + 1.0;
-              idxi = (iceTrq - fzg_array_struct->iceTrqMgd[0]) * (1.0 /
+              idxi = (*iceTrq - fzg_array_struct->iceTrqMgd[0]) * (1.0 /
                 (fzg_array_struct->iceTrqMgd[1] - fzg_array_struct->iceTrqMgd[0]))
                 + 1.0;
-              if ((idxi <= 1.0) || (idyi <= 1.0) || (idxi > 38.0) || (idyi >
+              if ((idxi <= 1.0) || (batCur <= 1.0) || (idxi > 38.0) || (batCur >
                    35.0) || muDoubleScalarIsNaN(crsSpdPre) ||
-                  muDoubleScalarIsNaN(iceTrq)) {
+                  muDoubleScalarIsNaN(*iceTrq)) {
                 batCur = rtInf;
-              } else if ((idxi / muDoubleScalarCeil(idxi) != 1.0) && (idyi /
-                          muDoubleScalarCeil(idyi) != 1.0)) {
-                batCur = muDoubleScalarCeil(idxi) - 1.0;
-                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &yb_emlrtDCI,
+              } else if ((idxi / muDoubleScalarCeil(idxi) != 1.0) && (batCur /
+                          muDoubleScalarCeil(batCur) != 1.0)) {
+                d0 = muDoubleScalarCeil(idxi) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(d0, &hc_emlrtDCI,
                   &b_st);
-                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 38, &bd_emlrtBCI, &b_st);
-                batCur = muDoubleScalarCeil(idyi) - 1.0;
-                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &xb_emlrtDCI,
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 38, &ne_emlrtBCI, &b_st);
+                d0 = muDoubleScalarCeil(batCur) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(d0, &gc_emlrtDCI,
                   &b_st);
-                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 35, &ad_emlrtBCI, &b_st);
-                batCur = muDoubleScalarCeil(idxi) - 1.0;
-                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &wb_emlrtDCI,
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 35, &me_emlrtBCI, &b_st);
+                d0 = muDoubleScalarCeil(idxi) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(d0, &fc_emlrtDCI,
                   &b_st);
-                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 38, &yc_emlrtBCI, &b_st);
-                batCur = muDoubleScalarCeil(idyi);
-                emlrtIntegerCheckFastR2012b(batCur, &vb_emlrtDCI, &b_st);
-                batCur = muDoubleScalarCeil(idxi);
-                emlrtIntegerCheckFastR2012b(batCur, &ub_emlrtDCI, &b_st);
-                batCur = muDoubleScalarCeil(idyi) - 1.0;
-                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &tb_emlrtDCI,
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 38, &le_emlrtBCI, &b_st);
+                d0 = muDoubleScalarCeil(batCur);
+                emlrtIntegerCheckFastR2012b(d0, &ec_emlrtDCI, &b_st);
+                d0 = muDoubleScalarCeil(idxi);
+                emlrtIntegerCheckFastR2012b(d0, &dc_emlrtDCI, &b_st);
+                d0 = muDoubleScalarCeil(batCur) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(d0, &cc_emlrtDCI,
                   &b_st);
-                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 35, &xc_emlrtBCI, &b_st);
-                batCur = muDoubleScalarCeil(idxi);
-                emlrtIntegerCheckFastR2012b(batCur, &sb_emlrtDCI, &b_st);
-                batCur = muDoubleScalarCeil(idyi);
-                emlrtIntegerCheckFastR2012b(batCur, &rb_emlrtDCI, &b_st);
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 35, &ke_emlrtBCI, &b_st);
+                d0 = muDoubleScalarCeil(idxi);
+                emlrtIntegerCheckFastR2012b(d0, &bc_emlrtDCI, &b_st);
+                d0 = muDoubleScalarCeil(batCur);
+                emlrtIntegerCheckFastR2012b(d0, &ac_emlrtDCI, &b_st);
                 batCur = ((fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
                             (muDoubleScalarCeil(idxi) - 1.0) + 38 * ((int32_T)
-                  (muDoubleScalarCeil(idyi) - 1.0) - 1)) - 1] *
+                  (muDoubleScalarCeil(batCur) - 1.0) - 1)) - 1] *
                            (muDoubleScalarCeil(idxi) - idxi) *
-                           (muDoubleScalarCeil(idyi) - idyi) +
+                           (muDoubleScalarCeil(batCur) - batCur) +
                            fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
                             (muDoubleScalarCeil(idxi) - 1.0) + 38 * ((int32_T)
-                  muDoubleScalarCeil(idyi) - 1)) - 1] * (muDoubleScalarCeil(idxi)
-                            - idxi) * (1.0 - (muDoubleScalarCeil(idyi) - idyi)))
-                          + fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
-                           muDoubleScalarCeil(idxi) + 38 * ((int32_T)
-                            (muDoubleScalarCeil(idyi) - 1.0) - 1)) - 1] * (1.0 -
-                           (muDoubleScalarCeil(idxi) - idxi)) *
-                          (muDoubleScalarCeil(idyi) - idyi)) +
+                  muDoubleScalarCeil(batCur) - 1)) - 1] * (muDoubleScalarCeil
+                            (idxi) - idxi) * (1.0 - (muDoubleScalarCeil(batCur)
+                  - batCur))) + fzg_array_struct->iceFulPwr_iceSpd_iceTrq
+                          [((int32_T)muDoubleScalarCeil(idxi) + 38 * ((int32_T)
+                            (muDoubleScalarCeil(batCur) - 1.0) - 1)) - 1] * (1.0
+                           - (muDoubleScalarCeil(idxi) - idxi)) *
+                          (muDoubleScalarCeil(batCur) - batCur)) +
                   fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
                   muDoubleScalarCeil(idxi) + 38 * ((int32_T)muDoubleScalarCeil
-                  (idyi) - 1)) - 1] * (1.0 - (muDoubleScalarCeil(idxi) - idxi)) *
-                  (1.0 - (muDoubleScalarCeil(idyi) - idyi));
-              } else if ((idxi / muDoubleScalarCeil(idxi) != 1.0) && (idyi /
-                          muDoubleScalarCeil(idyi) == 1.0)) {
-                batCur = muDoubleScalarCeil(idxi) - 1.0;
-                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &qb_emlrtDCI,
+                  (batCur) - 1)) - 1] * (1.0 - (muDoubleScalarCeil(idxi) - idxi))
+                  * (1.0 - (muDoubleScalarCeil(batCur) - batCur));
+              } else if ((idxi / muDoubleScalarCeil(idxi) != 1.0) && (batCur /
+                          muDoubleScalarCeil(batCur) == 1.0)) {
+                d0 = muDoubleScalarCeil(idxi) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(d0, &yb_emlrtDCI,
                   &b_st);
-                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 38, &wc_emlrtBCI, &b_st);
-                emlrtIntegerCheckFastR2012b(idyi, &pb_emlrtDCI, &b_st);
-                batCur = muDoubleScalarCeil(idxi);
-                emlrtIntegerCheckFastR2012b(batCur, &ob_emlrtDCI, &b_st);
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 38, &je_emlrtBCI, &b_st);
+                emlrtIntegerCheckFastR2012b(batCur, &xb_emlrtDCI, &b_st);
+                d0 = muDoubleScalarCeil(idxi);
+                emlrtIntegerCheckFastR2012b(d0, &wb_emlrtDCI, &b_st);
                 batCur = fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
-                  (muDoubleScalarCeil(idxi) - 1.0) + 38 * ((int32_T)idyi - 1)) -
-                  1] * (muDoubleScalarCeil(idxi) - idxi) +
+                  (muDoubleScalarCeil(idxi) - 1.0) + 38 * ((int32_T)batCur - 1))
+                  - 1] * (muDoubleScalarCeil(idxi) - idxi) +
                   fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
-                  muDoubleScalarCeil(idxi) + 38 * ((int32_T)idyi - 1)) - 1] *
+                  muDoubleScalarCeil(idxi) + 38 * ((int32_T)batCur - 1)) - 1] *
                   (1.0 - (muDoubleScalarCeil(idxi) - idxi));
-              } else if ((idxi / muDoubleScalarCeil(idxi) == 1.0) && (idyi /
-                          muDoubleScalarCeil(idyi) != 1.0)) {
-                emlrtIntegerCheckFastR2012b(idxi, &nb_emlrtDCI, &b_st);
-                batCur = muDoubleScalarCeil(idyi) - 1.0;
-                i9 = (int32_T)emlrtIntegerCheckFastR2012b(batCur, &mb_emlrtDCI,
+              } else if ((idxi / muDoubleScalarCeil(idxi) == 1.0) && (batCur /
+                          muDoubleScalarCeil(batCur) != 1.0)) {
+                emlrtIntegerCheckFastR2012b(idxi, &vb_emlrtDCI, &b_st);
+                d0 = muDoubleScalarCeil(batCur) - 1.0;
+                i9 = (int32_T)emlrtIntegerCheckFastR2012b(d0, &ub_emlrtDCI,
                   &b_st);
-                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 35, &vc_emlrtBCI, &b_st);
-                batCur = muDoubleScalarCeil(idyi);
-                emlrtIntegerCheckFastR2012b(batCur, &lb_emlrtDCI, &b_st);
+                emlrtDynamicBoundsCheckFastR2012b(i9, 1, 35, &ie_emlrtBCI, &b_st);
+                d0 = muDoubleScalarCeil(batCur);
+                emlrtIntegerCheckFastR2012b(d0, &tb_emlrtDCI, &b_st);
                 batCur = fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
-                  idxi + 38 * ((int32_T)(muDoubleScalarCeil(idyi) - 1.0) - 1)) -
-                  1] * (muDoubleScalarCeil(idyi) - idyi) +
+                  idxi + 38 * ((int32_T)(muDoubleScalarCeil(batCur) - 1.0) - 1))
+                  - 1] * (muDoubleScalarCeil(batCur) - batCur) +
                   fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)idxi + 38 *
-                  ((int32_T)muDoubleScalarCeil(idyi) - 1)) - 1] * (1.0 -
-                  (muDoubleScalarCeil(idyi) - idyi));
+                  ((int32_T)muDoubleScalarCeil(batCur) - 1)) - 1] * (1.0 -
+                  (muDoubleScalarCeil(batCur) - batCur));
               } else {
                 batCur = fzg_array_struct->iceFulPwr_iceSpd_iceTrq[((int32_T)
-                  emlrtIntegerCheckFastR2012b(idxi, &ac_emlrtDCI, &b_st) + 38 *
-                  ((int32_T)emlrtIntegerCheckFastR2012b(idyi, &bc_emlrtDCI,
+                  emlrtIntegerCheckFastR2012b(idxi, &ic_emlrtDCI, &b_st) + 38 *
+                  ((int32_T)emlrtIntegerCheckFastR2012b(batCur, &jc_emlrtDCI,
                   &b_st) - 1)) - 1];
               }
 
               /*  since P = E/t, then E=P*t */
-              fulEng = batCur * timStp;
+              *fulEng = batCur * timStp;
             }
 
             /* % Ende der Funktion */
@@ -449,7 +469,6 @@ real_T optTrqSplit_focus(const emlrtStack *sp, real_T brkBool, real_T batPwr,
   }
 
   /*  end of function */
-  return fulEng;
 }
 
 /* End of code generation (optTrqSplit_focus.c) */

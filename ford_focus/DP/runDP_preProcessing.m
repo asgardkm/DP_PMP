@@ -1,7 +1,7 @@
 function...
 [                       ... --- Eingangsgr��en:
     batEngBeg,          ... Skalar f�r die Batterieenergie am Beginn in Ws
-    timNum,             ... Skalar f�r die Stufe der Batteriekraftmax. Anzahl an Wegst�tzstellen
+    timVec,             ... time vector
     engStaVec_timInx,   ... scalar - end engine state
     batOcv,             ... battery voltage vector w/ value for each SOC
     velVec,             ... velocity vector contiaing input speed profile
@@ -410,6 +410,7 @@ for tim = 1 : timNum
             batPwrMinLoss = ((batOcv(bat)-sqrt(batOcv(bat).^2 - 4*batRstMin(tim, gea) * ...
                                         emoPwrMinPosMat(tim,gea))).^2) / ...
                                         (4*batRstMin(tim, gea));
+                                    
             batPwrMaxLoss = ((batOcv(bat)-sqrt(batOcv(bat).^2 - 4*batRstMax(tim, gea) * ...
                                         emoPwrMaxPosMat(tim,gea))).^2) / ...
                                         (4*batRstMax(tim, gea));

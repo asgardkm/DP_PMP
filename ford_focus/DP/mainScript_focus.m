@@ -1,4 +1,4 @@
-% mainScript_a.m
+% mainScript_focus.m
 % this script will be for running DP fuel-minimizing optimization algorithm
 %% define work directory
 cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\');
@@ -7,7 +7,7 @@ cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\');
 addpath('../model_data', '../functions')
 
 %% define clcDP structure inputs
-% define init_a() inputs
+% define init_focus() inputs
 
 % define mainConfig.txt string location
 config_filename = 'mainConfig_a.txt';
@@ -27,11 +27,11 @@ write_bool      = 1;
     batPwrMat,          ... vector showing optimal battery level control
     batEngMat,          ... vector showing optimal battery levels
     fulEngOptVec,       ... Skalar - optimale Kraftstoffenergie
-    ] ...
+] ...
     = runFocusDP(       ...
     inputparams,        ...
     tst_scalar_struct,  ...
     fzg_scalar_struct,  ...
     nedc_array_struct,  ...
     fzg_array_struct    ...
-    );
+);

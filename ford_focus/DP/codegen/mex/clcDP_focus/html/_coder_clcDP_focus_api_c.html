@@ -27,7 +27,7 @@
 <a name="15"><font color="#888888 "><i>   15   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&lt;stdio.h&gt;</font>
 <a name="16"><font color="#888888 "><i>   16   </i></font></a>
 <a name="17"><font color="#888888 "><i>   17   </i></font></a><font color="#117755"><i>/* Variable Definitions */</i></font>
-<a name="18"><font color="#888888 "><i>   18   </i></font></a><font color="#112266"><b>static</b></font> emlrtRTEInfo <a name="var_l_emlrtRTEI">l_emlrtRTEI</a> = <b>{</b> 1, 1, <font color="#1122ff">&quot;_coder_clcDP_focus_api&quot;</font>, <font color="#1122ff">&quot;&quot;</font> <b>}</b>;
+<a name="18"><font color="#888888 "><i>   18   </i></font></a><font color="#112266"><b>static</b></font> emlrtRTEInfo <a name="var_r_emlrtRTEI">r_emlrtRTEI</a> = <b>{</b> 1, 1, <font color="#1122ff">&quot;_coder_clcDP_focus_api&quot;</font>, <font color="#1122ff">&quot;&quot;</font> <b>}</b>;
 <a name="19"><font color="#888888 "><i>   19   </i></font></a>
 <a name="20"><font color="#888888 "><i>   20   </i></font></a><font color="#117755"><i>/* Function Declarations */</i></font>
 <a name="21"><font color="#888888 "><i>   21   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a href="#fcn_ab_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_ab_emlrt_marshallIn');" target="_self"><font color="#1122aa">ab_emlrt_marshallIn</font></a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *u, <font color="#112266"><b>const</b></font>
@@ -140,14 +140,14 @@
 <a name="128"><font color="#888888 "><i>  128   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_ac_emlrt_marshallIn">ac_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="129"><font color="#888888 "><i>  129   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[70])
 <a name="130"><font color="#888888 "><i>  130   </i></font></a><b>{</b>
-<a name="131"><font color="#888888 "><i>  131   </i></font></a>  int32_T iv47[2];
+<a name="131"><font color="#888888 "><i>  131   </i></font></a>  int32_T iv50[2];
 <a name="132"><font color="#888888 "><i>  132   </i></font></a>  int32_T i30;
 <a name="133"><font color="#888888 "><i>  133   </i></font></a>  int32_T i31;
 <a name="134"><font color="#888888 "><i>  134   </i></font></a>  <font color="#112266"><b>for</b></font> (i30 = 0; i30 &lt; 2; i30++) <b>{</b>
-<a name="135"><font color="#888888 "><i>  135   </i></font></a>    iv47[i30] = 35 + -33 * i30;
+<a name="135"><font color="#888888 "><i>  135   </i></font></a>    iv50[i30] = 35 + -33 * i30;
 <a name="136"><font color="#888888 "><i>  136   </i></font></a>  <b>}</b>
 <a name="137"><font color="#888888 "><i>  137   </i></font></a>
-<a name="138"><font color="#888888 "><i>  138   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv47);
+<a name="138"><font color="#888888 "><i>  138   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv50);
 <a name="139"><font color="#888888 "><i>  139   </i></font></a>  <font color="#112266"><b>for</b></font> (i30 = 0; i30 &lt; 2; i30++) <b>{</b>
 <a name="140"><font color="#888888 "><i>  140   </i></font></a>    <font color="#112266"><b>for</b></font> (i31 = 0; i31 &lt; 35; i31++) <b>{</b>
 <a name="141"><font color="#888888 "><i>  141   </i></font></a>      ret[i31 + 35 * i30] = (*(real_T (*)[70])mxGetData(src))[i31 + 35 * i30];
@@ -160,11 +160,11 @@
 <a name="148"><font color="#888888 "><i>  148   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>const</b></font> mxArray *<a name="fcn_b_emlrt_marshallOut">b_emlrt_marshallOut</a>(<font color="#112266"><b>const</b></font> emxArray_real_T *u)
 <a name="149"><font color="#888888 "><i>  149   </i></font></a><b>{</b>
 <a name="150"><font color="#888888 "><i>  150   </i></font></a>  <font color="#112266"><b>const</b></font> mxArray *y;
-<a name="151"><font color="#888888 "><i>  151   </i></font></a>  <font color="#112266"><b>static</b></font> <font color="#112266"><b>const</b></font> int32_T iv28[3] = <b>{</b> 0, 0, 0 <b>}</b>;
+<a name="151"><font color="#888888 "><i>  151   </i></font></a>  <font color="#112266"><b>static</b></font> <font color="#112266"><b>const</b></font> int32_T iv31[3] = <b>{</b> 0, 0, 0 <b>}</b>;
 <a name="152"><font color="#888888 "><i>  152   </i></font></a>
 <a name="153"><font color="#888888 "><i>  153   </i></font></a>  <font color="#112266"><b>const</b></font> mxArray *m9;
 <a name="154"><font color="#888888 "><i>  154   </i></font></a>  y = NULL;
-<a name="155"><font color="#888888 "><i>  155   </i></font></a>  m9 = emlrtCreateNumericArray(3, iv28, mxDOUBLE_CLASS, mxREAL);
+<a name="155"><font color="#888888 "><i>  155   </i></font></a>  m9 = emlrtCreateNumericArray(3, iv31, mxDOUBLE_CLASS, mxREAL);
 <a name="156"><font color="#888888 "><i>  156   </i></font></a>  mxSetData((mxArray *)m9, (<font color="#112266"><b>void</b></font> *)u-&gt;data);
 <a name="157"><font color="#888888 "><i>  157   </i></font></a>  emlrtSetDimensions((mxArray *)m9, u-&gt;size, 3);
 <a name="158"><font color="#888888 "><i>  158   </i></font></a>  emlrtAssign(&amp;y, m9);
@@ -232,11 +232,11 @@
 <a name="220"><font color="#888888 "><i>  220   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>const</b></font> mxArray *<a name="fcn_emlrt_marshallOut">emlrt_marshallOut</a>(<font color="#112266"><b>const</b></font> emxArray_real_T *u)
 <a name="221"><font color="#888888 "><i>  221   </i></font></a><b>{</b>
 <a name="222"><font color="#888888 "><i>  222   </i></font></a>  <font color="#112266"><b>const</b></font> mxArray *y;
-<a name="223"><font color="#888888 "><i>  223   </i></font></a>  <font color="#112266"><b>static</b></font> <font color="#112266"><b>const</b></font> int32_T iv27[4] = <b>{</b> 0, 0, 0, 0 <b>}</b>;
+<a name="223"><font color="#888888 "><i>  223   </i></font></a>  <font color="#112266"><b>static</b></font> <font color="#112266"><b>const</b></font> int32_T iv30[4] = <b>{</b> 0, 0, 0, 0 <b>}</b>;
 <a name="224"><font color="#888888 "><i>  224   </i></font></a>
 <a name="225"><font color="#888888 "><i>  225   </i></font></a>  <font color="#112266"><b>const</b></font> mxArray *m8;
 <a name="226"><font color="#888888 "><i>  226   </i></font></a>  y = NULL;
-<a name="227"><font color="#888888 "><i>  227   </i></font></a>  m8 = emlrtCreateNumericArray(4, iv27, mxDOUBLE_CLASS, mxREAL);
+<a name="227"><font color="#888888 "><i>  227   </i></font></a>  m8 = emlrtCreateNumericArray(4, iv30, mxDOUBLE_CLASS, mxREAL);
 <a name="228"><font color="#888888 "><i>  228   </i></font></a>  mxSetData((mxArray *)m8, (<font color="#112266"><b>void</b></font> *)u-&gt;data);
 <a name="229"><font color="#888888 "><i>  229   </i></font></a>  emlrtSetDimensions((mxArray *)m8, u-&gt;size, 4);
 <a name="230"><font color="#888888 "><i>  230   </i></font></a>  emlrtAssign(&amp;y, m8);
@@ -300,9 +300,9 @@
 <a name="288"><font color="#888888 "><i>  288   </i></font></a>  <font color="#112266"><b>const</b></font> emlrtMsgIdentifier *msgId))[1181]
 <a name="289"><font color="#888888 "><i>  289   </i></font></a><b>{</b>
 <a name="290"><font color="#888888 "><i>  290   </i></font></a>  real_T (*ret)[1181];
-<a name="291"><font color="#888888 "><i>  291   </i></font></a>  int32_T iv29[1];
-<a name="292"><font color="#888888 "><i>  292   </i></font></a>  iv29[0] = 1181;
-<a name="293"><font color="#888888 "><i>  293   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 1U, iv29);
+<a name="291"><font color="#888888 "><i>  291   </i></font></a>  int32_T iv32[1];
+<a name="292"><font color="#888888 "><i>  292   </i></font></a>  iv32[0] = 1181;
+<a name="293"><font color="#888888 "><i>  293   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 1U, iv32);
 <a name="294"><font color="#888888 "><i>  294   </i></font></a>  ret = (real_T (*)[1181])mxGetData(src);
 <a name="295"><font color="#888888 "><i>  295   </i></font></a>  emlrtDestroyArray(&amp;src);
 <a name="296"><font color="#888888 "><i>  296   </i></font></a>  <font color="#112266"><b>return</b></font> ret;
@@ -320,13 +320,13 @@
 <a name="308"><font color="#888888 "><i>  308   </i></font></a>  <font color="#112266"><b>const</b></font> emlrtMsgIdentifier *msgId))[693]
 <a name="309"><font color="#888888 "><i>  309   </i></font></a><b>{</b>
 <a name="310"><font color="#888888 "><i>  310   </i></font></a>  real_T (*ret)[693];
-<a name="311"><font color="#888888 "><i>  311   </i></font></a>  int32_T iv30[2];
+<a name="311"><font color="#888888 "><i>  311   </i></font></a>  int32_T iv33[2];
 <a name="312"><font color="#888888 "><i>  312   </i></font></a>  int32_T i10;
 <a name="313"><font color="#888888 "><i>  313   </i></font></a>  <font color="#112266"><b>for</b></font> (i10 = 0; i10 &lt; 2; i10++) <b>{</b>
-<a name="314"><font color="#888888 "><i>  314   </i></font></a>    iv30[i10] = 1 + 692 * i10;
+<a name="314"><font color="#888888 "><i>  314   </i></font></a>    iv33[i10] = 1 + 692 * i10;
 <a name="315"><font color="#888888 "><i>  315   </i></font></a>  <b>}</b>
 <a name="316"><font color="#888888 "><i>  316   </i></font></a>
-<a name="317"><font color="#888888 "><i>  317   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv30);
+<a name="317"><font color="#888888 "><i>  317   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv33);
 <a name="318"><font color="#888888 "><i>  318   </i></font></a>  ret = (real_T (*)[693])mxGetData(src);
 <a name="319"><font color="#888888 "><i>  319   </i></font></a>  emlrtDestroyArray(&amp;src);
 <a name="320"><font color="#888888 "><i>  320   </i></font></a>  <font color="#112266"><b>return</b></font> ret;
@@ -345,13 +345,13 @@
 <a name="333"><font color="#888888 "><i>  333   </i></font></a>  <font color="#112266"><b>const</b></font> emlrtMsgIdentifier *msgId))[7086]
 <a name="334"><font color="#888888 "><i>  334   </i></font></a><b>{</b>
 <a name="335"><font color="#888888 "><i>  335   </i></font></a>  real_T (*ret)[7086];
-<a name="336"><font color="#888888 "><i>  336   </i></font></a>  int32_T iv31[2];
+<a name="336"><font color="#888888 "><i>  336   </i></font></a>  int32_T iv34[2];
 <a name="337"><font color="#888888 "><i>  337   </i></font></a>  int32_T i11;
 <a name="338"><font color="#888888 "><i>  338   </i></font></a>  <font color="#112266"><b>for</b></font> (i11 = 0; i11 &lt; 2; i11++) <b>{</b>
-<a name="339"><font color="#888888 "><i>  339   </i></font></a>    iv31[i11] = 1181 + -1175 * i11;
+<a name="339"><font color="#888888 "><i>  339   </i></font></a>    iv34[i11] = 1181 + -1175 * i11;
 <a name="340"><font color="#888888 "><i>  340   </i></font></a>  <b>}</b>
 <a name="341"><font color="#888888 "><i>  341   </i></font></a>
-<a name="342"><font color="#888888 "><i>  342   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv31);
+<a name="342"><font color="#888888 "><i>  342   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv34);
 <a name="343"><font color="#888888 "><i>  343   </i></font></a>  ret = (real_T (*)[7086])mxGetData(src);
 <a name="344"><font color="#888888 "><i>  344   </i></font></a>  emlrtDestroyArray(&amp;src);
 <a name="345"><font color="#888888 "><i>  345   </i></font></a>  <font color="#112266"><b>return</b></font> ret;
@@ -422,15 +422,15 @@
 <a name="410"><font color="#888888 "><i>  410   </i></font></a>  <font color="#112266"><b>const</b></font> emlrtMsgIdentifier *msgId))[4910598]
 <a name="411"><font color="#888888 "><i>  411   </i></font></a><b>{</b>
 <a name="412"><font color="#888888 "><i>  412   </i></font></a>  real_T (*ret)[4910598];
-<a name="413"><font color="#888888 "><i>  413   </i></font></a>  int32_T iv32[3];
+<a name="413"><font color="#888888 "><i>  413   </i></font></a>  int32_T iv35[3];
 <a name="414"><font color="#888888 "><i>  414   </i></font></a>  int32_T i;
-<a name="415"><font color="#888888 "><i>  415   </i></font></a>  <font color="#112266"><b>static</b></font> <font color="#112266"><b>const</b></font> int16_T iv33[3] = <b>{</b> 1181, 693, 6 <b>}</b>;
+<a name="415"><font color="#888888 "><i>  415   </i></font></a>  <font color="#112266"><b>static</b></font> <font color="#112266"><b>const</b></font> int16_T iv36[3] = <b>{</b> 1181, 693, 6 <b>}</b>;
 <a name="416"><font color="#888888 "><i>  416   </i></font></a>
 <a name="417"><font color="#888888 "><i>  417   </i></font></a>  <font color="#112266"><b>for</b></font> (i = 0; i &lt; 3; i++) <b>{</b>
-<a name="418"><font color="#888888 "><i>  418   </i></font></a>    iv32[i] = iv33[i];
+<a name="418"><font color="#888888 "><i>  418   </i></font></a>    iv35[i] = iv36[i];
 <a name="419"><font color="#888888 "><i>  419   </i></font></a>  <b>}</b>
 <a name="420"><font color="#888888 "><i>  420   </i></font></a>
-<a name="421"><font color="#888888 "><i>  421   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 3U, iv32);
+<a name="421"><font color="#888888 "><i>  421   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 3U, iv35);
 <a name="422"><font color="#888888 "><i>  422   </i></font></a>  ret = (real_T (*)[4910598])mxGetData(src);
 <a name="423"><font color="#888888 "><i>  423   </i></font></a>  emlrtDestroyArray(&amp;src);
 <a name="424"><font color="#888888 "><i>  424   </i></font></a>  <font color="#112266"><b>return</b></font> ret;
@@ -448,13 +448,13 @@
 <a name="436"><font color="#888888 "><i>  436   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_mb_emlrt_marshallIn">mb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="437"><font color="#888888 "><i>  437   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[2])
 <a name="438"><font color="#888888 "><i>  438   </i></font></a><b>{</b>
-<a name="439"><font color="#888888 "><i>  439   </i></font></a>  int32_T iv34[2];
+<a name="439"><font color="#888888 "><i>  439   </i></font></a>  int32_T iv37[2];
 <a name="440"><font color="#888888 "><i>  440   </i></font></a>  int32_T i12;
 <a name="441"><font color="#888888 "><i>  441   </i></font></a>  <font color="#112266"><b>for</b></font> (i12 = 0; i12 &lt; 2; i12++) <b>{</b>
-<a name="442"><font color="#888888 "><i>  442   </i></font></a>    iv34[i12] = 1 + i12;
+<a name="442"><font color="#888888 "><i>  442   </i></font></a>    iv37[i12] = 1 + i12;
 <a name="443"><font color="#888888 "><i>  443   </i></font></a>  <b>}</b>
 <a name="444"><font color="#888888 "><i>  444   </i></font></a>
-<a name="445"><font color="#888888 "><i>  445   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv34);
+<a name="445"><font color="#888888 "><i>  445   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv37);
 <a name="446"><font color="#888888 "><i>  446   </i></font></a>  <font color="#112266"><b>for</b></font> (i12 = 0; i12 &lt; 2; i12++) <b>{</b>
 <a name="447"><font color="#888888 "><i>  447   </i></font></a>    ret[i12] = (*(real_T (*)[2])mxGetData(src))[i12];
 <a name="448"><font color="#888888 "><i>  448   </i></font></a>  <b>}</b>
@@ -508,10 +508,10 @@
 <a name="496"><font color="#888888 "><i>  496   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_nb_emlrt_marshallIn">nb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="497"><font color="#888888 "><i>  497   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[6])
 <a name="498"><font color="#888888 "><i>  498   </i></font></a><b>{</b>
-<a name="499"><font color="#888888 "><i>  499   </i></font></a>  int32_T iv35[1];
+<a name="499"><font color="#888888 "><i>  499   </i></font></a>  int32_T iv38[1];
 <a name="500"><font color="#888888 "><i>  500   </i></font></a>  int32_T i13;
-<a name="501"><font color="#888888 "><i>  501   </i></font></a>  iv35[0] = 6;
-<a name="502"><font color="#888888 "><i>  502   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 1U, iv35);
+<a name="501"><font color="#888888 "><i>  501   </i></font></a>  iv38[0] = 6;
+<a name="502"><font color="#888888 "><i>  502   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 1U, iv38);
 <a name="503"><font color="#888888 "><i>  503   </i></font></a>  <font color="#112266"><b>for</b></font> (i13 = 0; i13 &lt; 6; i13++) <b>{</b>
 <a name="504"><font color="#888888 "><i>  504   </i></font></a>    ret[i13] = (*(real_T (*)[6])mxGetData(src))[i13];
 <a name="505"><font color="#888888 "><i>  505   </i></font></a>  <b>}</b>
@@ -532,13 +532,13 @@
 <a name="520"><font color="#888888 "><i>  520   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_ob_emlrt_marshallIn">ob_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="521"><font color="#888888 "><i>  521   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[35])
 <a name="522"><font color="#888888 "><i>  522   </i></font></a><b>{</b>
-<a name="523"><font color="#888888 "><i>  523   </i></font></a>  int32_T iv36[2];
+<a name="523"><font color="#888888 "><i>  523   </i></font></a>  int32_T iv39[2];
 <a name="524"><font color="#888888 "><i>  524   </i></font></a>  int32_T i14;
 <a name="525"><font color="#888888 "><i>  525   </i></font></a>  <font color="#112266"><b>for</b></font> (i14 = 0; i14 &lt; 2; i14++) <b>{</b>
-<a name="526"><font color="#888888 "><i>  526   </i></font></a>    iv36[i14] = 1 + 34 * i14;
+<a name="526"><font color="#888888 "><i>  526   </i></font></a>    iv39[i14] = 1 + 34 * i14;
 <a name="527"><font color="#888888 "><i>  527   </i></font></a>  <b>}</b>
 <a name="528"><font color="#888888 "><i>  528   </i></font></a>
-<a name="529"><font color="#888888 "><i>  529   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv36);
+<a name="529"><font color="#888888 "><i>  529   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv39);
 <a name="530"><font color="#888888 "><i>  530   </i></font></a>  <font color="#112266"><b>for</b></font> (i14 = 0; i14 &lt; 35; i14++) <b>{</b>
 <a name="531"><font color="#888888 "><i>  531   </i></font></a>    ret[i14] = (*(real_T (*)[35])mxGetData(src))[i14];
 <a name="532"><font color="#888888 "><i>  532   </i></font></a>  <b>}</b>
@@ -617,10 +617,10 @@
 <a name="605"><font color="#888888 "><i>  605   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_pb_emlrt_marshallIn">pb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="606"><font color="#888888 "><i>  606   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[38])
 <a name="607"><font color="#888888 "><i>  607   </i></font></a><b>{</b>
-<a name="608"><font color="#888888 "><i>  608   </i></font></a>  int32_T iv37[1];
+<a name="608"><font color="#888888 "><i>  608   </i></font></a>  int32_T iv40[1];
 <a name="609"><font color="#888888 "><i>  609   </i></font></a>  int32_T i15;
-<a name="610"><font color="#888888 "><i>  610   </i></font></a>  iv37[0] = 38;
-<a name="611"><font color="#888888 "><i>  611   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 1U, iv37);
+<a name="610"><font color="#888888 "><i>  610   </i></font></a>  iv40[0] = 38;
+<a name="611"><font color="#888888 "><i>  611   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 1U, iv40);
 <a name="612"><font color="#888888 "><i>  612   </i></font></a>  <font color="#112266"><b>for</b></font> (i15 = 0; i15 &lt; 38; i15++) <b>{</b>
 <a name="613"><font color="#888888 "><i>  613   </i></font></a>    ret[i15] = (*(real_T (*)[38])mxGetData(src))[i15];
 <a name="614"><font color="#888888 "><i>  614   </i></font></a>  <b>}</b>
@@ -641,14 +641,14 @@
 <a name="629"><font color="#888888 "><i>  629   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_qb_emlrt_marshallIn">qb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="630"><font color="#888888 "><i>  630   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[1330])
 <a name="631"><font color="#888888 "><i>  631   </i></font></a><b>{</b>
-<a name="632"><font color="#888888 "><i>  632   </i></font></a>  int32_T iv38[2];
+<a name="632"><font color="#888888 "><i>  632   </i></font></a>  int32_T iv41[2];
 <a name="633"><font color="#888888 "><i>  633   </i></font></a>  int32_T i16;
 <a name="634"><font color="#888888 "><i>  634   </i></font></a>  int32_T i17;
 <a name="635"><font color="#888888 "><i>  635   </i></font></a>  <font color="#112266"><b>for</b></font> (i16 = 0; i16 &lt; 2; i16++) <b>{</b>
-<a name="636"><font color="#888888 "><i>  636   </i></font></a>    iv38[i16] = 38 + -3 * i16;
+<a name="636"><font color="#888888 "><i>  636   </i></font></a>    iv41[i16] = 38 + -3 * i16;
 <a name="637"><font color="#888888 "><i>  637   </i></font></a>  <b>}</b>
 <a name="638"><font color="#888888 "><i>  638   </i></font></a>
-<a name="639"><font color="#888888 "><i>  639   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv38);
+<a name="639"><font color="#888888 "><i>  639   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv41);
 <a name="640"><font color="#888888 "><i>  640   </i></font></a>  <font color="#112266"><b>for</b></font> (i16 = 0; i16 &lt; 35; i16++) <b>{</b>
 <a name="641"><font color="#888888 "><i>  641   </i></font></a>    <font color="#112266"><b>for</b></font> (i17 = 0; i17 &lt; 38; i17++) <b>{</b>
 <a name="642"><font color="#888888 "><i>  642   </i></font></a>      ret[i17 + 38 * i16] = (*(real_T (*)[1330])mxGetData(src))[i17 + 38 * i16];
@@ -737,13 +737,13 @@
 <a name="725"><font color="#888888 "><i>  725   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_rb_emlrt_marshallIn">rb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="726"><font color="#888888 "><i>  726   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[3])
 <a name="727"><font color="#888888 "><i>  727   </i></font></a><b>{</b>
-<a name="728"><font color="#888888 "><i>  728   </i></font></a>  int32_T iv39[2];
+<a name="728"><font color="#888888 "><i>  728   </i></font></a>  int32_T iv42[2];
 <a name="729"><font color="#888888 "><i>  729   </i></font></a>  int32_T i18;
 <a name="730"><font color="#888888 "><i>  730   </i></font></a>  <font color="#112266"><b>for</b></font> (i18 = 0; i18 &lt; 2; i18++) <b>{</b>
-<a name="731"><font color="#888888 "><i>  731   </i></font></a>    iv39[i18] = 1 + (i18 &lt;&lt; 1);
+<a name="731"><font color="#888888 "><i>  731   </i></font></a>    iv42[i18] = 1 + (i18 &lt;&lt; 1);
 <a name="732"><font color="#888888 "><i>  732   </i></font></a>  <b>}</b>
 <a name="733"><font color="#888888 "><i>  733   </i></font></a>
-<a name="734"><font color="#888888 "><i>  734   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv39);
+<a name="734"><font color="#888888 "><i>  734   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv42);
 <a name="735"><font color="#888888 "><i>  735   </i></font></a>  <font color="#112266"><b>for</b></font> (i18 = 0; i18 &lt; 3; i18++) <b>{</b>
 <a name="736"><font color="#888888 "><i>  736   </i></font></a>    ret[i18] = (*(real_T (*)[3])mxGetData(src))[i18];
 <a name="737"><font color="#888888 "><i>  737   </i></font></a>  <b>}</b>
@@ -761,13 +761,13 @@
 <a name="749"><font color="#888888 "><i>  749   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_sb_emlrt_marshallIn">sb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="750"><font color="#888888 "><i>  750   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[73])
 <a name="751"><font color="#888888 "><i>  751   </i></font></a><b>{</b>
-<a name="752"><font color="#888888 "><i>  752   </i></font></a>  int32_T iv40[2];
+<a name="752"><font color="#888888 "><i>  752   </i></font></a>  int32_T iv43[2];
 <a name="753"><font color="#888888 "><i>  753   </i></font></a>  int32_T i19;
 <a name="754"><font color="#888888 "><i>  754   </i></font></a>  <font color="#112266"><b>for</b></font> (i19 = 0; i19 &lt; 2; i19++) <b>{</b>
-<a name="755"><font color="#888888 "><i>  755   </i></font></a>    iv40[i19] = 1 + 72 * i19;
+<a name="755"><font color="#888888 "><i>  755   </i></font></a>    iv43[i19] = 1 + 72 * i19;
 <a name="756"><font color="#888888 "><i>  756   </i></font></a>  <b>}</b>
 <a name="757"><font color="#888888 "><i>  757   </i></font></a>
-<a name="758"><font color="#888888 "><i>  758   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv40);
+<a name="758"><font color="#888888 "><i>  758   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv43);
 <a name="759"><font color="#888888 "><i>  759   </i></font></a>  <font color="#112266"><b>for</b></font> (i19 = 0; i19 &lt; 73; i19++) <b>{</b>
 <a name="760"><font color="#888888 "><i>  760   </i></font></a>    ret[i19] = (*(real_T (*)[73])mxGetData(src))[i19];
 <a name="761"><font color="#888888 "><i>  761   </i></font></a>  <b>}</b>
@@ -785,10 +785,10 @@
 <a name="773"><font color="#888888 "><i>  773   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_tb_emlrt_marshallIn">tb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="774"><font color="#888888 "><i>  774   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[95])
 <a name="775"><font color="#888888 "><i>  775   </i></font></a><b>{</b>
-<a name="776"><font color="#888888 "><i>  776   </i></font></a>  int32_T iv41[1];
+<a name="776"><font color="#888888 "><i>  776   </i></font></a>  int32_T iv44[1];
 <a name="777"><font color="#888888 "><i>  777   </i></font></a>  int32_T i20;
-<a name="778"><font color="#888888 "><i>  778   </i></font></a>  iv41[0] = 95;
-<a name="779"><font color="#888888 "><i>  779   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 1U, iv41);
+<a name="778"><font color="#888888 "><i>  778   </i></font></a>  iv44[0] = 95;
+<a name="779"><font color="#888888 "><i>  779   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 1U, iv44);
 <a name="780"><font color="#888888 "><i>  780   </i></font></a>  <font color="#112266"><b>for</b></font> (i20 = 0; i20 &lt; 95; i20++) <b>{</b>
 <a name="781"><font color="#888888 "><i>  781   </i></font></a>    ret[i20] = (*(real_T (*)[95])mxGetData(src))[i20];
 <a name="782"><font color="#888888 "><i>  782   </i></font></a>  <b>}</b>
@@ -806,14 +806,14 @@
 <a name="794"><font color="#888888 "><i>  794   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_ub_emlrt_marshallIn">ub_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="795"><font color="#888888 "><i>  795   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[6650])
 <a name="796"><font color="#888888 "><i>  796   </i></font></a><b>{</b>
-<a name="797"><font color="#888888 "><i>  797   </i></font></a>  int32_T iv42[2];
+<a name="797"><font color="#888888 "><i>  797   </i></font></a>  int32_T iv45[2];
 <a name="798"><font color="#888888 "><i>  798   </i></font></a>  int32_T i21;
 <a name="799"><font color="#888888 "><i>  799   </i></font></a>  int32_T i22;
 <a name="800"><font color="#888888 "><i>  800   </i></font></a>  <font color="#112266"><b>for</b></font> (i21 = 0; i21 &lt; 2; i21++) <b>{</b>
-<a name="801"><font color="#888888 "><i>  801   </i></font></a>    iv42[i21] = 95 + -25 * i21;
+<a name="801"><font color="#888888 "><i>  801   </i></font></a>    iv45[i21] = 95 + -25 * i21;
 <a name="802"><font color="#888888 "><i>  802   </i></font></a>  <b>}</b>
 <a name="803"><font color="#888888 "><i>  803   </i></font></a>
-<a name="804"><font color="#888888 "><i>  804   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv42);
+<a name="804"><font color="#888888 "><i>  804   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv45);
 <a name="805"><font color="#888888 "><i>  805   </i></font></a>  <font color="#112266"><b>for</b></font> (i21 = 0; i21 &lt; 70; i21++) <b>{</b>
 <a name="806"><font color="#888888 "><i>  806   </i></font></a>    <font color="#112266"><b>for</b></font> (i22 = 0; i22 &lt; 95; i22++) <b>{</b>
 <a name="807"><font color="#888888 "><i>  807   </i></font></a>      ret[i22 + 95 * i21] = (*(real_T (*)[6650])mxGetData(src))[i22 + 95 * i21];
@@ -833,14 +833,14 @@
 <a name="821"><font color="#888888 "><i>  821   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_vb_emlrt_marshallIn">vb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="822"><font color="#888888 "><i>  822   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[146])
 <a name="823"><font color="#888888 "><i>  823   </i></font></a><b>{</b>
-<a name="824"><font color="#888888 "><i>  824   </i></font></a>  int32_T iv43[2];
+<a name="824"><font color="#888888 "><i>  824   </i></font></a>  int32_T iv46[2];
 <a name="825"><font color="#888888 "><i>  825   </i></font></a>  int32_T i23;
 <a name="826"><font color="#888888 "><i>  826   </i></font></a>  int32_T i24;
 <a name="827"><font color="#888888 "><i>  827   </i></font></a>  <font color="#112266"><b>for</b></font> (i23 = 0; i23 &lt; 2; i23++) <b>{</b>
-<a name="828"><font color="#888888 "><i>  828   </i></font></a>    iv43[i23] = 73 + -71 * i23;
+<a name="828"><font color="#888888 "><i>  828   </i></font></a>    iv46[i23] = 73 + -71 * i23;
 <a name="829"><font color="#888888 "><i>  829   </i></font></a>  <b>}</b>
 <a name="830"><font color="#888888 "><i>  830   </i></font></a>
-<a name="831"><font color="#888888 "><i>  831   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv43);
+<a name="831"><font color="#888888 "><i>  831   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv46);
 <a name="832"><font color="#888888 "><i>  832   </i></font></a>  <font color="#112266"><b>for</b></font> (i23 = 0; i23 &lt; 2; i23++) <b>{</b>
 <a name="833"><font color="#888888 "><i>  833   </i></font></a>    <font color="#112266"><b>for</b></font> (i24 = 0; i24 &lt; 73; i24++) <b>{</b>
 <a name="834"><font color="#888888 "><i>  834   </i></font></a>      ret[i24 + 73 * i23] = (*(real_T (*)[146])mxGetData(src))[i24 + 73 * i23];
@@ -860,13 +860,13 @@
 <a name="848"><font color="#888888 "><i>  848   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_wb_emlrt_marshallIn">wb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="849"><font color="#888888 "><i>  849   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[66])
 <a name="850"><font color="#888888 "><i>  850   </i></font></a><b>{</b>
-<a name="851"><font color="#888888 "><i>  851   </i></font></a>  int32_T iv44[2];
+<a name="851"><font color="#888888 "><i>  851   </i></font></a>  int32_T iv47[2];
 <a name="852"><font color="#888888 "><i>  852   </i></font></a>  int32_T i25;
 <a name="853"><font color="#888888 "><i>  853   </i></font></a>  <font color="#112266"><b>for</b></font> (i25 = 0; i25 &lt; 2; i25++) <b>{</b>
-<a name="854"><font color="#888888 "><i>  854   </i></font></a>    iv44[i25] = 1 + 65 * i25;
+<a name="854"><font color="#888888 "><i>  854   </i></font></a>    iv47[i25] = 1 + 65 * i25;
 <a name="855"><font color="#888888 "><i>  855   </i></font></a>  <b>}</b>
 <a name="856"><font color="#888888 "><i>  856   </i></font></a>
-<a name="857"><font color="#888888 "><i>  857   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv44);
+<a name="857"><font color="#888888 "><i>  857   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv47);
 <a name="858"><font color="#888888 "><i>  858   </i></font></a>  <font color="#112266"><b>for</b></font> (i25 = 0; i25 &lt; 66; i25++) <b>{</b>
 <a name="859"><font color="#888888 "><i>  859   </i></font></a>    ret[i25] = (*(real_T (*)[66])mxGetData(src))[i25];
 <a name="860"><font color="#888888 "><i>  860   </i></font></a>  <b>}</b>
@@ -884,14 +884,14 @@
 <a name="872"><font color="#888888 "><i>  872   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_xb_emlrt_marshallIn">xb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="873"><font color="#888888 "><i>  873   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[4620])
 <a name="874"><font color="#888888 "><i>  874   </i></font></a><b>{</b>
-<a name="875"><font color="#888888 "><i>  875   </i></font></a>  int32_T iv45[2];
+<a name="875"><font color="#888888 "><i>  875   </i></font></a>  int32_T iv48[2];
 <a name="876"><font color="#888888 "><i>  876   </i></font></a>  int32_T i26;
 <a name="877"><font color="#888888 "><i>  877   </i></font></a>  int32_T i27;
 <a name="878"><font color="#888888 "><i>  878   </i></font></a>  <font color="#112266"><b>for</b></font> (i26 = 0; i26 &lt; 2; i26++) <b>{</b>
-<a name="879"><font color="#888888 "><i>  879   </i></font></a>    iv45[i26] = 66 + (i26 &lt;&lt; 2);
+<a name="879"><font color="#888888 "><i>  879   </i></font></a>    iv48[i26] = 66 + (i26 &lt;&lt; 2);
 <a name="880"><font color="#888888 "><i>  880   </i></font></a>  <b>}</b>
 <a name="881"><font color="#888888 "><i>  881   </i></font></a>
-<a name="882"><font color="#888888 "><i>  882   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv45);
+<a name="882"><font color="#888888 "><i>  882   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv48);
 <a name="883"><font color="#888888 "><i>  883   </i></font></a>  <font color="#112266"><b>for</b></font> (i26 = 0; i26 &lt; 70; i26++) <b>{</b>
 <a name="884"><font color="#888888 "><i>  884   </i></font></a>    <font color="#112266"><b>for</b></font> (i27 = 0; i27 &lt; 66; i27++) <b>{</b>
 <a name="885"><font color="#888888 "><i>  885   </i></font></a>      ret[i27 + 66 * i26] = (*(real_T (*)[4620])mxGetData(src))[i27 + 66 * i26];
@@ -911,14 +911,14 @@
 <a name="899"><font color="#888888 "><i>  899   </i></font></a><font color="#112266"><b>static</b></font> <font color="#112266"><b>void</b></font> <a name="fcn_yb_emlrt_marshallIn">yb_emlrt_marshallIn</a>(<font color="#112266"><b>const</b></font> emlrtStack *sp, <font color="#112266"><b>const</b></font> mxArray *src, <font color="#112266"><b>const</b></font>
 <a name="900"><font color="#888888 "><i>  900   </i></font></a>  emlrtMsgIdentifier *msgId, real_T ret[22])
 <a name="901"><font color="#888888 "><i>  901   </i></font></a><b>{</b>
-<a name="902"><font color="#888888 "><i>  902   </i></font></a>  int32_T iv46[2];
+<a name="902"><font color="#888888 "><i>  902   </i></font></a>  int32_T iv49[2];
 <a name="903"><font color="#888888 "><i>  903   </i></font></a>  int32_T i28;
 <a name="904"><font color="#888888 "><i>  904   </i></font></a>  int32_T i29;
 <a name="905"><font color="#888888 "><i>  905   </i></font></a>  <font color="#112266"><b>for</b></font> (i28 = 0; i28 &lt; 2; i28++) <b>{</b>
-<a name="906"><font color="#888888 "><i>  906   </i></font></a>    iv46[i28] = 11 + -9 * i28;
+<a name="906"><font color="#888888 "><i>  906   </i></font></a>    iv49[i28] = 11 + -9 * i28;
 <a name="907"><font color="#888888 "><i>  907   </i></font></a>  <b>}</b>
 <a name="908"><font color="#888888 "><i>  908   </i></font></a>
-<a name="909"><font color="#888888 "><i>  909   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv46);
+<a name="909"><font color="#888888 "><i>  909   </i></font></a>  emlrtCheckBuiltInR2012b(sp, msgId, src, <font color="#1122ff">&quot;double&quot;</font>, false, 2U, iv49);
 <a name="910"><font color="#888888 "><i>  910   </i></font></a>  <font color="#112266"><b>for</b></font> (i28 = 0; i28 &lt; 2; i28++) <b>{</b>
 <a name="911"><font color="#888888 "><i>  911   </i></font></a>    <font color="#112266"><b>for</b></font> (i29 = 0; i29 &lt; 11; i29++) <b>{</b>
 <a name="912"><font color="#888888 "><i>  912   </i></font></a>      ret[i29 + 11 * i28] = (*(real_T (*)[22])mxGetData(src))[i29 + 11 * i28];
@@ -928,103 +928,119 @@
 <a name="916"><font color="#888888 "><i>  916   </i></font></a>  emlrtDestroyArray(&amp;src);
 <a name="917"><font color="#888888 "><i>  917   </i></font></a><b>}</b>
 <a name="918"><font color="#888888 "><i>  918   </i></font></a>
-<a name="919"><font color="#888888 "><i>  919   </i></font></a><font color="#112266"><b>void</b></font> <a name="fcn_clcDP_focus_api">clcDP_focus_api</a>(<font color="#112266"><b>const</b></font> mxArray * <font color="#112266"><b>const</b></font> prhs[20], <font color="#112266"><b>const</b></font> mxArray *plhs[4])
+<a name="919"><font color="#888888 "><i>  919   </i></font></a><font color="#112266"><b>void</b></font> <a name="fcn_clcDP_focus_api">clcDP_focus_api</a>(<font color="#112266"><b>const</b></font> mxArray * <font color="#112266"><b>const</b></font> prhs[20], <font color="#112266"><b>const</b></font> mxArray *plhs[7])
 <a name="920"><font color="#888888 "><i>  920   </i></font></a><b>{</b>
 <a name="921"><font color="#888888 "><i>  921   </i></font></a>  emxArray_real_T *optPreInxTn4;
 <a name="922"><font color="#888888 "><i>  922   </i></font></a>  emxArray_real_T *batPwrOptTn4;
 <a name="923"><font color="#888888 "><i>  923   </i></font></a>  emxArray_real_T *fulEngOptTn4;
-<a name="924"><font color="#888888 "><i>  924   </i></font></a>  emxArray_real_T *cos2goActTn3;
-<a name="925"><font color="#888888 "><i>  925   </i></font></a>  real_T batEngBeg;
-<a name="926"><font color="#888888 "><i>  926   </i></font></a>  real_T timNum;
-<a name="927"><font color="#888888 "><i>  927   </i></font></a>  real_T (*engStaVec_timInx)[1181];
-<a name="928"><font color="#888888 "><i>  928   </i></font></a>  real_T (*batOcv)[693];
-<a name="929"><font color="#888888 "><i>  929   </i></font></a>  real_T (*velVec)[1181];
-<a name="930"><font color="#888888 "><i>  930   </i></font></a>  real_T (*crsSpdMat)[7086];
-<a name="931"><font color="#888888 "><i>  931   </i></font></a>  real_T (*crsTrqMat)[7086];
-<a name="932"><font color="#888888 "><i>  932   </i></font></a>  real_T (*emoTrqMinPosMat)[7086];
-<a name="933"><font color="#888888 "><i>  933   </i></font></a>  real_T (*emoTrqMaxPosMat)[7086];
-<a name="934"><font color="#888888 "><i>  934   </i></font></a>  real_T (*emoPwrMinPosMat)[7086];
-<a name="935"><font color="#888888 "><i>  935   </i></font></a>  real_T (*emoPwrMaxPosMat)[7086];
-<a name="936"><font color="#888888 "><i>  936   </i></font></a>  real_T (*iceTrqMinPosMat)[7086];
-<a name="937"><font color="#888888 "><i>  937   </i></font></a>  real_T (*iceTrqMaxPosMat)[7086];
-<a name="938"><font color="#888888 "><i>  938   </i></font></a>  real_T (*batPwrMinIdxTn3)[4910598];
-<a name="939"><font color="#888888 "><i>  939   </i></font></a>  real_T (*batPwrMaxIdxTn3)[4910598];
-<a name="940"><font color="#888888 "><i>  940   </i></font></a>  real_T (*batPwrDemIdxTn3)[4910598];
-<a name="941"><font color="#888888 "><i>  941   </i></font></a>  struct0_T inputparams;
-<a name="942"><font color="#888888 "><i>  942   </i></font></a>  struct1_T tst_scalar_struct;
-<a name="943"><font color="#888888 "><i>  943   </i></font></a>  struct2_T fzg_scalar_struct;
-<a name="944"><font color="#888888 "><i>  944   </i></font></a>  struct3_T fzg_array_struct;
-<a name="945"><font color="#888888 "><i>  945   </i></font></a>  emlrtStack st = <b>{</b> NULL, NULL, NULL <b>}</b>;
-<a name="946"><font color="#888888 "><i>  946   </i></font></a>
-<a name="947"><font color="#888888 "><i>  947   </i></font></a>  st.tls = <a href="_coder_clcDP_focus_mex_c.html#var_emlrtRootTLSGlobal" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_emlrtRootTLSGlobal');" target="_self"><font color="#1122aa">emlrtRootTLSGlobal</font></a>;
-<a name="948"><font color="#888888 "><i>  948   </i></font></a>  emlrtHeapReferenceStackEnterFcnR2012b(&amp;st);
-<a name="949"><font color="#888888 "><i>  949   </i></font></a>  c_emxInit_real_T(&amp;st, &amp;optPreInxTn4, 4, &amp;<a href="#var_l_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_l_emlrtRTEI');" target="_self"><font color="#1122aa">l_emlrtRTEI</font></a>, true);
-<a name="950"><font color="#888888 "><i>  950   </i></font></a>  c_emxInit_real_T(&amp;st, &amp;batPwrOptTn4, 4, &amp;<a href="#var_l_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_l_emlrtRTEI');" target="_self"><font color="#1122aa">l_emlrtRTEI</font></a>, true);
-<a name="951"><font color="#888888 "><i>  951   </i></font></a>  c_emxInit_real_T(&amp;st, &amp;fulEngOptTn4, 4, &amp;<a href="#var_l_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_l_emlrtRTEI');" target="_self"><font color="#1122aa">l_emlrtRTEI</font></a>, true);
-<a name="952"><font color="#888888 "><i>  952   </i></font></a>  emxInit_real_T(&amp;st, &amp;cos2goActTn3, 3, &amp;<a href="#var_l_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_l_emlrtRTEI');" target="_self"><font color="#1122aa">l_emlrtRTEI</font></a>, true);
-<a name="953"><font color="#888888 "><i>  953   </i></font></a>
-<a name="954"><font color="#888888 "><i>  954   </i></font></a>  <font color="#117755"><i>/* Marshall function inputs */</i></font>
-<a name="955"><font color="#888888 "><i>  955   </i></font></a>  batEngBeg = emlrt_marshallIn(&amp;st, emlrtAliasP(prhs[0]), <font color="#1122ff">&quot;batEngBeg&quot;</font>);
-<a name="956"><font color="#888888 "><i>  956   </i></font></a>  timNum = emlrt_marshallIn(&amp;st, emlrtAliasP(prhs[1]), <font color="#1122ff">&quot;timNum&quot;</font>);
-<a name="957"><font color="#888888 "><i>  957   </i></font></a>  engStaVec_timInx = c_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[2]),
-<a name="958"><font color="#888888 "><i>  958   </i></font></a>    <font color="#1122ff">&quot;engStaVec_timInx&quot;</font>);
-<a name="959"><font color="#888888 "><i>  959   </i></font></a>  batOcv = e_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[3]), <font color="#1122ff">&quot;batOcv&quot;</font>);
-<a name="960"><font color="#888888 "><i>  960   </i></font></a>  velVec = c_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[4]), <font color="#1122ff">&quot;velVec&quot;</font>);
-<a name="961"><font color="#888888 "><i>  961   </i></font></a>  crsSpdMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[5]), <font color="#1122ff">&quot;crsSpdMat&quot;</font>);
-<a name="962"><font color="#888888 "><i>  962   </i></font></a>  crsTrqMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[6]), <font color="#1122ff">&quot;crsTrqMat&quot;</font>);
-<a name="963"><font color="#888888 "><i>  963   </i></font></a>  emoTrqMinPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[7]),
-<a name="964"><font color="#888888 "><i>  964   </i></font></a>    <font color="#1122ff">&quot;emoTrqMinPosMat&quot;</font>);
-<a name="965"><font color="#888888 "><i>  965   </i></font></a>  emoTrqMaxPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[8]),
-<a name="966"><font color="#888888 "><i>  966   </i></font></a>    <font color="#1122ff">&quot;emoTrqMaxPosMat&quot;</font>);
-<a name="967"><font color="#888888 "><i>  967   </i></font></a>  emoPwrMinPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[9]),
-<a name="968"><font color="#888888 "><i>  968   </i></font></a>    <font color="#1122ff">&quot;emoPwrMinPosMat&quot;</font>);
-<a name="969"><font color="#888888 "><i>  969   </i></font></a>  emoPwrMaxPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[10]),
-<a name="970"><font color="#888888 "><i>  970   </i></font></a>    <font color="#1122ff">&quot;emoPwrMaxPosMat&quot;</font>);
-<a name="971"><font color="#888888 "><i>  971   </i></font></a>  iceTrqMinPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[11]),
-<a name="972"><font color="#888888 "><i>  972   </i></font></a>    <font color="#1122ff">&quot;iceTrqMinPosMat&quot;</font>);
-<a name="973"><font color="#888888 "><i>  973   </i></font></a>  iceTrqMaxPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[12]),
-<a name="974"><font color="#888888 "><i>  974   </i></font></a>    <font color="#1122ff">&quot;iceTrqMaxPosMat&quot;</font>);
-<a name="975"><font color="#888888 "><i>  975   </i></font></a>  batPwrMinIdxTn3 = i_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[13]),
-<a name="976"><font color="#888888 "><i>  976   </i></font></a>    <font color="#1122ff">&quot;batPwrMinIdxTn3&quot;</font>);
-<a name="977"><font color="#888888 "><i>  977   </i></font></a>  batPwrMaxIdxTn3 = i_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[14]),
-<a name="978"><font color="#888888 "><i>  978   </i></font></a>    <font color="#1122ff">&quot;batPwrMaxIdxTn3&quot;</font>);
-<a name="979"><font color="#888888 "><i>  979   </i></font></a>  batPwrDemIdxTn3 = i_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[15]),
-<a name="980"><font color="#888888 "><i>  980   </i></font></a>    <font color="#1122ff">&quot;batPwrDemIdxTn3&quot;</font>);
-<a name="981"><font color="#888888 "><i>  981   </i></font></a>  <a href="#fcn_k_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_k_emlrt_marshallIn');" target="_self"><font color="#1122aa">k_emlrt_marshallIn</font></a>(&amp;st, emlrtAliasP(prhs[16]), <font color="#1122ff">&quot;inputparams&quot;</font>, &amp;inputparams);
-<a name="982"><font color="#888888 "><i>  982   </i></font></a>  <a href="#fcn_m_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_m_emlrt_marshallIn');" target="_self"><font color="#1122aa">m_emlrt_marshallIn</font></a>(&amp;st, emlrtAliasP(prhs[17]), <font color="#1122ff">&quot;tst_scalar_struct&quot;</font>,
-<a name="983"><font color="#888888 "><i>  983   </i></font></a>                     &amp;tst_scalar_struct);
-<a name="984"><font color="#888888 "><i>  984   </i></font></a>  <a href="#fcn_o_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_o_emlrt_marshallIn');" target="_self"><font color="#1122aa">o_emlrt_marshallIn</font></a>(&amp;st, emlrtAliasP(prhs[18]), <font color="#1122ff">&quot;fzg_scalar_struct&quot;</font>,
-<a name="985"><font color="#888888 "><i>  985   </i></font></a>                     &amp;fzg_scalar_struct);
-<a name="986"><font color="#888888 "><i>  986   </i></font></a>  <a href="#fcn_q_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_q_emlrt_marshallIn');" target="_self"><font color="#1122aa">q_emlrt_marshallIn</font></a>(&amp;st, emlrtAliasP(prhs[19]), <font color="#1122ff">&quot;fzg_array_struct&quot;</font>,
-<a name="987"><font color="#888888 "><i>  987   </i></font></a>                     &amp;fzg_array_struct);
-<a name="988"><font color="#888888 "><i>  988   </i></font></a>
-<a name="989"><font color="#888888 "><i>  989   </i></font></a>  <font color="#117755"><i>/* Invoke the target function */</i></font>
-<a name="990"><font color="#888888 "><i>  990   </i></font></a>  clcDP_focus(&amp;st, batEngBeg, timNum, *engStaVec_timInx, *batOcv, *velVec,
-<a name="991"><font color="#888888 "><i>  991   </i></font></a>              *crsSpdMat, *crsTrqMat, *emoTrqMinPosMat, *emoTrqMaxPosMat,
-<a name="992"><font color="#888888 "><i>  992   </i></font></a>              *emoPwrMinPosMat, *emoPwrMaxPosMat, *iceTrqMinPosMat,
-<a name="993"><font color="#888888 "><i>  993   </i></font></a>              *iceTrqMaxPosMat, *batPwrMinIdxTn3, *batPwrMaxIdxTn3,
-<a name="994"><font color="#888888 "><i>  994   </i></font></a>              *batPwrDemIdxTn3, &amp;inputparams, &amp;tst_scalar_struct,
-<a name="995"><font color="#888888 "><i>  995   </i></font></a>              &amp;fzg_scalar_struct, &amp;fzg_array_struct, optPreInxTn4, batPwrOptTn4,
-<a name="996"><font color="#888888 "><i>  996   </i></font></a>              fulEngOptTn4, cos2goActTn3);
-<a name="997"><font color="#888888 "><i>  997   </i></font></a>
-<a name="998"><font color="#888888 "><i>  998   </i></font></a>  <font color="#117755"><i>/* Marshall function outputs */</i></font>
-<a name="999"><font color="#888888 "><i>  999   </i></font></a>  plhs[0] = <a href="#fcn_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');" target="_self"><font color="#1122aa">emlrt_marshallOut</font></a>(optPreInxTn4);
-<a name="1000"><font color="#888888 "><i> 1000   </i></font></a>  plhs[1] = <a href="#fcn_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');" target="_self"><font color="#1122aa">emlrt_marshallOut</font></a>(batPwrOptTn4);
-<a name="1001"><font color="#888888 "><i> 1001   </i></font></a>  plhs[2] = <a href="#fcn_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');" target="_self"><font color="#1122aa">emlrt_marshallOut</font></a>(fulEngOptTn4);
-<a name="1002"><font color="#888888 "><i> 1002   </i></font></a>  plhs[3] = <a href="#fcn_b_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emlrt_marshallOut');" target="_self"><font color="#1122aa">b_emlrt_marshallOut</font></a>(cos2goActTn3);
-<a name="1003"><font color="#888888 "><i> 1003   </i></font></a>  cos2goActTn3-&gt;canFreeData = false;
-<a name="1004"><font color="#888888 "><i> 1004   </i></font></a>  emxFree_real_T(&amp;cos2goActTn3);
-<a name="1005"><font color="#888888 "><i> 1005   </i></font></a>  fulEngOptTn4-&gt;canFreeData = false;
-<a name="1006"><font color="#888888 "><i> 1006   </i></font></a>  emxFree_real_T(&amp;fulEngOptTn4);
-<a name="1007"><font color="#888888 "><i> 1007   </i></font></a>  batPwrOptTn4-&gt;canFreeData = false;
-<a name="1008"><font color="#888888 "><i> 1008   </i></font></a>  emxFree_real_T(&amp;batPwrOptTn4);
-<a name="1009"><font color="#888888 "><i> 1009   </i></font></a>  optPreInxTn4-&gt;canFreeData = false;
-<a name="1010"><font color="#888888 "><i> 1010   </i></font></a>  emxFree_real_T(&amp;optPreInxTn4);
-<a name="1011"><font color="#888888 "><i> 1011   </i></font></a>  emlrtHeapReferenceStackLeaveFcnR2012b(&amp;st);
-<a name="1012"><font color="#888888 "><i> 1012   </i></font></a><b>}</b>
-<a name="1013"><font color="#888888 "><i> 1013   </i></font></a>
-<a name="1014"><font color="#888888 "><i> 1014   </i></font></a><font color="#117755"><i>/* End of code generation (_coder_clcDP_focus_api.c) */</i></font>
-<a name="1015"><font color="#888888 "><i> 1015   </i></font></a></pre>
+<a name="924"><font color="#888888 "><i>  924   </i></font></a>  emxArray_real_T *emoTrqOptTn4;
+<a name="925"><font color="#888888 "><i>  925   </i></font></a>  emxArray_real_T *iceTrqOptTn4;
+<a name="926"><font color="#888888 "><i>  926   </i></font></a>  emxArray_real_T *brkTrqOptTn4;
+<a name="927"><font color="#888888 "><i>  927   </i></font></a>  emxArray_real_T *cos2goActTn3;
+<a name="928"><font color="#888888 "><i>  928   </i></font></a>  real_T batEngBeg;
+<a name="929"><font color="#888888 "><i>  929   </i></font></a>  real_T timNum;
+<a name="930"><font color="#888888 "><i>  930   </i></font></a>  real_T (*engStaVec_timInx)[1181];
+<a name="931"><font color="#888888 "><i>  931   </i></font></a>  real_T (*batOcv)[693];
+<a name="932"><font color="#888888 "><i>  932   </i></font></a>  real_T (*velVec)[1181];
+<a name="933"><font color="#888888 "><i>  933   </i></font></a>  real_T (*crsSpdMat)[7086];
+<a name="934"><font color="#888888 "><i>  934   </i></font></a>  real_T (*crsTrqMat)[7086];
+<a name="935"><font color="#888888 "><i>  935   </i></font></a>  real_T (*emoTrqMinPosMat)[7086];
+<a name="936"><font color="#888888 "><i>  936   </i></font></a>  real_T (*emoTrqMaxPosMat)[7086];
+<a name="937"><font color="#888888 "><i>  937   </i></font></a>  real_T (*emoPwrMinPosMat)[7086];
+<a name="938"><font color="#888888 "><i>  938   </i></font></a>  real_T (*emoPwrMaxPosMat)[7086];
+<a name="939"><font color="#888888 "><i>  939   </i></font></a>  real_T (*iceTrqMinPosMat)[7086];
+<a name="940"><font color="#888888 "><i>  940   </i></font></a>  real_T (*iceTrqMaxPosMat)[7086];
+<a name="941"><font color="#888888 "><i>  941   </i></font></a>  real_T (*batPwrMinIdxTn3)[4910598];
+<a name="942"><font color="#888888 "><i>  942   </i></font></a>  real_T (*batPwrMaxIdxTn3)[4910598];
+<a name="943"><font color="#888888 "><i>  943   </i></font></a>  real_T (*batPwrDemIdxTn3)[4910598];
+<a name="944"><font color="#888888 "><i>  944   </i></font></a>  struct0_T inputparams;
+<a name="945"><font color="#888888 "><i>  945   </i></font></a>  struct1_T tst_scalar_struct;
+<a name="946"><font color="#888888 "><i>  946   </i></font></a>  struct2_T fzg_scalar_struct;
+<a name="947"><font color="#888888 "><i>  947   </i></font></a>  struct3_T fzg_array_struct;
+<a name="948"><font color="#888888 "><i>  948   </i></font></a>  emlrtStack st = <b>{</b> NULL, NULL, NULL <b>}</b>;
+<a name="949"><font color="#888888 "><i>  949   </i></font></a>
+<a name="950"><font color="#888888 "><i>  950   </i></font></a>  st.tls = <a href="_coder_clcDP_focus_mex_c.html#var_emlrtRootTLSGlobal" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_emlrtRootTLSGlobal');" target="_self"><font color="#1122aa">emlrtRootTLSGlobal</font></a>;
+<a name="951"><font color="#888888 "><i>  951   </i></font></a>  emlrtHeapReferenceStackEnterFcnR2012b(&amp;st);
+<a name="952"><font color="#888888 "><i>  952   </i></font></a>  c_emxInit_real_T(&amp;st, &amp;optPreInxTn4, 4, &amp;<a href="#var_r_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_r_emlrtRTEI');" target="_self"><font color="#1122aa">r_emlrtRTEI</font></a>, true);
+<a name="953"><font color="#888888 "><i>  953   </i></font></a>  c_emxInit_real_T(&amp;st, &amp;batPwrOptTn4, 4, &amp;<a href="#var_r_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_r_emlrtRTEI');" target="_self"><font color="#1122aa">r_emlrtRTEI</font></a>, true);
+<a name="954"><font color="#888888 "><i>  954   </i></font></a>  c_emxInit_real_T(&amp;st, &amp;fulEngOptTn4, 4, &amp;<a href="#var_r_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_r_emlrtRTEI');" target="_self"><font color="#1122aa">r_emlrtRTEI</font></a>, true);
+<a name="955"><font color="#888888 "><i>  955   </i></font></a>  c_emxInit_real_T(&amp;st, &amp;emoTrqOptTn4, 4, &amp;<a href="#var_r_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_r_emlrtRTEI');" target="_self"><font color="#1122aa">r_emlrtRTEI</font></a>, true);
+<a name="956"><font color="#888888 "><i>  956   </i></font></a>  c_emxInit_real_T(&amp;st, &amp;iceTrqOptTn4, 4, &amp;<a href="#var_r_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_r_emlrtRTEI');" target="_self"><font color="#1122aa">r_emlrtRTEI</font></a>, true);
+<a name="957"><font color="#888888 "><i>  957   </i></font></a>  c_emxInit_real_T(&amp;st, &amp;brkTrqOptTn4, 4, &amp;<a href="#var_r_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_r_emlrtRTEI');" target="_self"><font color="#1122aa">r_emlrtRTEI</font></a>, true);
+<a name="958"><font color="#888888 "><i>  958   </i></font></a>  emxInit_real_T(&amp;st, &amp;cos2goActTn3, 3, &amp;<a href="#var_r_emlrtRTEI" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_r_emlrtRTEI');" target="_self"><font color="#1122aa">r_emlrtRTEI</font></a>, true);
+<a name="959"><font color="#888888 "><i>  959   </i></font></a>
+<a name="960"><font color="#888888 "><i>  960   </i></font></a>  <font color="#117755"><i>/* Marshall function inputs */</i></font>
+<a name="961"><font color="#888888 "><i>  961   </i></font></a>  batEngBeg = emlrt_marshallIn(&amp;st, emlrtAliasP(prhs[0]), <font color="#1122ff">&quot;batEngBeg&quot;</font>);
+<a name="962"><font color="#888888 "><i>  962   </i></font></a>  timNum = emlrt_marshallIn(&amp;st, emlrtAliasP(prhs[1]), <font color="#1122ff">&quot;timNum&quot;</font>);
+<a name="963"><font color="#888888 "><i>  963   </i></font></a>  engStaVec_timInx = c_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[2]),
+<a name="964"><font color="#888888 "><i>  964   </i></font></a>    <font color="#1122ff">&quot;engStaVec_timInx&quot;</font>);
+<a name="965"><font color="#888888 "><i>  965   </i></font></a>  batOcv = e_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[3]), <font color="#1122ff">&quot;batOcv&quot;</font>);
+<a name="966"><font color="#888888 "><i>  966   </i></font></a>  velVec = c_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[4]), <font color="#1122ff">&quot;velVec&quot;</font>);
+<a name="967"><font color="#888888 "><i>  967   </i></font></a>  crsSpdMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[5]), <font color="#1122ff">&quot;crsSpdMat&quot;</font>);
+<a name="968"><font color="#888888 "><i>  968   </i></font></a>  crsTrqMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[6]), <font color="#1122ff">&quot;crsTrqMat&quot;</font>);
+<a name="969"><font color="#888888 "><i>  969   </i></font></a>  emoTrqMinPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[7]),
+<a name="970"><font color="#888888 "><i>  970   </i></font></a>    <font color="#1122ff">&quot;emoTrqMinPosMat&quot;</font>);
+<a name="971"><font color="#888888 "><i>  971   </i></font></a>  emoTrqMaxPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[8]),
+<a name="972"><font color="#888888 "><i>  972   </i></font></a>    <font color="#1122ff">&quot;emoTrqMaxPosMat&quot;</font>);
+<a name="973"><font color="#888888 "><i>  973   </i></font></a>  emoPwrMinPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[9]),
+<a name="974"><font color="#888888 "><i>  974   </i></font></a>    <font color="#1122ff">&quot;emoPwrMinPosMat&quot;</font>);
+<a name="975"><font color="#888888 "><i>  975   </i></font></a>  emoPwrMaxPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[10]),
+<a name="976"><font color="#888888 "><i>  976   </i></font></a>    <font color="#1122ff">&quot;emoPwrMaxPosMat&quot;</font>);
+<a name="977"><font color="#888888 "><i>  977   </i></font></a>  iceTrqMinPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[11]),
+<a name="978"><font color="#888888 "><i>  978   </i></font></a>    <font color="#1122ff">&quot;iceTrqMinPosMat&quot;</font>);
+<a name="979"><font color="#888888 "><i>  979   </i></font></a>  iceTrqMaxPosMat = g_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[12]),
+<a name="980"><font color="#888888 "><i>  980   </i></font></a>    <font color="#1122ff">&quot;iceTrqMaxPosMat&quot;</font>);
+<a name="981"><font color="#888888 "><i>  981   </i></font></a>  batPwrMinIdxTn3 = i_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[13]),
+<a name="982"><font color="#888888 "><i>  982   </i></font></a>    <font color="#1122ff">&quot;batPwrMinIdxTn3&quot;</font>);
+<a name="983"><font color="#888888 "><i>  983   </i></font></a>  batPwrMaxIdxTn3 = i_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[14]),
+<a name="984"><font color="#888888 "><i>  984   </i></font></a>    <font color="#1122ff">&quot;batPwrMaxIdxTn3&quot;</font>);
+<a name="985"><font color="#888888 "><i>  985   </i></font></a>  batPwrDemIdxTn3 = i_emlrt_marshallIn(&amp;st, emlrtAlias(prhs[15]),
+<a name="986"><font color="#888888 "><i>  986   </i></font></a>    <font color="#1122ff">&quot;batPwrDemIdxTn3&quot;</font>);
+<a name="987"><font color="#888888 "><i>  987   </i></font></a>  <a href="#fcn_k_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_k_emlrt_marshallIn');" target="_self"><font color="#1122aa">k_emlrt_marshallIn</font></a>(&amp;st, emlrtAliasP(prhs[16]), <font color="#1122ff">&quot;inputparams&quot;</font>, &amp;inputparams);
+<a name="988"><font color="#888888 "><i>  988   </i></font></a>  <a href="#fcn_m_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_m_emlrt_marshallIn');" target="_self"><font color="#1122aa">m_emlrt_marshallIn</font></a>(&amp;st, emlrtAliasP(prhs[17]), <font color="#1122ff">&quot;tst_scalar_struct&quot;</font>,
+<a name="989"><font color="#888888 "><i>  989   </i></font></a>                     &amp;tst_scalar_struct);
+<a name="990"><font color="#888888 "><i>  990   </i></font></a>  <a href="#fcn_o_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_o_emlrt_marshallIn');" target="_self"><font color="#1122aa">o_emlrt_marshallIn</font></a>(&amp;st, emlrtAliasP(prhs[18]), <font color="#1122ff">&quot;fzg_scalar_struct&quot;</font>,
+<a name="991"><font color="#888888 "><i>  991   </i></font></a>                     &amp;fzg_scalar_struct);
+<a name="992"><font color="#888888 "><i>  992   </i></font></a>  <a href="#fcn_q_emlrt_marshallIn" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_q_emlrt_marshallIn');" target="_self"><font color="#1122aa">q_emlrt_marshallIn</font></a>(&amp;st, emlrtAliasP(prhs[19]), <font color="#1122ff">&quot;fzg_array_struct&quot;</font>,
+<a name="993"><font color="#888888 "><i>  993   </i></font></a>                     &amp;fzg_array_struct);
+<a name="994"><font color="#888888 "><i>  994   </i></font></a>
+<a name="995"><font color="#888888 "><i>  995   </i></font></a>  <font color="#117755"><i>/* Invoke the target function */</i></font>
+<a name="996"><font color="#888888 "><i>  996   </i></font></a>  clcDP_focus(&amp;st, batEngBeg, timNum, *engStaVec_timInx, *batOcv, *velVec,
+<a name="997"><font color="#888888 "><i>  997   </i></font></a>              *crsSpdMat, *crsTrqMat, *emoTrqMinPosMat, *emoTrqMaxPosMat,
+<a name="998"><font color="#888888 "><i>  998   </i></font></a>              *emoPwrMinPosMat, *emoPwrMaxPosMat, *iceTrqMinPosMat,
+<a name="999"><font color="#888888 "><i>  999   </i></font></a>              *iceTrqMaxPosMat, *batPwrMinIdxTn3, *batPwrMaxIdxTn3,
+<a name="1000"><font color="#888888 "><i> 1000   </i></font></a>              *batPwrDemIdxTn3, &amp;inputparams, &amp;tst_scalar_struct,
+<a name="1001"><font color="#888888 "><i> 1001   </i></font></a>              &amp;fzg_scalar_struct, &amp;fzg_array_struct, optPreInxTn4, batPwrOptTn4,
+<a name="1002"><font color="#888888 "><i> 1002   </i></font></a>              fulEngOptTn4, emoTrqOptTn4, iceTrqOptTn4, brkTrqOptTn4,
+<a name="1003"><font color="#888888 "><i> 1003   </i></font></a>              cos2goActTn3);
+<a name="1004"><font color="#888888 "><i> 1004   </i></font></a>
+<a name="1005"><font color="#888888 "><i> 1005   </i></font></a>  <font color="#117755"><i>/* Marshall function outputs */</i></font>
+<a name="1006"><font color="#888888 "><i> 1006   </i></font></a>  plhs[0] = <a href="#fcn_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');" target="_self"><font color="#1122aa">emlrt_marshallOut</font></a>(optPreInxTn4);
+<a name="1007"><font color="#888888 "><i> 1007   </i></font></a>  plhs[1] = <a href="#fcn_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');" target="_self"><font color="#1122aa">emlrt_marshallOut</font></a>(batPwrOptTn4);
+<a name="1008"><font color="#888888 "><i> 1008   </i></font></a>  plhs[2] = <a href="#fcn_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');" target="_self"><font color="#1122aa">emlrt_marshallOut</font></a>(fulEngOptTn4);
+<a name="1009"><font color="#888888 "><i> 1009   </i></font></a>  plhs[3] = <a href="#fcn_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');" target="_self"><font color="#1122aa">emlrt_marshallOut</font></a>(emoTrqOptTn4);
+<a name="1010"><font color="#888888 "><i> 1010   </i></font></a>  plhs[4] = <a href="#fcn_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');" target="_self"><font color="#1122aa">emlrt_marshallOut</font></a>(iceTrqOptTn4);
+<a name="1011"><font color="#888888 "><i> 1011   </i></font></a>  plhs[5] = <a href="#fcn_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emlrt_marshallOut');" target="_self"><font color="#1122aa">emlrt_marshallOut</font></a>(brkTrqOptTn4);
+<a name="1012"><font color="#888888 "><i> 1012   </i></font></a>  plhs[6] = <a href="#fcn_b_emlrt_marshallOut" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_b_emlrt_marshallOut');" target="_self"><font color="#1122aa">b_emlrt_marshallOut</font></a>(cos2goActTn3);
+<a name="1013"><font color="#888888 "><i> 1013   </i></font></a>  cos2goActTn3-&gt;canFreeData = false;
+<a name="1014"><font color="#888888 "><i> 1014   </i></font></a>  emxFree_real_T(&amp;cos2goActTn3);
+<a name="1015"><font color="#888888 "><i> 1015   </i></font></a>  brkTrqOptTn4-&gt;canFreeData = false;
+<a name="1016"><font color="#888888 "><i> 1016   </i></font></a>  emxFree_real_T(&amp;brkTrqOptTn4);
+<a name="1017"><font color="#888888 "><i> 1017   </i></font></a>  iceTrqOptTn4-&gt;canFreeData = false;
+<a name="1018"><font color="#888888 "><i> 1018   </i></font></a>  emxFree_real_T(&amp;iceTrqOptTn4);
+<a name="1019"><font color="#888888 "><i> 1019   </i></font></a>  emoTrqOptTn4-&gt;canFreeData = false;
+<a name="1020"><font color="#888888 "><i> 1020   </i></font></a>  emxFree_real_T(&amp;emoTrqOptTn4);
+<a name="1021"><font color="#888888 "><i> 1021   </i></font></a>  fulEngOptTn4-&gt;canFreeData = false;
+<a name="1022"><font color="#888888 "><i> 1022   </i></font></a>  emxFree_real_T(&amp;fulEngOptTn4);
+<a name="1023"><font color="#888888 "><i> 1023   </i></font></a>  batPwrOptTn4-&gt;canFreeData = false;
+<a name="1024"><font color="#888888 "><i> 1024   </i></font></a>  emxFree_real_T(&amp;batPwrOptTn4);
+<a name="1025"><font color="#888888 "><i> 1025   </i></font></a>  optPreInxTn4-&gt;canFreeData = false;
+<a name="1026"><font color="#888888 "><i> 1026   </i></font></a>  emxFree_real_T(&amp;optPreInxTn4);
+<a name="1027"><font color="#888888 "><i> 1027   </i></font></a>  emlrtHeapReferenceStackLeaveFcnR2012b(&amp;st);
+<a name="1028"><font color="#888888 "><i> 1028   </i></font></a><b>}</b>
+<a name="1029"><font color="#888888 "><i> 1029   </i></font></a>
+<a name="1030"><font color="#888888 "><i> 1030   </i></font></a><font color="#117755"><i>/* End of code generation (_coder_clcDP_focus_api.c) */</i></font>
+<a name="1031"><font color="#888888 "><i> 1031   </i></font></a></pre>
 </td></tr></table>
 </p>
 </body>

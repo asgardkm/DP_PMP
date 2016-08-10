@@ -2024,7 +2024,7 @@ static void b_info_helper(const mxArray **info)
   emlrtAddField(*info, emlrt_marshallOut(
     "[E]C:/Users/s0032360/Documents/GitHub/DP_PMP/ford_focus/DP/optTrqSplit_focus.m"),
                 "resolved", 100);
-  emlrtAddField(*info, b_emlrt_marshallOut(1470736788U), "fileTimeLo", 100);
+  emlrtAddField(*info, b_emlrt_marshallOut(1470841183U), "fileTimeLo", 100);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "fileTimeHi", 100);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "mFileTimeLo", 100);
   emlrtAddField(*info, b_emlrt_marshallOut(0U), "mFileTimeHi", 100);
@@ -3600,7 +3600,7 @@ mxArray *emlrtMexFcnProperties()
   xInputs = mxCreateLogicalMatrix(1, 20);
   mxSetFieldByNumber(xEntryPoints, 0, 0, mxCreateString("clcDP_focus"));
   mxSetFieldByNumber(xEntryPoints, 0, 1, mxCreateDoubleScalar(20));
-  mxSetFieldByNumber(xEntryPoints, 0, 2, mxCreateDoubleScalar(4));
+  mxSetFieldByNumber(xEntryPoints, 0, 2, mxCreateDoubleScalar(7));
   mxSetFieldByNumber(xEntryPoints, 0, 3, xInputs);
   mxSetFieldByNumber(xResult, 0, 0, mxCreateString("8.4.0.150421 (R2014b)"));
   mxSetFieldByNumber(xResult, 0, 1, (mxArray*)emlrtMexFcnResolvedFunctionsInfo());

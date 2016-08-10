@@ -22,7 +22,7 @@
 
 /* Function Declarations */
 extern void clcDP_focus_api(const mxArray * const prhs[20], const mxArray *plhs
-  [4]);
+  [7]);
 
 #endif
 

@@ -75,7 +75,7 @@ static const mxArray *c_feval(const emlrtStack *sp, const mxArray *b, const
 static real_T c_fprintf(const emlrtStack *sp)
 {
   const mxArray *y;
-  static const int32_T iv16[2] = { 1, 7 };
+  static const int32_T iv19[2] = { 1, 7 };
 
   const mxArray *m2;
   char_T cv12[7];
@@ -84,7 +84,7 @@ static real_T c_fprintf(const emlrtStack *sp)
 
   const mxArray *b_y;
   const mxArray *c_y;
-  static const int32_T iv17[2] = { 1, 57 };
+  static const int32_T iv20[2] = { 1, 57 };
 
   char_T cv14[57];
   static const char_T cv15[57] = { 'N', 'O', 'T', 'E', ':', ' ', 'e', 'n', 'g',
@@ -97,7 +97,7 @@ static real_T c_fprintf(const emlrtStack *sp)
   st.prev = sp;
   st.tls = sp->tls;
   y = NULL;
-  m2 = emlrtCreateCharArray(2, iv16);
+  m2 = emlrtCreateCharArray(2, iv19);
   for (i = 0; i < 7; i++) {
     cv12[i] = cv13[i];
   }
@@ -108,7 +108,7 @@ static real_T c_fprintf(const emlrtStack *sp)
   m2 = emlrtCreateDoubleScalar(1.0);
   emlrtAssign(&b_y, m2);
   c_y = NULL;
-  m2 = emlrtCreateCharArray(2, iv17);
+  m2 = emlrtCreateCharArray(2, iv20);
   for (i = 0; i < 57; i++) {
     cv14[i] = cv15[i];
   }
@@ -122,7 +122,7 @@ static real_T c_fprintf(const emlrtStack *sp)
 static real_T e_fprintf(const emlrtStack *sp, real_T varargin_1)
 {
   const mxArray *y;
-  static const int32_T iv18[2] = { 1, 7 };
+  static const int32_T iv21[2] = { 1, 7 };
 
   const mxArray *m3;
   char_T cv16[7];
@@ -131,7 +131,7 @@ static real_T e_fprintf(const emlrtStack *sp, real_T varargin_1)
 
   const mxArray *b_y;
   const mxArray *c_y;
-  static const int32_T iv19[2] = { 1, 18 };
+  static const int32_T iv22[2] = { 1, 18 };
 
   char_T cv18[18];
   static const char_T cv19[18] = { ' ', ' ', ' ', 'b', 'r', 'k', 'T', 'r', 'q',
@@ -142,7 +142,7 @@ static real_T e_fprintf(const emlrtStack *sp, real_T varargin_1)
   st.prev = sp;
   st.tls = sp->tls;
   y = NULL;
-  m3 = emlrtCreateCharArray(2, iv18);
+  m3 = emlrtCreateCharArray(2, iv21);
   for (i = 0; i < 7; i++) {
     cv16[i] = cv17[i];
   }
@@ -153,7 +153,7 @@ static real_T e_fprintf(const emlrtStack *sp, real_T varargin_1)
   m3 = emlrtCreateDoubleScalar(1.0);
   emlrtAssign(&b_y, m3);
   c_y = NULL;
-  m3 = emlrtCreateCharArray(2, iv19);
+  m3 = emlrtCreateCharArray(2, iv22);
   for (i = 0; i < 18; i++) {
     cv18[i] = cv19[i];
   }
@@ -182,7 +182,7 @@ static const mxArray *feval(const emlrtStack *sp, const mxArray *b, const
 static real_T g_fprintf(const emlrtStack *sp, real_T varargin_1)
 {
   const mxArray *y;
-  static const int32_T iv20[2] = { 1, 7 };
+  static const int32_T iv23[2] = { 1, 7 };
 
   const mxArray *m4;
   char_T cv20[7];
@@ -191,7 +191,7 @@ static real_T g_fprintf(const emlrtStack *sp, real_T varargin_1)
 
   const mxArray *b_y;
   const mxArray *c_y;
-  static const int32_T iv21[2] = { 1, 27 };
+  static const int32_T iv24[2] = { 1, 27 };
 
   char_T cv22[27];
   static const char_T cv23[27] = { ' ', ' ', ' ', 'a', 'd', 'j', 'u', 's', 't',
@@ -203,7 +203,7 @@ static real_T g_fprintf(const emlrtStack *sp, real_T varargin_1)
   st.prev = sp;
   st.tls = sp->tls;
   y = NULL;
-  m4 = emlrtCreateCharArray(2, iv20);
+  m4 = emlrtCreateCharArray(2, iv23);
   for (i = 0; i < 7; i++) {
     cv20[i] = cv21[i];
   }
@@ -214,7 +214,7 @@ static real_T g_fprintf(const emlrtStack *sp, real_T varargin_1)
   m4 = emlrtCreateDoubleScalar(1.0);
   emlrtAssign(&b_y, m4);
   c_y = NULL;
-  m4 = emlrtCreateCharArray(2, iv21);
+  m4 = emlrtCreateCharArray(2, iv24);
   for (i = 0; i < 27; i++) {
     cv22[i] = cv23[i];
   }
@@ -232,7 +232,7 @@ static real_T g_fprintf(const emlrtStack *sp, real_T varargin_1)
 static real_T i_fprintf(const emlrtStack *sp)
 {
   const mxArray *y;
-  static const int32_T iv22[2] = { 1, 7 };
+  static const int32_T iv25[2] = { 1, 7 };
 
   const mxArray *m5;
   char_T cv24[7];
@@ -245,7 +245,7 @@ static real_T i_fprintf(const emlrtStack *sp)
   st.prev = sp;
   st.tls = sp->tls;
   y = NULL;
-  m5 = emlrtCreateCharArray(2, iv22);
+  m5 = emlrtCreateCharArray(2, iv25);
   for (i = 0; i < 7; i++) {
     cv24[i] = cv25[i];
   }
@@ -265,7 +265,7 @@ static real_T i_fprintf(const emlrtStack *sp)
 static real_T k_fprintf(const emlrtStack *sp)
 {
   const mxArray *y;
-  static const int32_T iv23[2] = { 1, 7 };
+  static const int32_T iv26[2] = { 1, 7 };
 
   const mxArray *m6;
   char_T cv26[7];
@@ -274,7 +274,7 @@ static real_T k_fprintf(const emlrtStack *sp)
 
   const mxArray *b_y;
   const mxArray *c_y;
-  static const int32_T iv24[2] = { 1, 2 };
+  static const int32_T iv27[2] = { 1, 2 };
 
   char_T cv28[2];
   static const char_T cv29[2] = { '\\', 'n' };
@@ -283,7 +283,7 @@ static real_T k_fprintf(const emlrtStack *sp)
   st.prev = sp;
   st.tls = sp->tls;
   y = NULL;
-  m6 = emlrtCreateCharArray(2, iv23);
+  m6 = emlrtCreateCharArray(2, iv26);
   for (i = 0; i < 7; i++) {
     cv26[i] = cv27[i];
   }
@@ -294,7 +294,7 @@ static real_T k_fprintf(const emlrtStack *sp)
   m6 = emlrtCreateDoubleScalar(1.0);
   emlrtAssign(&b_y, m6);
   c_y = NULL;
-  m6 = emlrtCreateCharArray(2, iv24);
+  m6 = emlrtCreateCharArray(2, iv27);
   for (i = 0; i < 2; i++) {
     cv28[i] = cv29[i];
   }
@@ -309,7 +309,7 @@ static real_T m_fprintf(const emlrtStack *sp, real_T varargin_1, real_T
   varargin_2)
 {
   const mxArray *y;
-  static const int32_T iv25[2] = { 1, 7 };
+  static const int32_T iv28[2] = { 1, 7 };
 
   const mxArray *m7;
   char_T cv30[7];
@@ -318,7 +318,7 @@ static real_T m_fprintf(const emlrtStack *sp, real_T varargin_1, real_T
 
   const mxArray *b_y;
   const mxArray *c_y;
-  static const int32_T iv26[2] = { 1, 48 };
+  static const int32_T iv29[2] = { 1, 48 };
 
   char_T cv32[48];
   static const char_T cv33[48] = { 'S', 'c', 'h', 'l', 'e', 'i', 'f', 'e', ' ',
@@ -332,7 +332,7 @@ static real_T m_fprintf(const emlrtStack *sp, real_T varargin_1, real_T
   st.prev = sp;
   st.tls = sp->tls;
   y = NULL;
-  m7 = emlrtCreateCharArray(2, iv25);
+  m7 = emlrtCreateCharArray(2, iv28);
   for (i = 0; i < 7; i++) {
     cv30[i] = cv31[i];
   }
@@ -343,7 +343,7 @@ static real_T m_fprintf(const emlrtStack *sp, real_T varargin_1, real_T
   m7 = emlrtCreateDoubleScalar(1.0);
   emlrtAssign(&b_y, m7);
   c_y = NULL;
-  m7 = emlrtCreateCharArray(2, iv26);
+  m7 = emlrtCreateCharArray(2, iv29);
   for (i = 0; i < 48; i++) {
     cv32[i] = cv33[i];
   }
