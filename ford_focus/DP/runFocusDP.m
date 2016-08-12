@@ -1,25 +1,28 @@
-function ...            --- Ausgangsgrößen:
-[   batEngDltOptMat,    ... Vektor - optimale Batterieenergieänderung
+function                ... --- Ausgangsgrößen:
+[                       ...
+    batEngDltOptMat,    ... Vektor - optimale Batterieenergieänderung
     fulEngDltOptMat,    ... Vektor - optimale Kraftstoffenergieänderung
     geaStaMat,          ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     engStaMat,          ... vector showing optimal engine contorl w/ profile
     batPwrMat,          ... vector showing optimal battery level control
     batEngMat,          ... vector showing optimal battery levels
     fulEngOptVec        ... Skalar - optimale Kraftstoffenergie
-    ] =                 ...
-    runFocusDP(         ...
+] =                     ...
+    runFocusDP          ...
+(                       ...
     inputparams,        ...
     tst_scalar_struct,  ...
     fzg_scalar_struct,  ...
     nedc_array_struct,  ...
     fzg_array_struct    ...
     )%#codegen
-% function: run preprocessing, DP algorithm, and optimal bath for given
-% ending SOC level(s) (plus figures)
+% function: run preprocessing, DP algorithm, find optimal paths for given
+% ending SOC level, and create result figures
 
 %% run data preprocessing
 fprintf('Beginning data preprocessing...\n');
-[   batEngBeg,          ... Skalar für die Batterieenergie am Beginn in Ws
+[                       ...
+    batEngBeg,          ... Skalar für die Batterieenergie am Beginn in Ws
     timVec,             ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
     engStaVec_timInx,   ... scalar - end engine state
     batOcv,             ... battery voltage vector w/ value for each SOC
@@ -39,7 +42,9 @@ fprintf('Beginning data preprocessing...\n');
     tst_scalar_struct,  ... struct w/ tst data state var params
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS] = ...
-] = runDP_preProcessing(...
+] =                     ...
+    runDP_preProcessing ...
+(                       ...
     inputparams,        ...
     tst_scalar_struct,  ...
     fzg_scalar_struct,  ...
@@ -53,7 +58,7 @@ fprintf('-Initializing model...\n');
 tic
 % DP that is calculating optimal gear state
 if ~tst_scalar_struct.useGeaSta
-    [                   ... --- Ausgangsgrößen:
+[                       ... --- Ausgangsgrößen:
     optPreInxTn4,       ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
     batPwrOptTn4,       ...  Tensor 4. Stufe der Batteriekraft
     fulEngOptTn4,       ...  Tensor 4. Stufe für die Kraftstoffenergie 
@@ -61,9 +66,9 @@ if ~tst_scalar_struct.useGeaSta
     iceTrqOptTn4,       ... tensor - saves optimal iceTrq values
     brkTrqOptTn4,       ... tensor - saves optimal brkTrq values
     cos2goActTn3        ...  Tensor 4. der optimalen Kosten
-    ] =                 ... 
-    clcDP_focus_mex         ... FUNKTION
-    (                   ... --- Eingangsgrï¿½ï¿½en:
+] =                     ... 
+    clcDP_focus_mex     ... FUNKTION
+(                       ... --- Eingangsgrï¿½ï¿½en:
     batEngBeg,          ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
     length(timVec),     ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
     engStaVec_timInx,   ... scalar - end engine state
@@ -80,27 +85,29 @@ if ~tst_scalar_struct.useGeaSta
     batPwrMinIdxTn3,    ... min indexes/steps that bat can change
     batPwrMaxIdxTn3,    ... max indexes/steps that bat can change
     batPwrDemIdxTn3,    ... bat power demand if only EM is running
-    inputparams,        ...
+    inputparams,        ... struct for input model parameters
     tst_scalar_struct,  ... struct w/ tst data state var params
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS
-    );
+);
+
 else
-% sample input gear input vector:
-%   geaStaVec = [geaStaMat(1:end-1); geaStaMat(end-1)]; 
+% sample input gear input vector
+  geaStaMat = load('geaStaMat');
+  geaStaVec = geaStaMat.geaStaMat;
 
 % DP that requires a gear input vector
-    [                   ... --- Ausgangsgrï¿½ï¿½en:
-    optPreInxTn3,       ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
-    batPwrOptTn3,       ...  Tensor 4. Stufe der Batteriekraft
-    fulEngOptTn3,       ...  Tensor 4. Stufe für die Kraftstoffenergie 
+[                       ... --- Ausgangsgrï¿½ï¿½en:
+    optPreInxTn3,       ... Tensor 4. Stufe für opt. Vorgängerkoordinaten
+    batPwrOptTn3,       ... Tensor 4. Stufe der Batteriekraft
+    fulEngOptTn3,       ... Tensor 4. Stufe für die Kraftstoffenergie 
     emoTrqOptTn3,       ... tensor - saves optimal emoTrq values
     iceTrqOptTn3,       ... tensor - saves optimal iceTrq values
     brkTrqOptTn3,       ... tensor - saves optimal brkTrq values
-    cos2goActMat        ...  Tensor 4. der optimalen Kosten
-    ] =                 ... 
-    clcDP_focus_useGeaVec   ... FUNKTION
-    (                   ... --- Eingangsgrï¿½ï¿½en:
+    cos2goActMat        ... Tensor 4. der optimalen Kosten
+] =                     ... 
+    clcDP_focus_useGeaVec_mex... FUNKTION
+(                       ... --- Eingangsgrï¿½ï¿½en:
     batEngBeg,          ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
     length(timVec),     ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
     engStaVec_timInx,   ... scalar - end engine state
@@ -118,11 +125,11 @@ else
     batPwrMinIdxTn3,    ... min indexes/steps that bat can change
     batPwrMaxIdxTn3,    ... max indexes/steps that bat can change
     batPwrDemIdxTn3,    ... bat power demand if only EM is running
-    inputparams,        ...
+    inputparams,        ... struct for input model parameters
     tst_scalar_struct,  ... struct w/ tst data state var params
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS
-    );
+);
 end
 
 %% optimal path and plot function
@@ -130,8 +137,8 @@ end
 % note: if you wish to overwrite the SOC min and max end bounds previously
 % set in ../model_data/mainConfig_focus.txt for the following function, you
 % may do so here
-inputparams.batEngEndMinRat = 0.3;
-inputparams.batEngEndMaxRat = 0.9;
+inputparams.batEngEndMinRat = 0;
+inputparams.batEngEndMaxRat = 1;
 
 % prepare inputs to findPlotOptPath, depending if gear is considered as
 % a state variable
@@ -161,20 +168,26 @@ end
     batPwrMat,          ... vector showing optimal battery level control
     batEngMat,          ... vector showing optimal battery levels
     fulEngOptVec        ... Skalar - optimale Kraftstoffenergie
-] = findPlotOptPath(    ...
-    timVec,             ...
-    velVec,             ...
-    engStaVec_timInx,   ...
-    crsSpdMat,          ...
+] =                     ...
+    findPlotOptPath     ...
+(                       ...
+    timVec,             ... time vector for speed profile
+    velVec,             ... speed vector for speed profile
+    engStaVec_timInx,   ... vector - displays number of possible eng states
+    crsSpdMat,          ... matrix - predetermined crankshaft speed demand
     optPreInxTn,        ... Tensor . Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn,        ... Tensor . Stufe der Batteriekraft
     fulEngOptTn,        ... Tensor . Stufe fï¿½r die Kraftstoffenergie
     cos2goActTn,        ... Tensor der optimalen Kosten
-    emoTrqOptTn,        ...
-    iceTrqOptTn,        ...
+    emoTrqOptTn,        ... tensor containing optimal emoTrq values
+    iceTrqOptTn,        ... 
     brkTrqOptTn,        ...
     inputparams,        ...
     tst_scalar_struct   ...
 );
+
+if ~tst_scalar_struct.useGeaSta
+    save('geaStaMat', 'geaStaMat');
+end
 
 end

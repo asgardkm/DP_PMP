@@ -1,16 +1,16 @@
-function [              ...  --- AusgangsgrÃ¶ÃŸen:
-    optPreInxTn3,       ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
+function [              ...  --- Ausgangsgrößen:
+    optPreInxTn3,       ... Tensor 3. Stufe für opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn3,       ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn3,       ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
+    fulEngOptTn3,       ... Tensor 3. Stufe für die Kraftstoffenergie 
     emoTrqOptTn3,       ... tensor - saves optimal emoTrq values
     iceTrqOptTn3,       ... tensor - saves optimal iceTrq values
     brkTrqOptTn3,       ... tensor - saves optimal brkTrq values
     cos2goActMat        ... Matrix der optimalen Kosten der Hamiltonfunktion 
-    ] =                 ...
+] =                     ...
     clcDP_focus_useGeaVec...
-    (                   ... --- Eingangsgrï¿½ï¿½en:
-    batEngBeg,          ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
-    timNum,             ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
+(                       ... --- Eingangsgrößen:
+    batEngBeg,          ... Skalar für die Batterieenergie am Beginn in Ws
+    timNum,             ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
     engStaVec_timInx,   ... scalar - end engine state
     batOcv,             ... battery voltage vector w/ value for each SOC
     velVec,             ... velocity vector contiaing input speed profile
@@ -26,11 +26,11 @@ function [              ...  --- AusgangsgrÃ¶ÃŸen:
     batPwrMinIdxTn3,    ... min indexes/steps that bat can change
     batPwrMaxIdxTn3,    ... max indexes/steps that bat can change
     batPwrDemIdxTn3,    ... bat power demand if only EM is running
-    inputparams,        ...
+    inputparams,        ... struct w/ input model parameters
     tst_scalar_struct,  ... struct w/ tst data state var params
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS
-    )%#codegen
+)%#codegen
 %
 % 01.07.2016 - asgard kaleb marroquin - creating new algorithm based solely 
 % on DP for minimizing fuel use based on battery charge value with a given
@@ -52,7 +52,7 @@ function [              ...  --- AusgangsgrÃ¶ÃŸen:
 %   - B/c KE states (and possibly discrete gear states) are not considered, 
 %   DP is much more plausable for this algorithm. PMP will not be used for
 %   finding tim and battery energy costates. DP will be used to find 
-%   optimal battery energy and possibly gear states for optimal path.
+%   optimal battery energy and gear states for optimal path.
 % Similarities:
 %   - Want to find optimal battery electric energy path for given profile.
 %   - Optimal fuel minimization - engine on/off toggle from torque split.
@@ -76,7 +76,7 @@ function [              ...  --- AusgangsgrÃ¶ÃŸen:
 %   variation olyHyb permits only hybrid driving (motor is always on)
 %
 % Ã„nderung am 23.02.2016 - optimale Kosten nicht direkt aus Index von min()
-% bestimmt. Das fÃ¤hrt zu einem anderen Schaltverhalten, da Gï¿½nge teilweise
+% bestimmt. Das fährt zu einem anderen Schaltverhalten, da Gänge teilweise
 % gleiche Kosten verursachen. In dem Fall wird jetzt der niedrigste Gang
 % gewÃ¤hlt, wie in der DP.
 %   change on 23.02.2016 - optimal costs are not directly from the min()
@@ -103,8 +103,8 @@ function [              ...  --- AusgangsgrÃ¶ÃŸen:
 %   assigning input structure values to function persistant variables
 %   - just once
 % persistent geaNum vehMas vehAccMin vehAccMax iceFlg
-persistent engNum engStaMin engStaMax iceFlg ...
-            batStaMin batStaStp batStaMax batNum crsSpdHybMax crsSpdHybMin
+persistent engNum engStaMin engStaMax iceFlg batStaMin batStaStp ...
+            batStaMax batNum crsSpdHybMax crsSpdHybMin
 
 if isempty(engNum)
     
@@ -145,15 +145,19 @@ crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
 % 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
 % ARE WE SELECTING THE MINIMUM RATHER THAN THE MAXIMUM? IS IT BECAUSE THE
 % EM CAN ONLY ROTATE SO FAST?? OTHERWISE WHY NOT LET THE ICE TAKE OVER?
+%   - doesn't work like that - the crankshaft can turn only as fast as the
+%   slowest machine can support. If it matches the higher boundary, the
+%   other machine cannot physically support and may fail
 crsSpdHybMax = min(fzg_array_struct.iceSpdMgd(1,end), crsSpdEmoMax);
 
 % minimale Drehzahl der Kurbelwelle
 %   minimum crankshaft rotational speed
 crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
+
 %% Initialisieren der Ausgabe der Funktion
 %   initialzing function output
 
-% Tensor 3. Stufe fï¿½r optimalen VorgÃ¤ngerkoordinaten
+% Tensor 3. Stufe für optimalen VorgÃ¤ngerkoordinaten
 %   tensor3 for optimal previous coordinates/idx
 % IS NOT MAT SINCE KE IS NO LONGER CONSIDERED - REDUCES A DIMENSION
 %   - back to being a tensor - adding engine control dimension
@@ -169,7 +173,7 @@ fulEngOptTn3 = inf(engNum, batNum, timNum);
 batEngInxBeg = batEngBeg/batStaStp;
 fulEngOptTn3(inputparams.engBeg+1, batEngInxBeg + 1, inputparams.timInxBeg) = 0; 
 
-% Tensor 3. Stufe fï¿½r die Batterienergie
+% Tensor 3. Stufe für die Batterienergie
 %   tensor3 for battery energy - now Tn4
 batPwrOptTn3 = inf(engNum, batNum, timNum);
 
@@ -234,7 +238,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     %   initialize matrix for optimale battery force intervals (discreti.)
     % NOW A VECTOR - REMOVED KE STATE
     % - 06.06.2016 - back to matrix, added engine state dimension
-    batPwrOptMat = inf(engNum, batNum);
+    batPwrActMat = inf(engNum, batNum);
         
     % Initialisieren der Matrix fï¿½r die Kosten bis zu den Punkten im
     % aktuellen Wegschritt
@@ -294,8 +298,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     % make vector of these batEng state steps for a loop
     batStaLimBot = max(batStaMin/batStaStp + 1, batStaStpBot_approx);
     batStaLimTop = min(batStaMax/batStaStp + 1, batStaStpTop_approx);
-    
-    
+       
     % define gear for the given time index
     geaStaAct = geaStaVec(timInx);
     geaStaPre = geaStaVec(timInx - 1);
@@ -572,9 +575,9 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                             + geaStaChgPenCos/inputparams.timStp  ...
                             + engStaChgPenCos/inputparams.timStp;
                         
-                        emoTrqPreMat(engStaPre+1, geaStaPre,batStaPreIdx) = emoTrq;
-                        iceTrqPreMat(engStaPre+1, geaStaPre,batStaPreIdx) = iceTrq;
-                        brkTrqPreMat(engStaPre+1, geaStaPre,batStaPreIdx) = brkTrq;
+                        emoTrqPreMat(engStaPre+1, batStaPreIdx) = emoTrq;
+                        iceTrqPreMat(engStaPre+1, batStaPreIdx) = iceTrq;
+                        brkTrqPreMat(engStaPre+1, batStaPreIdx) = brkTrq;
 
                     end % end of bat energy changing loop
 
@@ -659,7 +662,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                 % Flussgrï¿½ï¿½e gilt im Intervall
                 %   populate optimal battery energy flux quantity at point 
                 %   that's applicable to current interval
-                batPwrOptMat(engStaAct+1,batStaActInx) = batStaActInx - batStaPreOptInx;
+                batPwrActMat(engStaAct+1,batStaActInx) = batStaActInx - batStaPreOptInx;
 
                 
                 % save optimal torque values for the given time index
@@ -713,11 +716,11 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     %   optimal battery force at current point - save current mat in tensor
     % Flussgröße gilt im Intervall
     %   flux quantity applied over the interval
-    batPwrOptTn3(:,:,timInx-1)  = batPwrOptMat;
+    batPwrOptTn3(:,:,timInx-1)  = batPwrActMat;
     
-    emoTrqOptTn3(:,:,timInx)    = emoTrqOptMat;
-    iceTrqOptTn3(:,:,timInx)    = iceTrqOptMat;
-    brkTrqOptTn3(:,:,timInx)    = brkTrqOptMat;
+    emoTrqOptTn3(:,:,timInx)    = emoTrqActMat;
+    iceTrqOptTn3(:,:,timInx)    = iceTrqActMat;
+    brkTrqOptTn3(:,:,timInx)    = brkTrqActMat;
     % Ausgabe des aktuellen Schleifendurchlaufs
     %   output for current loop - print to terminal
     if inputparams.disFlg

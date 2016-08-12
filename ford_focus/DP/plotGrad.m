@@ -4,6 +4,8 @@ function plotGrad(timVec, valuMat, batEndInxVec, titleString, xString, yString)
     redVal = 0;
     plot(timVec, valuMat(:, 1), 'Color', [redVal 0 bluVal]); 
     hold on;
+    ax = gca; % current axes
+    ax.YLim = [-1.2*min(min(valuMat)) 1.2*max(max(valuMat))];
     title(titleString);
     xlabel(xString);
     ylabel(yString);

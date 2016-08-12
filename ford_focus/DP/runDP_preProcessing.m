@@ -16,16 +16,18 @@ function...
     batPwrMinIdxTn3,    ... min indexes/steps that bat can change
     batPwrMaxIdxTn3,    ... max indexes/steps that bat can change
     batPwrDemIdxTn3,    ... bat power demand if only EM is running
-    inputparams,        ...
+    inputparams,        ... struct for input model parameters
     tst_scalar_struct,  ... struct w/ tst data state var params
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS] = ...
-] = ...
-runDP_preProcessing(inputparams,      ...
-    tst_scalar_struct,...
-    fzg_scalar_struct,...
-    nedc_array_struct,...
-    fzg_array_struct  ...
+] =                     ...
+    runDP_preProcessing ...
+(                       ...
+    inputparams,        ...
+    tst_scalar_struct,  ...
+    fzg_scalar_struct,  ...
+    nedc_array_struct,  ...
+    fzg_array_struct    ...
 )
 % function - rusn preprocessing on input data before running DP algorithm
 
@@ -92,10 +94,6 @@ batEngBegMax    = ceil(batEngMax*batEngBegMaxRat/batEngStp) * batEngStp;
 batEngBegIdx_MaxPossible = (batEngBegMax - batEngBegMin);
 batEngBegIdx_Possible    = 0 : batEngStp : batEngBegIdx_MaxPossible;
 batEngBeg = batEngBegMin + batEngBegIdx_Possible(randi(numel(batEngBegIdx_Possible)));
-
-% % boundary conditions the end battery energy must be within bounds of
-% batEngEndMin = floor(batEngMax*batEngEndMinRat/batEngStp) * batEngStp;
-% batEngEndMax = ceil(batEngMax*batEngEndMaxRat/batEngStp) * batEngStp;
 
 %% Längsdynamik berechnen
 %   calculate longitundinal dynamics
@@ -177,46 +175,6 @@ if useEqiDis
         emoPwrMaxInterp = interp1(fzg_array_struct.emoPwrMax_emoSpd(:,1), fzg_array_struct.emoPwrMax_emoSpd(:,2), emoSpdInterp, 'linear', 'extrap');
         emoPwrMinInterp = interp1(fzg_array_struct.emoPwrMin_emoSpd(:,1), fzg_array_struct.emoPwrMin_emoSpd(:,2), emoSpdInterp, 'linear', 'extrap');
 
-        % IGNOREING emoTrq->emoPwr boundareis for the moment - too many NaNs for
-        % the interpolated data to make sense, will need to talk about over again
-        % later
-        % % derive the emoPwr needed by emoTrq limits - leave NaNs as NaNs
-        % %   is not efficient, but it's just a one tim preprocessing deal
-        % % emoPwrNanDerive = inpaint_nans(fzg_array_struct.emoPwr_emoSpd_emoTrq);
-        % emoPwrNanDerive = inpaint_nans(fzg_array_struct.emoPwr_emoSpd_emoTrq, 3);
-        % 
-%         emoPwrMinDerive = zeros(size(fzg_array_struct.emoPwr_emoSpd_emoTrq));
-%         emoPwrMaxDerive1 = interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoTrqMgd, ...
-%                         fzg_array_struct.emoPwr_emoSpd_emoTrq, emoSpdInterp, fzg_array_struct.emoTrqMgd, 'linear');
-        % 
-        % emoPwrMaxDerive2 = interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoTrqMgd,...
-        %                 emoPwrNanDerive, emoSpdInterp, emoTrqMaxInterp, 'linear');
-        %             
-        % % emoPwrMinDerive = zeros(size(fzg_array_struct.emoPwr_emoSpd_emoTrq));
-        % emoPwrMinDerive1 = interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoTrqMgd, ...
-        %                 fzg_array_struct.emoPwr_emoSpd_emoTrq, emoSpdInterp, emoTrqMinInterp, 'linear');
-        % 
-        % emoPwrMinDerive2 = interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoTrqMgd,...
-        %                 emoPwrNanDerive, emoSpdInterp, emoTrqMinInterp, 'linear');
-        % 
-        % emoPwrMax
-        %             
-        % for i = 1 : length(fzg_array_struct.emoPwr_emoSpd_emoTrq(1,:)) % spd loop
-        %     for j = 1 : length(fzg_array_struct.emoPwr_emoSpd_emoTrq(:,1))%trq loop
-        %         if ~isnan(fzg_array_struct.emoPwr_emoSpd_emoTrq(j,i))
-        %             emoPwrMinDerive(j,i) = interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoTrqMgd, ...
-        %                 fzg_array_struct.emoPwr_emoSpd_emoTrq, emoSpdInterp(i), emoTrqMaxInterp(j), 'linear');
-        %         else
-        %             emoPwrMinDerive(j,i) = NaN;
-        %         end
-        %     end
-        % end
-
-        % fzg_array_struct.emoTrqMgd, fzg_array_struct.emoSpdMgd(1,:)', ...
-        %                     fzg_array_struct.emoPwr_emoSpd_emoTrq
-        % 
-        % fzg_array_struct.emoPwr_emoSpd_emoTrq
-
         % artifical min/max cap from speed values from 0:emoTrq_emoSpd(1,1)
         emoSpdCapIdx = (fzg_array_struct.emoSpdMgd(1)/emoSpdDif(2) : fzg_array_struct.emoTrqMax_emoSpd(:,1)/emoSpdDif(2))+1;
         emoTrqMaxInterp(emoSpdCapIdx) = fzg_array_struct.emoTrqMax_emoSpd(1,2);
@@ -256,8 +214,7 @@ emoTrqMaxPosMat = zeros(length(velVec), geaStaNum);
 emoTrqMinPosMat = zeros(length(velVec), geaStaNum);
 emoPwrMinPosMat = zeros(length(velVec), geaStaNum);
 emoPwrMaxPosMat = zeros(length(velVec), geaStaNum);
-% emoPwrMinMat    = zeros(length(velVec), geaStaNum);
-% emoPwrMaxMat    = zeros(length(velVec), geaStaNum);
+
 % ---- LOOP THROUGH GEAR STATES -----------------
 for gea = 1 : geaStaNum
     % CALCULATE CRANKSHAFT SPEEDS
@@ -307,21 +264,6 @@ end
 % crsTrq * crsSpd = crsPwr <- demand must be satisfied to complete profile
 crsPwrMat = crsTrqMat .* crsSpdMat;
 
-% % %% set emo power bounds
-% % % These power lookups are based on both speed AND torque - given vector
-% % % boundary input for the model.
-% % % Is not related to the boudaries set by max/min crankshaft speed above.
-% % % This matrix defines the torque-speed curve for EM power.
-% % %
-% % % Since the entire crankshaft speed and torque values for the speed profile 
-% % % across all gears have been calculated in the previous code snippet, can
-% % % the 
-% % % first derive emoPwr based on emoTrq bounds
-% NOTE: THIS IS A LOOKUP TABLE, NOT A BOUDNARY CALCULATION!- abort?
-% % emoPwrMin = interp2(fzg_array_struct.emoTrqMgd, fzg_array_struct.emoSpdMgd(1,:)', ...
-% %                     fzg_array_struct.emoPwr_emoSpd_emoTrq, ...
-% %                     emoTrqMinPosMat(:, gea), crsSpdMat(:, gea));
-
 %% calculating max/min batPwr demanded wrt emoPwrMax/MinPos above
 % this batPwr will help minimize which batEng states to loop through in DP
 % note: boundaries have been discretized to the tim index step size in the
@@ -364,8 +306,8 @@ batOcv = interp1(fzg_array_struct.SOC_vs_OCV(:,1), ...
 %   b/c batPwr-batPwrLoss=emoPwr, both batPwr and emoPwr will generally
 %   have the same sign, unless batPwr<batPwrLoss (which seems unlikely?)
 %       may need to check this assumption later
-batRstMax = zeros(length(emoPwrMaxPosMat), geaStaNum);
-batRstMin = zeros(length(emoPwrMinPosMat), geaStaNum);
+batRstMax       = zeros(length(emoPwrMaxPosMat), geaStaNum);
+batRstMin       = zeros(length(emoPwrMinPosMat), geaStaNum);
 
 % the code below is performing this code snippet across the vector
 % if batPwr < 0
@@ -433,7 +375,7 @@ end
 
 % ----- DISCRETIZE batPwrMin/Mat's --------------
 % discretize the batPwrMin/Mat matrices to the batEngStp value
-batPwrStp = tst_scalar_struct.batEngStp / timStp;
+batPwrStp       = tst_scalar_struct.batEngStp / timStp;
 batPwrMaxIdxTn3 = floor(batPwrMaxTn3 ./ batPwrStp);
 batPwrMinIdxTn3 = ceil(batPwrMinTn3 ./ batPwrStp);
 batPwrDemIdxTn3 = ceil(batPwrDemTn3 ./ batPwrStp);
@@ -442,7 +384,7 @@ batPwrDemIdxTn3 = ceil(batPwrDemTn3 ./ batPwrStp);
 %% define vector for possibilities of engine state on-off values
 %   2 = can toggle (two states, on-of)
 %   1 = cannot toggle, must stay in current state for idx (most likely off)
-engStaVec_timInx = ones(timInxEnd, 1)*2;
+engStaVec_timInx            = ones(timInxEnd, 1)*2;
 engStaVec_timInx(timInxBeg) = engBeg+1;
 engStaVec_timInx(timInxEnd) = engEnd+1;
 

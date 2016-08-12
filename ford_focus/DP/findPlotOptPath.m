@@ -7,8 +7,8 @@ function [              ...
     batEngMat,          ... vector showing optimal battery levels
     fulEngOptVec        ... Skalar - optimale Kraftstoffenergie] =           ...
 ] = findPlotOptPath(    ...
-    timVec,             ...
-    velVec,             ...
+    timVec,             ... vector - time vector
+    velVec,             ... vector - velocity 
     engStaVec_timInx,   ...
     crsSpdMat,          ...
     optPreInxTn,        ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
@@ -63,9 +63,6 @@ iceTrqMat       = inf(length(timVec), length(batEndInxVec));
 brkTrqMat       = inf(length(timVec), length(batEndInxVec));
 fulEngOptVec    = inf(length(batEndInxVec), 1);
 crsSpdOptMat    = inf(length(timVec), length(batEndInxVec));
-emoTrqOptMat    = inf(length(timVec), length(batEndInxVec));
-iceTrqOptMat    = inf(length(timVec), length(batEndInxVec));
-brkTrqOptMat    = inf(length(timVec), length(batEndInxVec));
 
 fprintf('Generating all optimal paths from ending SOC levels %2.0f%% to %2.0f%%\n', ...
         inputparams.batEngEndMinRat*100, inputparams.batEngEndMaxRat*100);
@@ -124,15 +121,21 @@ else
         fulEngOptVec(batEndInx_counter)         ... Skalar - optimale Kraftstoffenergie
     ] =                                         ...
         clcOptTrj_focus_useGeaVec               ... FUNKTION
-        (timVec,                    ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
-        engEnd,                     ... scalar - final engine state
-        engEndEnd,                  ... Skalar fï¿½r Zielindex der kinetischen Energie
-        batEndInx,                  ... scalar - final battery state
-        batStaNum,     ... scalar - for number of battery energy levels
-        optPreInxTn,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
-        batPwrOptTn,   ... Tensor 3. Stufe der Batteriekraft
-        fulEngOptTn,   ... Tensor 3. Stufe für die Kraftstoffenergie
-        cos2goActTn    ... Matrix der optimalen Kosten der Hamiltonfunktion  
+    (                   ...
+        timVec,         ... Skalar für die max. Anzahl an WegstÃ¼tzstellen
+        engEnd,         ... scalar - prefinal engine state
+        engEndEnd,      ... Skalar fï¿½r Zielindex der kinetischen Energie
+        batEndInx,      ... scalar - final battery state
+        batStaNum,      ... scalar - for number of battery states exist
+        optPreInxTn,    ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
+        batPwrOptTn,    ... Tensor 3. Stufe der Batteriekraft
+        fulEngOptTn,    ... Tensor 3. Stufe für die Kraftstoffenergie
+        cos2goActTn,    ... Matrix der optimalen Kosten der Hamiltonfunktion 
+        emoTrqOptTn,    ...
+        iceTrqOptTn,    ...
+        brkTrqOptTn,    ...
+        inputparams,    ...
+        tst_scalar_struct...
         );
 
         if inputparams.disFlg
@@ -141,6 +144,10 @@ else
                 double(length(batEndInxVec)-1)*100);
         end
     end
+    % sample input gear input vector
+      geaStaMatAll = load('geaStaMat');
+      geaStaMatAll = geaStaMatAll.geaStaMat;
+      geaStaMat = geaStaMatAll(batEndInxVec);
 end
 
 fprintf('\n\ndone!\n');

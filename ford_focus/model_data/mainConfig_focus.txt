@@ -1,0 +1,104 @@
+﻿ ****************INPUT CONFIGURATION FILE******************,
+
+This file serves as a configuration file for the HEV DP-PMP optimization model
+The file is broken up into three parts:
+	1.Input model parameters, such as discretization values; initial power,
+		energy, and drivetrain inputs; and costate values.
+	2. State variables. In this case, boundaries and conditions for the engine state,
+		gear, and battery energy are defined here.
+	3. Vehicle parameters, such as vehicle weight, drag coefficients, physical battery 
+		limitations, acceleration bounds, etc.
+
+______________________________** INPUT MODEL PARAMETERS**___________________________
+Model parameters
+!!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 
+		must be maintained !!!!
+!!!! NOTE: The keyword **S*T*A*R*T*_*P*A*R*A*M*S** (without asterisks) initiates data 
+		read, and must be placed before the first line of configuration data
+!!!! NOTE: The keyword **E*N*D*_*P*A*R*A*M*A*S** (without asterisks) ends the data
+		read, and must be placed after the last line of configuration data
+!!!  	These keywords are reserved and shouldn't be used anywhere else in this file
+
+====================================================================================
+Value,			Variable Name,  	Description (examples in brackets)
+PARAMS_START
+1,				disFlg,				bool - for displaying data on command window (also ensures target trajectory?? check later in clcOptTrj)
+0,				iceFlgBool,			bool - flag for having engine always on?
+1, 				brkBool, 			bool - allow for states requiring braking to satisfy crankshaft power demand
+0,				iceExtBool, 		bool - allow for ICE torque extrapolation to lower crsSpd limits
+1,				timStp,				time step discretization [sec]
+0.60,			batEngBegMinRat,	beginning minimum SOC percentage value
+0.60,			batEngBegMaxRat,	beginning maximum SOC percentage value
+0.30,			batEngEndMinRat,	ending minimum SOC percentage value
+0.90,			batEngEndMaxRat,	ending maximum SOC percentage value
+0,				batPwrAux,			aux power demanded from powertrain
+0,				staChgPenCosVal,	penalty for changing gear (need to add one for engine)
+1,				timInxBeg,			starting time index
+1181,			timInxEnd,			final time index
+0,				engBeg,				initial state of engine (0-off, 1-on)
+0,				engEnd,				final state of engine 	(0-off, 1-on)
+1,				staBeg,				starting gear state
+PARAMS_END
+====================================================================================
+
+
+
+______________________________** STATE PARAMETERS**_________________________________
+State variable parameters for DP algorithm
+!!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 
+		must be maintained !!!!
+!!!! NOTE: The keyword **S*T*A*R*T*_T*S*T*D*A*T** (without asterisks) initiates data 
+		read, and must be placed before the first line of configuration data
+!!!! NOTE: The keyword **E*N*D*_T*S*T*D*A*T** (without asterisks) ends the data
+		read, and must be placed after the last line of configuration data
+!!!  	These keywords are reserved and shouldn't be used anywhere else in this file
+
+====================================================================================
+Value,			Variable Name,  	Description (examples in brackets)
+TSTDAT_START
+1, 				useGeaSta,			bool - incorporate gear as state(1), or provide own geaVec input(0)
+6,				staNum,				Number of gears in model
+1,				geaStaMin,			low gear limit
+6,				geaStaMax,			high gear limit
+2,				engStaNum,			number of states engine can take (1:no toggle; 2:toggle btwn 0 and 1)
+0,				engStaMin,			low engine state boundary (0-off, 1-on)
+1,				engStaMax,			high ^^; can set both equal for always off/on ice
+0,				batEngMin,			minimum battery energy level possible
+2500,			batEngStp,			discretized battery energy step size
+2704300,		batEngMax,			maximum battery energy level possible
+TSTDAT_END
+====================================================================================
+
+
+
+______________________________**FZG PARAMETERS**____________________________________
+Vehicle parameters
+!!!! NOTE: This section has 3 columns of **comma delimited** data only! This structure 
+		must be maintained !!!!
+!!!! NOTE: The keyword **S*T*A*R*T_F*A*H*R*Z*E*U*G** (without asterisks) initiates 
+		data read, and must be placed before the first line of configuration data
+!!!! NOTE: The keyword **E*N*D*_F*A*H*R*Z*E*U*G** (without asterisks) ends the data
+		read, and must be placed after the last line of configuration data
+!!!  	These keywords are reserved and shouldn't be used anywhere else in this file
+
+====================================================================================
+Value,			Variable Name,  	Description (examples in brackets)
+FAHRZEUG_START
+5,				vehVelMin,			IS THIS VALUE NECESSARY WHEN VEHICLE IS STOPPING?
+30,				vehVelMax,			neither of these velocity bounds are considered 
+0.005, 			vehVelThresh,		limit from which FZG is now considered stationary
+1.5,			vehAccMax,			max acceleration vehicle can support
+-1.5,			vehAccMin,			min acceleration vehicle can support
+0.39,			drgCof,				vehicle drag coefficient
+1800,			vehMas,				vehicle mass [kg]
+0.0088,			whlRosResCof,		wheel rolling resistance
+0.3156,			whlDrr,				wheel radius length [m]
+0.0334,			batRstChr,			battery charging resistance value
+0.0406,			batRstDch,			battery discharging resistance value
+20000,			batPwrMax,			max power/energy discharge battery can support
+-25000,			batPwrMin,			min power/energy charge battery can support
+0.9806,			geaEfy,				gear efficiency - believe value is overwritten by input data
+0.74,			fulDen,				fuel density, if wishing to convert fulEng to a mass value
+41040000,		fulLhv,				battery size in joules - believe this is also overwritten
+FAHRZEUG_END
+====================================================================================

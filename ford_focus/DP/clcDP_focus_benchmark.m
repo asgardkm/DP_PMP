@@ -1,10 +1,11 @@
 cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\');
 % cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/ford_focus/DP')
 
-addpath('../model_data', '../functions')
+addpath('../model_data')
 
-[   batEngBeg,          ... Skalar für die Batterieenergie am Beginn in Ws
-    timNum,             ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
+[                       ...
+    batEngBeg,          ... Skalar für die Batterieenergie am Beginn in Ws
+    timVec,             ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
     engStaVec_timInx,   ... scalar - end engine state
     batOcv,             ... battery voltage vector w/ value for each SOC
     velVec,             ... velocity vector contiaing input speed profile
@@ -23,28 +24,30 @@ addpath('../model_data', '../functions')
     tst_scalar_struct,  ... struct w/ tst data state var params
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS] = ...
-] = runDP_preProcessing(...
+] =                     ...
+    runDP_preProcessing ...
+(                       ...
     inputparams,        ...
     tst_scalar_struct,  ...
     fzg_scalar_struct,  ...
     nedc_array_struct,  ...
     fzg_array_struct    ...
 );
-
+timNum = length(timVec);
 %% Calculating optimal predecessors with DP
 % two functions: one finding optimal gear state and one with input gea vals
 fprintf('-Initializing model...\n'); 
 tic
 % DP that is calculating optimal gear state
 if ~tst_scalar_struct.useGeaSta
-    [                   ... --- Ausgangsgrößen:
+[                       ... --- Ausgangsgrößen:
     optPreInxTn4,       ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
     batPwrOptTn4,       ...  Tensor 4. Stufe der Batteriekraft
     fulEngOptTn4,       ...  Tensor 4. Stufe für die Kraftstoffenergie 
     cos2goActTn3        ...  Tensor 4. der optimalen Kosten
-    ] =                 ... 
+] =                     ... 
     clcDP_focus         ... FUNKTION
-    (                   ... --- Eingangsgrï¿½ï¿½en:
+(                       ... --- Eingangsgrï¿½ï¿½en:
     batEngBeg,          ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
     timNum,             ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
     engStaVec_timInx,   ... scalar - end engine state
@@ -65,22 +68,24 @@ if ~tst_scalar_struct.useGeaSta
     tst_scalar_struct,  ... struct w/ tst data state var params
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS
-    );
+);
 else
 % sample input gear input vector:
 %   geaStaVec = [geaStaMat(1:end-1); geaStaMat(end-1)]; 
+  geaStaMat = load('geaStaMat');
+  geaStaVec = geaStaMat.geaStaMat;
 
 % DP that requires a gear input vector
-    [                   ... --- Ausgangsgrï¿½ï¿½en:
+[                       ... --- Ausgangsgrößen:
     optPreInxTn3,       ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
     batPwrOptTn3,       ...  Tensor 4. Stufe der Batteriekraft
     fulEngOptTn3,       ...  Tensor 4. Stufe für die Kraftstoffenergie 
     cos2goActMat        ...  Tensor 4. der optimalen Kosten
-    ] =                 ... 
+] =                     ... 
     clcDP_focus_useGeaVec     ... FUNKTION
-    (                   ... --- Eingangsgrï¿½ï¿½en:
-    batEngBeg,          ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
-    timNum,             ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
+(                       ... --- Eingangsgrößen:
+    batEngBeg,          ... Skalar für die Batterieenergie am Beginn in Ws
+    timNum,             ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
     engStaVec_timInx,   ... scalar - end engine state
     batOcv,             ... battery voltage vector w/ value for each SOC
     velVec,             ... velocity vector contiaing input speed profile
@@ -100,5 +105,5 @@ else
     tst_scalar_struct,  ... struct w/ tst data state var params
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS
-    );
+);
 end

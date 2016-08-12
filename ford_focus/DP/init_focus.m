@@ -1,13 +1,20 @@
-function[inputparams, tst_scalar_struct, fzg_scalar_struct, ...
-         tst_array_struct, nedc_array_struct, fzg_array_struct] ...
-         = init_focus(config_filename, datafile_dir, write_bool)
-% function : initialze structure variables for inputs to clcDP_port()
-%
-% input  :
-%
-% output : 
-%
+function[               ...
+    inputparams,        ...
+    tst_scalar_struct,  ...
+    fzg_scalar_struct,  ...
+    tst_array_struct,   ...
+    nedc_array_struct,  ...
+    fzg_array_struct    ...
+] =                     ...
+    init_focus          ...
+(                       ...
+    config_filename,    ... directory location of mainConfig_focus.txt
+    datafile_dir,       ... file string for defining raw array data loc
+    write_bool          ... bool - rewrite(1) or readin(0) array data
+)
+% function : initialze structure variables for inputs running clcDP_focus()
 % created 01.07.2016 - asgard kaleb marroquin
+
 %% String values for saved .mat array datafiles
 fprintf('-Loading model data and parameters...');
 % location of tst_array .mat saved file
@@ -17,7 +24,7 @@ fzg_array_dir   = fullfile(datafile_dir, 'fzg_array.mat');
 
 nedc_array_dir  = fullfile(datafile_dir, 'nedc_array.mat');   
 
-focus_data = load(fullfile(datafile_dir, 'MODEL_DATA_IAM'));
+focus_data      = load(fullfile(datafile_dir, 'MODEL_DATA_IAM'));
           
 %% Laden der Modelldaten - SCALAR DATA
 % load in data from text file (if running model through matlab and are 
@@ -36,7 +43,7 @@ if ( (exist(tst_array_dir, 'file') == 2) ...
         fzg_array_struct = load(fzg_array_dir);
 else % otherwise, proceed to generate array data and save it 
         [tst_array_struct, nedc_array_struct, fzg_array_struct] = ...
-            saveArrayData_a(datafile_dir, tst_array_dir, nedc_array_dir, fzg_array_dir);
+            saveArrayData_focus(datafile_dir, tst_array_dir, nedc_array_dir, fzg_array_dir);
 end
 fprintf('done!\n');    
 

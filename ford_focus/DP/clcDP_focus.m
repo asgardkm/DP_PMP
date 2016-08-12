@@ -6,9 +6,9 @@ function [              ...  --- Ausgangsgrößen:
     iceTrqOptTn4,       ... tensor - saves optimal iceTrq values
     brkTrqOptTn4,       ... tensor - saves optimal brkTrq values
     cos2goActTn3        ... Matrix der optimalen Kosten der Hamiltonfunktion 
-    ] =                 ...
+] =                     ...
     clcDP_focus         ...
-    (                   ... --- Eingangsgr��en:
+(                       ... --- Eingangsgr��en:
     batEngBeg,          ... Skalar f�r die Batterieenergie am Beginn in Ws
     timNum,             ... Skalar f�r die Stufe der Batteriekraftmax. Anzahl an Wegst�tzstellen
     engStaVec_timInx,   ... scalar - end engine state
@@ -29,7 +29,7 @@ function [              ...  --- Ausgangsgrößen:
     tst_scalar_struct, ... struct w/ tst data state var params
     fzg_scalar_struct, ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct   ... struct der Fahrzeugparameter - NUR ARRAYS
-    )%#codegen
+)%#codegen
 %
 % 01.07.2016 - asgard kaleb marroquin - creating new algorithm based solely 
 % on DP for minimizing fuel use based on battery charge value with a given

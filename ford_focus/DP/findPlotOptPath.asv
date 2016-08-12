@@ -7,8 +7,8 @@ function [              ...
     batEngMat,          ... vector showing optimal battery levels
     fulEngOptVec        ... Skalar - optimale Kraftstoffenergie] =           ...
 ] = findPlotOptPath(    ...
-    timVec,             ...
-    velVec,             ...
+    timVec,             ... vector - time vector
+    velVec,             ... vector - velocity 
     engStaVec_timInx,   ...
     crsSpdMat,          ...
     optPreInxTn,        ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
@@ -63,9 +63,6 @@ iceTrqMat       = inf(length(timVec), length(batEndInxVec));
 brkTrqMat       = inf(length(timVec), length(batEndInxVec));
 fulEngOptVec    = inf(length(batEndInxVec), 1);
 crsSpdOptMat    = inf(length(timVec), length(batEndInxVec));
-emoTrqOptMat    = inf(length(timVec), length(batEndInxVec));
-iceTrqOptMat    = inf(length(timVec), length(batEndInxVec));
-brkTrqOptMat    = inf(length(timVec), length(batEndInxVec));
 
 fprintf('Generating all optimal paths from ending SOC levels %2.0f%% to %2.0f%%\n', ...
         inputparams.batEngEndMinRat*100, inputparams.batEngEndMaxRat*100);
@@ -124,15 +121,21 @@ else
         fulEngOptVec(batEndInx_counter)         ... Skalar - optimale Kraftstoffenergie
     ] =                                         ...
         clcOptTrj_focus_useGeaVec               ... FUNKTION
-        (timVec,                    ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
-        engEnd,                     ... scalar - final engine state
-        engEndEnd,                  ... Skalar fï¿½r Zielindex der kinetischen Energie
-        batEndInx,                  ... scalar - final battery state
-        batStaNum,     ... scalar - for number of battery energy levels
-        optPreInxTn,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
-        batPwrOptTn,   ... Tensor 3. Stufe der Batteriekraft
-        fulEngOptTn,   ... Tensor 3. Stufe für die Kraftstoffenergie
-        cos2goActTn    ... Matrix der optimalen Kosten der Hamiltonfunktion  
+    (                   ...
+        timVec,         ... Skalar für die max. Anzahl an WegstÃ¼tzstellen
+        engEnd,         ... scalar - prefinal engine state
+        engEndEnd,      ... Skalar fï¿½r Zielindex der kinetischen Energie
+        batEndInx,      ... scalar - final battery state
+        batStaNum,      ... scalar - for number of battery states exist
+        optPreInxTn,    ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
+        batPwrOptTn,    ... Tensor 3. Stufe der Batteriekraft
+        fulEngOptTn,    ... Tensor 3. Stufe für die Kraftstoffenergie
+        cos2goActTn,    ... Matrix der optimalen Kosten der Hamiltonfunktion 
+        emoTrqOptTn,    ...
+        iceTrqOptTn,    ...
+        brkTrqOptTn,    ...
+        inputparams,    ...
+        tst_scalar_struct...
         );
 
         if inputparams.disFlg
@@ -141,20 +144,26 @@ else
                 double(length(batEndInxVec)-1)*100);
         end
     end
+    % sample input gear input vector
+      geaStaMatAll = load('geaStaMat');
+      geaStaMatAll = geaStaMatAll.geaStaMat;
+      geaStaMat = geaStaMatAll(batEndInxVec);
 end
 
 fprintf('\n\ndone!\n');
 
 %% determine the crankshaft demand
 % populate the optimal crsSpd and torques demand
-for bat = 1 : length(batEndInxVec)
-    for tim = 1 : length(timNum)
-       crsSpdOptMat(tim, bat) = crsSpdMat(tim, geaStaMat(:, bat));
-       emoTrqOptMat(tim, bat) = emoTrqMat(tim, geaStaMat(:, bat));
-       iceTrqOptMat(tim, bat) = iceTrqMat(tim, geaStaMat(:, bat));
-       brkTrqOptMat(tim, bat) = brkTrqMat(tim, geaStaMat(:, bat));
-    end
+% batStaMatIdx = batEngMat/tst_scalar_struct.batEngStp + 1;
+for tim = 1 : length(timVec)
+   crsSpdOptMat(tim, :) = crsSpdMat(tim, geaStaMat(tim, :));
+%    for bat = 1 : length(batEndInxVec)
+%         emoTrqOptMat(tim, bat) = emoTrqMat(tim, batStaMatIdx(tim, bat));
+%         iceTrqOptMat(tim, bat) = iceTrqMat(tim, batStaMatIdx(tim, bat));
+%         brkTrqOptMat(tim, bat) = brkTrqMat(tim, batStaMatIdx(tim, bat));
+%    end
 end
+
 %% PLOTS
 % batEng trajectories for all ending SOC possibilities (currently 30%-90%)
 xString = 'Time [sec]';
@@ -204,17 +213,17 @@ figure(2)
 subplot(3,1,1)
 titleString = 'EM torque profile';
 yString = 'Torque [N*m]';
-plotGrad(timVec, emoTrqOptMat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, emoTrqMat, batEndInxVec, titleString, xString, yString);
 
 % iceTrq
 subplot(3,1,2)
 titleString = 'ICE torque profile';
 yString = 'Torque [N*m]';
-plotGrad(timVec, iceTrqOptMat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, iceTrqMat, batEndInxVec, titleString, xString, yString);
 
 % brkTrq
 subplot(3,1,3)
 titleString = 'Braking torque profile';
 yString = 'Torque [N*m]';
-plotGrad(timVec, brkTrqOptMat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, brkTrqMat, batEndInxVec, titleString, xString, yString);
 end
