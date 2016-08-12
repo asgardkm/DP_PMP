@@ -21,11 +21,11 @@ static emlrtMCInfo d_emlrtMCI = { 86, 15, "eml_int_forloop_overflow_check",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_int_forloop_overflow_check.m"
 };
 
-static emlrtRSInfo mb_emlrtRSI = { 86, "eml_int_forloop_overflow_check",
+static emlrtRSInfo ob_emlrtRSI = { 86, "eml_int_forloop_overflow_check",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_int_forloop_overflow_check.m"
 };
 
-static emlrtRSInfo rb_emlrtRSI = { 87, "eml_int_forloop_overflow_check",
+static emlrtRSInfo tb_emlrtRSI = { 87, "eml_int_forloop_overflow_check",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\eml\\eml_int_forloop_overflow_check.m"
 };
 
@@ -85,8 +85,8 @@ void check_forloop_overflow_error(const emlrtStack *sp)
 
   emlrtInitCharArrayR2013a(sp, 5, m1, cv10);
   emlrtAssign(&b_y, m1);
-  st.site = &mb_emlrtRSI;
-  b_st.site = &rb_emlrtRSI;
+  st.site = &ob_emlrtRSI;
+  b_st.site = &tb_emlrtRSI;
   error(&st, b_message(&b_st, y, b_y, &c_emlrtMCI), &d_emlrtMCI);
 }
 

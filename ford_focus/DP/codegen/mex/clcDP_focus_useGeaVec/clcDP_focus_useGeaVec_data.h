@@ -22,6 +22,22 @@
 
 /* Variable Declarations */
 extern const volatile char_T *emlrtBreakCheckR2012bFlagVar;
+extern emlrtDCInfo nb_emlrtDCI;
+extern emlrtDCInfo ob_emlrtDCI;
+extern emlrtDCInfo pb_emlrtDCI;
+extern emlrtDCInfo qb_emlrtDCI;
+extern emlrtDCInfo rb_emlrtDCI;
+extern emlrtDCInfo sb_emlrtDCI;
+extern emlrtDCInfo tb_emlrtDCI;
+extern emlrtDCInfo ub_emlrtDCI;
+extern emlrtDCInfo vb_emlrtDCI;
+extern emlrtDCInfo wb_emlrtDCI;
+extern emlrtDCInfo xb_emlrtDCI;
+extern emlrtDCInfo yb_emlrtDCI;
+extern emlrtDCInfo ac_emlrtDCI;
+extern emlrtDCInfo bc_emlrtDCI;
+extern emlrtDCInfo cc_emlrtDCI;
+extern emlrtDCInfo dc_emlrtDCI;
 
 #endif
 

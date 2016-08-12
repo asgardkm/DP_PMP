@@ -14,6 +14,7 @@ SRC_FILES =  \
 	clcDP_focus_useGeaVec.c \
 	eml_int_forloop_overflow_check.c \
 	optTrqSplit_focus.c \
+	codegen_interp2.c \
 	fprintf.c \
 	_coder_clcDP_focus_useGeaVec_api.c \
 	clcDP_focus_useGeaVec_emxutil.c \

@@ -1,11 +1,14 @@
 function                ... --- Ausgangsgrößen:
 [                       ...
     batEngDltOptMat,    ... Vektor - optimale Batterieenergieänderung
-    fulEngDltOptMat,    ... Vektor - optimale Kraftstoffenergieänderung
+    fulVolOptOptMat,    ... Vektor - optimale Kraftstoffenergieänderung
     geaStaMat,          ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     engStaMat,          ... vector showing optimal engine contorl w/ profile
     batPwrMat,          ... vector showing optimal battery level control
     batEngMat,          ... vector showing optimal battery levels
+    emoTrqMat,          ...
+    iceTrqMat,          ...
+    brkTrqMat,          ...
     fulEngOptVec        ... Skalar - optimale Kraftstoffenergie
 ] =                     ...
     runFocusDP          ...
@@ -15,7 +18,7 @@ function                ... --- Ausgangsgrößen:
     fzg_scalar_struct,  ...
     nedc_array_struct,  ...
     fzg_array_struct    ...
-    )%#codegen
+)%#codegen
 % function: run preprocessing, DP algorithm, find optimal paths for given
 % ending SOC level, and create result figures
 
@@ -160,13 +163,20 @@ else
     cos2goActTn = cos2goActMat;  
 end
 
+% convert fulEng to fulVol - units work out
+% units are : J / (J/kg) / (kg/L)
+fulVolOptTn = fulEngOptTn / fzg_scalar_struct.fuel_lower_heating_value / ...
+                            fzg_scalar_struct.fulDen;
 % function call
 [   batEngDltOptMat,    ... Vektor - optimale Batterieenergieï¿½nderung
-    fulEngDltOptMat,    ... Vektor - optimale Kraftstoffenergieï¿½nderung
+    fulVolOptOptMat,    ... Vektor - optimale Kraftstoffenergieï¿½nderung
     geaStaMat,          ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     engStaMat,          ... vector showing optimal engine contorl w/ profile
     batPwrMat,          ... vector showing optimal battery level control
     batEngMat,          ... vector showing optimal battery levels
+    emoTrqMat,          ...
+    iceTrqMat,          ...
+    brkTrqMat,          ...
     fulEngOptVec        ... Skalar - optimale Kraftstoffenergie
 ] =                     ...
     findPlotOptPath     ...
@@ -177,7 +187,7 @@ end
     crsSpdMat,          ... matrix - predetermined crankshaft speed demand
     optPreInxTn,        ... Tensor . Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn,        ... Tensor . Stufe der Batteriekraft
-    fulEngOptTn,        ... Tensor . Stufe fï¿½r die Kraftstoffenergie
+    fulVolOptTn,        ... Tensor . Stufe fï¿½r die Kraftstoffenergie
     cos2goActTn,        ... Tensor der optimalen Kosten
     emoTrqOptTn,        ... tensor containing optimal emoTrq values
     iceTrqOptTn,        ... 
@@ -186,8 +196,8 @@ end
     tst_scalar_struct   ...
 );
 
-if ~tst_scalar_struct.useGeaSta
-    save('geaStaMat', 'geaStaMat');
-end
+% if ~tst_scalar_struct.useGeaSta
+%     save('geaStaMat', 'geaStaMat');
+% end
 
 end

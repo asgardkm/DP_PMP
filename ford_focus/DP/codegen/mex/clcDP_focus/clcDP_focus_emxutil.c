@@ -147,6 +147,11 @@ void emxEnsureCapacity(const emlrtStack *sp, emxArray__common *emxArray, int32_T
   }
 }
 
+void emxFreeStruct_struct3_T(struct3_T *pStruct)
+{
+  emxFree_real_T(&pStruct->emoTrq_emoSpd_emoPwr);
+}
+
 void emxFree_int32_T(emxArray_int32_T **pEmxArray)
 {
   if (*pEmxArray != (emxArray_int32_T *)NULL) {
@@ -171,6 +176,12 @@ void emxFree_real_T(emxArray_real_T **pEmxArray)
     emlrtFreeMex((void *)*pEmxArray);
     *pEmxArray = (emxArray_real_T *)NULL;
   }
+}
+
+void emxInitStruct_struct3_T(const emlrtStack *sp, struct3_T *pStruct, const
+  emlrtRTEInfo *srcLocation, boolean_T doPush)
+{
+  b_emxInit_real_T(sp, &pStruct->emoTrq_emoSpd_emoPwr, 2, srcLocation, doPush);
 }
 
 void emxInit_int32_T(const emlrtStack *sp, emxArray_int32_T **pEmxArray, int32_T

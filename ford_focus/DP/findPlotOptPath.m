@@ -5,8 +5,13 @@ function [              ...
     engStaMat,          ... vector showing optimal engine contorl w/ profile
     batPwrMat,          ... vector showing optimal battery level control
     batEngMat,          ... vector showing optimal battery levels
-    fulEngOptVec        ... Skalar - optimale Kraftstoffenergie] =           ...
-] = findPlotOptPath(    ...
+    emoTrqMat,          ...
+    iceTrqMat,          ...
+    brkTrqMat,          ...
+    fulEngOptVec        ... Skalar - optimale Kraftstoffenergie
+] =                     ...
+    findPlotOptPath     ...
+(                       ...
     timVec,             ... vector - time vector
     velVec,             ... vector - velocity 
     engStaVec_timInx,   ...
@@ -147,7 +152,7 @@ else
     % sample input gear input vector
       geaStaMatAll = load('geaStaMat');
       geaStaMatAll = geaStaMatAll.geaStaMat;
-      geaStaMat = geaStaMatAll(batEndInxVec);
+      geaStaMat = geaStaMatAll(:, batEndInxVec);
 end
 
 fprintf('\n\ndone!\n');
@@ -177,7 +182,7 @@ plotGrad(timVec, batEngMatSOC, batEndInxVec, titleString, xString, yString);
 % fuel trajectories for all ending SOC possibilities (currently 30%-90%)
 subplot(3,2,2)
 titleString = 'fuel trajectories for optimal paths';
-yString = 'Fuel Use [J]';
+yString = 'Fuel Use [L]';
 plotGrad(timVec, fulEngDltOptMat, batEndInxVec, titleString, xString, yString);
 
 % velocity vector

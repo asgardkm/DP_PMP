@@ -602,22 +602,26 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                         (batStaPreIdx_noEmo > batStaMax/batStaStp + 1)
                         continue;
                     end
+                    batPwrPre = batStaActInxVec(batStaPreIdx_noEmo) * batStaStp / inputparams.timStp;
+
+                    emoTrqPre = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
+                        fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, batPwrPre);
 
                     % penalty to get current cost
-                    fulActMat(engStaPre+1, batStaPreIdx_noEmo) ...
+                    fulActMat(engStaPre+1, batStaPreIdx_noEmo)           ...
                         = ... minFul ...
-                        + cos2goPreMat(engStaPre+1, batStaPreIdx_noEmo) ...
-                        + geaStaChgPenCos / inputparams.timStp ...
+                        + cos2goPreMat(engStaPre+1, batStaPreIdx_noEmo)  ...
+                        + geaStaChgPenCos / inputparams.timStp                      ...
                         + engStaChgPenCos / inputparams.timStp;
-                    
-                    emoTrqPreMat(engStaPre+1, batStaPreIdx_noEmo) = crsTrqPre;
+
+                    emoTrqPreMat(engStaPre+1, batStaPreIdx_noEmo) = emoTrqPre;
+
                     % brake torque in case of torque overshoot
                     if inputparams.brkBool
-                        crsPwrPre = crsTrqPre * crsSpdPre;
-                        batPwrPre = batStaActInxVec(batStaPreIdx_noEmo) * batStaStp / inputparams.timStp;
-                        if batPwrPre > crsPwrPre
+
+                        if emoTrqPre > crsTrqPre
                             brkTrqPreMat(engStaPre+1, batStaPreIdx_noEmo) = ...
-                                (batPwrPre - crsPwrPre)/crsSpdPre;
+                                emoTrqPre - crsTrqPre;
                         end
                     end
 

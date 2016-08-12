@@ -175,19 +175,23 @@ if useEqiDis
         emoPwrMaxInterp = interp1(fzg_array_struct.emoPwrMax_emoSpd(:,1), fzg_array_struct.emoPwrMax_emoSpd(:,2), emoSpdInterp, 'linear', 'extrap');
         emoPwrMinInterp = interp1(fzg_array_struct.emoPwrMin_emoSpd(:,1), fzg_array_struct.emoPwrMin_emoSpd(:,2), emoSpdInterp, 'linear', 'extrap');
 
+        emoTrq_spdPwrInterp = interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
+                                fzg_array_struct.emoTrq_emoSpd_emoPwr, emoSpdInterp, fzg_array_struct.emoPwrMgd', 'linear');
         % artifical min/max cap from speed values from 0:emoTrq_emoSpd(1,1)
         emoSpdCapIdx = (fzg_array_struct.emoSpdMgd(1)/emoSpdDif(2) : fzg_array_struct.emoTrqMax_emoSpd(:,1)/emoSpdDif(2))+1;
-        emoTrqMaxInterp(emoSpdCapIdx) = fzg_array_struct.emoTrqMax_emoSpd(1,2);
-        emoTrqMinInterp(emoSpdCapIdx) = fzg_array_struct.emoTrqMin_emoSpd(1,2);
-        emoPwrMaxInterp(emoSpdCapIdx) = fzg_array_struct.emoPwrMax_emoSpd(1,2);
-        emoPwrMinInterp(emoSpdCapIdx) = fzg_array_struct.emoPwrMin_emoSpd(1,2);
-
+        emoTrqMaxInterp(emoSpdCapIdx)       = fzg_array_struct.emoTrqMax_emoSpd(1,2);
+        emoTrqMinInterp(emoSpdCapIdx)       = fzg_array_struct.emoTrqMin_emoSpd(1,2);
+        emoPwrMaxInterp(emoSpdCapIdx)       = fzg_array_struct.emoPwrMax_emoSpd(1,2);
+        emoPwrMinInterp(emoSpdCapIdx)       = fzg_array_struct.emoPwrMin_emoSpd(1,2);
+        emoTrq_spdPwrInterp(:, emoSpdCapIdx)= repmat(fzg_array_struct.emoTrq_emoSpd_emoPwr(:, 1), 1, length(emoSpdCapIdx));
+        
         % save equidistant interpolation values into the parameter structure
         fzg_array_struct.emoSpdMgd          = emoSpdInterp;
         fzg_array_struct.emoTrqMax_emoSpd   = [emoSpdInterp', emoTrqMaxInterp'];
         fzg_array_struct.emoTrqMin_emoSpd   = [emoSpdInterp', emoTrqMinInterp'];
         fzg_array_struct.emoPwrMax_emoSpd   = [emoSpdInterp', emoPwrMaxInterp'];
         fzg_array_struct.emoPwrMin_emoSpd   = [emoSpdInterp', emoPwrMinInterp'];
+        fzg_array_struct.emoTrq_emoSpd_emoPwr = emoTrq_spdPwrInterp;
         fprintf('NOTE: Interpolated EM boundaries to be equidistant\n');
     end 
 

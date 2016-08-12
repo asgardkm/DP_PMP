@@ -213,7 +213,7 @@ brkTrqOptVec(timInx) = ...
                   batStaOptVec(timInx-1,1), ...
                   timInx);
                             
-%                   
+               
 end % end of path_idx loop
 
 % derive battery energy based on the battery power

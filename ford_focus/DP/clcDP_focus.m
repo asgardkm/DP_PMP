@@ -619,22 +619,26 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                                 continue;
                             end
                             
+                            batPwrPre = batStaActInxVec(batStaPreIdx_noEmo) * batStaStp / inputparams.timStp;
+
+                            emoTrqPre = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
+                                fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, batPwrPre);
+                            
                             % penalty to get current cost
-                            fulActTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo) ...
+                            fulActTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo)           ...
                                 = ... minFul ...
-                                + cos2goPreTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo) ...
-                                + geaStaChgPenCos / inputparams.timStp ...
+                                + cos2goPreTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo)  ...
+                                + geaStaChgPenCos / inputparams.timStp                      ...
                                 + engStaChgPenCos / inputparams.timStp;
 
-                            emoTrqPreTn3(engStaPre+1, geaStaPre,batStaPreIdx_noEmo) = crsTrqPre;
+                            emoTrqPreTn3(engStaPre+1, geaStaPre,batStaPreIdx_noEmo) = emoTrqPre;
 
                             % brake torque in case of torque overshoot
                             if inputparams.brkBool
-                                crsPwrPre = crsTrqPre * crsSpdPre;
-                                batPwrPre = batStaActInxVec(batStaPreIdx_noEmo) * batStaStp / inputparams.timStp;
-                                if batPwrPre > crsPwrPre
+
+                                if emoTrqPre > crsTrqPre
                                     brkTrqPreTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo) = ...
-                                        (batPwrPre - crsPwrPre)/crsSpdPre;
+                                        emoTrqPre - crsTrqPre;
                                 end
                             end
                             

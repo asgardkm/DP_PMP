@@ -116,12 +116,7 @@ batCur      = batPwr / batOcvPre;
 batPwrLoss  = batCur.^2 * batRst;
 
 % find emoPwr
-emoPwr      = batPwr - batPwrLoss - batPwrAux;
-
-% emoPwr bound checking
-if emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr
-    return;
-end
+emoPwrElectric      = batPwr - batPwrLoss - batPwrAux;
 % -------------------------------------------------------------------------
 
 
@@ -129,6 +124,19 @@ end
 % Power = Torque * rotational vel.
 % therefore,
 % Torque = Power / Vel
+% INCLUDE LOOK UP TABLE HERE
+% cannot go from electric power and work with mechanical crsSpd
+% convert electric emoPwr to mechanical emoPwr with lookup table
+emoPwr = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
+                                fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, emoPwrElectric);
+
+% emoPwr bound checking
+if emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr
+    return;
+end
+
+
+
 emoTrq = emoPwr / crsSpdPre;
 
 % emoTrq bound checking
@@ -157,9 +165,9 @@ end
 % BRAKE WHEEL SIDE - WHEELS ARE RECEIVING TOO MUCH TORQUE FROM ICE
 % if the iceTrq being delivered exceeds crsTrq demands plus the limit that
 % the EM can experience while charging, discharge the iceTrq through brkTrq
-if iceTrq > (crsTrqPre - iceTrqMinPos)
+if iceTrq > (crsTrqPre - emoTrqMinPos)
    if brkBool
-       brkTrq = iceTrq - (crsTrqPre - iceTrqMinPos);
+       brkTrq = iceTrq - (crsTrqPre - emoTrqMinPos);
    else
        return;
    end
@@ -171,15 +179,16 @@ if iceTrq < 0
     % if iceTrq is negative (which it can't be in this case), don't
     % brake with with engine! Rather, brake with the brakes.
     % BUT! this shouldn't trigger, as this is not optimal!
-    if brkBool
+%     if brkBool
         brkTrq = iceTrq;
         iceTrq = iceTrqMinPos;
         fprintf('NOTE: engine braking is occuring - this is not optimal!\n');
         fprintf('   brkTrq: %4.3f\n', brkTrq);
         fprintf('   adjusted iceTrq: %4.3f\n', iceTrq);
-    else
+%     else
+        fulEng = 0;
         return;
-    end
+%     end
 end
 % -------------------------------------------------------------------------
 

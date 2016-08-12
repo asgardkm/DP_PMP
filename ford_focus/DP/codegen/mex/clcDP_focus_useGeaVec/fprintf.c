@@ -13,11 +13,11 @@
 #include <stdio.h>
 
 /* Variable Definitions */
-static emlrtRSInfo bb_emlrtRSI = { 35, "fprintf",
+static emlrtRSInfo db_emlrtRSI = { 35, "fprintf",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
-static emlrtRSInfo cb_emlrtRSI = { 38, "fprintf",
+static emlrtRSInfo eb_emlrtRSI = { 38, "fprintf",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
@@ -25,7 +25,7 @@ static emlrtMCInfo e_emlrtMCI = { 69, 14, "fprintf",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
-static emlrtRSInfo sb_emlrtRSI = { 69, "fprintf",
+static emlrtRSInfo ub_emlrtRSI = { 69, "fprintf",
   "C:\\Program Files\\MATLAB\\R2014b\\toolbox\\eml\\lib\\matlab\\iofun\\fprintf.m"
 };
 
@@ -115,7 +115,7 @@ static real_T c_fprintf(const emlrtStack *sp)
 
   emlrtInitCharArrayR2013a(sp, 57, m2, cv14);
   emlrtAssign(&c_y, m2);
-  st.site = &sb_emlrtRSI;
+  st.site = &ub_emlrtRSI;
   return emlrt_marshallIn(&st, feval(&st, y, b_y, c_y, &e_emlrtMCI), "feval");
 }
 
@@ -163,7 +163,7 @@ static real_T e_fprintf(const emlrtStack *sp, real_T varargin_1)
   d_y = NULL;
   m3 = emlrtCreateDoubleScalar(varargin_1);
   emlrtAssign(&d_y, m3);
-  st.site = &sb_emlrtRSI;
+  st.site = &ub_emlrtRSI;
   return emlrt_marshallIn(&st, b_feval(&st, y, b_y, c_y, d_y, &e_emlrtMCI),
     "feval");
 }
@@ -224,7 +224,7 @@ static real_T g_fprintf(const emlrtStack *sp, real_T varargin_1)
   d_y = NULL;
   m4 = emlrtCreateDoubleScalar(varargin_1);
   emlrtAssign(&d_y, m4);
-  st.site = &sb_emlrtRSI;
+  st.site = &ub_emlrtRSI;
   return emlrt_marshallIn(&st, b_feval(&st, y, b_y, c_y, d_y, &e_emlrtMCI),
     "feval");
 }
@@ -258,7 +258,7 @@ static real_T i_fprintf(const emlrtStack *sp)
   c_y = NULL;
   m5 = emlrtCreateString1('.');
   emlrtAssign(&c_y, m5);
-  st.site = &sb_emlrtRSI;
+  st.site = &ub_emlrtRSI;
   return emlrt_marshallIn(&st, feval(&st, y, b_y, c_y, &e_emlrtMCI), "feval");
 }
 
@@ -301,7 +301,7 @@ static real_T k_fprintf(const emlrtStack *sp)
 
   emlrtInitCharArrayR2013a(sp, 2, m6, cv28);
   emlrtAssign(&c_y, m6);
-  st.site = &sb_emlrtRSI;
+  st.site = &ub_emlrtRSI;
   return emlrt_marshallIn(&st, feval(&st, y, b_y, c_y, &e_emlrtMCI), "feval");
 }
 
@@ -356,7 +356,7 @@ static real_T m_fprintf(const emlrtStack *sp, real_T varargin_1, real_T
   e_y = NULL;
   m7 = emlrtCreateDoubleScalar(varargin_2);
   emlrtAssign(&e_y, m7);
-  st.site = &sb_emlrtRSI;
+  st.site = &ub_emlrtRSI;
   return emlrt_marshallIn(&st, c_feval(&st, y, b_y, c_y, d_y, e_y, &e_emlrtMCI),
     "feval");
 }
@@ -366,7 +366,7 @@ void b_fprintf(const emlrtStack *sp)
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &bb_emlrtRSI;
+  st.site = &db_emlrtRSI;
   c_fprintf(&st);
 }
 
@@ -375,7 +375,7 @@ void d_fprintf(const emlrtStack *sp, real_T formatSpec)
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &cb_emlrtRSI;
+  st.site = &eb_emlrtRSI;
   e_fprintf(&st, formatSpec);
 }
 
@@ -384,7 +384,7 @@ void f_fprintf(const emlrtStack *sp, real_T formatSpec)
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &cb_emlrtRSI;
+  st.site = &eb_emlrtRSI;
   g_fprintf(&st, formatSpec);
 }
 
@@ -393,7 +393,7 @@ void h_fprintf(const emlrtStack *sp)
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &bb_emlrtRSI;
+  st.site = &db_emlrtRSI;
   i_fprintf(&st);
 }
 
@@ -402,7 +402,7 @@ void j_fprintf(const emlrtStack *sp)
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &bb_emlrtRSI;
+  st.site = &db_emlrtRSI;
   k_fprintf(&st);
 }
 
@@ -411,7 +411,7 @@ void l_fprintf(const emlrtStack *sp, real_T formatSpec, real_T varargin_1)
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &cb_emlrtRSI;
+  st.site = &eb_emlrtRSI;
   m_fprintf(&st, formatSpec, varargin_1);
 }
 

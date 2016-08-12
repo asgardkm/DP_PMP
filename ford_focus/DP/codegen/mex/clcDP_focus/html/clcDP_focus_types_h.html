@@ -54,83 +54,83 @@
 <a name="42"><font color="#888888 "><i>   42   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_emxArray_int32_T
 <a name="43"><font color="#888888 "><i>   43   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font> <a name="type_emxArray_int32_T">emxArray_int32_T</a> <a name="type_emxArray_int32_T">emxArray_int32_T</a>;
 <a name="44"><font color="#888888 "><i>   44   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*typedef_emxArray_int32_T*/</i></font>
-<a name="45"><font color="#888888 "><i>   45   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> struct_emxArray_real_T
-<a name="46"><font color="#888888 "><i>   46   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> struct_emxArray_real_T
-<a name="47"><font color="#888888 "><i>   47   </i></font></a><font color="#112266"><b>struct</b></font> <a href="#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a>
+<a name="45"><font color="#888888 "><i>   45   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> typedef_struct0_T
+<a name="46"><font color="#888888 "><i>   46   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_struct0_T
+<a name="47"><font color="#888888 "><i>   47   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font>
 <a name="48"><font color="#888888 "><i>   48   </i></font></a><b>{</b>
-<a name="49"><font color="#888888 "><i>   49   </i></font></a>    real_T *data;
-<a name="50"><font color="#888888 "><i>   50   </i></font></a>    int32_T *size;
-<a name="51"><font color="#888888 "><i>   51   </i></font></a>    int32_T allocatedSize;
-<a name="52"><font color="#888888 "><i>   52   </i></font></a>    int32_T numDimensions;
-<a name="53"><font color="#888888 "><i>   53   </i></font></a>    boolean_T canFreeData;
-<a name="54"><font color="#888888 "><i>   54   </i></font></a><b>}</b>;
-<a name="55"><font color="#888888 "><i>   55   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*struct_emxArray_real_T*/</i></font>
-<a name="56"><font color="#888888 "><i>   56   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> typedef_emxArray_real_T
-<a name="57"><font color="#888888 "><i>   57   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_emxArray_real_T
-<a name="58"><font color="#888888 "><i>   58   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font> <a name="type_emxArray_real_T">emxArray_real_T</a> <a name="type_emxArray_real_T">emxArray_real_T</a>;
-<a name="59"><font color="#888888 "><i>   59   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*typedef_emxArray_real_T*/</i></font>
-<a name="60"><font color="#888888 "><i>   60   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> typedef_struct0_T
-<a name="61"><font color="#888888 "><i>   61   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_struct0_T
-<a name="62"><font color="#888888 "><i>   62   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font>
-<a name="63"><font color="#888888 "><i>   63   </i></font></a><b>{</b>
-<a name="64"><font color="#888888 "><i>   64   </i></font></a>    real_T disFlg;
-<a name="65"><font color="#888888 "><i>   65   </i></font></a>    real_T iceFlgBool;
-<a name="66"><font color="#888888 "><i>   66   </i></font></a>    real_T brkBool;
-<a name="67"><font color="#888888 "><i>   67   </i></font></a>    real_T iceExtBool;
-<a name="68"><font color="#888888 "><i>   68   </i></font></a>    real_T timStp;
-<a name="69"><font color="#888888 "><i>   69   </i></font></a>    real_T batEngBegMinRat;
-<a name="70"><font color="#888888 "><i>   70   </i></font></a>    real_T batEngBegMaxRat;
-<a name="71"><font color="#888888 "><i>   71   </i></font></a>    real_T batEngEndMinRat;
-<a name="72"><font color="#888888 "><i>   72   </i></font></a>    real_T batEngEndMaxRat;
-<a name="73"><font color="#888888 "><i>   73   </i></font></a>    real_T batPwrAux;
-<a name="74"><font color="#888888 "><i>   74   </i></font></a>    real_T staChgPenCosVal;
-<a name="75"><font color="#888888 "><i>   75   </i></font></a>    real_T timInxBeg;
-<a name="76"><font color="#888888 "><i>   76   </i></font></a>    real_T timInxEnd;
-<a name="77"><font color="#888888 "><i>   77   </i></font></a>    real_T engBeg;
-<a name="78"><font color="#888888 "><i>   78   </i></font></a>    real_T engEnd;
-<a name="79"><font color="#888888 "><i>   79   </i></font></a>    real_T staBeg;
-<a name="80"><font color="#888888 "><i>   80   </i></font></a><b>}</b> <a name="type_struct0_T">struct0_T</a>;
-<a name="81"><font color="#888888 "><i>   81   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*typedef_struct0_T*/</i></font>
-<a name="82"><font color="#888888 "><i>   82   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> typedef_struct1_T
-<a name="83"><font color="#888888 "><i>   83   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_struct1_T
-<a name="84"><font color="#888888 "><i>   84   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font>
-<a name="85"><font color="#888888 "><i>   85   </i></font></a><b>{</b>
-<a name="86"><font color="#888888 "><i>   86   </i></font></a>    real_T useGeaSta;
-<a name="87"><font color="#888888 "><i>   87   </i></font></a>    real_T staNum;
-<a name="88"><font color="#888888 "><i>   88   </i></font></a>    real_T geaStaMin;
-<a name="89"><font color="#888888 "><i>   89   </i></font></a>    real_T geaStaMax;
-<a name="90"><font color="#888888 "><i>   90   </i></font></a>    real_T engStaNum;
-<a name="91"><font color="#888888 "><i>   91   </i></font></a>    real_T engStaMin;
-<a name="92"><font color="#888888 "><i>   92   </i></font></a>    real_T engStaMax;
-<a name="93"><font color="#888888 "><i>   93   </i></font></a>    real_T batEngMin;
-<a name="94"><font color="#888888 "><i>   94   </i></font></a>    real_T batEngStp;
-<a name="95"><font color="#888888 "><i>   95   </i></font></a>    real_T batEngMax;
-<a name="96"><font color="#888888 "><i>   96   </i></font></a><b>}</b> <a name="type_struct1_T">struct1_T</a>;
-<a name="97"><font color="#888888 "><i>   97   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*typedef_struct1_T*/</i></font>
-<a name="98"><font color="#888888 "><i>   98   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> typedef_struct2_T
-<a name="99"><font color="#888888 "><i>   99   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_struct2_T
-<a name="100"><font color="#888888 "><i>  100   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font>
-<a name="101"><font color="#888888 "><i>  101   </i></font></a><b>{</b>
-<a name="102"><font color="#888888 "><i>  102   </i></font></a>    real_T vehVelMin;
-<a name="103"><font color="#888888 "><i>  103   </i></font></a>    real_T vehVelMax;
-<a name="104"><font color="#888888 "><i>  104   </i></font></a>    real_T vehVelThresh;
-<a name="105"><font color="#888888 "><i>  105   </i></font></a>    real_T vehAccMax;
-<a name="106"><font color="#888888 "><i>  106   </i></font></a>    real_T vehAccMin;
-<a name="107"><font color="#888888 "><i>  107   </i></font></a>    real_T drgCof;
-<a name="108"><font color="#888888 "><i>  108   </i></font></a>    real_T vehMas;
-<a name="109"><font color="#888888 "><i>  109   </i></font></a>    real_T whlRosResCof;
-<a name="110"><font color="#888888 "><i>  110   </i></font></a>    real_T whlDrr;
-<a name="111"><font color="#888888 "><i>  111   </i></font></a>    real_T batRstChr;
-<a name="112"><font color="#888888 "><i>  112   </i></font></a>    real_T batRstDch;
-<a name="113"><font color="#888888 "><i>  113   </i></font></a>    real_T batPwrMax;
-<a name="114"><font color="#888888 "><i>  114   </i></font></a>    real_T batPwrMin;
-<a name="115"><font color="#888888 "><i>  115   </i></font></a>    real_T geaEfy;
-<a name="116"><font color="#888888 "><i>  116   </i></font></a>    real_T fulDen;
-<a name="117"><font color="#888888 "><i>  117   </i></font></a>    real_T fulLhv;
-<a name="118"><font color="#888888 "><i>  118   </i></font></a>    real_T fuel_density;
-<a name="119"><font color="#888888 "><i>  119   </i></font></a>    real_T fuel_lower_heating_value;
-<a name="120"><font color="#888888 "><i>  120   </i></font></a><b>}</b> <a name="type_struct2_T">struct2_T</a>;
-<a name="121"><font color="#888888 "><i>  121   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*typedef_struct2_T*/</i></font>
+<a name="49"><font color="#888888 "><i>   49   </i></font></a>    real_T disFlg;
+<a name="50"><font color="#888888 "><i>   50   </i></font></a>    real_T iceFlgBool;
+<a name="51"><font color="#888888 "><i>   51   </i></font></a>    real_T brkBool;
+<a name="52"><font color="#888888 "><i>   52   </i></font></a>    real_T iceExtBool;
+<a name="53"><font color="#888888 "><i>   53   </i></font></a>    real_T timStp;
+<a name="54"><font color="#888888 "><i>   54   </i></font></a>    real_T batEngBegMinRat;
+<a name="55"><font color="#888888 "><i>   55   </i></font></a>    real_T batEngBegMaxRat;
+<a name="56"><font color="#888888 "><i>   56   </i></font></a>    real_T batEngEndMinRat;
+<a name="57"><font color="#888888 "><i>   57   </i></font></a>    real_T batEngEndMaxRat;
+<a name="58"><font color="#888888 "><i>   58   </i></font></a>    real_T batPwrAux;
+<a name="59"><font color="#888888 "><i>   59   </i></font></a>    real_T staChgPenCosVal;
+<a name="60"><font color="#888888 "><i>   60   </i></font></a>    real_T timInxBeg;
+<a name="61"><font color="#888888 "><i>   61   </i></font></a>    real_T timInxEnd;
+<a name="62"><font color="#888888 "><i>   62   </i></font></a>    real_T engBeg;
+<a name="63"><font color="#888888 "><i>   63   </i></font></a>    real_T engEnd;
+<a name="64"><font color="#888888 "><i>   64   </i></font></a>    real_T staBeg;
+<a name="65"><font color="#888888 "><i>   65   </i></font></a><b>}</b> <a name="type_struct0_T">struct0_T</a>;
+<a name="66"><font color="#888888 "><i>   66   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*typedef_struct0_T*/</i></font>
+<a name="67"><font color="#888888 "><i>   67   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> typedef_struct1_T
+<a name="68"><font color="#888888 "><i>   68   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_struct1_T
+<a name="69"><font color="#888888 "><i>   69   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font>
+<a name="70"><font color="#888888 "><i>   70   </i></font></a><b>{</b>
+<a name="71"><font color="#888888 "><i>   71   </i></font></a>    real_T useGeaSta;
+<a name="72"><font color="#888888 "><i>   72   </i></font></a>    real_T staNum;
+<a name="73"><font color="#888888 "><i>   73   </i></font></a>    real_T geaStaMin;
+<a name="74"><font color="#888888 "><i>   74   </i></font></a>    real_T geaStaMax;
+<a name="75"><font color="#888888 "><i>   75   </i></font></a>    real_T engStaNum;
+<a name="76"><font color="#888888 "><i>   76   </i></font></a>    real_T engStaMin;
+<a name="77"><font color="#888888 "><i>   77   </i></font></a>    real_T engStaMax;
+<a name="78"><font color="#888888 "><i>   78   </i></font></a>    real_T batEngMin;
+<a name="79"><font color="#888888 "><i>   79   </i></font></a>    real_T batEngStp;
+<a name="80"><font color="#888888 "><i>   80   </i></font></a>    real_T batEngMax;
+<a name="81"><font color="#888888 "><i>   81   </i></font></a><b>}</b> <a name="type_struct1_T">struct1_T</a>;
+<a name="82"><font color="#888888 "><i>   82   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*typedef_struct1_T*/</i></font>
+<a name="83"><font color="#888888 "><i>   83   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> typedef_struct2_T
+<a name="84"><font color="#888888 "><i>   84   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_struct2_T
+<a name="85"><font color="#888888 "><i>   85   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font>
+<a name="86"><font color="#888888 "><i>   86   </i></font></a><b>{</b>
+<a name="87"><font color="#888888 "><i>   87   </i></font></a>    real_T vehVelMin;
+<a name="88"><font color="#888888 "><i>   88   </i></font></a>    real_T vehVelMax;
+<a name="89"><font color="#888888 "><i>   89   </i></font></a>    real_T vehVelThresh;
+<a name="90"><font color="#888888 "><i>   90   </i></font></a>    real_T vehAccMax;
+<a name="91"><font color="#888888 "><i>   91   </i></font></a>    real_T vehAccMin;
+<a name="92"><font color="#888888 "><i>   92   </i></font></a>    real_T drgCof;
+<a name="93"><font color="#888888 "><i>   93   </i></font></a>    real_T vehMas;
+<a name="94"><font color="#888888 "><i>   94   </i></font></a>    real_T whlRosResCof;
+<a name="95"><font color="#888888 "><i>   95   </i></font></a>    real_T whlDrr;
+<a name="96"><font color="#888888 "><i>   96   </i></font></a>    real_T batRstChr;
+<a name="97"><font color="#888888 "><i>   97   </i></font></a>    real_T batRstDch;
+<a name="98"><font color="#888888 "><i>   98   </i></font></a>    real_T batPwrMax;
+<a name="99"><font color="#888888 "><i>   99   </i></font></a>    real_T batPwrMin;
+<a name="100"><font color="#888888 "><i>  100   </i></font></a>    real_T geaEfy;
+<a name="101"><font color="#888888 "><i>  101   </i></font></a>    real_T fulDen;
+<a name="102"><font color="#888888 "><i>  102   </i></font></a>    real_T fulLhv;
+<a name="103"><font color="#888888 "><i>  103   </i></font></a>    real_T fuel_density;
+<a name="104"><font color="#888888 "><i>  104   </i></font></a>    real_T fuel_lower_heating_value;
+<a name="105"><font color="#888888 "><i>  105   </i></font></a><b>}</b> <a name="type_struct2_T">struct2_T</a>;
+<a name="106"><font color="#888888 "><i>  106   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*typedef_struct2_T*/</i></font>
+<a name="107"><font color="#888888 "><i>  107   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> struct_emxArray_real_T
+<a name="108"><font color="#888888 "><i>  108   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> struct_emxArray_real_T
+<a name="109"><font color="#888888 "><i>  109   </i></font></a><font color="#112266"><b>struct</b></font> <a href="#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a>
+<a name="110"><font color="#888888 "><i>  110   </i></font></a><b>{</b>
+<a name="111"><font color="#888888 "><i>  111   </i></font></a>    real_T *data;
+<a name="112"><font color="#888888 "><i>  112   </i></font></a>    int32_T *size;
+<a name="113"><font color="#888888 "><i>  113   </i></font></a>    int32_T allocatedSize;
+<a name="114"><font color="#888888 "><i>  114   </i></font></a>    int32_T numDimensions;
+<a name="115"><font color="#888888 "><i>  115   </i></font></a>    boolean_T canFreeData;
+<a name="116"><font color="#888888 "><i>  116   </i></font></a><b>}</b>;
+<a name="117"><font color="#888888 "><i>  117   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*struct_emxArray_real_T*/</i></font>
+<a name="118"><font color="#888888 "><i>  118   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> typedef_emxArray_real_T
+<a name="119"><font color="#888888 "><i>  119   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_emxArray_real_T
+<a name="120"><font color="#888888 "><i>  120   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font> <a name="type_emxArray_real_T">emxArray_real_T</a> <a name="type_emxArray_real_T">emxArray_real_T</a>;
+<a name="121"><font color="#888888 "><i>  121   </i></font></a><font color="#992211">#</font><font color="#992211"><b>endif</b></font> <font color="#117755"><i>/*typedef_emxArray_real_T*/</i></font>
 <a name="122"><font color="#888888 "><i>  122   </i></font></a><font color="#992211">#</font><font color="#992211"><b>ifndef</b></font> typedef_struct3_T
 <a name="123"><font color="#888888 "><i>  123   </i></font></a><font color="#992211">#</font><font color="#992211"><b>define</b></font> typedef_struct3_T
 <a name="124"><font color="#888888 "><i>  124   </i></font></a><font color="#112266"><b>typedef</b></font> <font color="#112266"><b>struct</b></font>
@@ -148,7 +148,7 @@
 <a name="136"><font color="#888888 "><i>  136   </i></font></a>    real_T emoTrqMin_emoSpd[146];
 <a name="137"><font color="#888888 "><i>  137   </i></font></a>    real_T emoTrqMax_emoSpd[146];
 <a name="138"><font color="#888888 "><i>  138   </i></font></a>    real_T emoPwrMgd[66];
-<a name="139"><font color="#888888 "><i>  139   </i></font></a>    real_T emoTrq_emoSpd_emoPwr[4620];
+<a name="139"><font color="#888888 "><i>  139   </i></font></a>    <a href="#type_emxArray_real_T" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray_real_T');" target="_self"><font color="#1122aa">emxArray_real_T</font></a> *emoTrq_emoSpd_emoPwr;
 <a name="140"><font color="#888888 "><i>  140   </i></font></a>    real_T emoPwrMax_emoSpd[146];
 <a name="141"><font color="#888888 "><i>  141   </i></font></a>    real_T emoPwrMin_emoSpd[146];
 <a name="142"><font color="#888888 "><i>  142   </i></font></a>    real_T SOC_vs_OCV[22];

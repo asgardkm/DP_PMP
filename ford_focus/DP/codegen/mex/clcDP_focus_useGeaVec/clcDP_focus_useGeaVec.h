@@ -27,7 +27,7 @@ extern void batStaMin_not_empty_init(void);
 extern void batStaStp_not_empty_init(void);
 extern void clcDP_focus_useGeaVec(const emlrtStack *sp, real_T batEngBeg, real_T
   timNum, const real_T engStaVec_timInx[1181], const real_T batOcv[693], const
-  real_T velVec[1181], const real_T geaStaVec[492477], const real_T crsSpdMat
+  real_T velVec[1181], const emxArray_real_T *geaStaVec, const real_T crsSpdMat
   [7086], const real_T crsTrqMat[7086], const real_T emoTrqMinPosMat[7086],
   const real_T emoTrqMaxPosMat[7086], const real_T emoPwrMinPosMat[7086], const
   real_T emoPwrMaxPosMat[7086], const real_T iceTrqMinPosMat[7086], const real_T
