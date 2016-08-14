@@ -127,17 +127,17 @@ emoPwrElectric      = batPwr - batPwrLoss - batPwrAux;
 % INCLUDE LOOK UP TABLE HERE
 % cannot go from electric power and work with mechanical crsSpd
 % convert electric emoPwr to mechanical emoPwr with lookup table
-emoPwr = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
+emoTrq = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
                                 fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, emoPwrElectric);
 
-% emoPwr bound checking
-if emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr
-    return;
-end
-
-
-
-emoTrq = emoPwr / crsSpdPre;
+% % emoPwr bound checking
+% if emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr
+%     return;
+% end
+% 
+% 
+% 
+% emoTrq = emoPwr / crsSpdPre;
 
 % emoTrq bound checking
 if emoTrqMinPos > emoTrq || emoTrqMaxPos < emoTrq
@@ -197,7 +197,7 @@ end
 fulEng =                                ... Skalar Krafstoffkraft in N
 fulEngClc_focus                         ... FUNCTION CALL
 (                                       ...
-timStp,                                 ... Skalar für die Wegschrittweite in m,
+timStp,                                 ... Skalar fï¿½r die Wegschrittweite in m,
 vehVelVec(1),                           ... Skalar - vehicular velocity
 crsSpdPre,                              ... Skalar - crankshaft speed at given time
 iceTrq,                                 ... Skalar - ice torque at given time
