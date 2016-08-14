@@ -95,7 +95,7 @@ batEngBegIdx_MaxPossible = (batEngBegMax - batEngBegMin);
 batEngBegIdx_Possible    = 0 : batEngStp : batEngBegIdx_MaxPossible;
 batEngBeg = batEngBegMin + batEngBegIdx_Possible(randi(numel(batEngBegIdx_Possible)));
 
-%% Längsdynamik berechnen
+%% Lï¿½ngsdynamik berechnen
 %   calculate longitundinal dynamics
 
 % Steigungskraft aus der mittleren Steigung berechnen (Skalar)
@@ -245,7 +245,7 @@ for gea = 1 : geaStaNum
                                         fzg_array_struct.emoTrqMin_emoSpd(:,2), ...
                                         crsSpdMat(:, gea));
                                     
-    % CALCULATE EM PWR MIN/MAX BOUNDARIES                                
+    % CALCULATE EM PWR MIN/MAX BOUNDARIES - physical?                           
     emoPwrMinPosMat(:, gea) = interp1q(fzg_array_struct.emoSpdMgd(1,:)',        ...
                                         fzg_array_struct.emoPwrMin_emoSpd(:,2), ...
                                         crsSpdMat(:, gea));
@@ -261,6 +261,14 @@ for gea = 1 : geaStaNum
     crsTrqTmp(crsTrqTmp<0)  = whlTrq(crsTrqTmp<0) / fzg_array_struct.geaRat(gea) * fzg_array_struct.geaEfy(gea);
     crsTrqTmp(crsTrqTmp>=0) = whlTrq(crsTrqTmp>=0) / fzg_array_struct.geaRat(gea) / fzg_array_struct.geaEfy(gea);
     crsTrqMat(:, gea) = crsTrqTmp;
+    
+        % CALCULATE EM PWR MIN/MAX BOUNDARIES - electrical?                           
+    emoPwrMinPosTn3_elect(:, gea) = interp2(fzg_array_struct.emoSpdMgd(1,:)',        ...
+                                        fzg_array_struct.emoPwrMin_emoSpd(:,2), ...
+                                        crsSpdMat(:, gea));
+    emoPwrMaxPosTn3_elect(:, gea) = interp2(fzg_array_struct.emoSpdMgd(1,:)',        ...
+                                        fzg_array_struct.emoPwrMax_emoSpd(:,2), ...
+                                        crsSpdMat(:, gea));
 end
 % -----------------------------------------------
 
