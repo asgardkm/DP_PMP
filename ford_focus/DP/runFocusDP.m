@@ -1,7 +1,7 @@
-function                ... --- Ausgangsgrößen:
+function                ... --- Ausgangsgrï¿½ï¿½en:
 [                       ...
-    batEngDltOptMat,    ... Vektor - optimale Batterieenergieänderung
-    fulVolOptOptMat,    ... Vektor - optimale Kraftstoffenergieänderung
+    batEngDltOptMat,    ... Vektor - optimale Batterieenergieï¿½nderung
+    fulVolOptOptMat,    ... Vektor - optimale Kraftstoffenergieï¿½nderung
     geaStaMat,          ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     engStaMat,          ... vector showing optimal engine contorl w/ profile
     batPwrMat,          ... vector showing optimal battery level control
@@ -25,8 +25,8 @@ function                ... --- Ausgangsgrößen:
 %% run data preprocessing
 fprintf('Beginning data preprocessing...\n');
 [                       ...
-    batEngBeg,          ... Skalar für die Batterieenergie am Beginn in Ws
-    timVec,             ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
+    batEngBeg,          ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
+    timVec,             ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
     engStaVec_timInx,   ... scalar - end engine state
     batOcv,             ... battery voltage vector w/ value for each SOC
     velVec,             ... velocity vector contiaing input speed profile
@@ -61,16 +61,16 @@ fprintf('-Initializing model...\n');
 tic
 % DP that is calculating optimal gear state
 if ~tst_scalar_struct.useGeaSta
-[                       ... --- Ausgangsgrößen:
-    optPreInxTn4,       ...  Tensor 4. Stufe für opt. Vorgängerkoordinaten
+[                       ... --- Ausgangsgrï¿½ï¿½en:
+    optPreInxTn4,       ...  Tensor 4. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn4,       ...  Tensor 4. Stufe der Batteriekraft
-    fulEngOptTn4,       ...  Tensor 4. Stufe für die Kraftstoffenergie 
+    fulEngOptTn4,       ...  Tensor 4. Stufe fï¿½r die Kraftstoffenergie 
     emoTrqOptTn4,       ... tensor - saves optimal emoTrq values
     iceTrqOptTn4,       ... tensor - saves optimal iceTrq values
     brkTrqOptTn4,       ... tensor - saves optimal brkTrq values
     cos2goActTn3        ...  Tensor 4. der optimalen Kosten
 ] =                     ... 
-    clcDP_focus_mex     ... FUNKTION
+    clcDP_focus         ... FUNKTION
 (                       ... --- Eingangsgrï¿½ï¿½en:
     batEngBeg,          ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
     length(timVec),     ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
@@ -101,15 +101,15 @@ else
 
 % DP that requires a gear input vector
 [                       ... --- Ausgangsgrï¿½ï¿½en:
-    optPreInxTn3,       ... Tensor 4. Stufe für opt. Vorgängerkoordinaten
+    optPreInxTn3,       ... Tensor 4. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn3,       ... Tensor 4. Stufe der Batteriekraft
-    fulEngOptTn3,       ... Tensor 4. Stufe für die Kraftstoffenergie 
+    fulEngOptTn3,       ... Tensor 4. Stufe fï¿½r die Kraftstoffenergie 
     emoTrqOptTn3,       ... tensor - saves optimal emoTrq values
     iceTrqOptTn3,       ... tensor - saves optimal iceTrq values
     brkTrqOptTn3,       ... tensor - saves optimal brkTrq values
     cos2goActMat        ... Tensor 4. der optimalen Kosten
 ] =                     ... 
-    clcDP_focus_useGeaVec_mex... FUNKTION
+    clcDP_focus_useGeaVec... FUNKTION
 (                       ... --- Eingangsgrï¿½ï¿½en:
     batEngBeg,          ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
     length(timVec),     ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen

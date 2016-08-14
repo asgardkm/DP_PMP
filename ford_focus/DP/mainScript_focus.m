@@ -9,8 +9,8 @@
 % last edited 12.08.2016 (asgard kaleb marroquin)
 %% 1. Defining work directory
 % make sure to be in the DP directory, where the functions are located
-cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\');
-% cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/ford_focus/DP')
+% cd('C:\Users\s0032360\Documents\GitHub\DP_PMP\ford_focus\DP\');
+cd('/home/kaulef/Documents/DAAD/TUD/4Kaleb/ford_focus/DP')
 
 addpath('../model_data')
 
@@ -40,8 +40,8 @@ write_bool      = 1;
 );
      
 %% 3. Run runFocusDP algorithm
-[   batEngDltOptMat,    ... Vektor - optimale Batterieenergieänderung
-    fulEngDltOptMat,    ... Vektor - optimale Kraftstoffenergieänderung
+[   batEngDltOptMat,    ... Vektor - optimale Batterieenergieï¿½nderung
+    fulEngDltOptMat,    ... Vektor - optimale Kraftstoffenergieï¿½nderung
     geaStaMat,          ... Vektor - Trajektorie des optimalen Antriebsstrangzustands
     engStaMat,          ... vector showing optimal engine contorl w/ profile
     batPwrMat,          ... vector showing optimal battery level control
