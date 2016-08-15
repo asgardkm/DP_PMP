@@ -91,7 +91,7 @@ if ~tst_scalar_struct.useGeaSta
         (timVec,                    ... Skalar fï¿½r die max. Anzahl an Wegstï¿½tzstellen
         staEnd,                     ... Skalar fï¿½r den finalen Zustand
         engEnd,                     ... scalar - final engine state
-        engEndEnd,                  ... Skalar für Zielindex der kinetischen Energie
+        engEndEnd,                  ... Skalar fï¿½r Zielindex der kinetischen Energie
         batEndInx,                  ... scalar - final battery state
         batStaNum,                  ... scalar - for number of battery energy levels
         optPreInxTn,                ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
@@ -127,14 +127,14 @@ else
     ] =                                         ...
         clcOptTrj_focus_useGeaVec               ... FUNKTION
     (                   ...
-        timVec,         ... Skalar für die max. Anzahl an WegstÃ¼tzstellen
+        timVec,         ... Skalar fï¿½r die max. Anzahl an WegstÃ¼tzstellen
         engEnd,         ... scalar - prefinal engine state
         engEndEnd,      ... Skalar fï¿½r Zielindex der kinetischen Energie
         batEndInx,      ... scalar - final battery state
         batStaNum,      ... scalar - for number of battery states exist
-        optPreInxTn,    ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
+        optPreInxTn,    ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
         batPwrOptTn,    ... Tensor 3. Stufe der Batteriekraft
-        fulEngOptTn,    ... Tensor 3. Stufe für die Kraftstoffenergie
+        fulEngOptTn,    ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie
         cos2goActTn,    ... Matrix der optimalen Kosten der Hamiltonfunktion 
         emoTrqOptTn,    ...
         iceTrqOptTn,    ...
@@ -231,4 +231,17 @@ subplot(3,1,3)
 titleString = 'Braking torque profile';
 yString = 'Torque [N*m]';
 plotGrad(timVec, brkTrqMat, batEndInxVec, titleString, xString, yString);
+
+%% start plotting figs for report
+figure(3)
+titleString = 'NEDC velocity profile';
+yString = 'Velocity [km/h]';
+% convert velocity into km/h
+velVec_KMH = velVec * 60 * 60 / 1000;
+plot(timVec, velVec_KMH);
+title(titleString);
+xlabel(xString);
+ylabel(yString);
+
+fzg_array_struct.batOcvCof_batEng
 end
