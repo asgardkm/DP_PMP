@@ -60,7 +60,7 @@ fprintf('Done preprocessing!\n');
 fprintf('-Initializing model...\n'); 
 tic
 % DP that is calculating optimal gear state
-if ~tst_scalar_struct.useGeaSta
+if ~tst_scalar_struct.useGeaStag
 [                       ... --- Ausgangsgr��en:
     optPreInxTn4,       ...  Tensor 4. Stufe f�r opt. Vorg�ngerkoordinaten
     batPwrOptTn4,       ...  Tensor 4. Stufe der Batteriekraft
