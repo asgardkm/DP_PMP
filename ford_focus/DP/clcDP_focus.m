@@ -90,15 +90,15 @@ function [              ...  --- AusgangsgrÃ¶ÃŸen:
 %   Values that are at the beginning and end of an interval are at their
 %   respective indexes along the vector.
 %
-% Mittelwerte, d.h. Flussgrößen wie KrÃ¤fte, Leistungen etc., stehen immmer
+% Mittelwerte, d.h. Flussgrï¿½ï¿½en wie KrÃ¤fte, Leistungen etc., stehen immmer
 % am Anfang des Intervalls fÃ¼r das folgende Intervall. Diese
 % Vektoren/Tensoren sind daher um einen gÃ¼ltigen Eintrag kÃ¼rzer.
 %   mean values (eg flow variables like forces, services) are always at the
 %   beginning of the interval for the next interval. Those vectors/tensors
 %   are therefore shorter by a valid entry (index?).
 %
-%% Initialisieren der persistent Größen
-% Diese werden die nur einmal für die Funktion berechnet
+%% Initialisieren der persistent Grï¿½ï¿½en
+% Diese werden die nur einmal fï¿½r die Funktion berechnet
 %   assigning input structure values to function persistant variables
 %   - just once
 % persistent geaNum vehMas vehAccMin vehAccMax iceFlg
@@ -177,10 +177,10 @@ fulEngOptTn4(inputparams.engBeg+1, inputparams.staBeg, batEngInxBeg + 1, inputpa
 %   tensor3 for battery energy - now Tn4
 batPwrOptTn4 = inf(engNum, geaNum, batNum, timNum);
 
-%% Berechnung der optimalen Vorgäger
+%% Berechnung der optimalen Vorgï¿½ger
 %   calculating the optimal predecessors
 
-% Initialisieren der Matrix für die Kosten bis zu den Punkten im letzten
+% Initialisieren der Matrix fï¿½r die Kosten bis zu den Punkten im letzten
 % Wegschritt
 %   initialize the matrix for the cost to the points in the last wayidx
 % NOW A VECTOR - REMOVED KE DIMENSION
@@ -188,7 +188,7 @@ batPwrOptTn4 = inf(engNum, geaNum, batNum, timNum);
 cos2goPreTn3 = inf(engNum, geaNum, batNum);
 cos2goActTn3 = inf(engNum, geaNum, batNum);
 
-% Erste Initilisierung beim Startindex mit 0 für alle Zustände (concluded)
+% Erste Initilisierung beim Startindex mit 0 fï¿½r alle Zustï¿½nde (concluded)
 %   first, initialize the startidx to 0 for all states
 cos2goPreTn3(inputparams.engBeg+1, inputparams.staBeg, batEngInxBeg + 1) = 0;
 
@@ -196,7 +196,7 @@ cos2goPreTn3(inputparams.engBeg+1, inputparams.staBeg, batEngInxBeg + 1) = 0;
 %   initialize the battery energy matrix
 % batEngPreTn3 = inf(engNum, geaNum, batNum);
 
-% Erste Initilisierung beim Startindex mit Startladung für den Startzustand
+% Erste Initilisierung beim Startindex mit Startladung fï¿½r den Startzustand
 %   first, intialize start index of the starting charge for intial state
 % batEngPreTn3(engBeg+1, staBeg, batEngIdxBeg) = batEngBeg;
 
@@ -217,9 +217,9 @@ batStaActInxVec = batStaMin/batStaStp : batStaMax/batStaStp;
 batStaLimBot = batEngInxBeg + 1;
 batStaLimTop = batStaLimBot;
 
-% Schleife über alle Wegpunkte
+% Schleife ï¿½ber alle Wegpunkte
 %   looping thorugh length of # of discretized tim vector
-
+% for timInx = inputparams.timInxBeg+1 : inputparams.timStp : 15     % TIME IDX LOOP
 for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEnd      % TIME IDX LOOP
     %% Berechnung der kinetischen Energien im aktuellen Wegschritt
     % Vorbereitung der FZGallen Schleife (verhindern von zu grossem
@@ -301,7 +301,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
 %   checking if the engine can be off or on for this index
     for engStaAct = engStaMin:engStaMax     % CURRENT ENGINE STATE LOOP                
         
-        % Schleife über alle moglichen aktuellen Zustände des Antriesstrangs
+        % Schleife ï¿½ber alle moglichen aktuellen Zustï¿½nde des Antriesstrangs
         %   Loop over all possible current powertrain states/all the gears
         for geaStaAct = geaStaMin:geaStaMax % ALL GEARS LOOP
             
@@ -324,7 +324,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                 
             % IF ENGINE IS OFF
             else
-                % Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
+                % Prï¿½fen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
                 %   check if electric motor speed limit is maintained
                 if (crsSpdActVec(geaStaAct) > crsSpdEmoMax); continue;
                 end
@@ -346,7 +346,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
 %                 batStaActInx = batStaLimVec(batStaActInx_counter);
 %                 batStaAct   = batStaActInx * batStaStp;
                 
-                % memoization variable for storing möglich fuel values
+                % memoization variable for storing mï¿½glich fuel values
 %                 fulActTn3 = inf(length(batStaPreIdxVec), length(geaStaPreMin:geaStaPreMax), engNum);
                 fulActTn3 = inf(engNum, geaNum, batNum);
                 % memoiztaion variables for output torques
@@ -369,12 +369,12 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                     engStaPreIdx = engStaAct;
                 end
 
-                %% Vorgängerzustände beschränken
+                %% Vorgï¿½ngerzustï¿½nde beschrï¿½nken
                 %   Restrictions on predecessor operation states
 
-                % Festlegen, welche Vorgänger möglich sind:
-                % Es sind im Maximum die Anzahl der Gänge +  1 als VorgÃ¤nger
-                % möglich, denn vom Segeln kann in jeden Gang im elektrischen
+                % Festlegen, welche Vorgï¿½nger mï¿½glich sind:
+                % Es sind im Maximum die Anzahl der Gï¿½nge +  1 als VorgÃ¤nger
+                % mï¿½glich, denn vom Segeln kann in jeden Gang im elektrischen
                 % Fahren und Segeln gewechselt werden
                 %   Determine which predecessors are possible:
                 %   There are at maximum 'number of gears'+1 possible for the
@@ -460,11 +460,11 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                     end
                     % penalty for changning battery level or no?
                         
-                    % Schleife über allen Zustände (relativer Index)
+                    % Schleife ï¿½ber allen Zustï¿½nde (relativer Index)
                     %   Loop through all the gear states (relative index)
                     for geaStaPre_counter = 1 : length(geaStaPreIdxVec) % PREVIOUS GEAR CHANGE LOOP
                         geaStaPre = geaStaPreIdxVec(geaStaPre_counter);
-                        % Kosten für Zustandswechsel setzen
+                        % Kosten fï¿½r Zustandswechsel setzen
                         %   set costs for gear state changes
                         if geaStaAct == geaStaPre
                             % Entspricht der Vorgï¿½ngerzustand dem aktuellen 
@@ -600,7 +600,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                         else
                             % ---- electric motor MUST satisfy crsTrq -----
                             % IF ENGINE IS OFF
-                            % Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
+                            % Prï¿½fen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
                             %   check if electric motor speed limit is maintained
                             if (crsSpdPreVec(geaStaPre) > crsSpdEmoMax); continue;
                             end
@@ -619,7 +619,12 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                                 continue;
                             end
                             
-                            batPwrPre = batStaActInxVec(batStaPreIdx_noEmo) * batStaStp / inputparams.timStp;
+                            % negative sign -b/c neg for interpolation is
+                            % actually charge, whereas we originally used
+                            % it as a discharge
+                            batPwrPre = -((batStaActInxVec(batStaActInx) -    ...
+                                        batStaActInxVec(batStaPreIdx_noEmo))...
+                                        * batStaStp / inputparams.timStp);
 
                             emoTrqPre = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
                                 fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, batPwrPre);
@@ -639,6 +644,10 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                                 if emoTrqPre > crsTrqPre
                                     brkTrqPreTn3(engStaPre+1, geaStaPre, batStaPreIdx_noEmo) = ...
                                         emoTrqPre - crsTrqPre;
+                                    fprintf('NOTE: braking overshoot');
+                                    fprintf('emoTrqPre: %4.3f\n', emoTrqPre);
+                                    fprintf('crsTrqPre: %4.3f\n', crsTrqPre);
+                                    fprintf('brkTrqPre: %4.3f\n',  emoTrqPre - crsTrqPre);
                                 end
                             end
                             
@@ -699,7 +708,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                     brkTrqActTn3(engStaAct+1,geaStaAct,batStaActInx) = ...
                         brkTrqPreTn3(engStaPreOptInx, geaStaPreOptInx, batStaPreOptInx);
                     
-                    % optimalen Vorgänger codieren über Funktion sub2ind
+                    % optimalen Vorgï¿½nger codieren ï¿½ber Funktion sub2ind
                     % und speichern im Tensor
                     %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
                     optPreInxTn4(engStaAct+1,geaStaAct,batStaActInx,timInx) = ...
@@ -725,7 +734,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
 %     batStaLimBot = min(batStaIdxBounds);
 %     batStaLimTop = max(batStaIdxBounds);
 %                 
-    % Speichern der Kosten für den nächsten Schleifendurchlauf
+    % Speichern der Kosten fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save cost as previous path_idx value for the next loop
     cos2goPreTn3 = cos2goActTn3; 
     
@@ -738,7 +747,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     fulEngOptTn4(:,:,:,timInx) = fulEngActTn3;
     % optimale Batterieenergie zum aktuellen Punkt
     %   optimal battery force at current point - save current mat in tensor
-    % Flussgröße gilt im Intervall
+    % Flussgrï¿½ï¿½e gilt im Intervall
     %   flux quantity applied over the interval
     batPwrOptTn4(:,:,:,timInx-1) = batPwrOptTn3;
     

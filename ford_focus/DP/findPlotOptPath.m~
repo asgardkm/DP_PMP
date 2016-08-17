@@ -5,8 +5,7 @@ function [              ...
     engStaMat,          ... vector showing optimal engine contorl w/ profile
     batPwrMat,          ... vector showing optimal battery level control
     batEngMat,          ... vector showing optimal battery levels
-    emoTrq1Mat,         ...
-    emoTrq2Mat,         ...
+    emoTrqMat,          ...
     iceTrqMat,          ...
     brkTrqMat,          ...
     fulEngOptVec        ... Skalar - optimale Kraftstoffenergie
@@ -67,7 +66,6 @@ engStaMat       = inf(length(timVec), length(batEndInxVec));
 batPwrMat       = inf(length(timVec), length(batEndInxVec));
 batEngMat       = inf(length(timVec), length(batEndInxVec));
 emoTrq1Mat       = inf(length(timVec), length(batEndInxVec));
-emoTrq2Mat       = inf(length(timVec), length(batEndInxVec));
 iceTrqMat       = inf(length(timVec), length(batEndInxVec));
 brkTrqMat       = inf(length(timVec), length(batEndInxVec));
 fulEngOptVec    = inf(length(batEndInxVec), 1);
@@ -227,13 +225,9 @@ plotGrad(timVec, engStaMat, batEndInxVec, titleString, xString, yString);
 % emoTrq
 figure(2)
 subplot(3,1,1)
-titleString = 'EM torque profile - 1 (straight)';
+titleString = 'EM torque profile';
 yString = 'Torque [N*m]';
-plotGrad(timVec, emoTrq1Mat, batEndInxVec, titleString, xString, yString);
-% subplot(2,2,2)
-% titleString = 'EM torque profile - 2 (interp)';
-% yString = 'Torque [N*m]';
-% plotGrad(timVec, emoTrq2Mat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, emoTrqMat, batEndInxVec, titleString, xString, yString);
 
 % iceTrq
 subplot(3,1,2)

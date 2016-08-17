@@ -173,6 +173,11 @@ end
 if iceTrq > (crsTrqPre - emoTrqMinPos)
    if brkBool
        brkTrq = iceTrq - (crsTrqPre - emoTrqMinPos);
+        fprintf('NOTE: engine braking is occuring - this is not optimal!\n');
+        fprintf('   brkTrq: %4.3f\n', brkTrq);
+        fprintf('   iceTrq: %4.3f\n', iceTrq);
+        fprintf('   crsTrqPre: %4.3f\n', crsTrqPre);
+        fprintf('   emoTrqMinPos: %4.2f\n', emoTrqMinPos);
    else
        return;
    end
@@ -202,7 +207,7 @@ end
 fulEng =                                ... Skalar Krafstoffkraft in N
 fulEngClc_focus                         ... FUNCTION CALL
 (                                       ...
-timStp,                                 ... Skalar für die Wegschrittweite in m,
+timStp,                                 ... Skalar fï¿½r die Wegschrittweite in m,
 vehVelVec(1),                           ... Skalar - vehicular velocity
 crsSpdPre,                              ... Skalar - crankshaft speed at given time
 iceTrq,                                 ... Skalar - ice torque at given time

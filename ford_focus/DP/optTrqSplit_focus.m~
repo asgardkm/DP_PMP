@@ -172,7 +172,7 @@ if iceTrq > (crsTrqPre - emoTrqMinPos)
         fprintf('   brkTrq: %4.3f\n', brkTrq);
         fprintf('   iceTrq: %4.3f\n', iceTrq);
         fprintf('   crsTrqPre: %4.3f\n', crsTrqPre);
-        fprintf('   emoTrqMinPos: %4.2f\n', emoTrqMinPos);
+        fprintf('   ');
    else
        return;
    end

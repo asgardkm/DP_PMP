@@ -1,16 +1,16 @@
-function [              ...  --- Ausgangsgrößen:
-    optPreInxTn3,       ... Tensor 3. Stufe für opt. Vorgï¿½ngerkoordinaten
+function [              ...  --- Ausgangsgrï¿½ï¿½en:
+    optPreInxTn3,       ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn3,       ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn3,       ... Tensor 3. Stufe für die Kraftstoffenergie 
+    fulEngOptTn3,       ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie 
     emoTrqOptTn3,       ... tensor - saves optimal emoTrq values
     iceTrqOptTn3,       ... tensor - saves optimal iceTrq values
     brkTrqOptTn3,       ... tensor - saves optimal brkTrq values
     cos2goActMat        ... Matrix der optimalen Kosten der Hamiltonfunktion 
 ] =                     ...
     clcDP_focus_useGeaVec...
-(                       ... --- Eingangsgrößen:
-    batEngBeg,          ... Skalar für die Batterieenergie am Beginn in Ws
-    timNum,             ... Skalar für die Stufe der Batteriekraftmax. Anzahl an Wegstützstellen
+(                       ... --- Eingangsgrï¿½ï¿½en:
+    batEngBeg,          ... Skalar fï¿½r die Batterieenergie am Beginn in Ws
+    timNum,             ... Skalar fï¿½r die Stufe der Batteriekraftmax. Anzahl an Wegstï¿½tzstellen
     engStaVec_timInx,   ... scalar - end engine state
     batOcv,             ... battery voltage vector w/ value for each SOC
     velVec,             ... velocity vector contiaing input speed profile
@@ -76,7 +76,7 @@ function [              ...  --- Ausgangsgrößen:
 %   variation olyHyb permits only hybrid driving (motor is always on)
 %
 % Ã„nderung am 23.02.2016 - optimale Kosten nicht direkt aus Index von min()
-% bestimmt. Das fährt zu einem anderen Schaltverhalten, da Gänge teilweise
+% bestimmt. Das fï¿½hrt zu einem anderen Schaltverhalten, da Gï¿½nge teilweise
 % gleiche Kosten verursachen. In dem Fall wird jetzt der niedrigste Gang
 % gewÃ¤hlt, wie in der DP.
 %   change on 23.02.2016 - optimal costs are not directly from the min()
@@ -91,15 +91,15 @@ function [              ...  --- Ausgangsgrößen:
 %   Values that are at the beginning and end of an interval are at their
 %   respective indexes along the vector.
 %
-% Mittelwerte, d.h. Flussgrößen wie KrÃ¤fte, Leistungen etc., stehen immmer
+% Mittelwerte, d.h. Flussgrï¿½ï¿½en wie KrÃ¤fte, Leistungen etc., stehen immmer
 % am Anfang des Intervalls fÃ¼r das folgende Intervall. Diese
 % Vektoren/Tensoren sind daher um einen gÃ¼ltigen Eintrag kÃ¼rzer.
 %   mean values (eg flow variables like forces, services) are always at the
 %   beginning of the interval for the next interval. Those vectors/tensors
 %   are therefore shorter by a valid entry (index?).
 %
-%% Initialisieren der persistent Größen
-% Diese werden die nur einmal für die Funktion berechnet
+%% Initialisieren der persistent Grï¿½ï¿½en
+% Diese werden die nur einmal fï¿½r die Funktion berechnet
 %   assigning input structure values to function persistant variables
 %   - just once
 % persistent geaNum vehMas vehAccMin vehAccMax iceFlg
@@ -157,7 +157,7 @@ crsSpdHybMin = fzg_array_struct.iceSpdMgd(1,1);
 %% Initialisieren der Ausgabe der Funktion
 %   initialzing function output
 
-% Tensor 3. Stufe für optimalen VorgÃ¤ngerkoordinaten
+% Tensor 3. Stufe fï¿½r optimalen VorgÃ¤ngerkoordinaten
 %   tensor3 for optimal previous coordinates/idx
 % IS NOT MAT SINCE KE IS NO LONGER CONSIDERED - REDUCES A DIMENSION
 %   - back to being a tensor - adding engine control dimension
@@ -173,7 +173,7 @@ fulEngOptTn3 = inf(engNum, batNum, timNum);
 batEngInxBeg = batEngBeg/batStaStp;
 fulEngOptTn3(inputparams.engBeg+1, batEngInxBeg + 1, inputparams.timInxBeg) = 0; 
 
-% Tensor 3. Stufe für die Batterienergie
+% Tensor 3. Stufe fï¿½r die Batterienergie
 %   tensor3 for battery energy - now Tn4
 batPwrOptTn3 = inf(engNum, batNum, timNum);
 
@@ -182,10 +182,10 @@ emoTrqOptTn3 = zeros(engNum, batNum, timNum);
 iceTrqOptTn3 = zeros(engNum, batNum, timNum);
 brkTrqOptTn3 = zeros(engNum, batNum, timNum);
 
-%% Berechnung der optimalen Vorgäger
+%% Berechnung der optimalen Vorgï¿½ger
 %   calculating the optimal predecessors
 
-% Initialisieren der Matrix für die Kosten bis zu den Punkten im letzten
+% Initialisieren der Matrix fï¿½r die Kosten bis zu den Punkten im letzten
 % Wegschritt
 %   initialize the matrix for the cost to the points in the last wayidx
 % NOW A VECTOR - REMOVED KE DIMENSION
@@ -193,7 +193,7 @@ brkTrqOptTn3 = zeros(engNum, batNum, timNum);
 cos2goPreMat = inf(engNum, batNum);
 cos2goActMat = inf(engNum, batNum);
 
-% Erste Initilisierung beim Startindex mit 0 für alle Zustände (concluded)
+% Erste Initilisierung beim Startindex mit 0 fï¿½r alle Zustï¿½nde (concluded)
 %   first, initialize the startidx to 0 for all states
 cos2goPreMat(inputparams.engBeg+1, batEngInxBeg + 1) = 0;
 
@@ -201,7 +201,7 @@ cos2goPreMat(inputparams.engBeg+1, batEngInxBeg + 1) = 0;
 %   initialize the battery energy matrix
 % batEngPreTn3 = inf(engNum, geaNum, batNum);
 
-% Erste Initilisierung beim Startindex mit Startladung für den Startzustand
+% Erste Initilisierung beim Startindex mit Startladung fï¿½r den Startzustand
 %   first, intialize start index of the starting charge for intial state
 % batEngPreTn3(engBeg+1, staBeg, batEngIdxBeg) = batEngBeg;
 
@@ -222,7 +222,7 @@ batStaActInxVec = batStaMin/batStaStp : batStaMax/batStaStp;
 batStaLimBot = batEngInxBeg + 1;
 batStaLimTop = batStaLimBot;
 
-% Schleife über alle Wegpunkte
+% Schleife ï¿½ber alle Wegpunkte
 %   looping thorugh length of # of discretized tim vector
 
 for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEnd      % TIME IDX LOOP
@@ -327,7 +327,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
 
         % IF ENGINE IS OFF
         else
-            % Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
+            % Prï¿½fen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
             %   check if electric motor speed limit is maintained
             if (crsSpdActVec(geaStaAct) > crsSpdEmoMax); continue;
             end
@@ -349,7 +349,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
 %                 batStaActInx = batStaLimVec(batStaActInx_counter);
 %                 batStaAct   = batStaActInx * batStaStp;
 
-            % memoization variable for storing möglich fuel values
+            % memoization variable for storing mï¿½glich fuel values
             fulActMat = inf(engNum, batNum);
 
             % memoiztaion variables for optimal torque predecessor values
@@ -373,7 +373,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                 engStaPreIdx = engStaAct;
             end
 
-            %% Vorgängerzustände beschränken
+            %% Vorgï¿½ngerzustï¿½nde beschrï¿½nken
             %   Restrictions on predecessor operation states
 
             % restricting predecessor bat level possibilities
@@ -448,7 +448,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                 end
                 % penalty for changning battery level or no?
 
-                % Kosten für Zustandswechsel setzen
+                % Kosten fï¿½r Zustandswechsel setzen
                 %   set costs for gear state changes
                 if geaStaAct == geaStaPre
                     % Entspricht der Vorgï¿½ngerzustand dem aktuellen 
@@ -584,7 +584,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                 else
                     % ---- electric motor MUST satisfy crsTrq -----
                     % IF ENGINE IS OFF
-                    % Prüfen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
+                    % Prï¿½fen, ob die Drehzahlgrenze des Elektromotors eingehalten wird
                     %   check if electric motor speed limit is maintained
                     if (crsSpdPreVec(geaStaPre) > crsSpdEmoMax); continue;
                     end
@@ -602,7 +602,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                         (batStaPreIdx_noEmo > batStaMax/batStaStp + 1)
                         continue;
                     end
-                    batPwrPre = batStaActInxVec(batStaPreIdx_noEmo) * batStaStp / inputparams.timStp;
+                    batPwrPre = (batStaActInxVec(batStaPreIdx_noEmo)) * batStaStp / inputparams.timStp;
 
                     emoTrqPre = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
                         fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, batPwrPre);
@@ -680,7 +680,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                 brkTrqActMat(engStaAct+1,batStaActInx) = ...
                     brkTrqPreMat(engStaPreOptInx, batStaPreOptInx);
                 
-                % optimalen Vorgänger codieren über Funktion sub2ind
+                % optimalen Vorgï¿½nger codieren ï¿½ber Funktion sub2ind
                 % und speichern im Tensor
                 %   opt. predecessor idx encoding w/ sub2ind, store in Tn3
                 optPreInxTn3(engStaAct+1,batStaActInx,timInx) = ...
@@ -705,7 +705,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
 %     batStaLimBot = min(batStaIdxBounds);
 %     batStaLimTop = max(batStaIdxBounds);
 %                 
-    % Speichern der Kosten für den nächsten Schleifendurchlauf
+    % Speichern der Kosten fï¿½r den nï¿½chsten Schleifendurchlauf
     %   save cost as previous path_idx value for the next loop
     cos2goPreMat = cos2goActMat; 
     
@@ -718,7 +718,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     fulEngOptTn3(:,:,timInx) = fulEngActMat;
     % optimale Batterieenergie zum aktuellen Punkt
     %   optimal battery force at current point - save current mat in tensor
-    % Flussgröße gilt im Intervall
+    % Flussgrï¿½ï¿½e gilt im Intervall
     %   flux quantity applied over the interval
     batPwrOptTn3(:,:,timInx-1)  = batPwrActMat;
     

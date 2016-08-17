@@ -5,24 +5,26 @@ function [          ...
     engStaOptVec,   ... vector showing optimal engine contorl w/ profile
     batStaOptVec,   ... vector showing optimal battery level control
     batEngOptVec,   ... vector showing optimal battery levels
-    emoTrqOptVec,   ...
+    emoTrqOpt1Vec,  ...
+    emoTrqOpt2Vec,  ...
     iceTrqOptVec,   ...
     brkTrqOptVec,   ...
     fulEngOpt       ... Skalar - optimale Kraftstoffenergie
 ] =                 ...
     clcOptTrj_focus ...
 (                   ...
-    timVec,         ... Skalar für die max. Anzahl an WegstÃ¼tzstellen
-    staEnd,         ... Skalar für den finalen Zustand
+    timVec,         ... Skalar fï¿½r die max. Anzahl an WegstÃ¼tzstellen
+    staEnd,         ... Skalar fï¿½r den finalen Zustand
     engEnd,         ... scalar - prefinal engine state
     engEndEnd,      ... Skalar fï¿½r Zielindex der kinetischen Energie
     batEndInx,      ... scalar - final battery state
     batStaNum,      ... scalar - for number of battery states exist
-    optPreInxTn4,   ... Tensor 3. Stufe für opt. Vorgängerkoordinaten
+    optPreInxTn4,   ... Tensor 3. Stufe fï¿½r opt. Vorgï¿½ngerkoordinaten
     batPwrOptTn4,   ... Tensor 3. Stufe der Batteriekraft
-    fulEngOptTn4,   ... Tensor 3. Stufe für die Kraftstoffenergie
+    fulEngOptTn4,   ... Tensor 3. Stufe fï¿½r die Kraftstoffenergie
     cos2goActTn3,   ... Matrix der optimalen Kosten der Hamiltonfunktion 
-    emoTrqOptTn4,   ...
+    emoTrqOpt1Tn4,  ...
+    emoTrqOpt2Tn4,   ...
     iceTrqOptTn4,   ...
     brkTrqOptTn4,   ...
     inputparams,    ...
@@ -130,43 +132,44 @@ end
 % engStaOptVec(timInxEnd) = engStaEndInx;
 engStaOptVec(timInxEnd) = engStaEndInx;
 
-% Zielzustand des Ausgabevektors für optimale kinetische Energie
+% Zielzustand des Ausgabevektors fï¿½r optimale kinetische Energie
 % beschreiben
 %   describe the target state of the output vector for the optimal KE
 
-% Batterieenergieänderung im letzten Intervall initialisieren
+% Batterieenergieï¿½nderung im letzten Intervall initialisieren
 %   initialize battery energy change's last interval
 batPwrOptVec(timInxEnd-1,1) = ...
     batPwrOptTn4(engStaOptVec(timInxEnd)+1, geaStaOptVec(timInxEnd-1), ...
                  batStaOptVec(timInxEnd-1), timInxEnd-1)...
                  * inputparams.timStp;
 
-% Beschreiben der Ausgabegröße der optimalen Kraftstoffenergie
+% Beschreiben der Ausgabegrï¿½ï¿½e der optimalen Kraftstoffenergie
 %   writing the output for the optimal fuel energy
 fulEngOpt = ...
     fulEngOptTn4(engStaOptVec(timInxEnd)+1, geaStaOptVec(timInxEnd-1), ...
                  batStaOptVec(timInxEnd-1), timInxEnd);
 
-% Initialisieren des Vektors der optimalen Kraftstoffenergieänderung
+% Initialisieren des Vektors der optimalen Kraftstoffenergieï¿½nderung
 %   intializing the optimum fuel energy change vector
 fulEngDltOptVec = zeros(timNum, 1);
-emoTrqOptVec    = zeros(timNum, 1);
+emoTrqOpt1Vec    = zeros(timNum, 1);
+emoTrqOpt2Vec   = zeros(timNum, 1);
 iceTrqOptVec    = zeros(timNum, 1);
 brkTrqOptVec    = zeros(timNum, 1);
 
-%% Rückwärtsrechnung über alle Wegpunkte 
+%% Rï¿½ckwï¿½rtsrechnung ï¿½ber alle Wegpunkte 
 %   reverse calculation of all the path indexes
 
 % Rekonstruieren des optimalen Pfades aus
 %   rebuilding the optimale path
 for timInx = timInxEnd:-1:inputparams.timInxBeg+1
     
-    % optimalen Vorgängerindex aus Tensor auslesen
+    % optimalen Vorgï¿½ngerindex aus Tensor auslesen
     %   reading the tensor's optimum previous index 
     optInx = optPreInxTn4(engStaOptVec(timInx,1)+1,...
         geaStaOptVec(timInx-1,1), batStaOptVec(timInx-1,1), timInx);
     
-    % <- Vorgänger = predecessor
+    % <- Vorgï¿½nger = predecessor
     if optInx == 0
         error('Fehler beim Speichern der optimalen Vorgaenger.') 
     end
@@ -186,8 +189,8 @@ for timInx = timInxEnd:-1:inputparams.timInxBeg+1
         engStaOptVec(timInx-1,1) = engStaOptVec(timInx-1,1)-1;
         % 2 - because of number of engine states - send to mainConfig!!
         
-        % Batterieenergieänderung für Vorgängerintervall speichern
-        % Flussgröße (gilt im Intervall)
+        % Batterieenergieï¿½nderung fï¿½r Vorgï¿½ngerintervall speichern
+        % Flussgrï¿½ï¿½e (gilt im Intervall)
         %   storing the previous interval's battery energy change's flow
         %   amount
         batPwrOptVec(timInx-2,1) = ...
@@ -217,11 +220,17 @@ for timInx = timInxEnd:-1:inputparams.timInxBeg+1
     
 % save optimal torque values 
 % emoTrq
-emoTrqOptVec(timInx) = ...
-    emoTrqOptTn4(engStaOptVec(timInx,1)+1, ...
+emoTrqOpt1Vec(timInx) = ...
+    emoTrqOpt1Tn4(engStaOptVec(timInx,1)+1, ...
                   geaStaOptVec(timInx,1), ...
                   batStaOptVec(timInx,1), ...
                   timInx);
+emoTrqOpt2Vec(timInx) = ...
+    emoTrqOpt2Tn4(engStaOptVec(timInx,1)+1, ...
+                  geaStaOptVec(timInx,1), ...
+                  batStaOptVec(timInx,1), ...
+                  timInx);
+              
 % iceTrq
 iceTrqOptVec(timInx) = ...
     iceTrqOptTn4(engStaOptVec(timInx,1)+1, ...

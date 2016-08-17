@@ -60,17 +60,18 @@ fprintf('Done preprocessing!\n');
 fprintf('-Initializing model...\n'); 
 tic
 % DP that is calculating optimal gear state
-if ~tst_scalar_struct.useGeaStag
+if ~tst_scalar_struct.useGeaSta
 [                       ... --- Ausgangsgr��en:
     optPreInxTn4,       ...  Tensor 4. Stufe f�r opt. Vorg�ngerkoordinaten
     batPwrOptTn4,       ...  Tensor 4. Stufe der Batteriekraft
     fulEngOptTn4,       ...  Tensor 4. Stufe f�r die Kraftstoffenergie 
-    emoTrqOptTn4,       ... tensor - saves optimal emoTrq values
+    emoTrqOpt1Tn4,      ... tensor - saves optimal emoTrq values
+    emoTrqOpt2Tn4,      ...
     iceTrqOptTn4,       ... tensor - saves optimal iceTrq values
     brkTrqOptTn4,       ... tensor - saves optimal brkTrq values
     cos2goActTn3        ...  Tensor 4. der optimalen Kosten
 ] =                     ... 
-    clcDP_focus         ... FUNKTION
+    clcDP_focus_emoPwrElectricOnly         ... FUNKTION
 (                       ... --- Eingangsgr��en:
     batEngBeg,          ... Skalar f�r die Batterieenergie am Beginn in Ws
     length(timVec),     ... Skalar f�r die Stufe der Batteriekraftmax. Anzahl an Wegst�tzstellen
@@ -104,7 +105,7 @@ else
     optPreInxTn3,       ... Tensor 4. Stufe f�r opt. Vorg�ngerkoordinaten
     batPwrOptTn3,       ... Tensor 4. Stufe der Batteriekraft
     fulEngOptTn3,       ... Tensor 4. Stufe f�r die Kraftstoffenergie 
-    emoTrqOptTn3,       ... tensor - saves optimal emoTrq values
+    emoTrqOptTn3,       ... tensor - saves optimal em  oTrq values
     iceTrqOptTn3,       ... tensor - saves optimal iceTrq values
     brkTrqOptTn3,       ... tensor - saves optimal brkTrq values
     cos2goActMat        ... Tensor 4. der optimalen Kosten
@@ -150,14 +151,16 @@ if ~tst_scalar_struct.useGeaSta
     batPwrOptTn = batPwrOptTn4;
     fulEngOptTn = fulEngOptTn4;
     cos2goActTn = cos2goActTn3;  
-    emoTrqOptTn = emoTrqOptTn4;
+    emoTrqOpt1Tn = emoTrqOpt1Tn4;
+    emoTrqOpt2Tn = emoTrqOpt2Tn4;
     iceTrqOptTn = iceTrqOptTn4;
     brkTrqOptTn = brkTrqOptTn4;
 else
     optPreInxTn = optPreInxTn3;
     batPwrOptTn = batPwrOptTn3;
     fulEngOptTn = fulEngOptTn3;
-    emoTrqOptTn = emoTrqOptTn3;
+    emoTrqOpt1Tn = emoTrqOptTn3;
+    emoTrqOpt2Tn = emoTrqOpt2Tn3;
     iceTrqOptTn = iceTrqOptTn3;
     brkTrqOptTn = brkTrqOptTn3;
     cos2goActTn = cos2goActMat;  
@@ -174,7 +177,8 @@ fulVolOptTn = fulEngOptTn / fzg_scalar_struct.fuel_lower_heating_value / ...
     engStaMat,          ... vector showing optimal engine contorl w/ profile
     batPwrMat,          ... vector showing optimal battery level control
     batEngMat,          ... vector showing optimal battery levels
-    emoTrqMat,          ...
+    emoTrq1Mat,         ...
+    emoTrq2Mat,         ...,          ...
     iceTrqMat,          ...
     brkTrqMat,          ...
     fulEngOptVec        ... Skalar - optimale Kraftstoffenergie
@@ -185,11 +189,13 @@ fulVolOptTn = fulEngOptTn / fzg_scalar_struct.fuel_lower_heating_value / ...
     velVec,             ... speed vector for speed profile
     engStaVec_timInx,   ... vector - displays number of possible eng states
     crsSpdMat,          ... matrix - predetermined crankshaft speed demand
+    crsTrqMat,          ...
     optPreInxTn,        ... Tensor . Stufe f�r opt. Vorg�ngerkoordinaten
     batPwrOptTn,        ... Tensor . Stufe der Batteriekraft
     fulVolOptTn,        ... Tensor . Stufe f�r die Kraftstoffenergie
     cos2goActTn,        ... Tensor der optimalen Kosten
-    emoTrqOptTn,        ... tensor containing optimal emoTrq values
+    emoTrqOpt1Tn,       ... tensor containing optimal emoTrq values
+    emoTrqOpt2Tn,       ...
     iceTrqOptTn,        ... 
     brkTrqOptTn,        ...
     inputparams,        ...
