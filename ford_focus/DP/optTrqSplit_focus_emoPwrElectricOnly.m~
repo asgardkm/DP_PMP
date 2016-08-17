@@ -134,21 +134,21 @@ emoPwrElectric      = batPwr - batPwrLoss - batPwrAux;
 % convert electric emoPwr to mechanical emoPwr with lookup table
 % emoPwr = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
 %                                 fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, emoPwrElectric);
-emoTrq = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
-                                fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, emoPwrElectric);
+emoTrqPre2 = codegen_interp2(fzg_array_struct.emoSpdMgd, fzg_array_struct.emoPwrMgd', ...
+                                fzg_array_struct.emoTrq_emoSpd_emoPwr, crsSpdPre, batPwrPre)
                             
-% emoPwr = emoPwrElectric;
-% % emoPwr bound checking
-% if emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr
-%     return;
-% end
+emoPwr = emoPwrElectric;
+% emoPwr bound checking
+if emoPwrMinPos > emoPwr || emoPwrMaxPos < emoPwr
+    return;
+end
 
 
 
-% emoTrq = emoPwr / crsSpdPre;
+emoTrq = emoPwr / crsSpdPre;
 
 % emoTrq bound checking
-if emoTrqMinPos > emoTrq || emoTrqMaxPos < emoTrq || isinf(emoTrq)
+if emoTrqMinPos > emoTrq || emoTrqMaxPos < emoTrq
     return;
 end
 % -------------------------------------------------------------------------

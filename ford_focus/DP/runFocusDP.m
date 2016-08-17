@@ -61,14 +61,15 @@ fprintf('-Initializing model...\n');
 tic
 % DP that is calculating optimal gear state
 if ~tst_scalar_struct.useGeaSta
+    tic
 [                       ... --- Ausgangsgr��en:
     optPreInxTn4,       ...  Tensor 4. Stufe f�r opt. Vorg�ngerkoordinaten
     batPwrOptTn4,       ...  Tensor 4. Stufe der Batteriekraft
     fulEngOptTn4,       ...  Tensor 4. Stufe f�r die Kraftstoffenergie 
-    emoTrqOpt1Tn4,      ... tensor - saves optimal emoTrq values
+    emoTrqOpt1Tn4,      ...  tensor - saves optimal emoTrq values
     emoTrqOpt2Tn4,      ...
-    iceTrqOptTn4,       ... tensor - saves optimal iceTrq values
-    brkTrqOptTn4,       ... tensor - saves optimal brkTrq values
+    iceTrqOptTn4,       ...  tensor - saves optimal iceTrq values
+    brkTrqOptTn4,       ...  tensor - saves optimal brkTrq values
     cos2goActTn3        ...  Tensor 4. der optimalen Kosten
 ] =                     ... 
     clcDP_focus_emoPwrElectricOnly         ... FUNKTION
@@ -94,6 +95,7 @@ if ~tst_scalar_struct.useGeaSta
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS
 );
+toc
 
 else
 % sample input gear input vector
@@ -166,10 +168,8 @@ else
     cos2goActTn = cos2goActMat;  
 end
 
-% convert fulEng to fulVol - units work out
-% units are : J / (J/kg) / (kg/L)
-fulVolOptTn = fulEngOptTn / fzg_scalar_struct.fuel_lower_heating_value / ...
-                            fzg_scalar_struct.fulDen;
+
+iceSpdMin =  fzg_array_struct.iceSpdMgd(1,1);
 % function call
 [   batEngDltOptMat,    ... Vektor - optimale Batterieenergie�nderung
     fulVolOptOptMat,    ... Vektor - optimale Kraftstoffenergie�nderung
@@ -199,11 +199,12 @@ fulVolOptTn = fulEngOptTn / fzg_scalar_struct.fuel_lower_heating_value / ...
     iceTrqOptTn,        ... 
     brkTrqOptTn,        ...
     inputparams,        ...
-    tst_scalar_struct   ...
+    tst_scalar_struct,  ...
+    iceSpdMin...
 );
 
-% if ~tst_scalar_struct.useGeaSta
-%     save('geaStaMat', 'geaStaMat');
-% end
+if ~tst_scalar_struct.useGeaSta
+    save('geaStaMat', 'geaStaMat');
+end
 
 end

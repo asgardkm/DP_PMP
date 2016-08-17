@@ -645,7 +645,7 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
                                 emoTrqPre2 = 0;
                             elseif isinf(emoTrqPre2)
                                 continue;
-                            elseif emoTrqPre2 > emoTrqMaxPos || emoTrqPre2 < emoTrqMinPos
+                            elseif emoTrqPre2 > 
                                 continue;
                             end
                             % penalty to get current cost

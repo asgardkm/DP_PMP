@@ -27,7 +27,8 @@ function [              ...
     iceTrqOptTn,        ...
     brkTrqOptTn,        ...
     inputparams,        ...
-    tst_scalar_struct   ...
+    tst_scalar_struct,  ...
+    iceSpdMin...
 )
 %% end conditions 
 % boundary conditions the end battery energy must be within bounds of
@@ -66,8 +67,8 @@ geaStaMat       = inf(length(timVec), length(batEndInxVec));
 engStaMat       = inf(length(timVec), length(batEndInxVec));
 batPwrMat       = inf(length(timVec), length(batEndInxVec));
 batEngMat       = inf(length(timVec), length(batEndInxVec));
-emoTrq1Mat       = inf(length(timVec), length(batEndInxVec));
-emoTrq2Mat       = inf(length(timVec), length(batEndInxVec));
+emoTrq1Mat      = inf(length(timVec), length(batEndInxVec));
+emoTrq2Mat      = inf(length(timVec), length(batEndInxVec));
 iceTrqMat       = inf(length(timVec), length(batEndInxVec));
 brkTrqMat       = inf(length(timVec), length(batEndInxVec));
 fulEngOptVec    = inf(length(batEndInxVec), 1);
@@ -165,6 +166,12 @@ end
 
 fprintf('\n\ndone!\n');
 
+% convert fulEng to fulVol - units work out
+% units are : J / (J/kg) / (kg/L)
+fulEngDltOptMat = fulEngDltOptMat / (fzg_scalar_struct.fuel_lower_heating_value*1000*1000) / ...
+                            fzg_scalar_struct.fulDen;
+fulEngOptVec = fulEngOptVec/ (fzg_scalar_struct.fuel_lower_heating_value*1000*1000) / ...
+                            fzg_scalar_struct.fulDen;
 %% determine the crankshaft demand
 % populate the optimal crsSpd and torques demand
 % batStaMatIdx = batEngMat/tst_scalar_struct.batEngStp + 1;
@@ -177,28 +184,30 @@ for tim = 1 : length(timVec)
 %         brkTrqOptMat(tim, bat) = brkTrqMat(tim, batStaMatIdx(tim, bat));
 %    end
 end
+crsSpdOptMat = crsSpdOptMat * 9.549;
 
+% crsTrqOptHPMat = crsTrqOptMat * 1000 * 0.0014;
 %% PLOTS
 % batEng trajectories for all ending SOC possibilities (currently 30%-90%)
 xString = 'Time [sec]';
 figure(1)
 subplot(3,2,1)
 batEngMatSOC = batEngMat / tst_scalar_struct.batEngMax;
-titleString = 'batEng trajectories for optimal paths';
+titleString = 'Battery energy E_B trajectories for optimal paths';
 yString = 'SOC [%]';
-plotGrad(timVec, batEngMatSOC, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, batEngMatSOC, batEndInxVec, titleString, xString, yString, 1);
 
 % fuel trajectories for all ending SOC possibilities (currently 30%-90%)
 subplot(3,2,2)
-titleString = 'fuel trajectories for optimal paths';
+titleString = 'Fuel trajectories for optimal paths';
 yString = 'Fuel Use [L]';
-plotGrad(timVec, fulEngDltOptMat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec(1:end-1), fulEngDltOptMat(1:end-1, :), batEndInxVec, titleString, xString, yString, 1);
 
 % velocity vector
 subplot(3,2,3)
-titleString = 'Crankshaft torque demand profile';
-yString = 'Torque [N*m]';
-plotGrad(timVec, crsTrqOptMat, batEndInxVec, titleString, xString, yString);
+titleString = 'Crankshaft torque T_C_R_S demand profile';
+yString = 'Torque [N*m]';batEngMax
+plotGrad(timVec, crsTrqOptMat, batEndInxVec, titleString, xString, yString, 1);
 
 % plot(timVec, velVec);
 % title(titleString);
@@ -207,29 +216,30 @@ plotGrad(timVec, crsTrqOptMat, batEndInxVec, titleString, xString, yString);
 
 % crankshaft demand
 subplot(3,2,4)
-titleString = 'Crankshaft speed demand profile';
-yString = 'Rotational Speed [rad/s]';
-plotGrad(timVec, crsSpdOptMat, batEndInxVec, titleString, xString, yString);
+titleString = 'Crankshaft speed \omega_C_R_S demand profile';
+yString = 'Rotational Speed [RPM]';
+plotGrad(timVec, crsSpdOptMat, batEndInxVec, titleString, xString, yString, 1);
+plot(timVec, repmat(iceSpdMin, 1, length(timVec))* 9.549);
 
 % gear selection
 subplot(3,2,5)
-titleString = 'Optimum gear selection';
+titleString = 'Optimum gear g selection';
 yString = 'Gear Number';
-plotGrad(timVec, geaStaMat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, geaStaMat, batEndInxVec, titleString, xString, yString, 1);
 
 % engine on-off selection
 subplot(3,2,6)
-titleString = 'Optimum engine control';
+titleString = 'Optimum engine e control';
 yString = 'Bool On-Off';
-plotGrad(timVec, engStaMat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, engStaMat, batEndInxVec, titleString, xString, yString, 1);
 
 % torques:
 % emoTrq
 figure(2)
 subplot(3,1,1)
-titleString = 'EM torque profile - 1 (straight)';
+titleString = 'EM torque profile';
 yString = 'Torque [N*m]';
-plotGrad(timVec, emoTrq1Mat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, emoTrq2Mat, batEndInxVec, titleString, xString, yString, 0);
 % subplot(2,2,2)
 % titleString = 'EM torque profile - 2 (interp)';
 % yString = 'Torque [N*m]';
@@ -239,13 +249,13 @@ plotGrad(timVec, emoTrq1Mat, batEndInxVec, titleString, xString, yString);
 subplot(3,1,2)
 titleString = 'ICE torque profile';
 yString = 'Torque [N*m]';
-plotGrad(timVec, iceTrqMat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, iceTrqMat, batEndInxVec, titleString, xString, yString, 0);
 
 % brkTrq
 subplot(3,1,3)
 titleString = 'Braking torque profile';
 yString = 'Torque [N*m]';
-plotGrad(timVec, brkTrqMat, batEndInxVec, titleString, xString, yString);
+plotGrad(timVec, brkTrqMat, batEndInxVec, titleString, xString, yString, 0);
 
 %% start plotting figs for report
 figure(3)
@@ -260,4 +270,14 @@ ylabel(yString);
 
 % fzg_array_struct.batOcvCof_batEng;
 % fzg_array_struct.SOC_vs_OCV;
+figure(4)
+fzg_array_struct.SOC_vs_OCV
+titleString = 'Battery voltage V wrt battery SOC';
+xString = 'SOC';
+yString = 'Voltage [V]';
+plot(fzg_array_struct.SOC_vs_OCV(:,1), fzg_array_struct.SOC_vs_OCV(:,2));
+title(titleString);
+xlabel(xString);
+ylabel(yString);
+
 end
