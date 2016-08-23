@@ -143,7 +143,7 @@ end
 % maximale Drehzahl Elektrommotor
 %   maximum electric motor rotational speed
 crsSpdEmoMax = fzg_array_struct.emoSpdMgd(1,end);
-
+tic
 % maximale Drehzahl der Kurbelwelle
 %   maximum crankshaft rotational speed
 % 12.07.2016 - IF THIS IS FINDING THE HYBRID MAX CRS SPEED, THEN WHY
@@ -790,5 +790,5 @@ for timInx = inputparams.timInxBeg+1 : inputparams.timStp : inputparams.timInxEn
     end
 
 end % end of looping through all discretized path indexes
-
+toc
 end % END OF FUNCTION

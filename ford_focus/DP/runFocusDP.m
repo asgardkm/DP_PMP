@@ -101,7 +101,7 @@ else
 % sample input gear input vector
   geaStaMat = load('geaStaMat');
   geaStaVec = geaStaMat.geaStaMat;
-
+tic
 % DP that requires a gear input vector
 [                       ... --- Ausgangsgr��en:
     optPreInxTn3,       ... Tensor 4. Stufe f�r opt. Vorg�ngerkoordinaten
@@ -112,7 +112,7 @@ else
     brkTrqOptTn3,       ... tensor - saves optimal brkTrq values
     cos2goActMat        ... Tensor 4. der optimalen Kosten
 ] =                     ... 
-    clcDP_focus_useGeaVec... FUNKTION
+    clcDP_focus_useGeaVec_emoPwrElectricOnly... FUNKTION
 (                       ... --- Eingangsgr��en:
     batEngBeg,          ... Skalar f�r die Batterieenergie am Beginn in Ws
     length(timVec),     ... Skalar f�r die Stufe der Batteriekraftmax. Anzahl an Wegst�tzstellen
@@ -136,6 +136,7 @@ else
     fzg_scalar_struct,  ... struct der Fahrzeugparameter - NUR SKALARS
     fzg_array_struct    ... struct der Fahrzeugparameter - NUR ARRAYS
 );
+toc
 end
 
 %% optimal path and plot function
